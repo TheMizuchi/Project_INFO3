@@ -9,31 +9,31 @@ Ce jeu de coopération entre 2 joueurs se déroule dans un donjon. Le donjon est
 
 ## Joueurs
 
-Les joueurs doivent coopérer pour gagner. Si un joueur meurt la partie est perdue. Si les joueurs parviennent à tuer le 3éme Boss alors la partie est gagnée. Un joueur se bat au corps à corps (CàC) et l'autre joueur à distance.
+Les 2 joueurs jouent sur le même PC sur le même clavier. Les joueurs doivent coopérer pour gagner. Si un joueur meurt la partie est perdue. Si les joueurs parviennent à tuer le 3éme Boss alors la partie est gagnée. Un joueur se bat au corps à corps (CàC) et l'autre joueur à distance.
 
 ### Lampe à huile (torche)
 
-Une seule lampe à huile partagée par les 2 joueurs. Le fait de porter la torche augmente le champ de vision de l'utilisateur mais l'empêche d'utiliser les armes à deux mains et le ralenti. La torche peut être échangée entre les 2 joueurs.
+Une seule lampe à huile partagée par les 2 joueurs. Le fait de porter la torche augmente le champ de vision de l'utilisateur mais le ralenti voir la partie optionnelle.La torche peut être échangée entre les 2 joueurs.
 
-### Possession
+### Possession (Contrainte de transfert d'automate)
 
-Les joueurs peuvent prendre possession de l'ennemi le plus proche (sauf Boss). Pendant cette possession le corps du joueur disparaît, si l'ennemi meurt alors le joueur meurt (Game over). Si le joueur avec la torche réalise la possession alors la torche s'éteint.
+Les joueurs peuvent prendre possession de l'ennemi le plus proche (sauf Boss). Pendant cette possession le corps du joueur disparaît, si l'ennemi meurt alors le joueur meurt (Game over). Si le joueur avec la torche réalise la possession alors la torche s'éteint pendant la possession (Elle est réuitilisable après).
 
 ## Ennemi (mobs)
 
-### Ennemi classique
+### Ennemi classique (Contrainte : EGG)
 
-Le jeu possède plusieurs ennemis, dont un ennemi type slime qui se divise en 2 slimes plus petit à sa mort jusqu'à disparaître.
+Le jeu possède plusieurs ennemis, dont un ennemi ballon qui se divise en 2 ballons plus petit à sa mort jusqu'à disparaître entièrement.
 
-### Boss
+### Boss (Contrainte doublure (avec les biomes))
 
 Les Boss possèdent des salles réservées, les joueurs sont bloqués dans la salle du Boss jusqu'à son élimination. Une fois le Boss éliminé, les joueurs peuvent retourner en arrière (Ouverture de la porte) et la porte de changement d'étage apparaît.
 
 Les salles de Boss possèdent un biome (terrain) différent, par exemple la présence d'eau, sable affectant les déplacements des joueurs.
 
-## Étage
+## Étage (Contrainte de génération aléatoire)
 
-Le donjon est constitué de 3 étages. Chaque étage est généré aléatoirement avec des salles de mobs (ennemis), des salles d'énigmes, une salle contenant la clé pour accéder au Boss et la salle du Boss. Lorsque un joueur entre dans une porte, les 2 joueurs sont téléportés dans la nouvelle salle dans laquelle ils doivent éliminer toutes les entités hostiles pour ouvrir les portes voir la partie optionnel. Cependant il est impossible de retourner à l'étage précédent une fois la porte de fin d'étage passée.
+Le donjon est constitué de 3 étages. Chaque étage est généré aléatoirement avec des salles de mobs (ennemis), des salles d'énigmes, une salle contenant la clé pour accéder au Boss et la salle du Boss. Lorsque un joueur entre dans une porte, les 2 joueurs sont téléportés dans la nouvelle salle dans laquelle ils doivent éliminer toutes les entités hostiles pour ouvrir les portes voir la partie optionnelle. Cependant il est impossible de retourner à l'étage précédent une fois la porte de fin d'étage passée.
 
 ### Salle énigme
 
@@ -60,11 +60,13 @@ En haut de l'écran on affiche en superposé sur le terrain de jeu :
 | HP J1 | Combustion Torche | HP J2 |
 | :--- | :---: | ---: |
 
-## TP des joueurs
+## Optionnel
+
+### TP des joueurs
 
 Les joueurs sont désormais téléportés (TP) automatiquement dans les nouvelles salles avec des mobs (qui doit donc être fermée).
 
-### Viewport
+### Viewport (Contrainte de Viewport dynamique)
 
 La caméra s'agrandit quand les joueurs s'éloignent l'un de l'autre, et inversement elle se réduit lorsque les joueurs se rapprochent. La caméra possède un seuil de zoom minimal et maximal, si les joueurs essaie de sortir du zoom minimal alors leurs mouvements sont entravés.
 
@@ -81,6 +83,10 @@ En début de partie les joueurs sont des aventuriers. Une fois le premier Boss v
 ### Loots d'armes
 
 Des armes sont disponibles dans le donjon avec des statistiques différentes (vitesse, dégât).
+
+### Torche
+
+L'utilisation de la torche empêche l'utilisation d'armes à 2 mains.
 
 ### Compétences
 
