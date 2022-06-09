@@ -28,6 +28,7 @@ import java.io.RandomAccessFile;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import View.MyCanvas;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 
@@ -35,6 +36,7 @@ import info3.game.sound.RandomFileInputStream;
 public class Game {
 
 	static Game game;
+	MyCanvas canevas;
 
 
 	public static void main (String args[]) throws Exception {
@@ -177,7 +179,8 @@ public class Game {
 		g.fillRect(0, 0, width, height);
 
 		// paint
-		m_cowboy.paint(g, width, height);
+		//m_cowboy.paint(g, width, height);
+		this.canevas.paint(g);
 	}
 
 }
