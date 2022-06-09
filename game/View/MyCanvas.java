@@ -6,12 +6,19 @@ import java.awt.Window;
 
 import common.MyTimer;
 import common.TimerListener;
+import info3.game.Cowboy;
 
 
 public class MyCanvas extends Component {
 
 	private static final long serialVersionUID = 1L;
 	Window win;
+
+	Cowboy m_cowboy;
+
+
+	MyCanvas () {
+	}
 
 
 	class Refresher implements TimerListener {
@@ -31,10 +38,10 @@ public class MyCanvas extends Component {
 		}
 	}
 
+
 	@Override
 	public void paint (Graphics g) {
 		//TODO faire afficher les éléments du canvas 
-		
 	}
 
 }

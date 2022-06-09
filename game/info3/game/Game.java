@@ -56,14 +56,14 @@ public class Game {
 	JLabel m_text;
 	GameCanvas m_canvas;
 	CanvasListener m_listener;
-	Cowboy m_cowboy;
+	//Cowboy m_cowboy;
 	Sound m_music;
 
 
 	Game () throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		m_cowboy = new Cowboy();
+		//m_cowboy = new Cowboy();
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -145,7 +145,7 @@ public class Game {
 	 */
 	void tick (long elapsed) {
 
-		m_cowboy.tick(elapsed);
+		//m_cowboy.tick(elapsed);
 
 		// Update every second
 		// the text on top of the frame: tick and fps
