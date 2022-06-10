@@ -6,7 +6,10 @@ public class BotAutomata {
 	State m_initial_state;
 
 
+	public BotAutomata () {}
+
 	public void step () {
 		throw new RuntimeException("NYI");
 	}
+
 }

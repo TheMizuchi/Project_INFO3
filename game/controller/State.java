@@ -12,4 +12,8 @@ public class State {
 	public State step () {
 		throw new RuntimeException("NYI");
 	}
+
+	public void add_transition (Transition trans) {
+		throw new RuntimeException("NYI");
+	}
 }
