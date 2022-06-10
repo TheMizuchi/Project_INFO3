@@ -17,6 +17,7 @@ public class MapView extends ViewElement {
 
 	public MapView (int carte[][]) {
 		this.carte = carte;
+		Texture tex = Texture.loadTexture("resources/texture.png", 32, 109);
 	}
 
 	int hauteur () {
