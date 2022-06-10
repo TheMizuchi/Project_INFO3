@@ -1,16 +1,29 @@
 package common;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 import edu.polytech.oop.collections.LinkedList;
 import info3.game.graphics.GameCanvas;
 
 
 public class MyTimer {
 
-	GameCanvas m_gc;
+	Timer m_t;
 	private static MyTimer self;
 	LinkedList m_timerList;
 	LinkedList m_delayList;
 
+
+	public MyTimer () {
+		self = this;
+		m_t = new Timer(0, new FireTimerEvent());
+		m_t.setRepeats(false);
+		m_t.start();
+		m_timerList = new LinkedList();
+		m_delayList = new LinkedList();
+	}
 
 	public static MyTimer getTimer () {
 		return self;
@@ -25,7 +38,7 @@ public class MyTimer {
 	 * @param listener
 	 */
 	public void setTimer (int delay, TimerListener listener) {
-		m_gc.cancelTimer();
+		m_t.stop();
 
 		int i = 0;
 
@@ -62,26 +75,39 @@ public class MyTimer {
 				i++;
 			}
 		}
+		this.startNextTimer();
+	}
+
+	void startNextTimer () {
 
 		if (m_timerList.length() > 0) {
 			m_tl = (TimerListener) m_timerList.elementAt(0);
-			m_gc.setTimer((int) m_delayList.elementAt(0));
-		} else
+			m_t.setInitialDelay((int) m_delayList.elementAt(0));
+			m_t.start();
+		} else {
 			m_tl = null;
+		}
 	}
 
 
 	TimerListener m_tl;
 
 
-	public void expired () {
+	class FireTimerEvent implements ActionListener {
 
-		if (m_tl != null) {
-			m_timerList.removeAt(0);
-			m_delayList.removeAt(0);
-			m_tl.expired();
+		@Override
+		public void actionPerformed (ActionEvent e) {
+
+			if (m_tl != null) {
+				m_timerList.removeAt(0);
+				m_delayList.removeAt(0);
+				TimerListener tl = m_tl;
+				startNextTimer();
+				tl.expired();
+			}
 
 		}
+
 	}
 
 }

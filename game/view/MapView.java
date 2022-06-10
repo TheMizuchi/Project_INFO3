@@ -1,10 +1,10 @@
-package View;
+package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
 
-public class mapView extends ViewElement {
+public class MapView extends ViewElement {
 
 	//ICI je pars du principe que la map est affiché par un tableau a deux dimensions de int. Dans le cas ou "carte[][]" est pour une salle seulement alors ont fait une liste de ces salles là.
 	int carte[][];
