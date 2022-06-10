@@ -12,4 +12,6 @@ public class BotState {
 	public BotState step () {
 		throw new RuntimeException("NYI");
 	}
+	
+	// Add transitions
 }

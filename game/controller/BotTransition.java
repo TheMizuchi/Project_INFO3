@@ -6,7 +6,7 @@ public class BotTransition {
 	IAction m_action;
 	BotState m_target;
 
-	public Transition(ICondition m_cond, IAction m_action, State m_target) {
+	public BotTransition(ICondition m_cond, IAction m_action, BotState m_target) {
 		throw new RuntimeException("NYI");
 	}
 

@@ -4,9 +4,10 @@ import controller.IAction;
 
 
 public class BotMove implements IAction {
-
-	public Move(char c) {
-		throw new RuntimeException("NYI");
+	String m_s;
+	
+	public BotMove(String s) {
+		m_s = s;
 	}
 	
 	@Override
