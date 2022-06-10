@@ -18,10 +18,13 @@ public class BotState {
 
 	public BotState step() {
 		IList.Iterator iter = m_transitions.iterator();
+		BotTransition transi;
 		BotState res;
-		res = (BotState) iter.next();
+		transi = (BotTransition) iter.next();
+		res = transi.eval();
 		while (res == null) {
-			res = (BotState) iter.next();
+			transi = (BotTransition) iter.next();
+			res = transi.eval();
 		}
 		return res;
 	}

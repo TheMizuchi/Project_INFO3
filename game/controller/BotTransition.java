@@ -7,7 +7,7 @@ public class BotTransition {
 	BotState m_target;
 
 
-	public BotTransition(ICondition cond, IAction action,	BotState target) {
+	public BotTransition (ICondition cond, IAction action, BotState target) {
 		m_cond = cond;
 		m_action = action;
 		m_target = target;
