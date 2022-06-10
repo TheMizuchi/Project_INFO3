@@ -1,13 +1,13 @@
 package controller;
 
-public class Transition {
+public class BotTransition {
 
 	ICondition m_cond;
 	IAction m_action;
-	State m_target;
+	BotState m_target;
 
 
-	public State eval () {
+	public BotState eval () {
 		throw new RuntimeException("NYI");
 	}
 }

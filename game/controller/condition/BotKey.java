@@ -3,11 +3,11 @@ package controller.condition;
 import controller.ICondition;
 
 
-public class True implements ICondition {
+public class BotKey implements ICondition {
 
 	@Override
 	public boolean eval () {
-		return true;
+		throw new RuntimeException("NYI");
 	}
 
 }
