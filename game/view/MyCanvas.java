@@ -26,25 +26,25 @@ public class MyCanvas extends Component {
 		carte[0][2] = 0;
 		carte[0][3] = 0;
 		carte[0][4] = 0;
-		
+
 		carte[1][0] = 0;
 		carte[1][1] = 2;
 		carte[1][2] = 1;
 		carte[1][3] = 2;
 		carte[1][4] = 0;
-		
+
 		carte[2][0] = 0;
 		carte[2][1] = 2;
 		carte[2][2] = 1;
 		carte[2][3] = 2;
 		carte[2][4] = 0;
-		
+
 		carte[3][0] = 0;
 		carte[3][1] = 2;
 		carte[3][2] = 1;
 		carte[3][3] = 2;
 		carte[3][4] = 0;
-		
+
 		carte[4][0] = 0;
 		carte[4][1] = 0;
 		carte[4][2] = 0;
@@ -57,7 +57,6 @@ public class MyCanvas extends Component {
 		res = m_map.largeur();
 		System.out.println("largeur" + res);
 
-		
 		m_cowboy = new CowboyView(200, 200);
 		m_cowboy.spin();
 	}
@@ -81,7 +80,7 @@ public class MyCanvas extends Component {
 
 	@Override
 	public void paint (Graphics g) {
-		
+
 		m_cowboy.paint(g);
 		m_map.paint(g);
 	}

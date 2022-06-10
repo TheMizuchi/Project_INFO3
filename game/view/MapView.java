@@ -39,24 +39,22 @@ public class MapView extends ViewElement {
 		int h = 0;
 		int l = 0;
 
-		System.out.println("Something went wrong." + this.hauteur());
-
 		for (h = 0; h < this.hauteur(); h++) {
 
 			for (l = 0; l < this.largeur(); l++) {
 
 				switch (carte[h][l]) {
-					case 0:
+					case 1:
 						//noir;
 						g.setColor(Color.black);
 						g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
 						break;
-					case 1:
+					case 2:
 						//orange;
 						g.setColor(Color.orange);
 						g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
 						break;
-					case 2:
+					case 3:
 						//vert
 						g.setColor(Color.green);
 						g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
@@ -65,6 +63,8 @@ public class MapView extends ViewElement {
 						//bleu
 						g.setColor(Color.blue);
 						g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
+						g.setColor(Color.black);
+						g.drawRect(x + h_case * h, y + l_case * l, l_case, h_case);
 
 				}
 
