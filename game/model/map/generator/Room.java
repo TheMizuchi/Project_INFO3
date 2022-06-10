@@ -2,58 +2,38 @@ package model.map.generator;
 
 import model.map.Case;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 
 public class Room {
 
-	int width;
-	int height;
+	int upperLeftX, upperLeftY;
+	int width, height;
 
 	Case comp[][];
 	int type;
 
 
-	Room (int x, int y, Case[][] composition, int t) {
-		comp = new Case[x][y];
+	Room (int w, int h, Case[][] composition, int t) {
+		width = w;
+		height = h;
 
-		width = x;
-		height = y;
-
+		comp = new Case[w][h];
 		type = t;
 
-		for (int i = 0; i < x; i++) {
+		for (int i = 0; i < w; i++) {
 
-			for (int j = 0; j < y; j++) {
+			for (int j = 0; j < h; j++) {
 				comp[i][j] = composition[i][j];
 			}
 		}
 
 	}
 
-	Room (String str) {
-		JSONObject json = new JSONObject(str);
-		height = json.getInt("height");
-		width = json.getInt("width");
-		type = json.getInt("type");
-
-		comp = new Case[height][width];
-
-		JSONArray composition = json.getJSONArray("composition");
-
-		for (int i = 0; i < height; i++) {
-			JSONArray line = composition.getJSONArray(i);
-
-			for (int j = 0; j < width; j++) {
-				comp[i][j] = new Case(line.getInt(j));
-			}
-		}
-
+	public int getWidth () {
+		return width;
 	}
 
-	String toJSON () {
-		return null;
+	public int getHeight () {
+		return height;
 	}
 
 }

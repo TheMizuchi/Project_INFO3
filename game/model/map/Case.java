@@ -2,9 +2,9 @@ package model.map;
 
 public class Case {
 
-	static final int Empty = 0;
-	static final int Wall = 1;
-	static final int Roof = 2;
+	static final int EMPTY = 0;
+	static final int WALL = 1;
+	static final int ROOF = 2;
 
 	int type;
 
