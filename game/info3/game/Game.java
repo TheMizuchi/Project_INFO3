@@ -28,15 +28,15 @@ import java.io.RandomAccessFile;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import View.MyCanvas;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
+import view.MyCanvas;
 
 
 public class Game {
 
 	static Game game;
-	MyCanvas canevas;
+	
 
 
 	public static void main (String args[]) throws Exception {
@@ -55,6 +55,7 @@ public class Game {
 	JFrame m_frame;
 	JLabel m_text;
 	GameCanvas m_canvas;
+	MyCanvas my_canvas;
 	CanvasListener m_listener;
 	//Cowboy m_cowboy;
 	Sound m_music;
@@ -71,6 +72,7 @@ public class Game {
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
+		my_canvas = new MyCanvas();
 
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
@@ -180,7 +182,7 @@ public class Game {
 
 		// paint
 		//m_cowboy.paint(g, width, height);
-		this.canevas.paint(g);
+		my_canvas.paint(g);
 	}
 
 }
