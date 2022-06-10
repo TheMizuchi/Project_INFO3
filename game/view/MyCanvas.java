@@ -20,36 +20,37 @@ public class MyCanvas extends Component {
 
 
 	public MyCanvas () {
-		int carte[][] = new int[5][5];
-		carte[0][0] = 0;
-		carte[0][1] = 0;
-		carte[0][2] = 0;
-		carte[0][3] = 0;
-		carte[0][4] = 0;
-
-		carte[1][0] = 0;
-		carte[1][1] = 2;
-		carte[1][2] = 1;
-		carte[1][3] = 2;
-		carte[1][4] = 0;
-
-		carte[2][0] = 0;
-		carte[2][1] = 2;
-		carte[2][2] = 1;
-		carte[2][3] = 2;
-		carte[2][4] = 0;
-
-		carte[3][0] = 0;
-		carte[3][1] = 2;
-		carte[3][2] = 1;
-		carte[3][3] = 2;
-		carte[3][4] = 0;
-
-		carte[4][0] = 0;
-		carte[4][1] = 0;
-		carte[4][2] = 0;
-		carte[4][3] = 0;
-		carte[4][4] = 0;
+//		int carte[][] = new int[5][5];
+//		carte[0][0] = 0;
+//		carte[0][1] = 0;
+//		carte[0][2] = 0;
+//		carte[0][3] = 0;
+//		carte[0][4] = 0;
+//		
+//		carte[1][0] = 0;
+//		carte[1][1] = 2;
+//		carte[1][2] = 1;
+//		carte[1][3] = 2;
+//		carte[1][4] = 0;
+//		
+//		carte[2][0] = 0;
+//		carte[2][1] = 2;
+//		carte[2][2] = 1;
+//		carte[2][3] = 2;
+//		carte[2][4] = 0;
+//		
+//		carte[3][0] = 0;
+//		carte[3][1] = 2;
+//		carte[3][2] = 1;
+//		carte[3][3] = 2;
+//		carte[3][4] = 0;
+//		
+//		carte[4][0] = 0;
+//		carte[4][1] = 0;
+//		carte[4][2] = 0;
+//		carte[4][3] = 0;
+//		carte[4][4] = 0;
+		int carte[][] = new int [250][250];
 
 		m_map = new MapView(carte);
 		int res = m_map.hauteur();
