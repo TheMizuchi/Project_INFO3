@@ -3,6 +3,7 @@ package view;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Window;
+import java.io.IOException;
 
 import common.MyTimer;
 import common.TimerListener;
@@ -18,7 +19,8 @@ public class MyCanvas extends Component {
 
 
 	public MyCanvas () {
-		m_cowboy = new CowboyView(200, 200);
+			m_cowboy = new CowboyView(200, 200);
+			m_cowboy.spin();
 	}
 
 

@@ -28,6 +28,7 @@ import java.io.RandomAccessFile;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import common.MyTimer;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 import view.MyCanvas;
@@ -36,7 +37,6 @@ import view.MyCanvas;
 public class Game {
 
 	static Game game;
-	
 
 
 	public static void main (String args[]) throws Exception {
@@ -72,6 +72,7 @@ public class Game {
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
+		new MyTimer();
 		my_canvas = new MyCanvas();
 
 		System.out.println("  - creating frame...");
