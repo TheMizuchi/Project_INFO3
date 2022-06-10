@@ -4,29 +4,29 @@ import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 
 
-public class State {
+public class BotState {
 
 	String m_name;
 	IList m_transitions;
 
 
-	public State (String name) {
+	public BotState (String name) {
 		m_name = name;
 		m_transitions = new LinkedList();
 		m_transitions.iterator();
 	}
 
-	public State step() {
+	public BotState step() {
 		IList.Iterator iter = m_transitions.iterator();
-		State res;
-		res = (State) iter.next();
+		BotState res;
+		res = (BotState) iter.next();
 		while (res == null) {
-			res = (State) iter.next();
+			res = (BotState) iter.next();
 		}
 		return res;
 	}
 
-	public void add_transition (Transition transi) {
+	public void add_transition (BotTransition transi) {
 		m_transitions.insertAt(m_transitions.length(), transi);
 	}
 }

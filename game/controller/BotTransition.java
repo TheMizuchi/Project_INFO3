@@ -1,19 +1,19 @@
 package controller;
 
-public class Transition {
+public class BotTransition {
 
 	ICondition m_cond;
 	IAction m_action;
-	State m_target;
+	BotState m_target;
 
 
-	public Transition (ICondition cond, IAction action,	State target) {
+	public BotTransition(ICondition cond, IAction action,	BotState target) {
 		m_cond = cond;
 		m_action = action;
 		m_target = target;
 	}
 
-	public State eval () {
+	public BotState eval () {
 
 		if (m_cond.eval()) {
 			m_action.apply();
