@@ -20,6 +20,10 @@ public class BotAutomata {
 		add_state(current_state);
 	}
 
+	public BotAutomata () {
+		m_states = new LinkedList();
+	}
+
 	public void step () {
 		m_current_state = m_current_state.step();
 	}
@@ -30,12 +34,13 @@ public class BotAutomata {
 
 		while (iter.hasNext()) {
 			tmp = (BotState) iter.next();
+
 			if (state.equals(tmp)) {
 				System.out.println("L'etat est déjà present dans l'automate.");
 				return false;
 				// throw new RuntimeException("L'etat est déjà present dans l'automate.");
 			}
-			
+
 		}
 		m_states.insertAt(m_states.length(), state);
 		return true;
@@ -52,4 +57,5 @@ public class BotAutomata {
 	public void add_transition (BotState state, BotTransition transition) {
 		state.add_transition(transition);
 	}
+
 }

@@ -5,8 +5,11 @@ import controller.IAction;
 
 public class BotMove implements IAction {
 
-	public BotMove () {
+	String m_s;
 
+
+	public BotMove (String s) {
+		m_s = s;
 	}
 
 	@Override

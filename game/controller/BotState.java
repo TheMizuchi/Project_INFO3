@@ -16,12 +16,13 @@ public class BotState {
 		m_transitions.iterator();
 	}
 
-	public BotState step() {
+	public BotState step () {
 		IList.Iterator iter = m_transitions.iterator();
 		BotTransition transi;
 		BotState res;
 		transi = (BotTransition) iter.next();
 		res = transi.eval();
+
 		while (res == null) {
 			transi = (BotTransition) iter.next();
 			res = transi.eval();
@@ -32,4 +33,6 @@ public class BotState {
 	public void add_transition (BotTransition transi) {
 		m_transitions.insertAt(m_transitions.length(), transi);
 	}
+
+	// Add transitions
 }

@@ -12,15 +12,15 @@ public class BotTestAutomate {
 		BotAutomata B2 = new BotAutomata(init, init);
 		B2.add_state(etat2);
 
-		BotTransition transi = new BotTransition(new BotTrue(), new BotMove(), etat2);
+		BotTransition transi = new BotTransition(new BotTrue(), new BotMove("N"), etat2);
 		init.add_transition(transi);
-		BotTransition transi2 = new BotTransition(new BotTrue(), new BotMove(), etat2);
+		BotTransition transi2 = new BotTransition(new BotTrue(), new BotMove("N"), etat2);
 		init.add_transition(transi2);
-		BotTransition transi3 = new BotTransition(new BotTrue(), new BotMove(), etat2);
+		BotTransition transi3 = new BotTransition(new BotTrue(), new BotMove("N"), etat2);
 		init.add_transition(transi3);
-		BotTransition transi4 = new BotTransition(new BotTrue(), new BotMove(), etat2);
+		BotTransition transi4 = new BotTransition(new BotTrue(), new BotMove("N"), etat2);
 		init.add_transition(transi4);
-		BotTransition transi5 = new BotTransition(new BotTrue(), new BotMove(), init);
+		BotTransition transi5 = new BotTransition(new BotTrue(), new BotMove("N"), init);
 		etat2.add_transition(transi5);
 
 		while (true) {
