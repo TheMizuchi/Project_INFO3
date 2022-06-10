@@ -1,4 +1,4 @@
-package View;
+package view;
 
 public class TestMap {
 
@@ -12,8 +12,8 @@ public class TestMap {
 		
 		
 
-		mapView var = new mapView(carte);
-		mapView var2 = new mapView(carte2);
+		MapView var = new MapView(carte);
+		MapView var2 = new MapView(carte2);
 		int res = var.hauteur();
 		System.out.println("hauteur"+res);
 		res = var.largeur();
