@@ -22,6 +22,7 @@ public class CowboyView extends EntityView {
 
 
 	public CowboyView (int x, int y, double scale) {
+		super(x, y, scale);
 		this.x = x;
 		this.y = y;
 		this.scale = scale;
@@ -61,13 +62,7 @@ public class CowboyView extends EntityView {
 		if (!this.left) {
 			this.left = true;
 			a.setPosition((int) (this.x), (int) (this.y), (float) this.scale);
-			a.setListener(new AnimationListener() {
-
-				@Override
-				public void done (Animation a) {
-					CowboyView.this.turnRight();
-				}
-			});
+			a.setListener(this.al);
 			a.turnLeft();
 		}
 	}
@@ -77,26 +72,14 @@ public class CowboyView extends EntityView {
 		if (this.left) {
 			this.left = false;
 			a.setPosition((int) (this.x), (int) (this.y), (float) this.scale);
-			a.setListener(new AnimationListener() {
-
-				@Override
-				public void done (Animation a) {
-					CowboyView.this.turnLeft();
-				}
-			});
+			a.setListener(this.al);
 			a.turnRight();
 		}
 	}
 
 	@Override
 	public void paint (Graphics g) {
-
-		if (a == null || a.done()) {
-			g.setColor(Color.BLUE);
-			g.fillOval(this.x, this.y, 50, 25);
-		} else {
 			a.paint(g);
-		}
 	}
 
 }

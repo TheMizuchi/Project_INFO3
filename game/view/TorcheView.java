@@ -10,26 +10,26 @@ import java.awt.geom.Rectangle2D;
 
 public class TorcheView extends ViewElement {
 
-	int x, y;
 	double radius;
 	double scale;
 	int win_h, win_w;
 
 
 	public TorcheView (int x, int y, double radius, int win_h, int win_w, double scale) {
+		super(x, y, scale);
 		this.radius = radius * scale;
 		this.win_h = win_h;
 		this.win_w = win_w;
 		this.scale = scale;
-		this.x = (int) (x * this.scale - this.radius / 2);
-		this.y = (int) (y * this.scale - this.radius / 2);
+		this.x = (int) (x - this.radius / 2);
+		this.y = (int) (y - this.radius / 2);
 	}
 
-	public void setPos (int x, int y, double radius, double scale) {
+	public void setPosition (int x, int y, double radius, double scale) {
 		this.scale = scale;
 		this.radius = radius * scale;
-		this.x = (int) (this.x * this.scale - this.radius);
-		this.y = (int) (this.y * this.scale - this.radius);
+		this.x = (int) (this.x - this.radius/2);
+		this.y = (int) (this.y - this.radius/2);
 	}
 
 	@Override

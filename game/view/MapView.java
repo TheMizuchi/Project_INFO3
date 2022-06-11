@@ -8,6 +8,16 @@ public class MapView extends ViewElement {
 	//ICI je pars du principe que la map est affiché par un tableau a deux dimensions de int. Dans le cas ou "carte[][]" est pour une salle seulement alors ont fait une liste de ces salles là.
 	int carte[][];
 	int nb_salle;
+	
+	public MapView(){
+		super(0,0,1);
+	}
+	
+	public void setPosition(int x, int y, double scale) {
+		this.x = x;
+		this.y = y;
+		this.scale = scale;
+	}
 
 
 	int hauteur (int m[][]) {
