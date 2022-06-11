@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,16 +12,17 @@ public class Sprite {
 
 	public int m_width;
 	public int m_height;
+	
 	public BufferedImage[] m_images;
 
 
-	Sprite (BufferedImage[] images, int width, int height) {
+	public Sprite (BufferedImage[] images, int width, int height) {
 		m_images = images;
 		m_width = width;
 		m_height = height;
 	}
 
-	Sprite (InputStream is, int nrows, int ncolumns) throws IOException {
+	public Sprite (InputStream is, int nrows, int ncolumns) throws IOException {
 		BufferedImage bi;
 		bi = ImageIO.read(is);
 		m_width = bi.getWidth(null) / ncolumns;
@@ -66,7 +66,7 @@ public class Sprite {
 					images[(i * ncols) + j] = image.getSubimage(x, y, width, height);
 				}
 			}
-			return new Sprite(images, nrows, ncols);
+			return new Sprite(images, width, height);
 		}
 		return null;
 	}
