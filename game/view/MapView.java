@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 
 public class MapView extends ViewElement {
@@ -13,11 +14,11 @@ public class MapView extends ViewElement {
 	int y = 0;
 	final int l_case = 50;
 	final int h_case = 50;
+	Texture tex = Texture.loadTexture("resources/ground.png", 1, 1);
 
 
 	public MapView (int carte[][]) {
 		this.carte = carte;
-		Texture tex = Texture.loadTexture("resources/texture.png", 32, 109);
 	}
 
 	int hauteur () {
@@ -62,10 +63,12 @@ public class MapView extends ViewElement {
 						break;
 					default:
 						//bleu
-						g.setColor(Color.blue);
-						g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
+						//g.setColor(Color.blue);
+						//g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
 						g.setColor(Color.black);
 						g.drawRect(x + h_case * h, y + l_case * l, l_case, h_case);
+						BufferedImage img = tex.m_images[0];
+						g.drawImage(img, x + h_case * h, y + l_case * l, l_case, h_case, null);
 
 				}
 

@@ -50,7 +50,7 @@ public class MyCanvas extends Component {
 //		carte[4][2] = 0;
 //		carte[4][3] = 0;
 //		carte[4][4] = 0;
-		int carte[][] = new int [250][250];
+		int carte[][] = new int [10][10];
 
 		m_map = new MapView(carte);
 		int res = m_map.hauteur();
