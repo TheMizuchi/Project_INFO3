@@ -1,9 +1,9 @@
 package view.graphicEntity;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import view.Animation;
 import view.Animation.AnimationListener;
+import view.EntityInterface;
 import view.EntityView;
 import view.animation.CowboyAnimation;
 
@@ -21,13 +21,14 @@ public class CowboyView extends EntityView {
 	boolean left;
 
 
-	public CowboyView (int x, int y, double scale) {
-		super(x, y, scale);
+	public CowboyView (int x, int y, double scale, EntityInterface e) {
+		super(x, y, scale, e);
 		this.x = x;
 		this.y = y;
 		this.scale = scale;
 		this.left = false;
 		this.a = new CowboyAnimation();
+		a.setPosition(x, y, scale);
 		this.al = new AnimationListener() {
 
 			@Override
@@ -36,17 +37,20 @@ public class CowboyView extends EntityView {
 			}
 		};
 	}
-	
-	public void setPosition(int x, int y, float scale) {
+
+	@Override
+	public void setPosition (int x, int y, double scale) {
+		this.x = x;
+		this.y = y;
+		this.scale = scale;
 		a.setPosition(x, y, scale);
 	}
-	public void setDelay(int delay) {
+
+	public void setDelay (int delay) {
 		a.setDelay(delay);
 	}
-	
 
 	public void spin () {
-		a.setPosition((int) (this.x), (int) (this.y), (float) this.scale);
 		a.setListener(new AnimationListener() {
 
 			@Override
@@ -61,7 +65,6 @@ public class CowboyView extends EntityView {
 
 		if (!this.left) {
 			this.left = true;
-			a.setPosition((int) (this.x), (int) (this.y), (float) this.scale);
 			a.setListener(this.al);
 			a.turnLeft();
 		}
@@ -71,7 +74,6 @@ public class CowboyView extends EntityView {
 
 		if (this.left) {
 			this.left = false;
-			a.setPosition((int) (this.x), (int) (this.y), (float) this.scale);
 			a.setListener(this.al);
 			a.turnRight();
 		}
@@ -79,7 +81,7 @@ public class CowboyView extends EntityView {
 
 	@Override
 	public void paint (Graphics g) {
-			a.paint(g);
+		a.paint(g);
 	}
 
 }
