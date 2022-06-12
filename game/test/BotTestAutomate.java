@@ -1,5 +1,8 @@
-package controller;
+package test;
 
+import controller.BotAutomata;
+import controller.BotState;
+import controller.BotTransition;
 import controller.action.BotMove;
 import controller.condition.BotTrue;
 

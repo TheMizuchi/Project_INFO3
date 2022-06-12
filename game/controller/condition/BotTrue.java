@@ -5,9 +5,7 @@ import controller.ICondition;
 
 public class BotTrue implements ICondition {
 
-	public BotTrue () {
-
-	}
+	public BotTrue () {}
 
 	@Override
 	public boolean eval () {

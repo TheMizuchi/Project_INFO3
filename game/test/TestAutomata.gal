@@ -1,0 +1,23 @@
+Test1 (Init) {
+	* (Init):
+		| Key(z) ? Move(N) : (Moving)
+		| Key(q) ? Move(W) : (Moving)
+		| Key(s) ? Move(S) : (Moving)
+		| Key(d) ? Move(E) : (Moving)
+		| True ? Move : (Init)
+	* (Moving):
+		| Key(z) ? Move(N) : (Moving)
+		| Key(q) ? Move(W) : (Moving)
+		| Key(s) ? Move(S) : (Moving)
+		| Key(d) ? Move(E) : (Moving)
+		| True ? : (Init)
+}
+
+Mine (Init) {
+	* (Init):
+		| Cell(F, V) ? Move(F) : (Init)
+		| True ? : (Waiting)
+	* (Waiting):
+		| Key(e) ? Pop : ()
+		| True ? : (Waiting)
+}

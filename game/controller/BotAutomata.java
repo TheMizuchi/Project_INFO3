@@ -7,10 +7,16 @@ import edu.polytech.oop.collections.LinkedList;
 
 public class BotAutomata {
 
+	String m_name;
 	BotState m_current_state;
 	BotState m_initial_state;
 	IList m_states;
 
+
+	public BotAutomata (String name) {
+		m_name = name;
+		m_states = new LinkedList();
+	}
 
 	public BotAutomata (BotState current_state, BotState initial_state) {
 		m_current_state = current_state;
@@ -28,6 +34,23 @@ public class BotAutomata {
 		m_current_state = m_current_state.step();
 	}
 
+	public BotState add_state (String state_name) {
+		ICollection.Iterator iter = m_states.iterator();
+		BotState tmp;
+
+		while (iter.hasNext()) {
+			tmp = (BotState) iter.next();
+
+			if (tmp.m_name.equals(state_name)) {
+				return tmp;
+			}
+
+		}
+		BotState state = new BotState(state_name);
+		m_states.insertAt(m_states.length(), state);
+		return state;
+	}
+
 	public boolean add_state (BotState state) {
 		ICollection.Iterator iter = m_states.iterator();
 		BotState tmp;
@@ -36,9 +59,7 @@ public class BotAutomata {
 			tmp = (BotState) iter.next();
 
 			if (state.equals(tmp)) {
-				System.out.println("L'etat est déjà present dans l'automate.");
 				return false;
-				// throw new RuntimeException("L'etat est déjà present dans l'automate.");
 			}
 
 		}

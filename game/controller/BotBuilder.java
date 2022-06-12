@@ -2,43 +2,31 @@ package controller;
 
 import java.util.List;
 
-import controller.action.BotMove;
-import controller.condition.BotTrue;
+import controller.action.*;
+import controller.condition.*;
 import edu.polytech.oop.collections.IList;
-import info3.game.automata.ast.AST;
-import info3.game.automata.ast.Action;
-import info3.game.automata.ast.Automaton;
-import info3.game.automata.ast.Behaviour;
-import info3.game.automata.ast.BinaryOp;
-import info3.game.automata.ast.Category;
-import info3.game.automata.ast.Condition;
-import info3.game.automata.ast.Direction;
-import info3.game.automata.ast.FunCall;
-import info3.game.automata.ast.IVisitor;
-import info3.game.automata.ast.Key;
-import info3.game.automata.ast.Mode;
-import info3.game.automata.ast.State;
-import info3.game.automata.ast.Transition;
-import info3.game.automata.ast.UnaryOp;
-import info3.game.automata.ast.Underscore;
-import info3.game.automata.ast.Value;
+import edu.polytech.oop.collections.LinkedList;
+import info3.game.automata.ast.*;
+
+// Pour l'instant le builder ne gére qu'une seule action par transition et ne
+// gére pas les probas
 
 
 public class BotBuilder implements IVisitor {
 
-	BotAutomata m_bot;
-	IList m_states;
+	private BotAutomata m_bot;
+	private IList m_bots;
 
 
-	public BotBuilder () {
-		m_bot = new BotAutomata();
+	public BotAutomata getAutomata () {
+		return m_bot;
 	}
 
 	// IVisitor
 
 	@Override
 	public Object visit (Category cat) {
-		return null;
+		return cat.toString();
 	}
 
 	@Override
@@ -58,7 +46,7 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object visit (Underscore u) {
-		return null;
+		throw new RuntimeException("Underscore NYI");
 	}
 
 	@Override
@@ -66,32 +54,22 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object exit (FunCall funcall, List<Object> parameters) {
-
-		switch (funcall.name.toString()) {
-			case ("Move"):
-				return new BotMove((String) parameters.get(0));
-			case ("True"):
-				return new BotTrue();
-			default:
-				throw new RuntimeException("Action inconnue");
-		}
+		return parameters;
 	}
 
 	@Override
 	public Object visit (BinaryOp operator, Object left, Object right) {
-		return null;
+		throw new RuntimeException("& and / NYI");
 	}
 
 	@Override
 	public Object visit (UnaryOp operator, Object expression) {
-		return null;
+		throw new RuntimeException("Not NYI");
 	}
 
 	@Override
 	public Object visit (State state) {
-		BotState s = new BotState(state.name);
-		m_bot.add_state(s);
-		return s;
+		return m_bot.add_state(state.name);
 	}
 
 	@Override
@@ -99,12 +77,23 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object exit (Mode mode, Object source_state, Object behaviour) {
+		IList transitions = (LinkedList) behaviour;
+		IList.Iterator ite = transitions.iterator();
+
+		while (ite.hasNext()) {
+			((BotState) source_state).add_transition((BotTransition) ite.next());
+		}
 		return null;
 	}
 
 	@Override
 	public Object visit (Behaviour behaviour, List<Object> transitions) {
-		return null;
+		IList trans = new LinkedList();
+
+		for (Object transition : transitions) {
+			trans.insertAt(trans.length(), (BotTransition) transition);
+		}
+		return trans;
 	}
 
 	@Override
@@ -112,7 +101,26 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object exit (Condition condition, Object expression) {
-		return null;
+		condition.toString();
+		ICondition cond = null;
+		String[] str = condition.toString().split("%");
+		str[1].split("\\(");
+		List<String> l = (List<String>) expression;
+
+		switch (str[1].split("\\(")[0]) {
+			case "True":
+				cond = new BotTrue();
+				break;
+			case "Key":
+				cond = new BotKey(l.get(0).charAt(0));
+				break;
+			case "Cell":
+				cond = new BotCell();
+				break;
+			default:
+				throw new RuntimeException("NYI");
+		}
+		return cond;
 	}
 
 	@Override
@@ -120,25 +128,62 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object exit (Action action, List<Object> funcalls) {
-		return null;
+		IAction act = null; // Devra être une liste d'action plus tard
+
+		if (action.calls.isEmpty()) {
+			act = new BotNone();
+		} else {
+
+			for (FunCall call : action.calls) {
+
+				switch (call.name) {
+					case ("Move"):
+						if (call.parameters.size() == 0) {
+							act = new BotMove("F");
+						} else {
+							act = new BotMove(call.parameters.get(0).toString());
+						}
+						break;
+					case ("Pop"):
+						act = new BotPop();
+						break;
+					case ("Wizz"):
+						act = new BotWizz();
+						break;
+					default:
+						throw new RuntimeException("NYI");
+				}
+				break; // On ne gére qu'une action par transition pour le moment
+			}
+		}
+		return act;
 	}
 
 	@Override
 	public Object visit (Transition transition, Object condition, Object action, Object target_state) {
-		return null;
+		return new BotTransition((ICondition) condition, (IAction) action, (BotState) target_state);
 	}
 
 	@Override
-	public void enter (Automaton automaton) {}
+	public void enter (Automaton automaton) {
+		m_bot = new BotAutomata(automaton.toString());
+	}
 
 	@Override
 	public Object exit (Automaton automaton, Object initial_state, List<Object> modes) {
-		return null;
+		m_bot.m_current_state = (BotState) initial_state;
+		m_bot.m_initial_state = (BotState) initial_state;
+		return m_bot;
 	}
 
 	@Override
 	public Object visit (AST bot, List<Object> automata) {
-		return null;
+		m_bots = new LinkedList();
+
+		for (Object aut : automata) {
+			m_bots.insertAt(m_bots.length(), (BotAutomata) aut);
+		}
+		return m_bots;
 	}
 
 }

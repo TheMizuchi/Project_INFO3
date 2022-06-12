@@ -33,6 +33,9 @@ public class BotState {
 	public void add_transition (BotTransition transi) {
 		m_transitions.insertAt(m_transitions.length(), transi);
 	}
+	
+	public boolean equals(BotState tmp) {
+		return m_name.equals(tmp.m_name);
+	}
 
-	// Add transitions
 }
