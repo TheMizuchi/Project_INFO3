@@ -14,7 +14,7 @@ public class MapView extends ViewElement {
 	int y = 0;
 	final int l_case = 50;
 	final int h_case = 50;
-	Texture tex = Texture.loadTexture("resources/ground.png", 1, 1);
+	Texture tex = Texture.loadTexture("resources/textures.png", 1, 4);
 
 
 	public MapView (int carte[][]) {
@@ -48,18 +48,24 @@ public class MapView extends ViewElement {
 				switch (carte[h][l]) {
 					case 1:
 						//noir;
-						g.setColor(Color.black);
-						g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
+						//g.setColor(Color.black);
+						//g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
+						BufferedImage img = tex.m_images[1];
+						g.drawImage(img, x + h_case * h, y + l_case * l, l_case, h_case, null);
 						break;
 					case 2:
 						//orange;
-						g.setColor(Color.orange);
-						g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
+						//g.setColor(Color.orange);
+						//g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
+						img = tex.m_images[2];
+						g.drawImage(img, x + h_case * h, y + l_case * l, l_case, h_case, null);
 						break;
 					case 3:
 						//vert
-						g.setColor(Color.green);
-						g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
+						//g.setColor(Color.green);
+						//g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
+						img = tex.m_images[3];
+						g.drawImage(img, x + h_case * h, y + l_case * l, l_case, h_case, null);
 						break;
 					default:
 						//bleu
@@ -67,7 +73,7 @@ public class MapView extends ViewElement {
 						//g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
 						g.setColor(Color.black);
 						g.drawRect(x + h_case * h, y + l_case * l, l_case, h_case);
-						BufferedImage img = tex.m_images[0];
+						img = tex.m_images[0];
 						g.drawImage(img, x + h_case * h, y + l_case * l, l_case, h_case, null);
 
 				}
