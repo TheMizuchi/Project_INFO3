@@ -1,5 +1,8 @@
 package model.map.generator;
 
+import edu.polytech.oop.collections.IList;
+import edu.polytech.oop.collections.ArrayList;
+
 public class Graph {
 
 	IList ListNode;
