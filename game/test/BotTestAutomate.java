@@ -12,7 +12,7 @@ public class BotTestAutomate {
 	public static void main (String args[]) {
 		BotState init = new BotState("init");
 		BotState etat2 = new BotState("etat2");
-		BotAutomata B2 = new BotAutomata(init, init);
+		BotAutomata B2 = new BotAutomata("pouet");
 		B2.add_state(etat2);
 
 		BotTransition transi = new BotTransition(new BotTrue(), new BotMove("N"), etat2);

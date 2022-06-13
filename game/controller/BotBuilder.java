@@ -15,7 +15,6 @@ import info3.game.automata.ast.*;
 public class BotBuilder implements IVisitor {
 
 	private BotAutomata m_bot;
-	private IList m_bots;
 
 
 	public BotAutomata getAutomata () {
@@ -178,12 +177,12 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object visit (AST bot, List<Object> automata) {
-		m_bots = new LinkedList();
+		IList bots = new LinkedList();
 
 		for (Object aut : automata) {
-			m_bots.insertAt(m_bots.length(), (BotAutomata) aut);
+			bots.insertAt(bots.length(), (BotAutomata) aut);
 		}
-		return m_bots;
+		return bots;
 	}
 
 }

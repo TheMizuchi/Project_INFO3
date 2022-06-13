@@ -18,14 +18,6 @@ public class BotAutomata {
 		m_states = new LinkedList();
 	}
 
-	public BotAutomata (BotState current_state, BotState initial_state) {
-		m_current_state = current_state;
-		m_initial_state = initial_state;
-		m_states = new LinkedList();
-		add_state(initial_state);
-		add_state(current_state);
-	}
-
 	public BotAutomata () {
 		m_states = new LinkedList();
 	}
