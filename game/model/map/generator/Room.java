@@ -7,6 +7,9 @@ import org.json.JSONObject;
 
 
 public class Room {
+	
+	int upperLeftX;
+	int upperLeftY;
 
 	int width;
 	int height;
