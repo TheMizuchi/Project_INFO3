@@ -30,9 +30,20 @@ Les joueurs peuvent prendre possession de l'ennemi le plus proche (sauf Boss) pe
 Le jeu possède plusieurs ennemis :
 
 - Ballon se dupliquant jusqu'à 2 fois (Contrainte : EGG)
+
+> Le ballon posséde un point de vie (PV), à sa mort il se divise en 2 ballons de couleurs différentes (Initialement en vert, il passe en bleu puis en rouge (s'il meurt en étant rouge, il meurt définivement)). Le ballon inflige des dégats importants et posséde une trajectoire aléatoire. Le ballon rebondit sur les murs.
+
 - Chauve souris
+
+> Les chauves souris sont des ennemis passif, ils n'attaquent pas le jouer. Les chauves souris volent et peuvent donc passer au dessus du vide cependant elles meurent en heurtant un mur.
+
 - Zombie
+
+> Les zombies pourchassent le joueur le plus proche et attaque au corps à corps.
+
 - Singe à fléchettes
+
+> Le singe à fléchettes reste éloigné des joueurs et s'en rapprochent pour tirer.
 
 ### Boss (Contrainte doublure (avec les biomes))
 
