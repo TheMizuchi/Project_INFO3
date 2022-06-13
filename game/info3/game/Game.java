@@ -77,7 +77,7 @@ public class Game {
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1920, 1080);
 		m_frame = m_canvas.createFrame(d);
-		my_canvas = new MyCanvas(d.height, d.width);
+		my_canvas = new MyCanvas(d.width, d.height);
 		System.out.println("  - setting up the frame...");
 		setupFrame();
 	}
@@ -164,6 +164,9 @@ public class Game {
 			txt = txt + fps + " fps   ";
 			m_text.setText(txt);
 		}
+		
+		my_canvas.fm.update();
+
 	}
 
 	/*

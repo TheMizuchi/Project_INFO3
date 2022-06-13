@@ -7,17 +7,23 @@ import java.awt.Graphics;
 public class MapView extends ViewElement {
 
 	//ICI je pars du principe que la map est affiché par un tableau a deux dimensions de int. Dans le cas ou "carte[][]" est pour une salle seulement alors ont fait une liste de ces salles là.
+	private static final int TAILLE_CASE = 25;
 	int carte[][];
 	int nb_salle;
-	int x = 0;
-	int y = 0;
-	final int l_case = 50;
-	final int h_case = 50;
+	int t_case;
 
 
 	public MapView (int carte[][]) {
+		super(0, 0, 1);
 		this.carte = carte;
 		Texture tex = Texture.loadTexture("resources/texture.png", 32, 109);
+		this.t_case = (int) (TAILLE_CASE);
+	}
+
+	public void setPosition (int x, int y, double scale) {
+		this.x = x;
+		this.y = y;
+		this.scale = scale;
 	}
 
 	int hauteur () {
@@ -37,6 +43,7 @@ public class MapView extends ViewElement {
 
 	@Override
 	void paint (Graphics g) {
+		this.t_case = (int) (TAILLE_CASE * this.scale);
 		int h = 0;
 		int l = 0;
 
@@ -48,29 +55,25 @@ public class MapView extends ViewElement {
 					case 1:
 						//noir;
 						g.setColor(Color.black);
-						g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
 						break;
 					case 2:
 						//orange;
 						g.setColor(Color.orange);
-						g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
 						break;
 					case 3:
 						//vert
 						g.setColor(Color.green);
-						g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
 						break;
 					default:
 						//bleu
 						g.setColor(Color.blue);
-						g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
-						g.setColor(Color.black);
-						g.drawRect(x + h_case * h, y + l_case * l, l_case, h_case);
 
 				}
+				g.fillRect(x + this.t_case * h, y + this.t_case * l, this.t_case, this.t_case);
+				g.setColor(Color.black);
+				g.drawRect(x + this.t_case * h, y + this.t_case * l, this.t_case, this.t_case);
 
 			}
 		}
 	}
-
 }
