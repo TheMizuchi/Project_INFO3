@@ -1,6 +1,6 @@
 Test1 (Init) {
 	* (Init):
-		| Key(z) ? Move(N) : (Moving)
+		| Key(z) ? Move(N) / Move(D) : (Moving)
 		| Key(q) ? Move(W) : (Moving)
 		| Key(s) ? Move(S) : (Moving)
 		| Key(d) ? Move(E) : (Moving)
@@ -18,6 +18,6 @@ Mine (Init) {
 		| Cell(F, V) ? Move(F) : (Init)
 		| True ? : (Waiting)
 	* (Waiting):
-		| Key(e) ? Pop : ()
+		| Key(e) ? Pop / Hit / Power / Jump : ()
 		| True ? : (Waiting)
 }

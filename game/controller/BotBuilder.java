@@ -127,10 +127,10 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object exit (Action action, List<Object> funcalls) {
-		IAction act = null; // Devra être une liste d'action plus tard
+		IList actions = new LinkedList(); // Devra être une liste d'action plus tard
 
 		if (action.calls.isEmpty()) {
-			act = new BotNone();
+			actions.insertAt(0, new BotNone());
 		} else {
 
 			for (FunCall call : action.calls) {
@@ -138,29 +138,77 @@ public class BotBuilder implements IVisitor {
 				switch (call.name) {
 					case ("Move"):
 						if (call.parameters.size() == 0) {
-							act = new BotMove("F");
+							actions.insertAt(actions.length(), new BotMove("F"));
 						} else {
-							act = new BotMove(call.parameters.get(0).toString());
+							actions.insertAt(actions.length(), new BotMove(call.parameters.get(0).toString()));
 						}
+						// est-ce que Move(Arg, Arg) vas exister (avec 2 infos en paramètre) ?
 						break;
 					case ("Pop"):
-						act = new BotPop();
+						if (call.parameters.size() == 0) {
+							actions.insertAt(actions.length(), new BotPop());
+						} else if (call.parameters.size() == 1) {
+							actions.insertAt(actions.length(), new BotPop(call.parameters.get(0).toString()));
+						} else {
+							actions.insertAt(actions.length(), new BotPop(call.parameters.get(0).toString(), call.parameters.get(1).toString()));
+						}
 						break;
 					case ("Wizz"):
-						act = new BotWizz();
+						if (call.parameters.size() == 0) {
+							actions.insertAt(actions.length(), new BotWizz());
+						} else if (call.parameters.size() == 1) {
+							actions.insertAt(actions.length(), new BotWizz(call.parameters.get(0).toString()));
+						} else {
+							actions.insertAt(actions.length(), new BotWizz(call.parameters.get(0).toString(), call.parameters.get(1).toString()));
+						}
+						break;
+					case ("Hit"):
+						actions.insertAt(actions.length(), new BotHit());
+						break;
+					case ("Jump"):
+						actions.insertAt(actions.length(), new BotJump());
+						break;
+					case ("Explode"):
+						actions.insertAt(actions.length(), new BotExplode());
+						break;
+					case ("Egg"):
+						actions.insertAt(actions.length(), new BotEgg());
+						break;
+					case ("Get"):
+						actions.insertAt(actions.length(), new BotGet());
+						break;
+					case ("Pick"):
+						actions.insertAt(actions.length(), new BotPick());
+						break;
+					case ("Power"):
+						actions.insertAt(actions.length(), new BotPower());
+						break;
+					case ("Protect"):
+						actions.insertAt(actions.length(), new BotProtect());
+						break;
+					case ("Store"):
+						actions.insertAt(actions.length(), new BotStore());
+						break;
+					case ("Turn"):
+						actions.insertAt(actions.length(), new BotTurn());
+						break;
+					case ("Throw"):
+						actions.insertAt(actions.length(), new BotThrow());
+						break;
+					case ("Wait"):
+						actions.insertAt(actions.length(), new BotWait());
 						break;
 					default:
-						throw new RuntimeException("NYI");
+						throw new RuntimeException("Action non reconnue");
 				}
-				break; // On ne gére qu'une action par transition pour le moment
 			}
 		}
-		return act;
+		return actions;
 	}
 
 	@Override
-	public Object visit (Transition transition, Object condition, Object action, Object target_state) {
-		return new BotTransition((ICondition) condition, (IAction) action, (BotState) target_state);
+	public Object visit (Transition transition, Object condition, Object actions, Object target_state) {
+		return new BotTransition((ICondition) condition, (IList) actions, (BotState) target_state);
 	}
 
 	@Override
