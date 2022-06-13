@@ -4,6 +4,8 @@ import edu.polytech.oop.collections.LinkedList;
 
 
 public class FakeModel {
+	
+	public static final int CowboyID = 0;
 
 	class Cowboy implements EntityInterface {
 
