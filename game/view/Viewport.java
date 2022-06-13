@@ -33,12 +33,12 @@ public class Viewport {
 	int toLocalX (double x) {
 		//TODO Retourne la coordonnée X locale au Viewport depuis la coordonné x venant du model
 
-		return  this.w/2 +(int) ((x - this.x)*this.scale);
+		return this.w / 2 + (int) ((x - this.x) * this.scale);
 	}
 
 	int toLocalY (double y) {
 		//TODO Retourne la coordonnée Y locale au Viewport depuis la coordonné y venant du model
-		return  this.h/2 +(int) ((y - this.y)*this.scale);
+		return this.h / 2 + (int) ((y - this.y) * this.scale);
 	}
 
 }
