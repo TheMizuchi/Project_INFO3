@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Graphics;
 
 import edu.polytech.oop.collections.LinkedList;
+import view.animation.bank.CowboyBank;
 import view.graphicEntity.CowboyView;
 
 
@@ -19,6 +20,7 @@ public class MyCanvas extends Component {
 	MapView m_map;
 	Viewport vp;
 	public FakeModel fm;
+	private AnimationBank[] animationBank;
 
 
 	public MyCanvas (int win_w, int win_h) {
@@ -26,8 +28,10 @@ public class MyCanvas extends Component {
 		this.win_w = win_w;
 		m_entityViews = new LinkedList();
 		this.vp = new Viewport(win_w, win_h);
+		
+		this.animationBank = new AnimationBank[10];
+		this.animationBank[FakeModel.CowboyID] = new CowboyBank();
 		this.fm = new FakeModel(this);
-
 		run();
 	}
 
@@ -61,7 +65,7 @@ public class MyCanvas extends Component {
 
 	EntityView createEntityView (int EntityID, EntityInterface entity) {
 		//TODO Demande la création d'une EntityView pour une entité ( à définir quand les entités du Model seront prêtes )
-		CowboyView c = new CowboyView(0, 0, 1, entity);
+		CowboyView c = new CowboyView(0, 0, 1, entity, (CowboyBank)this.animationBank[FakeModel.CowboyID]);
 		m_entityViews.insertAt(0, c);
 		c.spin();
 		return c;

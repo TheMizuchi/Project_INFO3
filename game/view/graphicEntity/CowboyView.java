@@ -6,6 +6,7 @@ import view.Animation.AnimationListener;
 import view.EntityInterface;
 import view.EntityView;
 import view.animation.CowboyAnimation;
+import view.animation.bank.CowboyBank;
 
 /*
  * Cette classe sert à définir le visuel de l'entité. Elle doit définir quelles
@@ -21,13 +22,13 @@ public class CowboyView extends EntityView {
 	boolean left;
 
 
-	public CowboyView (int x, int y, double scale, EntityInterface e) {
+	public CowboyView (int x, int y, double scale, EntityInterface e, CowboyBank cb) {
 		super(x, y, scale, e);
 		this.x = x;
 		this.y = y;
 		this.scale = scale;
 		this.left = false;
-		this.a = new CowboyAnimation();
+		this.a = new CowboyAnimation(cb);
 		a.setPosition(x, y, scale);
 		this.al = new AnimationListener() {
 
