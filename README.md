@@ -27,9 +27,20 @@ Les joueurs peuvent prendre possession de l'ennemi le plus proche (sauf Boss) pe
 
 ### Ennemi classique (Contrainte : EGG)
 
-Le jeu possède plusieurs ennemis, dont un ennemi ballon qui se divise en 2 ballons plus petit à sa mort jusqu'à disparaître entièrement.
+Le jeu possède plusieurs ennemis :
+
+- Ballon se dupliquant jusqu'à 2 fois (Contrainte : EGG)
+- Chauve souris
+- Zombie
+- Singe à fléchettes
 
 ### Boss (Contrainte doublure (avec les biomes))
+
+Il existe 3 boss différents (1 par étage) :
+
+- Ballon qui se dupplique jusqu'à 5 fois.
+- Mystery machine dans un biome de glace (Contrainte doublure (avec les biomes))
+- Doge (2 phases)
 
 Les Boss possèdent des salles réservées, les joueurs sont bloqués dans la salle du Boss jusqu'à son élimination. Une fois le Boss éliminé, les joueurs peuvent retourner en arrière (Ouverture de la porte) et la porte de changement d'étage apparaît.
 
