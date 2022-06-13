@@ -1,5 +1,6 @@
 package model.map.generator;
 
+import java.lang.Math; 
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.ArrayList;
 
@@ -39,6 +40,10 @@ public class Graph {
 		void addArc (Arc a) {
 			ListArc.insertAt(0, a);
 			nba++;
+		}
+		
+		float distance(Node n) {
+			Math.abs((float)n.mid_x-(float)mid_x)) + 
 		}
 
 	}
@@ -149,9 +154,13 @@ public class Graph {
 
 			IList englobant = new ArrayList();
 			IList suppress = new ArrayList();
+			
+			Triangle tri;
 
 			for (int t = 0; t < triangles.length(); i++) {
-
+				tri = (Triangle)triangles.elementAt(i);
+				
+				
 			}
 		}
 
