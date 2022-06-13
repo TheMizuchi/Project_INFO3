@@ -73,12 +73,11 @@ public class Game {
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
 		new MyTimer();
-		my_canvas = new MyCanvas();
 
 		System.out.println("  - creating frame...");
-		Dimension d = new Dimension(1024, 768);
+		Dimension d = new Dimension(1920, 1080);
 		m_frame = m_canvas.createFrame(d);
-
+		my_canvas = new MyCanvas(d.height, d.width);
 		System.out.println("  - setting up the frame...");
 		setupFrame();
 	}
@@ -137,7 +136,7 @@ public class Game {
 
 
 	private int m_musicIndex = 0;
-	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" };
+	private String[] m_musicNames = new String[] { "DB_Theme" };
 
 	private long m_textElapsed;
 
