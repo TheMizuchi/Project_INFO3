@@ -83,7 +83,6 @@ public class MapView extends ViewElement {
 				g.drawRect(x + this.t_case * h, y + this.t_case * l, this.t_case, this.t_case);
 				g.drawImage(img, x + this.t_case * h, y + this.t_case * l, this.t_case, this.t_case, null);
 
-
 			}
 		}
 	}
