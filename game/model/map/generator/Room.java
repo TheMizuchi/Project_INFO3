@@ -4,9 +4,6 @@ import model.map.Case;
 
 
 public class Room {
-	
-	int upperLeftX;
-	int upperLeftY;
 
 	int upperLeftX, upperLeftY;
 	int width, height;
