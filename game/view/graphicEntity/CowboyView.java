@@ -1,52 +1,87 @@
 package view.graphicEntity;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.io.IOException;
-
 import view.Animation;
 import view.Animation.AnimationListener;
+import view.EntityInterface;
 import view.EntityView;
-import view.Sprite;
 import view.animation.CowboyAnimation;
+
+/*
+ * Cette classe sert à définir le visuel de l'entité. Elle doit définir quelles
+ * animations ou quelles images fixes afficher mais ne s'occupe pas de les
+ * afficher elle même C'est le rôle de la classe [EntityName]Animation
+ */
 
 
 public class CowboyView extends EntityView {
 
-	Animation a;
 	AnimationListener al;
-	private Sprite spin;
+	CowboyAnimation a;
+	boolean left;
 
 
-	public CowboyView (int x, int y) {
+	public CowboyView (int x, int y, double scale, EntityInterface e) {
+		super(x, y, scale, e);
 		this.x = x;
 		this.y = y;
-
-		this.spin = Sprite.loadSprite("resources/winchester-4x6.png", 4, 6);
-
+		this.scale = scale;
+		this.left = false;
+		this.a = new CowboyAnimation();
+		a.setPosition(x, y, scale);
 		this.al = new AnimationListener() {
 
 			@Override
 			public void done (Animation a) {
-				a.restart();
+
 			}
 		};
 	}
 
+	@Override
+	public void setPosition (int x, int y, double scale) {
+		this.x = x;
+		this.y = y;
+		this.scale = scale;
+		a.setPosition(x, y, scale);
+	}
+
+	public void setDelay (int delay) {
+		a.setDelay(delay);
+	}
+
 	public void spin () {
-		a = new CowboyAnimation(this.spin, 20, this.al);
-		a.setPosition(this.x, this.y, 5F);
+		a.setListener(new AnimationListener() {
+
+			@Override
+			public void done (Animation a) {
+				CowboyView.this.a.start();
+			}
+		});
+		a.spin();
+	}
+
+	public void turnLeft () {
+
+		if (!this.left) {
+			this.left = true;
+			a.setListener(this.al);
+			a.turnLeft();
+		}
+	}
+
+	public void turnRight () {
+
+		if (this.left) {
+			this.left = false;
+			a.setListener(this.al);
+			a.turnRight();
+		}
 	}
 
 	@Override
 	public void paint (Graphics g) {
-
-		if (a == null || a.done()) {
-			g.setColor(Color.BLUE);
-			g.fillOval(this.x, this.y, 50, 25);
-		} else {
-			a.paint(g);
-		}
+		a.paint(g);
 	}
 
 }

@@ -1,65 +1,45 @@
 package view.animation;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import view.Animation;
+import view.EntityAnimation;
 import view.Sprite;
 
 
-public class CowboyAnimation extends Animation {
+public class CowboyAnimation extends EntityAnimation {
 
-	int m_x, m_y;
-	int m_idx;
-	float m_scale;
-	Sprite m_sprite;
-	boolean m_done;
+	// Liste des animations spécifique au cowboy
+	private Sprite spin;
 
 
-	public CowboyAnimation (Sprite s, int delay, AnimationListener al) {
-		super(delay, al);
-		m_x = 0;
-		m_y = 0;
-		m_idx = 0;
-		m_scale = 1F;
-		m_sprite = s;
-		m_done = false;
+	public CowboyAnimation () {
+		super();
+		this.spin = Sprite.loadSprite("resources/winchester-4x6.png", 4, 6);
+		this.loadBasicAnimation();
+	}
 
+	public void spin () {
+		m_sprite = this.spin;
+		this.start();
 	}
 
 	@Override
-	public void setPosition (int x, int y, float scale) {
-		m_x = x;
-		m_y = y;
-		m_scale = scale;
-
-	}
-	
-	public void restart() {
-		m_idx = 0;
-		this._al.restart();
-	}
-	@Override
-	public boolean nextImage () {
-
-		if (m_idx < m_sprite.m_images.length - 1) {
-			m_idx++;
-			return m_idx < m_sprite.m_images.length - 1;
-		} else {
-			m_done = true;
-			return false;
+	protected void loadBasicAnimation () {
+		BufferedImage[] turnLeftTab = new BufferedImage[13];
+		for (int i = 12; i >= 0; i--) {
+			turnLeftTab[i] = this.spin.m_images[(19 + i) % 24];
 		}
-	}
-
-	@Override
-	public boolean done () {
-		return m_done;
-	}
-
-	@Override
-	public void paint (Graphics g) {
-		BufferedImage img = m_sprite.m_images[m_idx];
-		g.drawImage(img, m_x, m_y, (int) (m_scale * img.getWidth()), (int) (m_scale * img.getHeight()), null);
+		this.turnLeft = new Sprite(turnLeftTab, this.spin.m_width, this.spin.m_height);
+		
+		BufferedImage[] turnRightTab = new BufferedImage[13];
+		for (int i = 0; i < 13; i++) {
+			turnRightTab[i] = this.spin.m_images[(32 - i) % 24];
+		}
+		this.turnRight = new Sprite(turnRightTab, this.spin.m_width, this.spin.m_height);
+		
+		this.left = this.turnRight.m_images[0];
+		this.right = this.turnLeft.m_images[0];
 	}
 
 }
