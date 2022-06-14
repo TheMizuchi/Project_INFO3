@@ -102,9 +102,9 @@ public class Map {
 			throw new IllegalStateException("There is no boss room");
 
 		//On place d'abord la salle du spawn
-		spawnRoom.setUpperLeft(width/2, height/2);
+		spawnRoom.setUpperLeft(width / 2, height / 2);
 		rooms.insertAt(rooms.length(), spawnRoom);
-		
+
 		int k;
 		int location = random.nextInt(4);
 

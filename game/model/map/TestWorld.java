@@ -70,12 +70,11 @@ class Panel extends JPanel {
 			}
 		}
 		/*
-		for (int i = 0; i < m.width; i++) {
-			g.setColor(Color.WHITE);
-			g.drawLine(0, i * this.getHeight() / m.height, this.getWidth(), i * this.getHeight() / m.height);
-			g.drawLine(i * this.getWidth() / m.width, 0, i * this.getWidth() / m.width, this.getHeight());
-		}
-		*/
+		 * for (int i = 0; i < m.width; i++) { g.setColor(Color.WHITE); g.drawLine(0, i
+		 * * this.getHeight() / m.height, this.getWidth(), i * this.getHeight() /
+		 * m.height); g.drawLine(i * this.getWidth() / m.width, 0, i * this.getWidth() /
+		 * m.width, this.getHeight()); }
+		 */
 	}
 
 }
