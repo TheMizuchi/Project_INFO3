@@ -7,7 +7,6 @@ import edu.polytech.oop.collections.IList;
 public class Graph {
 
 	IList ListNode;
-	int nbn;
 
 
 	Graph (IList rooms) {
@@ -20,6 +19,10 @@ public class Graph {
 			Node n = new Node(r);
 			ListNode.insertAt(0, n);
 		}
+	}
+
+	Graph (IList nodes, int nbn) {
+		this.ListNode = nodes;
 	}
 
 	int getPosXMax () {
@@ -60,16 +63,16 @@ public class Graph {
 		return new Triangle(A, B, C);
 	}
 
-	void delaunay (IList nodes, int nbn) {
+	void delaunay () {
 
 		Triangle supertriangle = supertri(getPosXMax(), getPosYMax(), 1);
 
 		IList triangles = new ArrayList();
 		triangles.insertAt(0, supertriangle);
 
-		for (int i = 0; i < nbn; i++) {
+		for (int i = 0; i < ListNode.length(); i++) {
 
-			Node n = (Node) nodes.elementAt(i);
+			Node n = (Node) ListNode.elementAt(i);
 
 			IList englobant = new ArrayList();
 			IList suppress = new ArrayList();
@@ -77,30 +80,193 @@ public class Graph {
 			Triangle tri;
 
 			for (int t = 0; t < triangles.length(); t++) {
-				tri = (Triangle) triangles.elementAt(i);
+				tri = (Triangle) triangles.elementAt(t);
 
 				if (tri.containsPoint(n)) {
 					suppress.insertAt(0, tri);
-
-					englobant.insertAt(0, new Arc(tri.A, tri.B));
-					englobant.insertAt(0, new Arc(tri.A, tri.C));
-					englobant.insertAt(0, new Arc(tri.C, tri.B));
 				}
 			}
 
 			for (int ts = 0; ts < suppress.length(); ts++) {
-				triangles.remove(suppress.elementAt(i));
+				tri = (Triangle) suppress.elementAt(ts);
+
+				if (tri.edgeShared(tri.AB, suppress)) {
+					englobant.insertAt(0, tri.AB);
+				}
+
+				if (tri.edgeShared(tri.AC, suppress)) {
+					englobant.insertAt(0, tri.AC);
+				}
+
+				if (tri.edgeShared(tri.BC, suppress)) {
+					englobant.insertAt(0, tri.BC);
+				}
+			}
+
+			for (int ts = 0; ts < suppress.length(); ts++) {
+				triangles.remove(suppress.elementAt(ts));
 			}
 
 			for (int ar = 0; ar < englobant.length(); ar++) {
-				Node Pt1 = ((Arc) englobant.elementAt(i)).dest1;
-				Node Pt2 = ((Arc) englobant.elementAt(i)).dest2;
+				Node Pt1 = ((Arc) englobant.elementAt(ar)).dest1;
+				Node Pt2 = ((Arc) englobant.elementAt(ar)).dest2;
 
 				Triangle newTri = new Triangle(Pt1, Pt2, n);
 				triangles.insertAt(0, newTri);
 			}
 		}
+		ArrayList suppress = new ArrayList();
+
+		for (int t = 0; t < triangles.length(); t++) {
+			Triangle tri = (Triangle) triangles.elementAt(t);
+
+			for (int i = 0; i < ListNode.length(); i++) {
+				Node n = (Node) ListNode.elementAt(i);
+
+				if (tri.containsPoint(n) && !suppress.contains(tri)) {
+					suppress.insertAt(0, tri);
+				}
+			}
+		}
+
+		for (int s = 0; s < suppress.length(); s++) {
+			triangles.remove(suppress.elementAt(s));
+		}
+
+		for (int t = 0; t < triangles.length(); t++) {
+			Triangle tri = (Triangle) triangles.elementAt(t);
+
+			if (!(tri.AB.dest1.equals(supertriangle.A) || tri.AB.dest2.equals(supertriangle.A) || tri.AB.dest1.equals(supertriangle.B) || tri.AB.dest2.equals(supertriangle.B) || tri.AB.dest1.equals(supertriangle.C) || tri.AB.dest2.equals(supertriangle.C))) {
+				tri.AB.dest1.addArc(tri.AB);
+				tri.AB.dest2.addArc(tri.AB);
+			}
+
+			if (!(tri.AC.dest1.equals(supertriangle.A) || tri.AC.dest2.equals(supertriangle.A) || tri.AC.dest1.equals(supertriangle.B) || tri.AC.dest2.equals(supertriangle.B) || tri.AC.dest1.equals(supertriangle.C) || tri.AC.dest2.equals(supertriangle.C))) {
+				tri.AC.dest1.addArc(tri.AC);
+				tri.AC.dest2.addArc(tri.AC);
+			}
+
+			if (!(tri.BC.dest1.equals(supertriangle.A) || tri.BC.dest2.equals(supertriangle.A) || tri.BC.dest1.equals(supertriangle.B) || tri.BC.dest2.equals(supertriangle.B) || tri.BC.dest1.equals(supertriangle.C) || tri.BC.dest2.equals(supertriangle.C))) {
+				tri.BC.dest1.addArc(tri.BC);
+				tri.BC.dest2.addArc(tri.BC);
+			}
+		}
 
 	}
 
+	double weight_of_tree () {
+		double weight = 0;
+
+		for (int i = 0; i < ListNode.length(); i++) {
+			weight += ((Node) ListNode.elementAt(i)).dijk_pds;
+		}
+		return weight;
+	}
+
+	Graph dijkstra (Node n) {
+		ArrayList vis = new ArrayList();
+
+		for (int i = 0; i < ListNode.length(); i++) {
+			vis.insertAt(i, ListNode.elementAt(i));
+		}
+
+		ArrayList file = new ArrayList();
+		file.insertAt(0, n);
+
+		int ind = 1;
+
+		while (ind != 0) {
+			Node current = (Node) file.removeAt(ind - 1);
+			ind--;
+
+			if (vis.contains(current)) {
+				vis.remove(current);
+
+				if (n == current) {
+					current.dijk_pds = 0;
+					current.dijk_proch = null;
+				}
+
+				IList ListArc = current.ListArc;
+
+				for (int i = 0; i < ListArc.length(); i++) {
+					Arc a = (Arc) ListArc.elementAt(i);
+
+					if (a.dest1 == current) {
+
+						if (vis.contains(a.dest2)) {
+							file.insertAt(ind, a.dest2);
+							ind++;
+						}
+
+						double dist = current.distance(a.dest2);
+
+						if (a.dest2 != n && a.dest2.dijk_proch == null) {
+							a.dest2.dijk_proch = current;
+							a.dest2.dijk_pds = current.dijk_pds + dist;
+						} else if (a.dest2 != n && a.dest2.dijk_pds > current.dijk_pds + dist) {
+							a.dest2.dijk_proch = current;
+							a.dest2.dijk_pds = current.dijk_pds + dist;
+						}
+					} else if (a.dest2 == current) {
+
+						if (vis.contains(a.dest1)) {
+							file.insertAt(ind, a.dest1);
+							ind++;
+						}
+						double dist = current.distance(a.dest1);
+
+						if (a.dest1 != n && a.dest1.dijk_proch == null) {
+							a.dest1.dijk_proch = current;
+							a.dest1.dijk_pds = current.dijk_pds + dist;
+						} else if (a.dest1 != n && a.dest1.dijk_pds > current.dijk_pds + dist) {
+							a.dest1.dijk_proch = current;
+							a.dest1.dijk_pds = current.dijk_pds + dist;
+						}
+					}
+				}
+			}
+		}
+		ArrayList newNodes = new ArrayList();
+
+		for (int i = 0; i < ListNode.length(); i++) {
+			Node Newn = ((Node) ListNode.elementAt(i)).copy();
+			newNodes.insertAt(i, Newn);
+		}
+
+		for (int i = 0; i < newNodes.length(); i++) {
+			Node current = (Node) newNodes.elementAt(i);
+
+			for (int j = 0; j < newNodes.length(); j++) {
+				Node next = (Node) newNodes.elementAt(j);
+
+				if (current.dijk_proch != null && next.mid_x == current.dijk_proch.mid_x && next.mid_y == current.dijk_proch.mid_y) {
+					Arc nA = new Arc(current, next);
+					current.dijk_proch = next;
+					current.addArc(nA);
+					next.addArc(nA);
+					break;
+				}
+			}
+		}
+		Graph newG = new Graph(newNodes, 0);
+		return newG;
+	}
+
+	Graph min_spanning_tree () {
+		double min = Double.MAX_VALUE;
+		Graph MST = null;
+
+		for (int i = 0; i < ListNode.length(); i++) {
+			Node current = (Node) ListNode.elementAt(i);
+			Graph dijk = dijkstra(current);
+			double weight = dijk.weight_of_tree();
+
+			if (min > weight) {
+				min = weight;
+				MST = dijk;
+			}
+		}
+		return MST;
+	}
 }
