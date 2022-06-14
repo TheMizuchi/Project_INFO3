@@ -99,14 +99,18 @@ public class MyCanvas extends Component {
 		this.updateView();
 		m_map.paint(g);
 		LinkedList.Iterator it = m_entityViews.iterator();
-
+		int i = 0;
 		while (it.hasNext()) {
 			EntityView e = (EntityView) it.next();
-			if()
-				e.paint(g);
-		}
 
-		m_torche.paint(g);
+			if (vp.isInside(e.x, e.y)) {
+				i++;
+				e.paint(g);
+			}
+		}
+		System.out.println("Nb d'entité dessiné : " + i);
+
+		//m_torche.paint(g);
 
 	}
 
