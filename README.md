@@ -25,6 +25,8 @@ Les joueurs peuvent prendre possession de l'ennemi le plus proche (sauf Boss) pe
 
 ## Ennemi (mobs)
 
+Les mobs sont controlés par des automates (Voir partie Menu).
+
 ### Ennemi classique (Contrainte : EGG)
 
 Le jeu possède plusieurs ennemis :
@@ -75,9 +77,13 @@ Les salles sont préfaites et on les places aléatoirement avec des liaisons par
 - Autre solution :
 Une grille dont chaque case représente l'unité de mesure minimale d'une salle. Une salle est alors un ensemble de cases de la grille.
 
-## Camera
+## Camera (Contrainte Viewport)
 
 Centrée sur les 2 joueurs, La caméra s'agrandit quand les joueurs s'éloignent l'un de l'autre, et inversement (elle se réduit lorsque les joueurs se rapprochent). La caméra possède un seuil de zoom minimal et maximal. Si les joueurs essaient de s'éloigner hors de ce seuil, alors leurs mouvements sont entravés (Ils ne peuvent pas sortir de l'écran et les mouvements vers l'extérieur de l'écran sont annulés). Une distance maximale est imposée entre les 2 joueurs.
+
+## Menu (Contrainte chargement des automates)
+
+Tous les automates sont stockés dans des fichiers dans le même dossier. Au lancement du jeu, le jeu nous demandes de choisir les automates à effecter pour chacune des entités.
 
 ## ATH
 
