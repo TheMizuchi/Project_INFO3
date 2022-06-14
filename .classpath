@@ -11,10 +11,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="jsonlib.jar"/>
 	<classpathentry kind="lib" path="json-simple-1.1.1.jar"/>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="graphics"/>
-	<classpathentry kind="src" path="audio"/>
-	<classpathentry kind="src" path="game"/>
 	<classpathentry kind="lib" path="edu-polytech-oop-collections.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
