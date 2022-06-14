@@ -2,7 +2,7 @@ package model.map.generator;
 
 public enum RoomType {
 
-	SPAWN(0), BOSS1(1), BOSS2(2), BOSS3(3), KEY(4), FIGHT(5), ENIGMA(5);
+	SPAWN(0), BOSS1(1), BOSS2(2), BOSS3(3), KEY(4), FIGHT(5), ENIGMA(6);
 
 
 	private int id;
