@@ -25,9 +25,9 @@ public class Viewport {
 		this.setPosition(x, y);
 	}
 
-	boolean isInside (double x, double y) {
-		//TODO Indique si une coordonnée est dans le Viewport en fonction de x, y, et scale
-		return false;
+	boolean isInside (int x, int y) {
+		//TODO Indique si une coordonnée est dans le Viewport
+		return x>=this.x && x<this.x+this.w && y>=this.y && y<this.y+this.h;
 	}
 
 	int toLocalX (double x) {
