@@ -32,6 +32,7 @@ import common.MyTimer;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 import view.MyCanvas;
+import model.Model;
 
 
 public class Game {
@@ -59,6 +60,7 @@ public class Game {
 	CanvasListener m_listener;
 	//Cowboy m_cowboy;
 	Sound m_music;
+	Model m_m;
 
 
 	Game () throws Exception {
@@ -73,6 +75,9 @@ public class Game {
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
 		new MyTimer();
+
+		m_m = Model.getInstance();
+		m_listener.m_cont.setModel();
 
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1920, 980);
@@ -165,8 +170,9 @@ public class Game {
 			m_text.setText(txt);
 		}
 		
-		my_canvas.fm.update(elapsed);
+		//my_canvas.fm.update(elapsed);
 
+		m_m.update(elapsed);
 	}
 
 	/*
