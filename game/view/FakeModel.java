@@ -1,6 +1,7 @@
 package view;
 
 import edu.polytech.oop.collections.LinkedList;
+import view.graphicEntity.CowboyView;
 
 
 public class FakeModel {
@@ -10,11 +11,14 @@ public class FakeModel {
 	class Cowboy implements EntityInterface {
 
 		int x, y;
+		CowboyView cv;
 
 
 		public Cowboy (int x, int y) {
 			this.x = x;
 			this.y = y;
+			this.cv = new CowboyView(this);
+			canvas.createEntityView(this.cv);
 		}
 
 		@Override
@@ -115,7 +119,6 @@ public class FakeModel {
 		for (int i = 0; i < 121; i++) {
 			Cowboy c = new Cowboy(12 + 25 * (i % 11), 12 + 25 * ((int) (i / 11)));
 			entity.insertAt(0, c);
-			canvas.createEntityView(0, c);
 		}
 	}
 

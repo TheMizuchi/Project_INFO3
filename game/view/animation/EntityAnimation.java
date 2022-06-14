@@ -1,16 +1,17 @@
-package view;
+package view.animation;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import view.animation.bank.EntityAnimationBank;
+
 public abstract class EntityAnimation extends Animation{
 	protected int x, y;
 	protected double scale;
-	protected AnimationBank ab;
+	protected EntityAnimationBank ab;
 	
-	public EntityAnimation(AnimationBank ab) {
+	public EntityAnimation() {
 		super();
-		this.ab = ab;
 		this.scale = 1F;
 	}
 	
@@ -22,6 +23,7 @@ public abstract class EntityAnimation extends Animation{
 	
 	@Override
 	public void paint (Graphics g) {
+		//if(m_sprite == null || m_fixImage == null) return;
 		BufferedImage img;
 
 		if (this.done()) {

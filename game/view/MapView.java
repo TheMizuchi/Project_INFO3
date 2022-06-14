@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import view.animation.Texture;
+
 
 public class MapView extends ViewElement {
 
