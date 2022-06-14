@@ -55,4 +55,12 @@ public abstract class EntityAnimation extends Animation{
 		m_fixImage = ab.right;
 	}
 	
+	public int getH() {
+		return m_sprite.m_height;
+	}
+	
+	public int getW() {
+		return m_sprite.m_width;
+	}
+	
 }

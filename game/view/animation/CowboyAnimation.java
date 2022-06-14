@@ -18,11 +18,4 @@ public class CowboyAnimation extends EntityAnimation {
 		m_sprite = this.cb.spin;
 		this.start();
 	}
-	
-	@Override
-	public
-	void turnLeft() {
-		this.left();
-	}
-
 }

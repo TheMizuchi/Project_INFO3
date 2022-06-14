@@ -2,9 +2,12 @@ package view;
 
 import edu.polytech.oop.collections.LinkedList;
 import view.graphicEntity.CowboyView;
+import view.graphicEntity.LightSourceView;
 
 
 public class FakeModel {
+	
+	
 
 	public static final int CowboyID = 0;
 
@@ -84,22 +87,34 @@ public class FakeModel {
 		}
 	}
 
-	class Torche {
+	class Torche implements ILightSource{
 
-		int x, y;
+		double x, y;
+		double radius;
+		LightSourceView sv;
 
 
-		public Torche (int x, int y) {
+		public Torche (int x, int y, double radius) {
 			this.x = x;
 			this.y = y;
+			this.radius = radius;
+			this.sv = new LightSourceView(this);
+			canvas.createLightSourceView(sv);
 		}
 
-		public int getPosX () {
+		@Override
+		public double getPosX () {
 			return this.x;
 		}
-
-		public int getPosY () {
+		
+		@Override
+		public double getPosY () {
 			return this.y;
+		}
+
+		@Override
+		public double getRadius () {
+			return this.radius;
 		}
 	}
 
@@ -107,7 +122,7 @@ public class FakeModel {
 	LinkedList entity;
 	Map map;
 	MyCanvas canvas;
-	Torche torch;
+	LinkedList torch;
 	double time;
 
 
@@ -115,17 +130,24 @@ public class FakeModel {
 		this.canvas = canvas;
 		this.map = new Map();
 		this.entity = new LinkedList();
-		this.torch = new Torche(12 + 25 * 5, 12 + 25 * 5);
+		this.torch = new LinkedList();
 
 		for (int i = 0; i < 121; i++) {
-			Cowboy c = new Cowboy(12 + 25 * (i % 11), 12 + 25 * ((int) (i / 11)));
+			Cowboy c = new Cowboy((i % 11)-5 , ((int) (i / 11))-5);
 			entity.insertAt(0, c);
 		}
+		
+		for (int i = 0; i<1; i++) {
+			for(int j = -1; j<2; j++) {
+				this.torch.insertAt(0, new Torche(i, j, 40));
+			}
+		}
+		
 	}
 
-	public void update () {
-		this.time += 0.001;
-		canvas.vp.setPosition(12 + 25 * 5 + 10 * Math.sin(time * 10), 12 + 25 * 5 + 10 * Math.cos(time * 10), 1 + time);
+	public void update (long elapsed) {
+		this.time += (double)(elapsed)/4000;
+		canvas.vp.setPosition(Math.sin(time * 10), Math.cos(time * 10), 1 + time);
 	}
 
 }

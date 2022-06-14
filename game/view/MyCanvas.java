@@ -7,21 +7,21 @@ import edu.polytech.oop.collections.LinkedList;
 import view.animation.bank.AnimationBank;
 import view.animation.bank.CowboyBank;
 import view.graphicEntity.CowboyView;
+import view.graphicEntity.LightSourceView;
 
 
 public class MyCanvas extends Component {
-
+	public static final int METRIC_BASE = 25;
 	private static final long serialVersionUID = 1L;
 
 	int win_h;
 	int win_w;
 	int x, y;
 	LinkedList m_entityViews;
-	TorcheView m_torche;
+	LightView m_light;
 	MapView m_map;
 	Viewport vp;
 	public FakeModel fm;
-	public static AnimationBank[] animationBank;
 
 
 	public MyCanvas (int win_w, int win_h) {
@@ -30,7 +30,7 @@ public class MyCanvas extends Component {
 		m_entityViews = new LinkedList();
 		AnimationBank.getInstance();
 		this.vp = new Viewport(win_w, win_h);
-
+		m_light = new LightView(this.win_w, this.win_h, 1);
 		this.fm = new FakeModel(this);
 		run();
 	}
@@ -48,8 +48,6 @@ public class MyCanvas extends Component {
 		System.out.println("hauteur" + res);
 		res = m_map.largeur();
 		System.out.println("largeur" + res);
-
-		m_torche = new TorcheView(960, 540, 200, this.win_w, this.win_h, 1, this.fm.torch);
 
 		vp.setPosition(0, 0, 1);
 	}
@@ -75,6 +73,10 @@ public class MyCanvas extends Component {
 		m_entityViews.insertAt(0, entity);
 	}
 
+	void createLightSourceView (ILightSource s) {
+		m_light.addLightSource(s);
+	}
+
 	void updateView () {
 		/*
 		 * TODO Demander à tous les éléments contenus dans le Viewport uniquement
@@ -90,7 +92,13 @@ public class MyCanvas extends Component {
 			e.setPosition(vp.toLocalX(e.entity.getPosX()), vp.toLocalY(e.entity.getPosY()), vp.scale);
 
 		}
-		m_torche.setPosition(vp.toLocalX(m_torche.torchModel.getPosX()), vp.toLocalY(m_torche.torchModel.getPosY()), vp.scale);
+
+		it = m_light.lightSource.iterator();
+
+		while (it.hasNext()) {
+			LightSourceView s = (LightSourceView)it.next();
+			s.setPosition(vp.toLocalX(s.getPosX()), vp.toLocalY(s.getPosY()), vp.scale, (int) (vp.scale*s.getRadius()));
+		}
 		m_map.setPosition(vp.toLocalX(0), vp.toLocalY(0), vp.scale);
 	}
 
@@ -100,17 +108,18 @@ public class MyCanvas extends Component {
 		m_map.paint(g);
 		LinkedList.Iterator it = m_entityViews.iterator();
 		int i = 0;
+
 		while (it.hasNext()) {
 			EntityView e = (EntityView) it.next();
 
-			if (vp.isInside(e.x, e.y)) {
+			if (vp.isInside(e.x, e.y, e.getW(), e.getH()) && m_light.isInside(e.x, e.y)) {
 				i++;
 				e.paint(g);
 			}
 		}
 		System.out.println("Nb d'entité dessiné : " + i);
 
-		//m_torche.paint(g);
+		//m_light.paint(g);
 
 	}
 

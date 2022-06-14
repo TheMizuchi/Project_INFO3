@@ -75,7 +75,7 @@ public class Game {
 		new MyTimer();
 
 		System.out.println("  - creating frame...");
-		Dimension d = new Dimension(1920, 1080);
+		Dimension d = new Dimension(1920, 980);
 		m_frame = m_canvas.createFrame(d);
 		my_canvas = new MyCanvas(d.width, d.height);
 		System.out.println("  - setting up the frame...");
@@ -165,7 +165,7 @@ public class Game {
 			m_text.setText(txt);
 		}
 		
-		my_canvas.fm.update();
+		my_canvas.fm.update(elapsed);
 
 	}
 
