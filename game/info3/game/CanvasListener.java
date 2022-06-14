@@ -23,6 +23,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import controller.Controller;
 import info3.game.graphics.GameCanvasListener;
 
 
@@ -41,7 +42,7 @@ public class CanvasListener implements GameCanvasListener {
 		System.out.println("Mouse clicked: (" + e.getX() + "," + e.getY() + ")");
 		System.out.println("   modifiers=" + e.getModifiersEx());
 		System.out.println("   buttons=" + e.getButton());
-		m_cont.mouseClicked (MouseEvent e);
+		m_cont.mouseClicked(e);
 	}
 
 	@Override
@@ -49,6 +50,7 @@ public class CanvasListener implements GameCanvasListener {
 		System.out.println("Mouse pressed: (" + e.getX() + "," + e.getY() + ")");
 		System.out.println("   modifiers=" + e.getModifiersEx());
 		System.out.println("   buttons=" + e.getButton());
+		m_cont.mousePressed(e);
 	}
 
 	@Override
@@ -56,6 +58,7 @@ public class CanvasListener implements GameCanvasListener {
 		System.out.println("Mouse released: (" + e.getX() + "," + e.getY() + ")");
 		System.out.println("   modifiers=" + e.getModifiersEx());
 		System.out.println("   buttons=" + e.getButton());
+		m_cont.mouseReleased(e);
 	}
 
 	@Override
@@ -63,6 +66,7 @@ public class CanvasListener implements GameCanvasListener {
 		System.out.println("Mouse entered: (" + e.getX() + "," + e.getY() + ")");
 		System.out.println("   modifiers=" + e.getModifiersEx());
 		System.out.println("   buttons=" + e.getButton());
+		m_cont.mouseEntered(e);
 	}
 
 	@Override
@@ -70,6 +74,7 @@ public class CanvasListener implements GameCanvasListener {
 		System.out.println("Mouse exited: (" + e.getX() + "," + e.getY() + ")");
 		System.out.println("   modifiers=" + e.getModifiersEx());
 		System.out.println("   buttons=" + e.getButton());
+		m_cont.mouseExited(e);
 	}
 
 	@Override
@@ -77,6 +82,7 @@ public class CanvasListener implements GameCanvasListener {
 		System.out.println("Mouse dragged: (" + e.getX() + "," + e.getY() + ")");
 		System.out.println("   modifiers=" + e.getModifiersEx());
 		System.out.println("   buttons=" + e.getButton());
+		m_cont.mouseDragged(e);
 	}
 
 	@Override
@@ -84,21 +90,25 @@ public class CanvasListener implements GameCanvasListener {
 		System.out.println("Mouse moved: (" + e.getX() + "," + e.getY() + ")");
 		System.out.println("   modifiers=" + e.getModifiersEx());
 		System.out.println("   buttons=" + e.getButton());
+		m_cont.mouseMoved(e);
 	}
 
 	@Override
 	public void keyTyped (KeyEvent e) {
 		System.out.println("Key typed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+		m_cont.keyTyped(e);
 	}
 
 	@Override
 	public void keyPressed (KeyEvent e) {
 		System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+		m_cont.keyPressed(e);
 	}
 
 	@Override
 	public void keyReleased (KeyEvent e) {
 		System.out.println("Key released: " + e.getKeyChar() + " code=" + e.getKeyCode());
+		m_cont.keyReleased(e);
 	}
 
 	@Override
