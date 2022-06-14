@@ -23,6 +23,6 @@ Mine (Init) {
 		| Cell(F, V) ? Move(F) : (Init)
 		| True ? : (Waiting)
 	* (Waiting):
-		| Key(e) ? Pop : ()
+		| Key(e) ? Pop / Hit / Power / Jump : ()
 		| True ? : (Waiting)
 }
