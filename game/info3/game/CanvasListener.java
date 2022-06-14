@@ -29,6 +29,7 @@ import info3.game.graphics.GameCanvasListener;
 public class CanvasListener implements GameCanvasListener {
 
 	Game m_game;
+	Controller m_cont;
 
 
 	CanvasListener (Game game) {
@@ -40,6 +41,7 @@ public class CanvasListener implements GameCanvasListener {
 		System.out.println("Mouse clicked: (" + e.getX() + "," + e.getY() + ")");
 		System.out.println("   modifiers=" + e.getModifiersEx());
 		System.out.println("   buttons=" + e.getButton());
+		m_cont.mouseClicked (MouseEvent e);
 	}
 
 	@Override
