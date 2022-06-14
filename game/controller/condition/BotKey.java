@@ -5,10 +5,10 @@ import controller.ICondition;
 
 public class BotKey implements ICondition {
 
-	char m_c;
+	String m_s;
 	
-	public BotKey(char c) {
-		m_c = c;
+	public BotKey(String s) {
+		m_s = s;
 	}
 	
 	@Override

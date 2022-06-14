@@ -4,6 +4,7 @@ import java.util.List;
 
 import controller.action.*;
 import controller.condition.*;
+import controller.condition.tree.*;
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 import info3.game.automata.ast.*;
@@ -53,17 +54,55 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object exit (FunCall funcall, List<Object> parameters) {
-		return parameters;
+		ICondition cond = null;
+		String p1 = "";
+		String p2 = "";
+
+		switch (parameters.size()) {
+			case 2:
+				p2 = (String) parameters.get(1);
+			case 1:
+				p1 = (String) parameters.get(0);
+			default:
+				break;
+		}
+
+		switch (funcall.name) {
+			case "True":
+				cond = new BotTrue();
+				break;
+			case "Key":
+				cond = new BotKey(p1);
+				break;
+			case "Cell":
+				cond = new BotCell(p1, p2);
+			default:
+		}
+		return cond;
 	}
 
 	@Override
 	public Object visit (BinaryOp operator, Object left, Object right) {
-		throw new RuntimeException("& and / NYI");
+
+		switch (operator.operator) {
+			case ("&"):
+				return new BotAndOp((ICondition) left, (ICondition) right);
+			case ("/"):
+				return new BotOrOp((ICondition) left, (ICondition) right);
+			default:
+				throw new RuntimeException("Un singe aurait mieux fait");
+		}
 	}
 
 	@Override
 	public Object visit (UnaryOp operator, Object expression) {
-		throw new RuntimeException("Not NYI");
+
+		switch (operator.operator) {
+			case ("!"):
+				return new BotNotOp((ICondition) expression);
+			default:
+				throw new RuntimeException("Un singe aurait mieux fait");
+		}
 	}
 
 	@Override
@@ -100,26 +139,27 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object exit (Condition condition, Object expression) {
-		condition.toString();
-		ICondition cond = null;
-		String[] str = condition.toString().split("%");
-		str[1].split("\\(");
-		List<String> l = (List<String>) expression;
-
-		switch (str[1].split("\\(")[0]) {
-			case "True":
-				cond = new BotTrue();
-				break;
-			case "Key":
-				cond = new BotKey(l.get(0).charAt(0));
-				break;
-			case "Cell":
-				cond = new BotCell();
-				break;
-			default:
-				throw new RuntimeException("NYI");
-		}
-		return cond;
+		//		condition.toString();
+		//		ICondition cond = null;
+		//		String[] str = condition.toString().split("%");
+		//		str[1].split("\\(");
+		//		List<String> l = (List<String>) expression;
+		//
+		//		switch (str[1].split("\\(")[0]) {
+		//			case "True":
+		//				cond = new BotTrue();
+		//				break;
+		//			case "Key":
+		//				cond = new BotKey(l.get(0).charAt(0));
+		//				break;
+		//			case "Cell":
+		//				cond = new BotCell();
+		//				break;
+		//			default:
+		//				throw new RuntimeException("NYI");
+		//		}
+		//		return cond;
+		return expression;
 	}
 
 	@Override
