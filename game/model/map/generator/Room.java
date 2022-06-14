@@ -39,6 +39,8 @@ public class Room {
 
 	}
 
+	public Room () {}
+
 	public int getUpperLeftX () {
 		return upperLeftX;
 	}

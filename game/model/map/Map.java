@@ -1,8 +1,10 @@
 package model.map;
 
-import java.util.ArrayList;
 import java.util.Random;
 
+import edu.polytech.oop.collections.ArrayList;
+import edu.polytech.oop.collections.ICollection.Iterator;
+import edu.polytech.oop.collections.IList;
 import model.map.generator.RectangleCollisionTEMPORAIRE;
 import model.map.generator.RectangleTEMPORAIRE;
 import model.map.generator.Room;
@@ -18,7 +20,7 @@ public class Map {
 	int height;
 
 	Case[][] grid;
-	ArrayList<Room> rooms; //Salles présentes dans l'étage
+	ArrayList rooms; //Salles présentes dans l'étage
 
 
 	public Map (World world, int w, int h, int level) {
@@ -37,51 +39,102 @@ public class Map {
 			}
 		}
 
-		for (Room r : world.rooms)
-			r.setUpperLeft(-1, -1);
+		IList.Iterator iter = (Iterator) world.rooms.iterator();
 
-		rooms = new ArrayList<Room>();
+		while (iter.hasNext()) {
+			Room r = (Room) iter.next();
+			r.setUpperLeft(-1, -1);
+		}
+
+		rooms = new ArrayList();
 
 		placeRoomsRandomly(100);
 	}
 
 	private void placeRoomsRandomly (int N) {
 		Random random = new Random();
+		Room spawnRoom = null;
 		Room bossRoom = null;
-		ArrayList<Room> keyRooms = new ArrayList<Room>();
-		ArrayList<Room> standardRooms = new ArrayList<Room>();
-		bossRoom = fillLists(keyRooms, standardRooms);
+		ArrayList keyRooms = new ArrayList();
+		ArrayList standardRooms = new ArrayList();
 
-		int k, location;
-		location = random.nextInt(4);
+		for (int i = 0; i < world.rooms.length(); i++) {
+			Room r = (Room) world.rooms.elementAt(i);
+			RoomType t = r.getType();
 
-		// On place d'abord la salle à clef
-		k = random.nextInt(keyRooms.size());
-		Room keyRoom = keyRooms.get(k);
+			switch (t) {
+				case SPAWN:
+					spawnRoom = r;
+					break;
+				case KEY:
+					keyRooms.insertAt(keyRooms.length(), r);
+					break;
+				case BOSS1:
+					if (level == 1)
+						bossRoom = r;
+					break;
+				case BOSS2:
+					if (level == 2)
+						bossRoom = r;
+					break;
+				case BOSS3:
+					if (level == 3)
+						bossRoom = r;
+					break;
+				case FIGHT:
+					standardRooms.insertAt(standardRooms.length(), r);
+					break;
+				case ENIGMA:
+					standardRooms.insertAt(standardRooms.length(), r);
+					break;
+				default:
+					throw new IllegalStateException("Unknown RoomType");
+			}
+		}
+
+		if (keyRooms.length() == 0)
+			throw new IllegalStateException("There is no key room");
+		if (standardRooms.length() == 0)
+			throw new IllegalStateException("There is no standard room");
+		if (spawnRoom == null)
+			throw new IllegalStateException("There is no spawn room");
+		if (bossRoom == null)
+			throw new IllegalStateException("There is no boss room");
+
+		//On place d'abord la salle du spawn
+		spawnRoom.setUpperLeft(width/2, height/2);
+		rooms.insertAt(rooms.length(), spawnRoom);
+		
+		int k;
+		int location = random.nextInt(4);
+
+		//Puis la salle à clef
+		k = random.nextInt(keyRooms.length());
+		Room keyRoom = (Room) keyRooms.elementAt(k);
 		placeSpecialRoom(keyRoom, location);
-		rooms.add(keyRoom);
+		rooms.insertAt(rooms.length(), keyRoom);
 
 		//Puis la salle de boss
 		placeSpecialRoom(bossRoom, (location + 2) % 4);
-		rooms.add(bossRoom);
+		rooms.insertAt(rooms.length(), bossRoom);
 
 		//Ensuite les autres salles
 		int n = 0;
-		k = random.nextInt(standardRooms.size());
-		Room room = standardRooms.get(k);
+		k = random.nextInt(standardRooms.length());
+		Room room = (Room) standardRooms.elementAt(k);
 
-		while (n < N && standardRooms.size() != 0) {
+		while (n < N && standardRooms.length() != 0) {
 			int x = random.nextInt(width - room.getWidth());
 			int y = random.nextInt(height - room.getHeight());
 			room.setUpperLeft(x, y);
 
 			if (!collision(room)) {
-				rooms.add(room);
+				rooms.insertAt(rooms.length(), room);
 				standardRooms.remove(room);
 
 				try {
-					k = random.nextInt(standardRooms.size());
-					room = standardRooms.get(k);
+					k = random.nextInt(standardRooms.length());
+					room = (Room) standardRooms.elementAt(k);
 				}
 				catch (IllegalArgumentException e) {}
 			} else {
@@ -91,7 +144,10 @@ public class Map {
 		}
 
 		//Enfin on remplit la grille
-		for (Room r : rooms) {
+		IList.Iterator iter = rooms.iterator();
+
+		while (iter.hasNext()) {
+			Room r = (Room) iter.next();
 
 			for (int i = 0; i < r.getWidth(); i++) {
 
@@ -132,59 +188,17 @@ public class Map {
 		room.setUpperLeft(x, y);
 	}
 
-	//Retourne la salle du boss
-	private Room fillLists (ArrayList<Room> keyRooms, ArrayList<Room> standardRooms) {
-		ArrayList<Room> worldRooms = world.rooms;
-		Room bossRoom = null;
-
-		for (int i = 0; i < worldRooms.size(); i++) {
-			Room r = worldRooms.get(i);
-			RoomType t = r.getType();
-
-			switch (t) {
-				case KEY:
-					keyRooms.add(r);
-					break;
-				case BOSS1:
-					if (level == 1)
-						bossRoom = r;
-					break;
-				case BOSS2:
-					if (level == 2)
-						bossRoom = r;
-					break;
-				case BOSS3:
-					if (level == 3)
-						bossRoom = r;
-					break;
-				case FIGHT:
-					standardRooms.add(r);
-					break;
-				case ENIGMA:
-					standardRooms.add(r);
-					break;
-				default:
-					throw new IllegalStateException("Unknown RoomType");
-			}
-		}
-
-		if (keyRooms.size() == 0)
-			throw new IllegalStateException("There is no key room");
-		if (standardRooms.size() == 0)
-			throw new IllegalStateException("There is no standard room");
-		if (bossRoom == null)
-			throw new IllegalStateException("There is no boss room");
-
-		return bossRoom;
-	}
-
+	//true si room a une collision avec au moins une des autres
 	private boolean collision (Room room) {
 		if (room == null)
 			return true;
 
 		int margin = 2; //Marge dans la collision pour laisser de l'espace entre les salles
 
-		for (Room r : rooms) {
+		IList.Iterator iter = rooms.iterator();
+
+		while (iter.hasNext()) {
+			Room r = (Room) iter.next();
 			int x1 = r.getUpperLeftX() - margin;
 			int y1 = r.getUpperLeftY() - margin;
 			int w1 = r.getWidth() + 2 * margin;
@@ -201,6 +215,7 @@ public class Map {
 				return true;
 			}
 		}
+
 		return false;
 	}
 
