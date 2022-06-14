@@ -1,9 +1,11 @@
-package view;
+package view.animation.bank;
 
 import java.awt.image.BufferedImage;
 
+import view.animation.Sprite;
 
-public abstract class AnimationBank {
+
+public abstract class EntityAnimationBank {
 
 	// Liste des états 
 	public Sprite turnLeft;

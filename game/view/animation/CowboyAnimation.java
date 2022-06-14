@@ -1,6 +1,6 @@
 package view.animation;
 
-import view.EntityAnimation;
+import view.animation.bank.AnimationBank;
 import view.animation.bank.CowboyBank;
 
 
@@ -8,9 +8,9 @@ public class CowboyAnimation extends EntityAnimation {
 
 	CowboyBank cb;
 	
-	public CowboyAnimation (CowboyBank ab) {
-		super(ab);
-		this.cb = ab;
+	public CowboyAnimation () {
+		super();
+		this.cb = (CowboyBank) AnimationBank.getAnimationBank(AnimationBank.COWBOYID);
 	}
 
 	public void spin () {

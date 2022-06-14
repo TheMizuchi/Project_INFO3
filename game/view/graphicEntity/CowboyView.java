@@ -1,11 +1,14 @@
 package view.graphicEntity;
 
 import java.awt.Graphics;
-import view.Animation;
-import view.Animation.AnimationListener;
+
 import view.EntityInterface;
 import view.EntityView;
+import view.MyCanvas;
+import view.animation.Animation;
 import view.animation.CowboyAnimation;
+import view.animation.Animation.AnimationListener;
+import view.animation.bank.AnimationBank;
 import view.animation.bank.CowboyBank;
 
 /*
@@ -22,13 +25,10 @@ public class CowboyView extends EntityView {
 	boolean left;
 
 
-	public CowboyView (int x, int y, double scale, EntityInterface e, CowboyBank cb) {
-		super(x, y, scale, e);
-		this.x = x;
-		this.y = y;
-		this.scale = scale;
+	public CowboyView (EntityInterface e) {
+		super(0, 0, 1, e);
 		this.left = false;
-		this.a = new CowboyAnimation(cb);
+		this.a = new CowboyAnimation();
 		a.setPosition(x, y, scale);
 		this.al = new AnimationListener() {
 
@@ -37,6 +37,7 @@ public class CowboyView extends EntityView {
 
 			}
 		};
+		this.spin();
 	}
 
 	@Override
