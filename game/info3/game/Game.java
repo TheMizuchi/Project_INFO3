@@ -30,6 +30,7 @@ import javax.swing.JLabel;
 
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
+import model.Model;
 
 
 public class Game {
@@ -56,6 +57,7 @@ public class Game {
 	CanvasListener m_listener;
 	Cowboy m_cowboy;
 	Sound m_music;
+	Model m_m;
 
 
 	Game () throws Exception {
@@ -69,6 +71,8 @@ public class Game {
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
+		
+		m_m = Model.getInstance(); 
 
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
@@ -160,6 +164,7 @@ public class Game {
 			txt = txt + fps + " fps   ";
 			m_text.setText(txt);
 		}
+		m_m.update(elapsed);
 	}
 
 	/*
