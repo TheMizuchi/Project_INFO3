@@ -8,13 +8,12 @@ import view.EntityView;
 import view.Animation.AnimationListener;
 
 public class BalloonView extends EntityView {
+	
 	AnimationListener al;
 	BalloonAnimation a;
 
-	public BalloonView (int x, int y, double scale, EntityInterface e, BalloonBank bb) {
-		super(x, y, scale, e);
-		this.x = x;
-		this.y = y;
+	public BalloonView (EntityInterface e) {
+		super(0, 0, 1, e);
 		this.a = new BalloonAnimation(bb);
 		a.setPosition(x, y, scale);
 		this.al = new AnimationListener() {
