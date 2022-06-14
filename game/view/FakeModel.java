@@ -5,8 +5,9 @@ import view.graphicEntity.CowboyView;
 
 
 public class FakeModel {
-	
+
 	public static final int CowboyID = 0;
+
 
 	class Cowboy implements EntityInterface {
 
@@ -124,7 +125,7 @@ public class FakeModel {
 
 	public void update () {
 		this.time += 0.001;
-		canvas.vp.setPosition(12 + 25 * 5 + 10 * Math.sin(time*10), 12 + 25 * 5 + 10 * Math.cos(time*10), 1 + time);
+		canvas.vp.setPosition(12 + 25 * 5 + 10 * Math.sin(time * 10), 12 + 25 * 5 + 10 * Math.cos(time * 10), 1 + time);
 	}
 
 }

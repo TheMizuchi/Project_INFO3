@@ -101,7 +101,9 @@ public class MyCanvas extends Component {
 		LinkedList.Iterator it = m_entityViews.iterator();
 
 		while (it.hasNext()) {
-			((EntityView) it.next()).paint(g);
+			EntityView e = (EntityView) it.next();
+			if()
+				e.paint(g);
 		}
 
 		m_torche.paint(g);
