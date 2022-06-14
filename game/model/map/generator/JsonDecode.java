@@ -34,35 +34,33 @@ public class JsonDecode {
 		int width, height;
 		Case comp[][];
 		int type;
-		JSONObject room, firstColumn;
-		Object[] roomInfos, firstColumnInfos;
-		JSONArray columns, firstColumnRows;
+		JSONObject room, firstRow;
+		Object[] roomInfos, firstRowInfos;
+		JSONArray rows, firstRowColumns;
 
 		room = (JSONObject) rooms.get(roomID);
 		roomInfos = room.values().toArray();
-		type = ((Long) roomInfos[1]).intValue();
-		columns = (JSONArray) roomInfos[0];
-		width = columns.size();
+		type = ((Long) roomInfos[0]).intValue();
+		rows = (JSONArray) roomInfos[1];
+		height = rows.size();
 
-		firstColumn = (JSONObject) columns.get(0);
-		firstColumnInfos = firstColumn.values().toArray();
-		firstColumnRows = (JSONArray) firstColumnInfos[0];
-		height = firstColumnRows.size();
+		firstRow = (JSONObject) rows.get(0);
+		firstRowInfos = firstRow.values().toArray();
+		firstRowColumns = (JSONArray) firstRowInfos[0];
+		width = firstRowColumns.size();
 
 		comp = new Case[width][height];
 
-		for (int i = 0; i < width; i++) {
-			JSONObject column = (JSONObject) columns.get(i);
-			Object[] columnInfos = column.values().toArray();
-			JSONArray columnRows = (JSONArray) columnInfos[0];
-			if (columnRows.size() != height)
-				throw new IllegalStateException("Wrong row size for room[" + roomID + "] at colmun[" + i + "]");
+		for (int j = 0; j < height; j++) {
+			JSONObject row = (JSONObject) rows.get(j);
+			Object[] rowInfos = row.values().toArray();
+			JSONArray rowColumns = (JSONArray) rowInfos[0];
+			if (rowColumns.size() != width)
+				throw new IllegalStateException("Wrong column size for room[" + roomID + "] at row[" + j + "]");
 
-			for (int j = 0; j < height; j++) {
-				JSONObject tile = (JSONObject) columnRows.get(j);
-				Object[] tileInfos = tile.values().toArray();
-				Case tuile = new Case(((Long) tileInfos[0]).intValue());
-				comp[i][j] = tuile;
+			for (int i = 0; i < width; i++) {
+				Case tile = new Case(((Long) rowColumns.get(i)).intValue());
+				comp[i][j] = tile;
 			}
 		}
 		return new Room(width, height, comp, type);

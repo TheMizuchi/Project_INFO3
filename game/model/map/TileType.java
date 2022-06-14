@@ -2,7 +2,7 @@ package model.map;
 
 public enum TileType {
 
-	WALL(0), VOID(1);
+	WALL(0), FLOOR(1), SOMETHING(2), SOMETHING_ELSE(3), VOID(4);
 
 
 	private int id;
