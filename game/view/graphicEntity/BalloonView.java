@@ -2,19 +2,25 @@ package view.graphicEntity;
 
 import java.awt.Graphics;
 
-import view.Animation;
 import view.EntityInterface;
 import view.EntityView;
-import view.Animation.AnimationListener;
+import view.MyCanvas;
+import view.animation.Animation;
+import view.animation.BalloonAnimation;
+import view.animation.Animation.AnimationListener;
+import view.animation.bank.AnimationBank;
+import view.animation.bank.BalloonBank;
+
 
 public class BalloonView extends EntityView {
-	
+
 	AnimationListener al;
 	BalloonAnimation a;
 
+
 	public BalloonView (EntityInterface e) {
 		super(0, 0, 1, e);
-		this.a = new BalloonAnimation(bb);
+		this.a = new BalloonAnimation();
 		a.setPosition(x, y, scale);
 		this.al = new AnimationListener() {
 
@@ -23,9 +29,9 @@ public class BalloonView extends EntityView {
 
 			}
 		};
-		
+
 	}
-	
+
 	@Override
 	public void setPosition (int x, int y, double scale) {
 		this.x = x;
@@ -37,7 +43,7 @@ public class BalloonView extends EntityView {
 	@Override
 	public void paint (Graphics g) {
 		a.paint(g);
-		
+
 	}
 
 }

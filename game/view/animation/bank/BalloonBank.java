@@ -1,5 +1,7 @@
 package view.animation.bank;
 
+import java.awt.image.BufferedImage;
+
 import view.animation.Sprite;
 
 
@@ -9,8 +11,9 @@ public class BalloonBank extends EntityAnimationBank {
 
 
 	private BalloonBank () {
-		loadSpecificAnimation();
-		loadBasicAnimation();
+		Sprite spriteFile = Sprite.loadSprite(null, 0, 0);
+		loadSpecificAnimation(spriteFile);
+		loadBasicAnimation(spriteFile);
 	}
 
 
@@ -26,17 +29,14 @@ public class BalloonBank extends EntityAnimationBank {
 	}
 
 	@Override
-	protected void loadBasicAnimation () {
-		BufferedImage[] basic = new BuffuredImage[1];
-		
-		this.left = this.turnLeft.m_images[0];
-		this.right = this.turnRight.m_images[0];
+	protected void loadSpecificAnimation (Sprite spriteFile) {
+		this.explode = spriteFile;
 
 	}
 
 	@Override
-	protected void loadSpecificAnimation () {
-		// TODO Auto-generated method stub
+	protected void loadBasicAnimation (Sprite spriteFile) {
+		//Dépend du sprite que l'on va trouver.
 
 	}
 
