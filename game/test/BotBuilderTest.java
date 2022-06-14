@@ -21,7 +21,8 @@ public class BotBuilderTest {
 	}
 
 	public static void main (String[] args) throws Exception {
-		BotBuilder bb = new BotBuilder();
+		BotBuilder bb = BotBuilder.getInstance();
+		BotBuilder bb2 = BotBuilder.getInstance();
 
 		AST ast = from_file("game/test/TestAutomata.gal");
 		ast.accept(bb);

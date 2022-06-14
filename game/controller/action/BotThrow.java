@@ -3,13 +3,10 @@ package controller.action;
 import controller.IAction;
 
 
-public class BotThrow implements IAction {
+public class BotThrow extends IAction {
 
+	public BotThrow () {}
 
-	public BotThrow () {
-	}
-
-	@Override
 	public boolean apply () {
 		throw new RuntimeException("NYI");
 	}

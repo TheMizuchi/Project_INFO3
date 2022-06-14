@@ -8,7 +8,6 @@ import edu.polytech.oop.collections.LinkedList;
 public class BotAutomata {
 
 	String m_name;
-	BotState m_current_state;
 	BotState m_initial_state;
 	IList m_states;
 

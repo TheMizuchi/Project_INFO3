@@ -3,7 +3,7 @@ package controller.action;
 import controller.IAction;
 
 
-public class BotMove implements IAction {
+public class BotMove extends IAction {
 
 	String m_s;
 
@@ -12,7 +12,6 @@ public class BotMove implements IAction {
 		m_s = s;
 	}
 
-	@Override
 	public boolean apply () {
 		throw new RuntimeException("NYI");
 	}

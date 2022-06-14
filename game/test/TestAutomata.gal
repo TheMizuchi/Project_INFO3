@@ -3,9 +3,14 @@ TestTreeCond (Init) {
 		| (Key(z) & Key(d)) / !(Key(q)) ? : (Init)
 }
 
+TestActionMultiple (Init) {
+	* (Init):
+		| True ? 40%Move(F) / Move / Move : (Init)
+}
+
 Test1 (Init) {
 	* (Init):
-		| Key(z) ? Move(N) / Attaque : (Moving)
+		| Key(z) ? Move(N) / Move(N) : (Moving)
 		| Key(q) ? Move(W) : (Moving)
 		| Key(s) ? Move(S) : (Moving)
 		| Key(d) ? Move(E) : (Moving)

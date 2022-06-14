@@ -1,7 +1,10 @@
 package controller;
 
-public interface IAction {
+public abstract class IAction {
 
-	abstract boolean apply ();
+	protected int percent;
+
+
+	public abstract boolean apply ();
 
 }

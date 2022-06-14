@@ -3,7 +3,7 @@ package controller.action;
 import controller.IAction;
 
 
-public class BotWizz implements IAction {
+public class BotWizz extends IAction {
 
 	public BotWizz () {
 
@@ -17,7 +17,6 @@ public class BotWizz implements IAction {
 
 	}
 
-	@Override
 	public boolean apply () {
 		throw new RuntimeException("NYI");
 	}

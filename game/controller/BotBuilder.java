@@ -9,17 +9,51 @@ import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 import info3.game.automata.ast.*;
 
-// Pour l'instant le builder ne gére qu'une seule action par transition et ne
-// gére pas les probas
-
 
 public class BotBuilder implements IVisitor {
+
+	/** Constructeur privé */
+	private BotBuilder () {}
+
+
+	/** Instance unique non préinitialisée */
+	private static BotBuilder INSTANCE = null;
+
+
+	/** Point d'accès pour l'instance unique du singleton */
+	public static BotBuilder getInstance () {
+
+		if (INSTANCE == null) {
+			INSTANCE = new BotBuilder();
+		}
+		return INSTANCE;
+	}
+
 
 	private BotAutomata m_bot;
 
 
-	public BotAutomata getAutomata () {
-		return m_bot;
+	private ICondition getCond (Object expression) {
+
+		if (expression instanceof BotFunCall) {
+			BotFunCall fc = (BotFunCall) expression;
+			ICondition cond = null;
+
+			switch (fc.m_name) {
+				case "True":
+					cond = new BotTrue();
+					break;
+				case "Key":
+					cond = new BotKey(fc.m_p1);
+					break;
+				case "Cell":
+					cond = new BotCell(fc.m_p1, fc.m_p2);
+				default:
+			}
+			return cond;
+		} else {
+			return (ICondition) expression;
+		}
 	}
 
 	// IVisitor
@@ -54,7 +88,6 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object exit (FunCall funcall, List<Object> parameters) {
-		ICondition cond = null;
 		String p1 = "";
 		String p2 = "";
 
@@ -66,29 +99,20 @@ public class BotBuilder implements IVisitor {
 			default:
 				break;
 		}
+		return new BotFunCall(funcall.name, p1, p2, funcall.percent);
 
-		switch (funcall.name) {
-			case "True":
-				cond = new BotTrue();
-				break;
-			case "Key":
-				cond = new BotKey(p1);
-				break;
-			case "Cell":
-				cond = new BotCell(p1, p2);
-			default:
-		}
-		return cond;
 	}
 
 	@Override
 	public Object visit (BinaryOp operator, Object left, Object right) {
+		ICondition lcond = getCond(left);
+		ICondition rcond = getCond(right);
 
 		switch (operator.operator) {
 			case ("&"):
-				return new BotAndOp((ICondition) left, (ICondition) right);
+				return new BotAndOp(lcond, rcond);
 			case ("/"):
-				return new BotOrOp((ICondition) left, (ICondition) right);
+				return new BotOrOp(lcond, rcond);
 			default:
 				throw new RuntimeException("Un singe aurait mieux fait");
 		}
@@ -99,7 +123,7 @@ public class BotBuilder implements IVisitor {
 
 		switch (operator.operator) {
 			case ("!"):
-				return new BotNotOp((ICondition) expression);
+				return new BotNotOp(getCond(expression));
 			default:
 				throw new RuntimeException("Un singe aurait mieux fait");
 		}
@@ -139,27 +163,7 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object exit (Condition condition, Object expression) {
-		//		condition.toString();
-		//		ICondition cond = null;
-		//		String[] str = condition.toString().split("%");
-		//		str[1].split("\\(");
-		//		List<String> l = (List<String>) expression;
-		//
-		//		switch (str[1].split("\\(")[0]) {
-		//			case "True":
-		//				cond = new BotTrue();
-		//				break;
-		//			case "Key":
-		//				cond = new BotKey(l.get(0).charAt(0));
-		//				break;
-		//			case "Cell":
-		//				cond = new BotCell();
-		//				break;
-		//			default:
-		//				throw new RuntimeException("NYI");
-		//		}
-		//		return cond;
-		return expression;
+		return getCond(expression);
 	}
 
 	@Override
@@ -167,80 +171,35 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object exit (Action action, List<Object> funcalls) {
-		IList actions = new LinkedList(); // Devra être une liste d'action plus tard
+		IList actions = new LinkedList();
+
+		IAction act = null;
 
 		if (action.calls.isEmpty()) {
 			actions.insertAt(0, new BotNone());
 		} else {
 
-			for (FunCall call : action.calls) {
+			for (Object obj : funcalls) {
+				BotFunCall call = (BotFunCall) obj;
 
-				switch (call.name) {
-					case ("Move"):
-						if (call.parameters.size() == 0) {
-							actions.insertAt(actions.length(), new BotMove("F"));
-						} else {
-							actions.insertAt(actions.length(), new BotMove(call.parameters.get(0).toString()));
-						}
-						// est-ce que Move(Arg, Arg) vas exister (avec 2 infos en paramètre) ?
+				switch (call.m_name) {
+					case "Move":
+						act = new BotMove(call.m_p1);
 						break;
-					case ("Pop"):
-						if (call.parameters.size() == 0) {
-							actions.insertAt(actions.length(), new BotPop());
-						} else if (call.parameters.size() == 1) {
-							actions.insertAt(actions.length(), new BotPop(call.parameters.get(0).toString()));
-						} else {
-							actions.insertAt(actions.length(), new BotPop(call.parameters.get(0).toString(), call.parameters.get(1).toString()));
-						}
+					case "Pop":
+						act = new BotPop(call.m_p1);
 						break;
-					case ("Wizz"):
-						if (call.parameters.size() == 0) {
-							actions.insertAt(actions.length(), new BotWizz());
-						} else if (call.parameters.size() == 1) {
-							actions.insertAt(actions.length(), new BotWizz(call.parameters.get(0).toString()));
-						} else {
-							actions.insertAt(actions.length(), new BotWizz(call.parameters.get(0).toString(), call.parameters.get(1).toString()));
-						}
+					case "Hit":
+						act = new BotHit(call.m_p1);
 						break;
-					case ("Hit"):
-						actions.insertAt(actions.length(), new BotHit());
+					case "Power":
+						act = new BotPower();
 						break;
-					case ("Jump"):
-						actions.insertAt(actions.length(), new BotJump());
+					case "Jump":
+						act = new BotJump();
 						break;
-					case ("Explode"):
-						actions.insertAt(actions.length(), new BotExplode());
-						break;
-					case ("Egg"):
-						actions.insertAt(actions.length(), new BotEgg());
-						break;
-					case ("Get"):
-						actions.insertAt(actions.length(), new BotGet());
-						break;
-					case ("Pick"):
-						actions.insertAt(actions.length(), new BotPick());
-						break;
-					case ("Power"):
-						actions.insertAt(actions.length(), new BotPower());
-						break;
-					case ("Protect"):
-						actions.insertAt(actions.length(), new BotProtect());
-						break;
-					case ("Store"):
-						actions.insertAt(actions.length(), new BotStore());
-						break;
-					case ("Turn"):
-						actions.insertAt(actions.length(), new BotTurn());
-						break;
-					case ("Throw"):
-						actions.insertAt(actions.length(), new BotThrow());
-						break;
-					case ("Wait"):
-						actions.insertAt(actions.length(), new BotWait());
-						break;
-					default:
-						throw new RuntimeException("Action non reconnue");
 				}
+				actions.insertAt(0, act);
 			}
 		}
 		return actions;
@@ -258,7 +217,6 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object exit (Automaton automaton, Object initial_state, List<Object> modes) {
-		m_bot.m_current_state = (BotState) initial_state;
 		m_bot.m_initial_state = (BotState) initial_state;
 		return m_bot;
 	}

@@ -3,9 +3,8 @@ package controller.action;
 import controller.IAction;
 
 
-public class BotNone implements IAction {
+public class BotNone extends IAction {
 
-	@Override
 	public boolean apply () {
 		throw new RuntimeException("NYI");
 	}
