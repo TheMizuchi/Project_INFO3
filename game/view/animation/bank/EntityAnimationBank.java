@@ -19,6 +19,6 @@ public abstract class EntityAnimationBank {
 		
 	}
 	
-	protected abstract void loadBasicAnimation(); // load sprite to fill field in this class
-	protected abstract void loadSpecificAnimation(); // load sprite to fill field in the concrete class that extends this one
+	protected abstract void loadBasicAnimation(Sprite spriteFile); // load sprite to fill field in this class
+	protected abstract void loadSpecificAnimation(Sprite spriteFile); // load sprite to fill field in the concrete class that extends this one
 }

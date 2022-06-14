@@ -12,9 +12,9 @@ public class CowboyBank extends EntityAnimationBank {
 
 
 	private CowboyBank () {
-
-		loadSpecificAnimation();
-		loadBasicAnimation();
+		Sprite spriteFile = Sprite.loadSprite("resources/winchester-4x6.png", 4, 6);
+		loadBasicAnimation(spriteFile);
+		loadSpecificAnimation(spriteFile);
 
 	}
 
@@ -31,7 +31,7 @@ public class CowboyBank extends EntityAnimationBank {
 	}
 
 	@Override
-	protected void loadBasicAnimation () {
+	protected void loadBasicAnimation (Sprite spriteFile) {
 		BufferedImage[] turnLeftTab = new BufferedImage[13];
 
 		for (int i = 12; i >= 0; i--) {
@@ -51,8 +51,8 @@ public class CowboyBank extends EntityAnimationBank {
 	}
 
 	@Override
-	protected void loadSpecificAnimation () {
-		this.spin = Sprite.loadSprite("resources/winchester-4x6.png", 4, 6);
+	protected void loadSpecificAnimation (Sprite spriteFile) {
+		this.spin = spriteFile;
 	}
 
 }
