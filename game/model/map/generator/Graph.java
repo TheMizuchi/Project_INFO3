@@ -10,85 +10,6 @@ public class Graph {
 	int nbn;
 
 
-	private class Node {
-
-		Room content;
-		int mid_x;
-		int mid_y;
-		int nba;
-		IList ListArc;
-
-
-		Node (Room r) {
-			content = r;
-			mid_x = r.getUpperLeftX() + (r.getWidth() / 2);
-			mid_y = r.getUpperLeftY() + (r.getHeight() / 2);
-			ListArc = new ArrayList();
-		}
-
-		Node (int x, int y) {
-			content = null;
-			mid_x = x;
-			mid_y = y;
-			ListArc = new ArrayList();
-		}
-
-		int numberArcs () {
-			return nba;
-		}
-
-		void addArc (Arc a) {
-			ListArc.insertAt(0, a);
-			nba++;
-		}
-
-	}
-
-	private class Arc {
-
-		Room dest1;
-		Room dest2;
-
-
-		Arc (Node n1, Node n2) {
-			dest1 = n1.content;
-			dest2 = n2.content;
-
-			n1.addArc(this);
-			n2.addArc(this);
-
-		}
-
-	}
-
-	private class Triangle {
-
-		Node A;
-		Node B;
-		Node C;
-		Arc AB;
-		Arc AC;
-		Arc BC;
-		boolean done;
-
-
-		Triangle (Node a, Node b, Node c) {
-			A = a;
-			B = b;
-			C = c;
-			AB = new Arc(A, B);
-			AC = new Arc(A, C);
-			BC = new Arc(B, C);
-			done = false;
-		}
-
-		boolean containsPoints (IList nodes) {
-			//TODO
-			return false;
-		}
-	}
-
-
 	Graph (IList rooms) {
 		int l = rooms.length();
 		ListNode = new ArrayList();
@@ -139,7 +60,7 @@ public class Graph {
 		return new Triangle(A, B, C);
 	}
 
-	void delaunay () {
+	void delaunay (IList nodes, int nbn) {
 
 		Triangle supertriangle = supertri(getPosXMax(), getPosYMax(), 1);
 
@@ -148,11 +69,35 @@ public class Graph {
 
 		for (int i = 0; i < nbn; i++) {
 
+			Node n = (Node) nodes.elementAt(i);
+
 			IList englobant = new ArrayList();
 			IList suppress = new ArrayList();
 
-			for (int t = 0; t < triangles.length(); i++) {
+			Triangle tri;
 
+			for (int t = 0; t < triangles.length(); t++) {
+				tri = (Triangle) triangles.elementAt(i);
+
+				if (tri.containsPoint(n)) {
+					suppress.insertAt(0, tri);
+
+					englobant.insertAt(0, new Arc(tri.A, tri.B));
+					englobant.insertAt(0, new Arc(tri.A, tri.C));
+					englobant.insertAt(0, new Arc(tri.C, tri.B));
+				}
+			}
+
+			for (int ts = 0; ts < suppress.length(); ts++) {
+				triangles.remove(suppress.elementAt(i));
+			}
+
+			for (int ar = 0; ar < englobant.length(); ar++) {
+				Node Pt1 = ((Arc) englobant.elementAt(i)).dest1;
+				Node Pt2 = ((Arc) englobant.elementAt(i)).dest2;
+
+				Triangle newTri = new Triangle(Pt1, Pt2, n);
+				triangles.insertAt(0, newTri);
 			}
 		}
 

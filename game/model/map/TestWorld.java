@@ -15,7 +15,7 @@ public class TestWorld {
 	public static void main (String[] args) throws ParseException, IOException {
 		World w = new World("resources/rooms.json");
 		Map m = new Map(w, 100, 100, 1);
-		Frame f = new Frame(w, m);
+		new Frame(w, m);
 	}
 
 }
@@ -23,6 +23,7 @@ public class TestWorld {
 
 class Frame extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	World w;
 	Map m;
 	Panel p;
@@ -44,6 +45,7 @@ class Frame extends JFrame {
 
 class Panel extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	World w;
 	Map m;
 

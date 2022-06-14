@@ -19,7 +19,6 @@ public class Map {
 
 	Case[][] grid;
 	ArrayList<Room> rooms; //Salles présentes dans l'étage
-	private ArrayList<Room> keyRooms;
 
 
 	public Map (World world, int w, int h, int level) {
