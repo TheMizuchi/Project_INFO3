@@ -11,8 +11,9 @@ public class Entity {
 
 	//
 
-	Entity(double x, double y, int ID) {
+	public Entity(double x, double y, int ID) {
 		m_ID = ID;
+		m_orientation = new Direction(); 
 		m_hitbox = new Hitbox(x, y, 0.5, 0.5);
 	}
 

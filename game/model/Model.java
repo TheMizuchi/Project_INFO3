@@ -14,10 +14,11 @@ public class Model {
 
 	private Model() {
 		m_listeEntity = new LinkedList();
+		createEntity(); 
 	}
 
 	public static Model getInstance() {
-		if (m_instance != null)
+		if (m_instance == null)
 			m_instance = new Model();
 		return m_instance;
 	}
@@ -32,6 +33,10 @@ public class Model {
 				entity.update();
 			}
 		}
+	}
+	
+	private void createEntity() {
+		m_listeEntity.insertAt(0,new Entity(1,1,0));
 	}
 
 }
