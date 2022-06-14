@@ -1,23 +1,15 @@
 package controller.action;
 
 import controller.IAction;
+import model.entity.Entity;
 
 
 public class BotWizz extends IAction {
 
-	public BotWizz () {
+	public BotWizz () {}
 
-	}
-
-	public BotWizz (String param) {
-
-	}
-
-	public BotWizz (String param1, String param2) {
-
-	}
-
-	public boolean apply () {
+	@Override
+	public boolean apply (Entity e) {
 		throw new RuntimeException("NYI");
 	}
 

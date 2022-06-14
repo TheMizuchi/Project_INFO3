@@ -1,13 +1,15 @@
 package controller.action;
 
 import controller.IAction;
+import model.entity.Entity;
 
 
 public class BotJump extends IAction {
 
 	public BotJump () {}
 
-	public boolean apply () {
+	@Override
+	public boolean apply (Entity e) {
 		throw new RuntimeException("NYI");
 	}
 

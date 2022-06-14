@@ -1,23 +1,15 @@
 package controller.action;
 
 import controller.IAction;
+import model.entity.Entity;
 
 
 public class BotPop extends IAction {
 
-	public BotPop () {
+	public BotPop () {}
 
-	}
-
-	public BotPop (String param) {
-
-	}
-
-	public BotPop (String param1, String param2) {
-
-	}
-
-	public boolean apply () {
+	@Override
+	public boolean apply (Entity e) {
 		throw new RuntimeException("NYI");
 	}
 

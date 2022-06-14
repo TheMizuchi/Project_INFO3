@@ -30,11 +30,12 @@ import info3.game.graphics.GameCanvasListener;
 public class CanvasListener implements GameCanvasListener {
 
 	Game m_game;
-	Controller m_cont;
+	public Controller m_cont;
 
 
 	CanvasListener (Game game) {
 		m_game = game;
+		m_cont = Controller.getInstance();
 	}
 
 	@Override

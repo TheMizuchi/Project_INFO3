@@ -2,15 +2,64 @@ package controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+import edu.polytech.oop.collections.IList;
+import edu.polytech.oop.collections.LinkedList;
+import info3.game.automata.ast.AST;
+import info3.game.automata.parser.AutomataParser;
+import model.Model;
 
 
 public class Controller {
 
 	Model m_model;
+	IList m_auts;
 
 
-	Controller (Model model) {
-		m_model = model;
+	private Controller () {
+		m_auts = new LinkedList();
+		BotBuilder bb = BotBuilder.getInstance();
+
+		try {
+			AST ast = from_file("resources/Automata/MoveFoward.gal");
+			m_auts.insertAt(0, ((IList) ast.accept(bb)).elementAt(0));
+		}
+		catch (Exception ex) {
+			throw new RuntimeException("Le fichier n'existe pas");
+		}
+
+	}
+
+	public void setModel () {
+		m_model = Model.getInstance();
+	}
+
+
+	private static Controller INSTANCE = null;
+
+
+	public static Controller getInstance () {
+
+		if (INSTANCE == null) {
+			INSTANCE = new Controller();
+		}
+		return INSTANCE;
+	}
+
+	public static AST from_file (String path_file) throws Exception {
+		AST ast = new AutomataParser(new BufferedReader(new FileReader(path_file))).Run();
+		return ast;
+	}
+
+	public static AST from_string (String input) throws Exception {
+		AST ast = new AutomataParser(new java.io.StringReader(input)).Run();
+		return ast;
+	}
+
+	public BotAutomata getAut (int id) {
+		return (BotAutomata) m_auts.elementAt(id);
 	}
 
 	public void mouseClicked (MouseEvent e) {}

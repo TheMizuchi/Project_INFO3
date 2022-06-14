@@ -1,13 +1,15 @@
 package controller.action;
 
 import controller.IAction;
+import model.entity.Entity;
 
 
 public class BotProtect extends IAction {
 
 	public BotProtect () {}
 
-	public boolean apply () {
+	@Override
+	public boolean apply (Entity e) {
 		throw new RuntimeException("NYI");
 	}
 

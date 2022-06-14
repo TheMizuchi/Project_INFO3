@@ -1,19 +1,21 @@
-package test;
+package controller.test;
 
 import controller.BotAutomata;
 import controller.BotState;
 import controller.BotTransition;
 import controller.action.BotMove;
 import controller.condition.BotTrue;
+import model.entity.Entity;
 
 
 public class BotTestAutomate {
 
 	public static void main (String args[]) {
 		BotState init = new BotState("init");
-		BotState etat2 = new BotState("etat2");
 		BotAutomata B2 = new BotAutomata("pouet");
-		B2.add_state(etat2);
+		B2.add_state("etat2");
+
+		Entity e = new Entity(0, 0, 0);
 
 		/*
 		 * BotTransition transi = new BotTransition(new BotTrue(), new BotMove("N"),
@@ -27,7 +29,7 @@ public class BotTestAutomate {
 		 * etat2.add_transition(transi5);
 		 */
 		while (true) {
-			B2.step();
+			e.update();
 		}
 
 		//System.out.println("zer");

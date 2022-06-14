@@ -1,19 +1,23 @@
 package controller;
 
+import model.entity.Entity;
+
 
 public class RefAutomata {
+
 	Entity m_e;
 	BotAutomata m_aut;
 	BotState m_current_state;
-	
-	public RefAutomata(Entity e, BotAutomata aut) {
+
+
+	public RefAutomata (Entity e) {
 		m_e = e;
-		Controller cont = Controller.getController();
-		m_aut = cont.auts[m_e.getId()];
-		m_current_state = aut.m_initial_state;
+		Controller cont = Controller.getInstance();
+		m_aut = cont.getAut(m_e.m_ID);
+		m_current_state = m_aut.m_initial_state;
 	}
-	
-	public boolean step() {
-		m_aut.step(m_e);
+
+	public void step () {
+		m_aut.step(m_e, m_current_state);
 	}
 }

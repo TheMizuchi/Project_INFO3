@@ -1,13 +1,15 @@
 package controller.action;
 
 import controller.IAction;
+import model.entity.Entity;
 
 
 public class BotPick extends IAction {
 
 	public BotPick () {}
 
-	public boolean apply () {
+	@Override
+	public boolean apply (Entity e) {
 		throw new RuntimeException("NYI");
 	}
 

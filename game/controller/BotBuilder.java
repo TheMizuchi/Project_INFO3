@@ -12,15 +12,12 @@ import info3.game.automata.ast.*;
 
 public class BotBuilder implements IVisitor {
 
-	/** Constructeur privé */
 	private BotBuilder () {}
 
 
-	/** Instance unique non préinitialisée */
 	private static BotBuilder INSTANCE = null;
 
 
-	/** Point d'accès pour l'instance unique du singleton */
 	public static BotBuilder getInstance () {
 
 		if (INSTANCE == null) {
@@ -187,10 +184,10 @@ public class BotBuilder implements IVisitor {
 						act = new BotMove(call.m_p1);
 						break;
 					case "Pop":
-						act = new BotPop(call.m_p1);
+						act = new BotPop();
 						break;
 					case "Hit":
-						act = new BotHit(call.m_p1);
+						act = new BotHit();
 						break;
 					case "Power":
 						act = new BotPower();

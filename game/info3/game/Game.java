@@ -71,8 +71,9 @@ public class Game {
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
-		
-		m_m = Model.getInstance(); 
+
+		m_m = Model.getInstance();
+		m_listener.m_cont.setModel();
 
 		System.out.println("  - creating frame...");
 		Dimension d = new Dimension(1024, 768);
