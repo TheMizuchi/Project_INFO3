@@ -83,7 +83,7 @@ Centrée sur les 2 joueurs, La caméra s'agrandit quand les joueurs s'éloignent
 
 ## Menu (Contrainte chargement des automates)
 
-Tous les automates sont stockés dans des fichiers dans le même dossier. Au lancement du jeu, le jeu nous demandes de choisir les automates à effecter pour chacune des entités.
+Tous les automates sont stockés dans des fichiers dans un même dossier. Au lancement du jeu, le jeu nous demande de choisir les automates à affecter pour chacune des entités.
 
 ## ATH
 
