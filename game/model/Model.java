@@ -13,7 +13,8 @@ import model.map.World;
 import view.MyCanvas;
 
 public class Model {
-
+	
+	// Constante pour définir les ID des entités
 	public static final int COWBOY_ID = 0;
 	public static final int J1_ID = 1;
 	public static final int J2_ID = 2;
@@ -23,13 +24,17 @@ public class Model {
 	public static final int DART_MONKEY_ID = 6;
 
 	public static final int ENTITY_NUMBER = 7;
-
-	private int m_time_passed;
-	private LinkedList m_listeEntity;
-	private LinkedList m_listeLight;
+	
+	// Référence MVC
 	private static Model m_instance = null;
 	private Controller m_cont;
 	private MyCanvas m_canvas;
+	
+	
+	
+	private int m_time_passed;
+	private LinkedList m_listeEntity;
+	private LinkedList m_listeLight;
 	private World m_w;
 	private Map m_map;
 

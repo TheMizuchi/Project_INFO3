@@ -175,8 +175,6 @@ public class Game {
 			m_text.setText(txt);
 		}
 
-		//my_canvas.fm.update(elapsed);
-
 		m_m.update(elapsed);
 	}
 
