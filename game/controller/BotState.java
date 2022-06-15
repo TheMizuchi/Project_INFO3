@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.Random;
+
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 import model.entity.Entity;
@@ -17,18 +19,29 @@ public class BotState {
 		m_transitions.iterator();
 	}
 
-	public BotState step (Entity e) {
+	public BotState step (Entity e, BotAutomata aut) {
 		IList.Iterator iter = m_transitions.iterator();
-		BotTransition transi;
-		BotState res;
-		transi = (BotTransition) iter.next();
-		res = transi.eval(e);
+		BotState state = null;
 
-		while (res == null) {
-			transi = (BotTransition) iter.next();
-			res = transi.eval(e);
+		while (iter.hasNext()) {
+			state = ((BotTransition) iter.next()).eval(e);
+
+			if (state != null) {
+				break;
+			}
 		}
-		return res;
+
+		if (state == null) {
+			return this;
+		} else {
+
+			while (state.m_name.equals("_")) {
+				Random ran = new Random();
+				state = (BotState) aut.m_states.elementAt(ran.nextInt(aut.m_states.length()));
+			}
+			return state;
+
+		}
 	}
 
 	public void add_transition (BotTransition transi) {

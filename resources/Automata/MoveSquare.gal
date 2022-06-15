@@ -1,0 +1,10 @@
+MoveSquare (Init) {
+	* (Init):
+		| True ? Move(N) : (Nord)
+	* (Nord):
+		| True ? Move(E) : (Est)
+	* (Est):
+		| True ? Move(S) : (Sud)
+	* (Sud):
+		| True ? Move(W) : (Init)
+}

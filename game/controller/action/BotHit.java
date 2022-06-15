@@ -1,16 +1,36 @@
 package controller.action;
 
-import controller.IAction;
+import controller.BotAction;
 import model.entity.Entity;
 
 
-public class BotHit extends IAction {
+public class BotHit extends BotAction {
 
-	public BotHit () {}
+	String m_s;
+
+
+	public BotHit (String s) {
+		m_s = s;
+	}
 
 	@Override
 	public boolean apply (Entity e) {
-		throw new RuntimeException("NYI");
+
+		switch (m_s) {
+			case "N":
+
+				break;
+			case "W":
+
+				break;
+			case "S":
+
+				break;
+			case "E":
+
+				break;
+		}
+		return true;
 	}
 
 }

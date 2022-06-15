@@ -3,12 +3,14 @@ package controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 import info3.game.automata.ast.AST;
 import info3.game.automata.parser.AutomataParser;
+import info3.game.automata.parser.ParseException;
 import model.Model;
 
 
@@ -19,16 +21,23 @@ public class Controller {
 	boolean tab[] = new boolean[26];
 	public boolean tab_prev[] = new boolean[26];
 
+
 	private Controller () {
 		m_auts = new LinkedList();
 		BotBuilder bb = BotBuilder.getInstance();
 
 		try {
-			AST ast = from_file("resources/Automata/MoveFoward.gal");
+			AST ast = from_file("resources/Automata/MoveKeys+Pop.gal");
 			m_auts.insertAt(0, ((IList) ast.accept(bb)).elementAt(0));
 		}
-		catch (Exception ex) {
+		catch (ParseException ex) {
+			throw new RuntimeException("Erreur de parsing");
+		}
+		catch (FileNotFoundException ex) {
 			throw new RuntimeException("Le fichier n'existe pas");
+		}
+		catch (Exception ex) {
+			throw new RuntimeException("Erreur inconnue dans l'initialisation des automates du controller");
 		}
 
 	}
@@ -80,28 +89,36 @@ public class Controller {
 	public void keyTyped (KeyEvent e) {}
 
 	public void keyPressed (KeyEvent e) {
-		tab[e.getKeyCode()-65] = true;
+		int tmp = e.getKeyCode() - 65;
+
+		if (0 <= tmp && tmp < 26) {
+			tab[tmp] = true;
+		}
 	}
 
 	public void keyReleased (KeyEvent e) {
-		tab[e.getKeyCode()-65] = false;
+		int tmp = e.getKeyCode() - 65;
+
+		if (0 <= tmp && tmp < 26) {
+			tab[tmp] = false;
+		}
 	}
-	
-	// à appeler dans le model juste AVANT la boucle qui force les automates à step
-	public void transfertTab() {
+
+	// A appeler dans le model juste AVANT la boucle qui force les automates à step
+	public void transfertTab () {
 		tab_prev = tab;
 	}
-	
-	public boolean[] getTabKeys() {
+
+	public boolean[] getTabKeys () {
 		return tab;
 	}
-	
-	public boolean[] getTabKeys_prev() {
+
+	public boolean[] getTabKeys_prev () {
 		return tab_prev;
 	}
-	
-	public void affTabKeys() {
-		
+
+	public void affTabKeys () {
+
 		System.out.println("\n");
 		for (int i = 0; i < 26; i++)
 			System.out.println(tab[i]);

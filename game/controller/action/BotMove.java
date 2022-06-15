@@ -1,10 +1,10 @@
 package controller.action;
 
-import controller.IAction;
+import controller.BotAction;
 import model.entity.Entity;
 
 
-public class BotMove extends IAction {
+public class BotMove extends BotAction {
 
 	String m_s;
 
@@ -30,7 +30,7 @@ public class BotMove extends IAction {
 				e.move(1, 0);
 				break;
 		}
-		return false;
+		return true;
 	}
 
 }

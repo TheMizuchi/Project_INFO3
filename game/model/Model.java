@@ -43,9 +43,10 @@ public class Model {
 	public void update (long elapsed) {
 		m_time_passed += elapsed;
 
+
 		if (m_time_passed > 100) {
-			m_time_passed = 0;
 			m_cont.transfertTab();
+			m_time_passed -= 100;
 			Iterator it = m_listeEntity.iterator();
 
 			while (it.hasNext()) {
