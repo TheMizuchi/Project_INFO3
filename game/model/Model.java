@@ -44,6 +44,7 @@ public class Model {
 
 		if (m_time_passed > 100) {
 			m_time_passed = 0;
+			m_cont.transfertTab();
 			Iterator it = m_listeEntity.iterator();
 
 			while (it.hasNext()) {

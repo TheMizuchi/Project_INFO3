@@ -92,6 +92,13 @@ public class Controller {
 		tab_prev = tab;
 	}
 	
+	public boolean[] getTabKeys() {
+		return tab;
+	}
+	
+	public boolean[] getTabKeys_prev() {
+		return tab_prev;
+	}
 	
 	public void affTabKeys() {
 		
