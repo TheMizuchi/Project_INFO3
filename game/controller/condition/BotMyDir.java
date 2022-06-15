@@ -5,8 +5,11 @@ import controller.ICondition;
 
 public class BotMyDir implements ICondition {
 
-	public BotMyDir () {
+	String m_dir;
 
+
+	public BotMyDir (String dir) {
+		m_dir = dir;
 	}
 
 	@Override

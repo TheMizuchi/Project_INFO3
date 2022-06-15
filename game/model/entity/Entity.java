@@ -76,9 +76,8 @@ public class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void pop() {
-		// TODO Auto-generated method stub
-
+	public void pop () {
+		this.m_cv.spin();
 	}
 
 	@Override
@@ -160,15 +159,10 @@ public class Entity implements EntityInterface {
 	
 	
 	private void deplacement(long elapse) {
-		double d = 50 * elapse / 1000 * elapse / 1000;
 		double angle = m_orientation.toAngle() ; 
-        double sx = m_speedX + d * Math.cos(angle);
-        double sy = m_speedY + d * Math.sin(angle);
-        if (sx * sx < 0.4) // note: sx*sx >= 0
-        	m_speedX = sx;
-        if (sy * sy < 0.4) // note: sy*sy >= 0
-        	m_speedY = sy;
-        
-        m_hitbox.move(m_speedX * elapse, m_speedY * elapse);
+        m_speedX = Math.cos(angle) * Math.abs(m_orientation.getDirectionX()) * ENTITY_MAX_SPEED;
+        m_speedY = Math.sin(angle) * Math.abs(m_orientation.getDirectionY()) * ENTITY_MAX_SPEED;
+        System.out.println(m_orientation.getDirectionX()  +" y : "+ m_orientation.getDirectionY() + " elapse : " + elapse);
+        m_hitbox.move(m_speedX * elapse / 1000, m_speedY * elapse / 1000);
 	}
 }

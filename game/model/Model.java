@@ -21,6 +21,7 @@ public class Model {
 
 	private int m_time_passed;
 	private LinkedList m_listeEntity;
+	private LinkedList m_listeLight;
 	private static Model m_instance = null;
 	private Controller m_cont;
 	private MyCanvas m_canvas;
@@ -28,9 +29,9 @@ public class Model {
 
 	private Model () {
 		m_listeEntity = new LinkedList();
+		m_listeLight = new LinkedList();
 		m_cont = Controller.getInstance();
 		m_canvas = MyCanvas.getInstance();
-		createEntity();
 	}
 
 	public static Model getInstance () {
@@ -42,19 +43,34 @@ public class Model {
 	public void update (long elapsed) {
 		m_time_passed += elapsed;
 
+
 		if (m_time_passed > 100) {
-			m_time_passed = 0;
+			m_cont.transfertTab();
+			
 			Iterator it = m_listeEntity.iterator();
 
 			while (it.hasNext()) {
 				Entity entity = (Entity) it.next();
-				entity.update(elapsed);
+				entity.update(m_time_passed);
+			}
+			it = m_listeLight.iterator();
+			m_time_passed -= 100;
+
+			while (it.hasNext()) {
+				LightSource ls = (LightSource) it.next();
+				ls.update();
 			}
 		}
 	}
 
-	private void createEntity () {
-		m_listeEntity.insertAt(0, new Entity(1, 1, 0));
+	public Entity createEntity () {
+		Entity e = new Entity(1, 1, 0);
+		m_listeEntity.insertAt(0, e);
+		return e;
+	}
+	
+	public void createLightSource(Entity e) {
+		m_listeLight.insertAt(0, new LightSource(0, 0, 5, e));
 	}
 
 }

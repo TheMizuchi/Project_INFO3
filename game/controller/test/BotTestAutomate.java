@@ -17,19 +17,8 @@ public class BotTestAutomate {
 
 		Entity e = new Entity(0, 0, 0);
 
-		/*
-		 * BotTransition transi = new BotTransition(new BotTrue(), new BotMove("N"),
-		 * etat2); init.add_transition(transi); BotTransition transi2 = new
-		 * BotTransition(new BotTrue(), new BotMove("N"), etat2);
-		 * init.add_transition(transi2); BotTransition transi3 = new BotTransition(new
-		 * BotTrue(), new BotMove("N"), etat2); init.add_transition(transi3);
-		 * BotTransition transi4 = new BotTransition(new BotTrue(), new BotMove("N"),
-		 * etat2); init.add_transition(transi4); BotTransition transi5 = new
-		 * BotTransition(new BotTrue(), new BotMove("N"), init);
-		 * etat2.add_transition(transi5);
-		 */
 		while (true) {
-			e.update();
+			e.update(100);
 		}
 
 		//System.out.println("zer");

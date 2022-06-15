@@ -71,7 +71,7 @@ public class MyCanvas extends Component {
 		while (it.hasNext()) {
 			LightSourceView s = (LightSourceView) it.next();
 			// Ici, les méthodes get*****(); servent à récupérer les informations de la source de lumière du model et non pas de la view 
-			s.setPosition(vp.toLocalX(s.getPosX()), vp.toLocalY(s.getPosY()), vp.scale, (int) (vp.scale * s.getRadius()));
+			s.setPosition(vp.toLocalX(s.getPosX()), vp.toLocalY(s.getPosY()), vp.scale, (int) (vp.scale * s.getRadius() * METRIC_BASE));
 		}
 		//décommenter quand la map sera dispo 
 		//m_map.setPosition(vp.toLocalX(0), vp.toLocalY(0), vp.scale);
@@ -88,7 +88,7 @@ public class MyCanvas extends Component {
 		while (it.hasNext()) {
 			EntityView e = (EntityView) it.next();
 
-			if (vp.isInside(e.x, e.y, e.getW(), e.getH())) {//&& m_light.isInside(e.x, e.y)) {
+			if (vp.isInside(e.x, e.y, e.getW(), e.getH()) && m_light.isInside(e.x, e.y)) {
 				i++;
 				e.paint(g);
 			}
