@@ -18,7 +18,7 @@ public class BotTestAutomate {
 		Entity e = new Entity(0, 0, 0);
 
 		while (true) {
-			e.update();
+			e.update(100);
 		}
 
 		//System.out.println("zer");

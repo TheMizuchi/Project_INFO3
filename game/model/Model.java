@@ -54,14 +54,15 @@ public class Model {
 
 		if (m_time_passed > 100) {
 			m_cont.transfertTab();
-			m_time_passed -= 100;
+			
 			Iterator it = m_listeEntity.iterator();
 
 			while (it.hasNext()) {
 				Entity entity = (Entity) it.next();
-				entity.update();
+				entity.update(m_time_passed);
 			}
 			it = m_listeLight.iterator();
+			m_time_passed -= 100;
 
 			while (it.hasNext()) {
 				LightSource ls = (LightSource) it.next();
