@@ -6,11 +6,31 @@ import model.entity.Entity;
 
 public class BotThrow extends IAction {
 
-	public BotThrow () {}
+	String m_s;
+
+
+	public BotThrow (String s) {
+		m_s = s;
+	}
 
 	@Override
 	public boolean apply (Entity e) {
-		throw new RuntimeException("NYI");
+
+		switch (m_s) {
+			case "F":
+
+				break;
+			case "B":
+
+				break;
+			case "L":
+
+				break;
+			case "R":
+
+				break;
+		}
+		return true;
 	}
 
 }
