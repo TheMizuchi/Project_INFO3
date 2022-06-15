@@ -23,7 +23,7 @@ public class BotMove extends IAction {
 			case "W":
 				e.move(-1, 0);
 				break;
-			case "s":
+			case "S":
 				e.move(0, 1);
 				break;
 			case "E":

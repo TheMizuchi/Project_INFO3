@@ -24,7 +24,7 @@ public class BotBuilderTest {
 		BotBuilder bb = BotBuilder.getInstance();
 		BotBuilder bb2 = BotBuilder.getInstance();
 
-		AST ast = from_file("game/test/TestAutomata.gal");
+		AST ast = from_file("game/controller/test/TestAutomata.gal");
 		ast.accept(bb);
 		ast.accept(bb);
 		System.out.println("");
