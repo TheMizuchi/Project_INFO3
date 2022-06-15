@@ -154,4 +154,119 @@ public class Graph {
 
 	}
 
+	double weight_of_tree () {
+		double weight = 0;
+
+		for (int i = 0; i < ListNode.length(); i++) {
+			weight += ((Node) ListNode.elementAt(i)).dijk_pds;
+		}
+		return weight;
+	}
+
+	Graph dijkstra (Node n) {
+		ArrayList vis = new ArrayList();
+
+		for (int i = 0; i < ListNode.length(); i++) {
+			vis.insertAt(i, ListNode.elementAt(i));
+		}
+
+		ArrayList file = new ArrayList();
+		file.insertAt(0, n);
+
+		int ind = 1;
+
+		while (ind != 0) {
+			Node current = (Node) file.removeAt(ind - 1);
+			ind--;
+
+			if (vis.contains(current)) {
+				vis.remove(current);
+
+				if (n == current) {
+					current.dijk_pds = 0;
+					current.dijk_proch = null;
+				}
+
+				IList ListArc = current.ListArc;
+
+				for (int i = 0; i < ListArc.length(); i++) {
+					Arc a = (Arc) ListArc.elementAt(i);
+
+					if (a.dest1 == current) {
+
+						if (vis.contains(a.dest2)) {
+							file.insertAt(ind, a.dest2);
+							ind++;
+						}
+
+						double dist = current.distance(a.dest2);
+
+						if (a.dest2 != n && a.dest2.dijk_proch == null) {
+							a.dest2.dijk_proch = current;
+							a.dest2.dijk_pds = current.dijk_pds + dist;
+						} else if (a.dest2 != n && a.dest2.dijk_pds > current.dijk_pds + dist) {
+							a.dest2.dijk_proch = current;
+							a.dest2.dijk_pds = current.dijk_pds + dist;
+						}
+					} else if (a.dest2 == current) {
+
+						if (vis.contains(a.dest1)) {
+							file.insertAt(ind, a.dest1);
+							ind++;
+						}
+						double dist = current.distance(a.dest1);
+
+						if (a.dest1 != n && a.dest1.dijk_proch == null) {
+							a.dest1.dijk_proch = current;
+							a.dest1.dijk_pds = current.dijk_pds + dist;
+						} else if (a.dest1 != n && a.dest1.dijk_pds > current.dijk_pds + dist) {
+							a.dest1.dijk_proch = current;
+							a.dest1.dijk_pds = current.dijk_pds + dist;
+						}
+					}
+				}
+			}
+		}
+		ArrayList newNodes = new ArrayList();
+
+		for (int i = 0; i < ListNode.length(); i++) {
+			Node Newn = ((Node) ListNode.elementAt(i)).copy();
+			newNodes.insertAt(i, Newn);
+		}
+
+		for (int i = 0; i < newNodes.length(); i++) {
+			Node current = (Node) newNodes.elementAt(i);
+
+			for (int j = 0; j < newNodes.length(); j++) {
+				Node next = (Node) newNodes.elementAt(j);
+
+				if (current.dijk_proch != null && next.mid_x == current.dijk_proch.mid_x && next.mid_y == current.dijk_proch.mid_y) {
+					Arc nA = new Arc(current, next);
+					current.dijk_proch = next;
+					current.addArc(nA);
+					next.addArc(nA);
+					break;
+				}
+			}
+		}
+		Graph newG = new Graph(newNodes, 0);
+		return newG;
+	}
+
+	Graph min_spanning_tree () {
+		double min = Double.MAX_VALUE;
+		Graph MST = null;
+
+		for (int i = 0; i < ListNode.length(); i++) {
+			Node current = (Node) ListNode.elementAt(i);
+			Graph dijk = dijkstra(current);
+			double weight = dijk.weight_of_tree();
+
+			if (min > weight) {
+				min = weight;
+				MST = dijk;
+			}
+		}
+		return MST;
+	}
 }

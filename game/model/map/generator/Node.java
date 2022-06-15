@@ -9,6 +9,8 @@ public class Node {
 	Room content;
 	int mid_x;
 	int mid_y;
+	Node dijk_proch;
+	double dijk_pds;
 	IList ListArc;
 
 
@@ -30,6 +32,15 @@ public class Node {
 		return ListArc.length();
 	}
 
+	Node copy () {
+		Node n = new Node(mid_x, mid_y);
+		n.content = this.content;
+		n.dijk_pds = dijk_pds;
+		n.dijk_proch = dijk_proch;
+
+		return n;
+	}
+
 	void addArc (Arc a) {
 
 		for (int i = 0; i < numberArcs(); i++) {
@@ -43,7 +54,9 @@ public class Node {
 	}
 
 	double distance (Node n) {
-		return Math.sqrt(Math.abs((double) n.mid_x - (double) mid_x) + Math.abs((double) n.mid_y - (double) mid_y));
+		double x = Math.abs((double) n.mid_x - (double) mid_x);
+		double y = Math.abs((double) n.mid_y - (double) mid_y);
+		return Math.sqrt(x * x + y * y);
 	}
 
 }
