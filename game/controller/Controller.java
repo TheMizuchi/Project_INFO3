@@ -3,12 +3,14 @@ package controller;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 import info3.game.automata.ast.AST;
 import info3.game.automata.parser.AutomataParser;
+import info3.game.automata.parser.ParseException;
 import model.Model;
 
 
@@ -23,11 +25,17 @@ public class Controller {
 		BotBuilder bb = BotBuilder.getInstance();
 
 		try {
-			AST ast = from_file("resources/Automata/MoveFoward.gal");
+			AST ast = from_file("resources/Automata/MoveRandom2.gal");
 			m_auts.insertAt(0, ((IList) ast.accept(bb)).elementAt(0));
 		}
-		catch (Exception ex) {
+		catch (ParseException ex) {
+			throw new RuntimeException("Erreur de parsing");
+		}
+		catch (FileNotFoundException ex) {
 			throw new RuntimeException("Le fichier n'existe pas");
+		}
+		catch (Exception ex) {
+			throw new RuntimeException("Erreur inconnue dans l'initialisation des automates du controller");
 		}
 
 	}

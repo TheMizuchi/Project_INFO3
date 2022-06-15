@@ -19,13 +19,21 @@ public class BotTransition {
 	}
 
 	public BotState eval (Entity e) {
+		double proba = 100 * Math.random();
 
 		if (m_cond.eval()) {
 			ICollection.Iterator iter = m_actions.iterator();
+			BotAction act;
 
 			while (iter.hasNext()) {
-				IAction action = (IAction) iter.next();
-				action.apply(e);
+				act = (BotAction) iter.next();
+
+				if (proba <= act.m_percent) {
+					act.apply(e);
+					break;
+				} else {
+					proba -= act.m_percent;
+				}
 			}
 			return m_target;
 		}
