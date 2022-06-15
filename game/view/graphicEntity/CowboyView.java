@@ -37,7 +37,6 @@ public class CowboyView extends EntityView {
 
 			}
 		};
-		this.spin();
 	}
 
 	@Override
@@ -53,13 +52,7 @@ public class CowboyView extends EntityView {
 	}
 
 	public void spin () {
-		a.setListener(new AnimationListener() {
-
-			@Override
-			public void done (Animation a) {
-				CowboyView.this.a.start();
-			}
-		});
+		a.setListener(this.al);
 		a.spin();
 	}
 

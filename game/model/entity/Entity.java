@@ -74,7 +74,7 @@ public class Entity implements EntityInterface {
 
 	@Override
 	public void pop () {
-		// TODO Auto-generated method stub
+		this.cv.spin();
 
 	}
 

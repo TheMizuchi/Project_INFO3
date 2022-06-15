@@ -87,6 +87,9 @@ public class Game {
 		m_frame = m_canvas.createFrame(d);
 		System.out.println("  - setting up the frame...");
 		setupFrame();
+		
+		
+		m_m.createLightSource(m_m.createEntity());
 	}
 
 	/*
@@ -188,7 +191,7 @@ public class Game {
 		int height = m_canvas.getHeight();
 
 		// erase background
-		g.setColor(Color.gray);
+		g.setColor(Color.pink);
 		g.fillRect(0, 0, width, height);
 
 		// paint
