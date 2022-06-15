@@ -25,13 +25,13 @@ public interface EntityInterface {
 	abstract void waitt ();
 	// Skip son cout de clock
 
-	abstract void move (Direction orentation);
+	abstract void move (Direction orientation);
 	// déplacement, pas de retour
 
 	abstract void rotation (Direction orientation);
 	// direction absolue
 
-	abstract void hit (Direction orentation);
+	abstract void hit (Direction orientation);
 
 	abstract void protect (Direction orientation);
 

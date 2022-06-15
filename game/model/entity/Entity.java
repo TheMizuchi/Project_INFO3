@@ -5,154 +5,164 @@ import model.Model;
 import view.MyCanvas;
 import view.graphicEntity.CowboyView;
 
-
 public class Entity implements EntityInterface {
 
 	public int m_ID;
 	private Hitbox m_hitbox;
 	Direction m_orientation;
 	protected RefAutomata m_automata;
-	private CowboyView cv;
+	private CowboyView m_cv;
+	private double m_speedX;
+	private double m_speedY;
+
+	private static final double ENTITY_MAX_SPEED = 2; // vitesse par seconde
+	private static final double ENTITY_MAX_SPEED_DIAGONAL = Math.sqrt(ENTITY_MAX_SPEED)/2; 
 
 	// Liste d'items
 
 	//
 
-
-	public Entity (double x, double y, int ID) {
+	public Entity(double x, double y, int ID) {
 		m_ID = ID;
 		m_orientation = new Direction();
 		m_hitbox = new Hitbox(x, y, 0.5, 0.5);
 		m_automata = new RefAutomata(this);
-		this.cv = new CowboyView(this);
-		MyCanvas.getInstance().createEntityView(this.cv);
+
+		this.m_cv = new CowboyView(this);
+		MyCanvas.getInstance().createEntityView(this.m_cv);
 	}
 
-	public boolean getOrientation () {
-		return m_orientation.getDirection() % 2 == 1;
-
+	public boolean getOrientation() {
+		// T si gauche / north
+		return m_orientation.getDirectionX() < 0 || m_orientation.getDirectionY() < 0;
 	}
 
-	public double getPosX () {
+	public double getPosX() {
 		return m_hitbox.getX();
 	}
 
-	public double getPosY () {
+	public double getPosY() {
 		return m_hitbox.getY();
 	}
 
-	public void move (double dx, double dy) {
-		m_hitbox.move(dx, dy);
-		m_orientation.update_orentaiton(dx, dy);
-	}
-
-	public void update () {
+	public void update(long elapsed) {
+		// déplacement
 		m_automata.step();
+		this.deplacement(elapsed);
 	}
 
-	void attack () {}
+	void attack() {
+	}
 
-	void interact () {}
+	void interact() {
+	}
 
 	@Override
-	public boolean myDir (Direction orientation) {
+	public boolean myDir(Direction orientation) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean gotPower () {
+	public boolean gotPower() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean gotStuff () {
+	public boolean gotStuff() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void pop () {
-		this.cv.spin();
-
+		this.m_cv.spin();
 	}
 
 	@Override
-	public void wizz () {
+	public void wizz() {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void waitt () {
+	public void waitt() {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void move (Direction orentation) {
+	public void move(Direction orientation) {
+		m_orientation.updateDirection(orientation);
+	}
+
+	@Override
+	public void rotation(Direction orientation) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void rotation (Direction orientation) {
+	public void hit(Direction orientation) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void hit (Direction orentation) {
+	public void protect(Direction orientation) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void protect (Direction orientation) {
+	public void pick(Direction orientation) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void pick (Direction orientation) {
+	public void put(Direction orientation) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void put (Direction orientation) {
+	public void store() {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void store () {
+	public void get() {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void get () {
+	public void power() {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void power () {
+	public void explode() {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void explode () {
+	public void egg(Direction orientation) {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public void egg (Direction orientation) {
-		// TODO Auto-generated method stub
-
+	
+	
+	private void deplacement(long elapse) {
+		double angle = m_orientation.toAngle() ; 
+        m_speedX = Math.cos(angle) * Math.abs(m_orientation.getDirectionX()) * ENTITY_MAX_SPEED;
+        m_speedY = Math.sin(angle) * Math.abs(m_orientation.getDirectionY()) * ENTITY_MAX_SPEED;
+        System.out.println(m_orientation.getDirectionX()  +" y : "+ m_orientation.getDirectionY() + " elapse : " + elapse);
+        m_hitbox.move(m_speedX * elapse / 1000, m_speedY * elapse / 1000);
 	}
 }
