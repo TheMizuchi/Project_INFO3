@@ -21,4 +21,9 @@ public class Case {
 		}
 	}
 
+	public TileType getType () {
+		// TODO Auto-generated method stub
+		return type;
+	}
+
 }

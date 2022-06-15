@@ -50,6 +50,10 @@ public class Map {
 
 		placeRoomsRandomly(100);
 	}
+	
+	public Case[][] getCases(){
+		return grid;
+	}
 
 	private void placeRoomsRandomly (int N) {
 		Random random = new Random();
