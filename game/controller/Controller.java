@@ -16,7 +16,8 @@ public class Controller {
 
 	Model m_model;
 	IList m_auts;
-
+	boolean tab[] = new boolean[26];
+	public boolean tab_prev[] = new boolean[26];
 
 	private Controller () {
 		m_auts = new LinkedList();
@@ -78,7 +79,25 @@ public class Controller {
 
 	public void keyTyped (KeyEvent e) {}
 
-	public void keyPressed (KeyEvent e) {}
+	public void keyPressed (KeyEvent e) {
+		tab[e.getKeyCode()-65] = true;
+	}
 
-	public void keyReleased (KeyEvent e) {}
+	public void keyReleased (KeyEvent e) {
+		tab[e.getKeyCode()-65] = false;
+	}
+	
+	// à appeler dans le model juste AVANT la boucle qui force les automates à step
+	public void transfertTab() {
+		tab_prev = tab;
+	}
+	
+	
+	public void affTabKeys() {
+		
+		System.out.println("\n");
+		for (int i = 0; i < 26; i++)
+			System.out.println(tab[i]);
+		System.out.println("\n");
+	}
 }
