@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Graphics;
 
+import model.entity.EntityInterface;
+
 
 public abstract class EntityView extends ViewElement {
 

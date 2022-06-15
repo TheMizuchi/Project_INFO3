@@ -2,7 +2,7 @@ package view.graphicEntity;
 
 import java.awt.Graphics;
 
-import view.EntityInterface;
+import model.entity.EntityInterface;
 import view.EntityView;
 import view.MyCanvas;
 import view.animation.Animation;

@@ -1,7 +1,7 @@
 package view;
 
 public class Viewport {
-	private static final double SCALE_BASE = 2;
+	private static final double SCALE_BASE = 4;
 	double x, y, scale;
 	int w, h;
 
@@ -11,7 +11,7 @@ public class Viewport {
 		this.h = height;
 		this.x = 0;
 		this.y = 0;
-		this.scale = 1;
+		this.scale = SCALE_BASE;
 	}
 
 	void setPosition (double x, double y) {

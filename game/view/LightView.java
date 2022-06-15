@@ -8,7 +8,6 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
 import edu.polytech.oop.collections.LinkedList;
-import view.FakeModel.Torche;
 import view.graphicEntity.LightSourceView;
 
 
@@ -46,7 +45,7 @@ public class LightView {
 		return false;
 	}
 
-	void paint (Graphics g) { // Ce paint doit être appelé en dernier, c'est la masque qui recouvre tous les éléments qui ne sont pas sensé être visible
+	void paint (Graphics g) { // Ce paint doit être appelé en dernier, c'est le masque qui recouvre tous les éléments qui ne sont pas sensé être visible
 		LinkedList.Iterator it = this.lightSource.iterator();
 		Graphics2D g2d = (Graphics2D) g;
 		Area mask = new Area(new Rectangle2D.Double(0, 0, this.win_w, this.win_h));
