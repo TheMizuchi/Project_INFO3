@@ -80,7 +80,7 @@ public class MapView extends ViewElement {
 						img = tex.m_images[0];
 				}
 				g.setColor(Color.black);
-				g.drawImage(img, (int)(x + this.t_case * (double)((double)h-(double)this.hauteur()/2)), (int)(y + this.t_case * (double)((double)l-(double)this.largeur()/2)), this.t_case, this.t_case, null);
+				g.drawImage(img, (int) (x + this.t_case * (double) ((double) h - (double) this.hauteur() / 2)), (int) (y + this.t_case * (double) ((double) l - (double) this.largeur() / 2)), this.t_case, this.t_case, null);
 
 			}
 		}

@@ -12,7 +12,7 @@ public class Sprite {
 
 	public int m_width;
 	public int m_height;
-	
+
 	public BufferedImage[] m_images;
 
 
@@ -39,8 +39,8 @@ public class Sprite {
 			}
 		}
 	}
-	
-	public static Sprite loadSprite (String filename, int nrows, int ncols){
+
+	public static Sprite loadSprite (String filename, int nrows, int ncols) {
 		File imageFile = new File(filename);
 
 		if (imageFile.exists()) {

@@ -82,7 +82,7 @@ public abstract class Animation {
 		public void start () {
 			this.last = System.currentTimeMillis();
 			this.t.setTimer(0, this);
-			
+
 		}
 
 		@Override
@@ -92,14 +92,15 @@ public abstract class Animation {
 			this.last = now;
 
 			while (this.elapsed > delay) {
-				
-				if (!nextImage()){
+
+				if (!nextImage()) {
 					if (al != null)
 						al.done(Animation.this);
 				}
 				this.elapsed -= delay;
 			}
-			if(!m_done) {
+
+			if (!m_done) {
 				this.t.setTimer(delay, this);
 			}
 		}

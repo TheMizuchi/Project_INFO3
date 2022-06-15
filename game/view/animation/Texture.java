@@ -7,18 +7,20 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+
 public class Texture {
-	
+
 	public int m_width;
 	public int m_height;
 	public BufferedImage[] m_images;
-	
+
+
 	Texture (BufferedImage[] images, int width, int height) {
 		m_images = images;
 		m_width = width;
 		m_height = height;
 	}
-	
+
 	Texture (InputStream is, int nrows, int ncolumns) throws IOException {
 		BufferedImage bi;
 		bi = ImageIO.read(is);
@@ -36,8 +38,8 @@ public class Texture {
 			}
 		}
 	}
-	
-	public static Texture loadTexture (String filename, int nrows, int ncols){
+
+	public static Texture loadTexture (String filename, int nrows, int ncols) {
 		File imageFile = new File(filename);
 
 		if (imageFile.exists()) {

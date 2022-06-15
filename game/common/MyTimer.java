@@ -82,7 +82,8 @@ public class MyTimer {
 		if (m_timerList.length() > 0) {
 			m_tl = (TimerListener) m_timerList.elementAt(0);
 			m_t.setInitialDelay((int) m_delayList.elementAt(0));
-			if(((int)m_delayList.elementAt(0)) == 0) {
+
+			if (((int) m_delayList.elementAt(0)) == 0) {
 				expired();
 			}
 			m_t.start();

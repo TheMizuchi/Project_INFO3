@@ -75,84 +75,84 @@ public class Entity implements EntityInterface {
 	@Override
 	public void pop () {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void wizz () {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void waitt () {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void move (Direction orentation) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void rotation (Direction orientation) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void hit (Direction orentation) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void protect (Direction orientation) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void pick (Direction orientation) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void put (Direction orientation) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void store () {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void get () {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void power () {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void explode () {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void egg (Direction orientation) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

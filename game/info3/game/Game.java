@@ -74,7 +74,7 @@ public class Game {
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
-		
+
 		new MyTimer();
 
 		m_m = Model.getInstance();
@@ -171,7 +171,7 @@ public class Game {
 			txt = txt + fps + " fps   ";
 			m_text.setText(txt);
 		}
-		
+
 		//my_canvas.fm.update(elapsed);
 
 		m_m.update(elapsed);

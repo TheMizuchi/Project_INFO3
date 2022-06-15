@@ -34,13 +34,15 @@ public class LightView {
 		this.scale = scale;
 
 	}
-	
-	boolean isInside(int x, int y) {
+
+	boolean isInside (int x, int y) {
 		LinkedList.Iterator it = this.lightSource.iterator();
+
 		while (it.hasNext()) {
 			LightSourceView l = (LightSourceView) it.next();
 			int rad = (int) (l.radius * this.scale);
-			if((x-l.x)*(x-l.x)+(y-l.y)*(y-l.y)< rad*rad) return true;
+			if ((x - l.x) * (x - l.x) + (y - l.y) * (y - l.y) < rad * rad)
+				return true;
 		}
 		return false;
 	}
@@ -54,19 +56,18 @@ public class LightView {
 		while (it.hasNext()) {
 			LightSourceView l = (LightSourceView) it.next();
 			int rad = (int) (l.radius * this.scale);
-			crop.add(new Area(new Ellipse2D.Double(l.x-rad/2, l.y-rad/2, rad, rad)));
+			crop.add(new Area(new Ellipse2D.Double(l.x - rad / 2, l.y - rad / 2, rad, rad)));
 
-//			for (int i = 0; i < 41; i++) { // Dessine le fondu vers le noir au bord du champ de vision pour que la transtion soit plus progressive
-//				g2d.setColor(new Color(0, 0, 0, 6 * i));
-//				g2d.drawOval(l.x + (40 - i - rad) / 2, l.y + (40 - i-rad) / 2, rad - 38 + i, rad - 38 + i);
-//			}
+			//			for (int i = 0; i < 41; i++) { // Dessine le fondu vers le noir au bord du champ de vision pour que la transtion soit plus progressive
+			//				g2d.setColor(new Color(0, 0, 0, 6 * i));
+			//				g2d.drawOval(l.x + (40 - i - rad) / 2, l.y + (40 - i-rad) / 2, rad - 38 + i, rad - 38 + i);
+			//			}
 		}
 		mask.subtract(crop);
 
 		g2d.setColor(Color.black);
 		g2d.fill(mask);
 
-		
 	}
 
 }

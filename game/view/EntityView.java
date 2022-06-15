@@ -22,10 +22,10 @@ public abstract class EntityView extends ViewElement {
 		this.y = y;
 		this.scale = scale;
 	}
-	
-	public abstract int getH();
-	public abstract int getW();
-	
+
+	public abstract int getH ();
+	public abstract int getW ();
+
 	public abstract void turnLeft ();
 	public abstract void turnRight ();
 

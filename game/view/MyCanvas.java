@@ -40,8 +40,8 @@ public class MyCanvas extends Component {
 		}
 		return INSTANCE;
 	}
-	
-	public void setDim(int w, int h) {
+
+	public void setDim (int w, int h) {
 		this.win_h = h;
 		this.win_w = w;
 		this.vp = new Viewport(win_w, win_h);
@@ -57,7 +57,6 @@ public class MyCanvas extends Component {
 	}
 
 	void updateView () {
-
 
 		LinkedList.Iterator it = m_entityViews.iterator();
 
@@ -89,7 +88,7 @@ public class MyCanvas extends Component {
 		while (it.hasNext()) {
 			EntityView e = (EntityView) it.next();
 
-			if (vp.isInside(e.x, e.y, e.getW(), e.getH()) ) {//&& m_light.isInside(e.x, e.y)) {
+			if (vp.isInside(e.x, e.y, e.getW(), e.getH())) {//&& m_light.isInside(e.x, e.y)) {
 				i++;
 				e.paint(g);
 			}

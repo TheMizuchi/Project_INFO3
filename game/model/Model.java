@@ -16,15 +16,15 @@ public class Model {
 	public static final int ZOMBIE_ID = 4;
 	public static final int BAT_ID = 5;
 	public static final int DART_MONKEY_ID = 6;
-	
-	public static final int ENTITY_NUMBER = 7; 
-	
+
+	public static final int ENTITY_NUMBER = 7;
 
 	private int m_time_passed;
 	private LinkedList m_listeEntity;
 	private static Model m_instance = null;
 	private Controller m_cont;
 	private MyCanvas m_canvas;
+
 
 	private Model () {
 		m_listeEntity = new LinkedList();
