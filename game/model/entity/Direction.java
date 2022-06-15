@@ -9,22 +9,26 @@ public class Direction {
 
 	int m_dir;
 
-	public Direction() {
+
+	public Direction () {
 		m_dir = ORENTATION_NORTH;
 	}
 
-	public int getDirection() {
+	public int getDirection () {
 		return m_dir;
 	}
 
-	void update_orentaiton(double dx, double dy) {
+	void update_orentaiton (double dx, double dy) {
+
 		if (Math.abs(dx) > Math.abs(dy)) {
+
 			if (dx > 0) {
 				m_dir = ORENTATION_EST;
 			} else {
 				m_dir = ORENTATION_WEST;
 			}
 		} else {
+
 			if (dy > 0) {
 				m_dir = ORENTATION_NORTH;
 			} else {

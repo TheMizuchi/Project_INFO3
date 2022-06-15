@@ -28,8 +28,10 @@ import java.io.RandomAccessFile;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import common.MyTimer;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
+import view.MyCanvas;
 import model.Model;
 
 
@@ -54,8 +56,9 @@ public class Game {
 	JFrame m_frame;
 	JLabel m_text;
 	GameCanvas m_canvas;
+	MyCanvas my_canvas;
 	CanvasListener m_listener;
-	Cowboy m_cowboy;
+	//Cowboy m_cowboy;
 	Sound m_music;
 	Model m_m;
 
@@ -63,7 +66,7 @@ public class Game {
 	Game () throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		m_cowboy = new Cowboy();
+		//m_cowboy = new Cowboy();
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -72,13 +75,16 @@ public class Game {
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
 
+		new MyTimer();
+
 		m_m = Model.getInstance();
 		m_listener.m_cont.setModel();
 
 		System.out.println("  - creating frame...");
-		Dimension d = new Dimension(1024, 768);
+		Dimension d = new Dimension(1920, 980);//
+		my_canvas = MyCanvas.getInstance();//
+		my_canvas.setDim(d.width, d.height);//
 		m_frame = m_canvas.createFrame(d);
-
 		System.out.println("  - setting up the frame...");
 		setupFrame();
 	}
@@ -137,7 +143,7 @@ public class Game {
 
 
 	private int m_musicIndex = 0;
-	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" };
+	private String[] m_musicNames = new String[] { "DB_Theme" };
 
 	private long m_textElapsed;
 
@@ -148,7 +154,7 @@ public class Game {
 	 */
 	void tick (long elapsed) {
 
-		m_cowboy.tick(elapsed);
+		//m_cowboy.tick(elapsed);
 
 		// Update every second
 		// the text on top of the frame: tick and fps
@@ -165,6 +171,9 @@ public class Game {
 			txt = txt + fps + " fps   ";
 			m_text.setText(txt);
 		}
+
+		//my_canvas.fm.update(elapsed);
+
 		m_m.update(elapsed);
 	}
 
@@ -183,7 +192,8 @@ public class Game {
 		g.fillRect(0, 0, width, height);
 
 		// paint
-		m_cowboy.paint(g, width, height);
+		//m_cowboy.paint(g, width, height);
+		my_canvas.paint(g);
 	}
 
 }
