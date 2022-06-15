@@ -18,6 +18,6 @@ public class RefAutomata {
 	}
 
 	public void step () {
-		m_aut.step(m_e, m_current_state);
+		m_current_state = m_aut.step(m_e, m_current_state);
 	}
 }

@@ -1,10 +1,10 @@
 package controller.action;
 
-import controller.IAction;
+import controller.BotAction;
 import model.entity.Entity;
 
 
-public class BotJump extends IAction {
+public class BotJump extends BotAction {
 
 	public BotJump () {}
 

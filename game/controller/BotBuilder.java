@@ -45,6 +45,7 @@ public class BotBuilder implements IVisitor {
 					break;
 				case "Cell":
 					cond = new BotCell(fc.m_p1, fc.m_p2);
+					break;
 				default:
 			}
 			return cond;
@@ -77,7 +78,7 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object visit (Underscore u) {
-		throw new RuntimeException("Underscore NYI");
+		throw new RuntimeException("NYI");
 	}
 
 	@Override
@@ -170,11 +171,15 @@ public class BotBuilder implements IVisitor {
 	public Object exit (Action action, List<Object> funcalls) {
 		IList actions = new LinkedList();
 
-		IAction act = null;
+		BotAction act = null;
 
 		if (action.calls.isEmpty()) {
-			actions.insertAt(0, new BotNone());
+			act = new BotNone();
+			act.setPercent(100);
+			actions.insertAt(0, act);
 		} else {
+			float sum = 0; 							// Somme des probas différentes de -1
+			IList toSetProba = new LinkedList(); 	// Stocke les action d'une proba de -1 (à affecter)
 
 			for (Object obj : funcalls) {
 				BotFunCall call = (BotFunCall) obj;
@@ -196,7 +201,29 @@ public class BotBuilder implements IVisitor {
 						act = new BotJump();
 						break;
 				}
-				actions.insertAt(0, act);
+
+				if (call.m_percent != -1) {
+					sum += call.m_percent;
+					act.setPercent(call.m_percent);
+				} else {
+					toSetProba.insertAt(0, act);
+				}
+				actions.insertAt(actions.length(), act);
+
+			}
+
+			double probaToSet = (100 - sum) / (double) toSetProba.length();
+			IList.Iterator ite = toSetProba.iterator();
+
+			while (ite.hasNext()) {
+				((BotAction) ite.next()).setPercent(probaToSet);
+				sum += probaToSet;
+			}
+
+			if (sum > 100) {
+				throw new RuntimeException("L'automate est incorrecte (Une transition a une somme d'action d'une probabilité supérieur à 100)");
+			} else if (sum < 100) {
+				throw new RuntimeException("La somme des proba ne fait pas 100 sur une transition");
 			}
 		}
 		return actions;

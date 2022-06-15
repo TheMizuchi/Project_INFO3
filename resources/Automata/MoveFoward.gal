@@ -1,8 +1,4 @@
-MoveFoward (Init) {
+MoveKeys (Init) {
 	* (Init):
-		| Key(z) ? Move(N) : (Init)
-		| Key(q) ? Move(W) : (Init)
-		| Key(s) ? Move(S) : (Init)
-		| Key(d) ? Move(E) : (Init)
-		| True ? : (Init)
+		| True ? Move(E) : (Init)
 }

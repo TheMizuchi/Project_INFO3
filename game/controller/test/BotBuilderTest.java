@@ -24,9 +24,15 @@ public class BotBuilderTest {
 		BotBuilder bb = BotBuilder.getInstance();
 		BotBuilder bb2 = BotBuilder.getInstance();
 
-		AST ast = from_file("game/controller/test/TestAutomata.gal");
+		//		AST ast = from_file("game/controller/test/TestAutomata.gal");
+		//		AST ast = from_file("resources/Automata/MoveFoward.gal");
+		//		AST ast = from_file("resources/Automata/MoveSquare.gal");
+		//		AST ast = from_file("resources/Automata/MoveRandom.gal");
+		AST ast = from_file("resources/Automata/MoveRandom2.gal");
 		ast.accept(bb);
 		ast.accept(bb);
+		ast.accept(bb2);
+		ast.accept(bb2);
 		System.out.println("");
 	}
 }
