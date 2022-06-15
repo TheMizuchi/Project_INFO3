@@ -8,14 +8,15 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
 import edu.polytech.oop.collections.LinkedList;
+import model.ILightSource;
 import view.graphicEntity.LightSourceView;
 
 
 public class LightView {
 
-	LinkedList lightSource; // Liste chainée de ILightSource
-	double scale;
-	int win_h, win_w;
+	private LinkedList lightSource; // Liste chainée de ILightSource
+	private double scale;
+	private int win_h, win_w;
 
 
 	public LightView (int win_w, int win_h, double scale) {
@@ -25,14 +26,18 @@ public class LightView {
 		this.lightSource = new LinkedList();
 
 	}
-
-	void addLightSource (ILightSource s) {
-		this.lightSource.insertAt(0, s);
+	
+	public LinkedList getLightSources () {
+		return this.lightSource;
 	}
 
 	public void setPosition (double scale) {
 		this.scale = scale;
 
+	}
+
+	void addLightSource (ILightSource s) {
+		this.lightSource.insertAt(0, s);
 	}
 
 	boolean isInside (int x, int y) {
@@ -69,5 +74,4 @@ public class LightView {
 		g2d.fill(mask);
 
 	}
-
 }

@@ -2,7 +2,7 @@ package model.map;
 
 public class Case {
 
-	TileType type;
+	private TileType type;
 
 
 	public Case () {
@@ -22,7 +22,6 @@ public class Case {
 	}
 
 	public TileType getType () {
-		// TODO Auto-generated method stub
 		return type;
 	}
 

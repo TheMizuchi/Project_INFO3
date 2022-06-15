@@ -59,14 +59,14 @@ class Panel extends JPanel {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-		for (int i = 0; i < m.width; i++) {
+		for (int i = 0; i < m.getWidth(); i++) {
 
-			for (int j = 0; j < m.height; j++) {
-				if (m.grid[i][j].type == TileType.WALL)
+			for (int j = 0; j < m.getHeight(); j++) {
+				if (m.getCases()[i][j].getType() == TileType.WALL)
 					g.setColor(Color.BLACK);
-				else if (m.grid[i][j].type == TileType.FLOOR)
+				else if (m.getCases()[i][j].getType() == TileType.FLOOR)
 					g.setColor(Color.WHITE);
-				g.fillRect(i * this.getWidth() / m.width, j * this.getHeight() / m.height, this.getWidth() / m.width, this.getHeight() / m.height);
+				g.fillRect(i * this.getWidth() / m.getWidth(), j * this.getHeight() / m.getHeight(), this.getWidth() / m.getWidth(), this.getHeight() / m.getHeight());
 			}
 		}
 		/*
