@@ -1,7 +1,7 @@
 package model.map.generator;
 
-import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.ArrayList;
+import edu.polytech.oop.collections.IList;
 
 
 public class Graph {

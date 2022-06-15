@@ -14,8 +14,8 @@ public class Node {
 
 	Node (Room r) {
 		content = r;
-		mid_x = r.upperLeftX + (r.width / 2);
-		mid_y = r.upperLeftY + (r.height / 2);
+		mid_x = r.getUpperLeftX() + (r.getWidth() / 2);
+		mid_y = r.getUpperLeftY() + (r.getHeight() / 2);
 		ListArc = new ArrayList();
 	}
 
