@@ -22,7 +22,7 @@ public class MyCanvas extends Component {
 	LinkedList m_entityViews;
 	LightView m_light;
 	MapView m_map;
-	Viewport vp;
+	public Viewport vp;
 
 
 	private MyCanvas () {

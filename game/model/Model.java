@@ -60,6 +60,7 @@ public class Model {
 			while (it.hasNext()) {
 				Entity entity = (Entity) it.next();
 				entity.update(m_time_passed);
+				m_canvas.vp.setPosition(entity.getPosX(), entity.getPosY());
 			}
 			it = m_listeLight.iterator();
 			m_time_passed -= 100;
@@ -94,7 +95,7 @@ public class Model {
 			e.printStackTrace();
 		}
 		m_map = new Map(m_w, 160, 120, 1);
-		MyCanvas.getInstance().createMapView(m_map.getCases());
+		m_canvas.createMapView(m_map.getCases());
 	}
 
 }
