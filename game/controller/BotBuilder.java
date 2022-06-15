@@ -46,7 +46,20 @@ public class BotBuilder implements IVisitor {
 				case "Cell":
 					cond = new BotCell(fc.m_p1, fc.m_p2);
 					break;
+				case "MyDir":
+					cond = new BotMyDir(fc.m_p1);
+					break;
+				case "Closest":
+					cond = new BotClosest(fc.m_p1, fc.m_p2);
+					break;
+				case "GotPower":
+					cond = new BotGotPower();
+					break;
+				case "GotStuff":
+					cond = new BotGotStuff();
+					break;
 				default:
+					throw new RuntimeException("Condition inexistante");
 			}
 			return cond;
 		} else {
@@ -189,17 +202,52 @@ public class BotBuilder implements IVisitor {
 						act = new BotMove(call.m_p1);
 						break;
 					case "Pop":
-						act = new BotPop();
+						act = new BotPop(call.m_p1, call.m_p2);
+						break;
+					case "Wizz":
+						act = new BotWizz(call.m_p1, call.m_p2);
 						break;
 					case "Hit":
-						act = new BotHit();
+						act = new BotHit(call.m_p1);
 						break;
 					case "Power":
 						act = new BotPower();
 						break;
 					case "Jump":
-						act = new BotJump();
+						act = new BotJump(call.m_p1);
 						break;
+					case "Turn":
+						act = new BotTurn(call.m_p1);
+						break;
+					case "Protect":
+						act = new BotProtect(call.m_p1);
+						break;
+					case "Pick":
+						act = new BotPick(call.m_p1);
+						break;
+					case "Throw":
+						act = new BotThrow(call.m_p1);
+						break;
+					case "Store":
+						act = new BotStore();
+						break;
+					case "Get":
+						act = new BotGet();
+						break;
+					case "Explode":
+						act = new BotExplode();
+						break;
+					case "Egg":
+						act = new BotEgg(call.m_p1);
+						break;
+					case "Wait":
+						act = new BotWait();
+						break;
+					case "None":
+						act = new BotNone();
+						break;
+					default:
+						throw new RuntimeException("Action inexistante");
 				}
 
 				if (call.m_percent != -1) {

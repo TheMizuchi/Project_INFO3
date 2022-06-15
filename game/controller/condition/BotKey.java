@@ -17,8 +17,11 @@ public class BotKey implements ICondition {
 	public boolean eval () {
 		Controller surveillant = Controller.getInstance();
 		m_s = m_s.toUpperCase();
-		if (surveillant.getTabKeys_prev()[m_s.codePointAt(0)-65])
+
+		if (surveillant.getTabKeys_prev()[m_s.codePointAt(0) - 65]) {
+			System.out.println(m_s);
 			return true;
+		}
 		return false;
 	}
 

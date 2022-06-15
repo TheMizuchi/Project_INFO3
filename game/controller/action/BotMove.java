@@ -30,7 +30,7 @@ public class BotMove extends BotAction {
 				e.move(1, 0);
 				break;
 		}
-		return false;
+		return true;
 	}
 
 }

@@ -6,11 +6,31 @@ import model.entity.Entity;
 
 public class BotProtect extends BotAction {
 
-	public BotProtect () {}
+	String m_s;
+
+
+	public BotProtect (String s) {
+		m_s = s;
+	}
 
 	@Override
 	public boolean apply (Entity e) {
-		throw new RuntimeException("NYI");
+
+		switch (m_s) {
+			case "N":
+
+				break;
+			case "W":
+
+				break;
+			case "S":
+
+				break;
+			case "E":
+
+				break;
+		}
+		return true;
 	}
 
 }

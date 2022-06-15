@@ -27,7 +27,7 @@ public class Controller {
 		BotBuilder bb = BotBuilder.getInstance();
 
 		try {
-			AST ast = from_file("resources/Automata/MoveKeys.gal");
+			AST ast = from_file("resources/Automata/MoveKeys+Pop.gal");
 			m_auts.insertAt(0, ((IList) ast.accept(bb)).elementAt(0));
 		}
 		catch (ParseException ex) {
@@ -104,7 +104,7 @@ public class Controller {
 		}
 	}
 
-	// à appeler dans le model juste AVANT la boucle qui force les automates à step
+	// A appeler dans le model juste AVANT la boucle qui force les automates à step
 	public void transfertTab () {
 		tab_prev = tab;
 	}
