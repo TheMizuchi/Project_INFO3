@@ -48,7 +48,7 @@ public class Model {
 
 			while (it.hasNext()) {
 				Entity entity = (Entity) it.next();
-				entity.update();
+				entity.update(elapsed);
 			}
 		}
 	}
