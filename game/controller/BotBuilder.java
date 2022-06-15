@@ -45,7 +45,21 @@ public class BotBuilder implements IVisitor {
 					break;
 				case "Cell":
 					cond = new BotCell(fc.m_p1, fc.m_p2);
+					break;
+				case "MyDir":
+					cond = new BotMyDir(fc.m_p1);
+					break;
+				case "Closest":
+					cond = new BotClosest(fc.m_p1, fc.m_p2);
+					break;
+				case "GotPower":
+					cond = new BotGotPower();
+					break;
+				case "GotStuff":
+					cond = new BotGotStuff();
+					break;
 				default:
+					throw new RuntimeException("Condition inexistante");
 			}
 			return cond;
 		} else {
@@ -77,7 +91,7 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object visit (Underscore u) {
-		throw new RuntimeException("Underscore NYI");
+		throw new RuntimeException("NYI");
 	}
 
 	@Override
@@ -170,11 +184,15 @@ public class BotBuilder implements IVisitor {
 	public Object exit (Action action, List<Object> funcalls) {
 		IList actions = new LinkedList();
 
-		IAction act = null;
+		BotAction act = null;
 
 		if (action.calls.isEmpty()) {
-			actions.insertAt(0, new BotNone());
+			act = new BotNone();
+			act.setPercent(100);
+			actions.insertAt(0, act);
 		} else {
+			float sum = 0; 							// Somme des probas différentes de -1
+			IList toSetProba = new LinkedList(); 	// Stocke les action d'une proba de -1 (à affecter)
 
 			for (Object obj : funcalls) {
 				BotFunCall call = (BotFunCall) obj;
@@ -184,19 +202,76 @@ public class BotBuilder implements IVisitor {
 						act = new BotMove(call.m_p1);
 						break;
 					case "Pop":
-						act = new BotPop();
+						act = new BotPop(call.m_p1, call.m_p2);
+						break;
+					case "Wizz":
+						act = new BotWizz(call.m_p1, call.m_p2);
 						break;
 					case "Hit":
-						act = new BotHit();
+						act = new BotHit(call.m_p1);
 						break;
 					case "Power":
 						act = new BotPower();
 						break;
 					case "Jump":
-						act = new BotJump();
+						act = new BotJump(call.m_p1);
 						break;
+					case "Turn":
+						act = new BotTurn(call.m_p1);
+						break;
+					case "Protect":
+						act = new BotProtect(call.m_p1);
+						break;
+					case "Pick":
+						act = new BotPick(call.m_p1);
+						break;
+					case "Throw":
+						act = new BotThrow(call.m_p1);
+						break;
+					case "Store":
+						act = new BotStore();
+						break;
+					case "Get":
+						act = new BotGet();
+						break;
+					case "Explode":
+						act = new BotExplode();
+						break;
+					case "Egg":
+						act = new BotEgg(call.m_p1);
+						break;
+					case "Wait":
+						act = new BotWait();
+						break;
+					case "None":
+						act = new BotNone();
+						break;
+					default:
+						throw new RuntimeException("Action inexistante");
 				}
-				actions.insertAt(0, act);
+
+				if (call.m_percent != -1) {
+					sum += call.m_percent;
+					act.setPercent(call.m_percent);
+				} else {
+					toSetProba.insertAt(0, act);
+				}
+				actions.insertAt(actions.length(), act);
+
+			}
+
+			double probaToSet = (100 - sum) / (double) toSetProba.length();
+			IList.Iterator ite = toSetProba.iterator();
+
+			while (ite.hasNext()) {
+				((BotAction) ite.next()).setPercent(probaToSet);
+				sum += probaToSet;
+			}
+
+			if (sum > 100) {
+				throw new RuntimeException("L'automate est incorrecte (Une transition a une somme d'action d'une probabilité supérieur à 100)");
+			} else if (sum < 100) {
+				throw new RuntimeException("La somme des proba ne fait pas 100 sur une transition");
 			}
 		}
 		return actions;

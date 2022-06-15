@@ -18,8 +18,8 @@ public class BotAutomata {
 		m_states = new LinkedList();
 	}
 
-	public void step (Entity e, BotState current_state) {
-		current_state = current_state.step(e);
+	public BotState step (Entity e, BotState current_state) {
+		return current_state.step(e, this);
 	}
 
 	public BotState add_state (String state_name) {

@@ -29,7 +29,7 @@ public abstract class Animation {
 
 	public Animation () {
 		m_idx = 0;
-		m_done = false;
+		m_done = true;
 		this.delay = 20;
 		this._al = new _AnimationListener();
 	}
