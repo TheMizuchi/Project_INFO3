@@ -45,8 +45,17 @@ public class Model {
 		m_listeLight = new LinkedList();
 		m_cont = Controller.getInstance();
 		m_canvas = MyCanvas.getInstance();
-		m_cam = new Camera(m_canvas.getViewport());
 		createMap();
+		loadEnv();
+	}
+	
+	//méthode tmp pour les tests
+	private void loadEnv() {
+		Entity j1 = createEntity(20, 0, 0);
+		createLightSource(j1);
+		Entity j2 = createEntity(-20, 0, 0);
+		createLightSource(j2);
+		m_cam = new Camera(m_canvas.getViewport(), j1, j2);
 	}
 
 	public static Model getInstance () {
@@ -64,6 +73,7 @@ public class Model {
 		while (it.hasNext()) {
 			Entity entity = (Entity) it.next();
 			entity.update(elapsed);
+			m_cam.setPosition(entity.getPosX(), entity.getPosY(), 1);
 		}
 
 		it = m_listeLight.iterator();
@@ -72,10 +82,12 @@ public class Model {
 			LightSource ls = (LightSource) it.next();
 			ls.update();
 		}
+		
+		m_cam.update();
 	}
 
-	public Entity createEntity () {
-		Entity e = new Entity(1, 1, 0);
+	public Entity createEntity (int x, int y, int ID) {
+		Entity e = Entity.createEntity(x, y, ID);
 		m_listeEntity.insertAt(0, e);
 		return e;
 	}
@@ -95,7 +107,7 @@ public class Model {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		m_map = new Map(m_w, 160, 120, 1);
+		m_map = new Map(m_w, 1, 100);
 		m_canvas.createMapView(m_map.getCases());
 	}
 
