@@ -2,9 +2,9 @@ package model.entity;
 
 import controller.RefAutomata;
 import model.Model;
-import view.EntityView;
 import view.MyCanvas;
 import view.graphicEntity.CowboyView;
+import view.graphicEntity.EntityView;
 
 
 public class Entity implements EntityInterface {

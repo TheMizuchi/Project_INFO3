@@ -20,11 +20,12 @@ public class Viewport {
 	}
 
 	public void setPosition (double x, double y) {
-		this.x = (x);
-		this.y = (y);
+		this.x = x;
+		this.y = y;
 	}
 
 	public void setPosition (double x, double y, double s) {
+		System.out.println("s : " + s);
 		this.scale = s * SCALE_BASE;
 		this.setPosition(x, y);
 	}

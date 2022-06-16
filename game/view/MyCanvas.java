@@ -9,6 +9,7 @@ import model.map.Case;
 import view.animation.bank.AnimationBank;
 import view.animation.bank.CowboyBank;
 import view.graphicEntity.CowboyView;
+import view.graphicEntity.EntityView;
 import view.graphicEntity.LightSourceView;
 
 
@@ -96,7 +97,6 @@ public class MyCanvas extends Component {
 
 		while (it.hasNext()) {
 			((LightSourceView) it.next()).update(this.vp);
-			;
 		}
 
 		// Mise à jour de la map
