@@ -1,6 +1,7 @@
 package model.entity;
 
 import controller.RefAutomata;
+import edu.polytech.oop.collections.ICollection;
 import model.Model;
 import view.MyCanvas;
 import view.graphicEntity.CowboyView;
@@ -10,6 +11,7 @@ public class Entity implements EntityInterface {
 	public int m_ID;
 	private Hitbox m_hitbox;
 	Direction m_orientation;
+	TypeEntity type;
 	protected RefAutomata m_automata;
 	private CowboyView m_cv;
 	private double m_speedX;
@@ -59,10 +61,26 @@ public class Entity implements EntityInterface {
 
 	@Override
 	public boolean myDir(Direction orientation) {
+		return m_orientation.getAngle() == orientation.getAngle();
+	}
+
+	@Override
+	public boolean cell (Direction orientation, TypeEntity type) {
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e;
+		while (iter.hasNext()) {
+			e = iter.next();
+			
+		}
+		
+	}
+
+	@Override
+	public boolean closest (Direction orientation, TypeEntity type) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
 	@Override
 	public boolean gotPower() {
 		// TODO Auto-generated method stub
@@ -165,4 +183,5 @@ public class Entity implements EntityInterface {
         System.out.println(m_orientation.getDirectionX()  +" y : "+ m_orientation.getDirectionY() + " elapse : " + elapse);
         m_hitbox.move(m_speedX * elapse / 1000, m_speedY * elapse / 1000);
 	}
+
 }

@@ -33,7 +33,7 @@ public class Model {
 
 	// Variables locales
 	private int m_time_passed;
-	private LinkedList m_listeEntity;
+	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
 	private Camera m_cam;
 	private World m_w;
@@ -97,6 +97,10 @@ public class Model {
 		}
 		m_map = new Map(m_w, 160, 120, 1);
 		m_canvas.createMapView(m_map.getCases());
+	}
+	
+	public static IList getlistEntity() {
+		return m_listeEntity;
 	}
 
 }
