@@ -100,7 +100,6 @@ public class MyCanvas extends Component {
 		// Mise à jour de la map
 		m_map.setPosition(vp.toLocalX(0), vp.toLocalY(0), vp.getScale());
 	}
-
 	
 	/*
 	 * On met à jour tous les élément de la view pour les afficher au bon endroit.

@@ -4,14 +4,10 @@ import java.awt.Graphics;
 
 import model.entity.EntityInterface;
 import view.EntityView;
-import view.MyCanvas;
 import view.Viewport;
 import view.animation.Animation;
 import view.animation.CowboyAnimation;
 import view.animation.Animation.AnimationListener;
-import view.animation.bank.AnimationBank;
-import view.animation.bank.CowboyBank;
-
 /*
  * Cette classe sert à définir le visuel de l'entité. Elle doit définir quelles
  * animations ou quelles images fixes afficher mais ne s'occupe pas de les
@@ -39,9 +35,9 @@ public class CowboyView extends EntityView {
 			}
 		};
 	}
-	
+
 	@Override
-	public void update(Viewport vp) {
+	public void update (Viewport vp) {
 		this.setPosition(vp.toLocalX(this.entity.getPosX()), vp.toLocalY(this.entity.getPosY()), vp.getScale());
 	}
 
