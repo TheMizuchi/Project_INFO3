@@ -31,6 +31,10 @@ public class BloonView extends EntityView {
 		};
 
 	}
+	
+	public void explode() {
+		this.a.explode();
+	}
 
 	@Override
 	public void setPosition (int x, int y, double scale) {

@@ -89,7 +89,6 @@ public class Game {
 		System.out.println("  - setting up the frame...");
 		setupFrame();
 
-		m_m.createLightSource(m_m.createEntity());
 	}
 
 	/*

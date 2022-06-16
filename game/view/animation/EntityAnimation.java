@@ -13,6 +13,7 @@ public abstract class EntityAnimation extends Animation {
 	protected int x, y;
 	protected int h, w;
 	protected double scale;
+	protected int orientation;
 	protected EntityAnimationBank ab;
 
 
@@ -20,9 +21,10 @@ public abstract class EntityAnimation extends Animation {
 		super();
 		this.ab = a;
 		this.scale = 1F;
-		this.h = this.ab.left.getHeight();
-		this.w = this.ab.left.getWidth();
-		this.left();
+		this.h = this.ab.idle.m_height;
+		this.w = this.ab.idle.m_width;
+		this.orientation = 1;
+		this.idle();
 	}
 
 	public void setPosition (int x, int y, double scale) {
@@ -34,34 +36,21 @@ public abstract class EntityAnimation extends Animation {
 	@Override
 	public void paint (Graphics g) {
 		//if(m_sprite == null || m_fixImage == null) return;
-		BufferedImage img;
-
-		if (this.done()) {
-			img = m_fixImage;
-		} else {
-			img = m_sprite.m_images[m_idx];
-		}
-		g.drawImage(img, (int) (this.x - (this.w * this.scale / 2)), (int) (this.y - this.h * this.scale / 2), (int) (this.scale * img.getWidth()), (int) (this.scale * img.getHeight()), null);
+		BufferedImage img = m_sprite.m_images[m_idx];
+		g.drawImage(img, (int) (this.x - (this.w * this.scale / 2)), (int) (this.y - this.h * this.scale / 2), (int) (this.scale * img.getWidth() * this.orientation), (int) (this.scale * img.getHeight()), null);
 	}
 
 	public void turnLeft () {
-		m_sprite = ab.turnLeft;
-		this.left();
-		this.start();
+		this.orientation = -1;
 	}
 
 	public void turnRight () {
-		m_sprite = ab.turnRight;
-		this.right();
+		this.orientation = 1;
+	}
+	
+	public void idle() {
+		m_sprite = this.ab.idle;
 		this.start();
-	}
-
-	public void left () {
-		m_fixImage = ab.left;
-	}
-
-	public void right () {
-		m_fixImage = ab.right;
 	}
 
 	public int getH () {
