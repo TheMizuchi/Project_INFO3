@@ -5,16 +5,16 @@ import java.awt.image.BufferedImage;
 import view.animation.Sprite;
 
 
-public class J1Bank extends EntityAnimationBank {
+public class J2Bank extends EntityAnimationBank {
 
-	//Liste des aniations spécifique au J1;
+	//Liste des aniations spécifique au J2;
 	public Sprite idle;
 	public Sprite walk;
 	public Sprite attack;
 	
 
 
-	private J1Bank () {
+	private J2Bank () {
 		Sprite spriteFile = Sprite.loadSprite("resources/adventurer-v1.5-Sheet.png", 7, 16);
 		
 		
@@ -23,13 +23,13 @@ public class J1Bank extends EntityAnimationBank {
 	}
 
 
-	private static J1Bank INSTANCE = null;
+	private static J2Bank INSTANCE = null;
 
 
-	public static J1Bank getInstance () {
+	public static J2Bank getInstance () {
 
 		if (INSTANCE == null) {
-			INSTANCE = new J1Bank();
+			INSTANCE = new J2Bank();
 		}
 		return INSTANCE;
 	}
