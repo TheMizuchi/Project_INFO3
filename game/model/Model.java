@@ -47,6 +47,12 @@ public class Model {
 		m_canvas = MyCanvas.getInstance();
 		m_cam = new Camera(m_canvas.getViewport());
 		createMap();
+		loadEnv();
+	}
+	
+	//méthode tmp pour les tests
+	private void loadEnv() {
+		createLightSource(createEntity(0, 0, 0));
 	}
 
 	public static Model getInstance () {
@@ -74,8 +80,8 @@ public class Model {
 		}
 	}
 
-	public Entity createEntity () {
-		Entity e = new Entity(1, 1, 0);
+	public Entity createEntity (int x, int y, int ID) {
+		Entity e = Entity.createEntity(x, y, ID);
 		m_listeEntity.insertAt(0, e);
 		return e;
 	}

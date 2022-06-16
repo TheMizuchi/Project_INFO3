@@ -28,7 +28,31 @@ public class Entity implements EntityInterface {
 		m_orientation = new Direction();
 		m_hitbox = new Hitbox(x, y, 0.5, 0.5);
 		m_automata = new RefAutomata(this);
-
+	}
+	
+	public static Entity createEntity (int x, int y, int ID) {
+		Entity e = null;
+		switch(ID) {
+			case Model.COWBOY_ID :
+				e = new Cowboy(x, y);
+				break;
+			case Model.J1_ID :
+				break;
+			case Model.J2_ID :
+				break;
+			case Model.BLOON_ID:
+				break;
+			case Model.ZOMBIE_ID:
+				break;
+			case Model.BAT_ID :
+				break;
+			case Model.DART_MONKEY_ID:
+				break;
+			default :
+				System.out.println("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
+				
+		}
+		return e;
 	}
 
 	public boolean getOrientation() {
