@@ -8,10 +8,12 @@ import view.animation.Animation;
 import view.animation.BatAnimation;
 import view.animation.Animation.AnimationListener;
 
+
 public class BatView extends EntityView {
-	
+
 	AnimationListener al;
 	BatAnimation a;
+
 
 	public BatView (EntityInterface e) {
 		super(0, 0, 1, e);
@@ -21,7 +23,7 @@ public class BatView extends EntityView {
 
 			@Override
 			public void done (Animation a) {
-				
+
 			}
 		};
 	}
@@ -32,11 +34,11 @@ public class BatView extends EntityView {
 		this.scale = scale;
 		a.setPosition(x, y, scale);
 	}
-	
+
 	public void setDelay (int delay) {
 		a.setDelay(delay);
 	}
-	
+
 	@Override
 	public int getH () {
 		return this.a.getH();
@@ -50,19 +52,19 @@ public class BatView extends EntityView {
 	@Override
 	public void turnLeft () {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void turnRight () {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void paint (Graphics g) {
 		this.a.paint(g);
-		
+
 	}
 
 }

@@ -31,8 +31,8 @@ public class BloonView extends EntityView {
 		};
 
 	}
-	
-	public void explode() {
+
+	public void explode () {
 		this.a.explode();
 	}
 
