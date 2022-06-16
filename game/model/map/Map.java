@@ -60,7 +60,6 @@ public class Map {
 				}
 			}
 		}
-
 	}
 
 	//N : nombre de salles standards

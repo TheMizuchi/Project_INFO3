@@ -90,32 +90,35 @@ public class MyCanvas extends Component {
 		while (it.hasNext()) {
 			((EntityView) it.next()).update(this.vp);
 		}
-		
+
 		// Mise à jour des sources de lumière
 		it = m_light.getLightSources().iterator();
+
 		while (it.hasNext()) {
-			((LightSourceView) it.next()).update(this.vp);;
+			((LightSourceView) it.next()).update(this.vp);
+			;
 		}
-		
+
 		// Mise à jour de la map
 		m_map.setPosition(vp.toLocalX(0), vp.toLocalY(0), vp.getScale());
 	}
-	
+
 	/*
 	 * On met à jour tous les élément de la view pour les afficher au bon endroit.
-	 * Ensuite on affiche d'abord la map, puis les entitées puis on applique de le champ de vision donné par la lumière
+	 * Ensuite on affiche d'abord la map, puis les entitées puis on applique de le
+	 * champ de vision donné par la lumière
 	 */
 	@Override
 	public void paint (Graphics g) {
 		this.updateView();
 		m_map.paint(g);
-		
+
 		LinkedList.Iterator it = m_entityViews.iterator();
 		//int i = 0;
 
 		while (it.hasNext()) {
 			EntityView e = (EntityView) it.next();
-			
+
 			// Cette condition permet de ne pas peindre les entités qui ne sont pas dans le viewport.
 			// Si les entités sont dans le viewport on teste si elle apparaissent dans un champ lumineux.
 			// Si ce n'est pas le cas, on ne les dessine pas non plus.
@@ -125,7 +128,7 @@ public class MyCanvas extends Component {
 			}
 		}
 		//System.out.println("Nb d'entité dessiné : " + i);
-		
+
 		// Applique un masque pour couvrir les zones non éclairées.
 		m_light.paint(g);
 

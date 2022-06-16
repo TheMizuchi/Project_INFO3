@@ -13,9 +13,9 @@ public class AnimationBank {
 	private AnimationBank () {
 		EAB = new EntityAnimationBank[Model.ENTITY_NUMBER];
 		EAB[Model.COWBOY_ID] = CowboyBank.getInstance();
-		//		EAB[J1ID] = new J1Bank();
-		//		EAB[J2ID] = new J2Bank();
-		//		EAB[BLOONID] = new BloonBank();
+		EAB[Model.J1_ID] = J1Bank.getInstance();
+		EAB[Model.J2_ID] = J2Bank.getInstance();
+		EAB[Model.BLOON_ID] = BloonBank.getInstance();
 		//		EAB[ZOMBIEID] = new ZombieBank();
 		//		EAB[BATID] = new BatBank();
 		//		EAB[DARTMONKEYID] = new DartMonkeyBank();
