@@ -35,13 +35,13 @@ public class J1Bank extends EntityAnimationBank {
 	@Override
 	protected void loadBasicAnimation (Sprite spriteFile) {
 		BufferedImage[] idle_img = new BufferedImage[4];
-		BufferedImage[] walk_img = new BufferedImage[6];
+		BufferedImage[] walk_img = new BufferedImage[5];
 		for (int i = 0; i<4; i++) {
 			idle_img[i] = spriteFile.m_images[i];
 		}
 		this.idle = new Sprite(idle_img);
 		
-		for (int i = 0; i<6; i++) {
+		for (int i = 0; i<5; i++) {
 			walk_img[i] = spriteFile.m_images[i+9];
 		}
 		this.walk = new Sprite(walk_img);

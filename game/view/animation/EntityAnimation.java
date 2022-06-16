@@ -55,6 +55,11 @@ public abstract class EntityAnimation extends Animation {
 		m_sprite = this.ab.idle;
 		this.start();
 	}
+	
+	public void walk() {
+		m_sprite = this.ab.walk;
+		this.start();
+	}
 
 	public int getH () {
 		return this.h;

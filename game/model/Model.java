@@ -72,7 +72,7 @@ public class Model {
 		while (it.hasNext()) {
 			Entity entity = (Entity) it.next();
 			entity.update(elapsed);
-			m_cam.setPosition(entity.getPosX(), entity.getPosY(), 1);
+			m_cam.update();
 		}
 
 		it = m_listeLight.iterator();

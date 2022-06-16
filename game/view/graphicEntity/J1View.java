@@ -21,6 +21,17 @@ public class J1View extends EntityView {
 	public J1View (EntityInterface e) {
 		super(0, 0, 1, e, new J1Animation());
 		this.a = (J1Animation) super.a;
+		this.al = new AnimationListener() {
+
+			@Override
+			public void done (Animation a) {
+				walk();
+
+			}
+		};
+		a.setListener(al);
+		a.setDelay(150);
+		a.walk();
 	}
 
 	public void attack () {

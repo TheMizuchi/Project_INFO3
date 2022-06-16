@@ -45,6 +45,10 @@ public abstract class EntityView extends ViewElement {
 	protected void idle () {
 		this.a.idle();
 	}
+	
+	protected void walk() {
+		this.a.walk();
+	}
 
 	public void update (Viewport vp) {
 		this.setPosition(vp.toLocalX(this.entity.getPosX()), vp.toLocalY(this.entity.getPosY()), vp.getScale());
