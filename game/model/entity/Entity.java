@@ -1,7 +1,6 @@
 package model.entity;
 
 import controller.RefAutomata;
-import model.Model;
 import view.MyCanvas;
 import view.graphicEntity.CowboyView;
 
@@ -10,20 +9,17 @@ public class Entity implements EntityInterface {
 
 	public int m_ID;
 	private Hitbox m_hitbox;
-//	Direction m_orientation;
 	protected RefAutomata m_automata;
 	private CowboyView m_cv;
 
 	private static final double ENTITY_MAX_SPEED = 2; // vitesse par seconde
+	private Vector m_vecDir = new Vector();
 
 	// Liste d'items
-
-	//
 
 
 	public Entity (double x, double y, int ID) {
 		m_ID = ID;
-//		m_orientation = new Direction();
 		m_hitbox = new Hitbox(x, y, 0.5, 0.5);
 		m_automata = new RefAutomata(this);
 
@@ -32,10 +28,8 @@ public class Entity implements EntityInterface {
 	}
 
 	public boolean getOrientation () {
-		// TODO
 		// T si gauche / north
-//		return m_orientation.getDirectionX() < 0 || m_orientation.getDirectionY() < 0;
-		return true;
+		return m_vecDir.getX() < 0;
 	}
 
 	public double getPosX () {
@@ -49,7 +43,9 @@ public class Entity implements EntityInterface {
 	public void update (long elapsed) {
 		// déplacement
 		m_automata.step();
-//		this.deplacement(elapsed);
+		double speedX = m_vecDir.getX() * ENTITY_MAX_SPEED;
+		double speedY = m_vecDir.getY() * ENTITY_MAX_SPEED;
+		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 	}
 
 	void attack () {}
@@ -92,8 +88,8 @@ public class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void move (Direction orientation) {
-//		m_orientation.updateDirection(orientation);
+	public void move (Direction dir) {
+		dir.move(m_vecDir);
 	}
 
 	@Override
@@ -156,10 +152,4 @@ public class Entity implements EntityInterface {
 
 	}
 
-//	private void deplacement (long elapse) {
-//		double angle = m_orientation.toAngle();
-//		m_speedX = Math.cos(angle) * Math.abs(m_orientation.getDirectionX()) * ENTITY_MAX_SPEED;
-//		m_speedY = Math.sin(angle) * Math.abs(m_orientation.getDirectionY()) * ENTITY_MAX_SPEED;
-//		m_hitbox.move(m_speedX * elapse / 1000, m_speedY * elapse / 1000);
-//	}
 }
