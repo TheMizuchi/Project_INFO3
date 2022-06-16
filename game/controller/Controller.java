@@ -31,6 +31,10 @@ public class Controller {
 		try {
 			AST ast = from_file("resources/Automata/MoveKeys+Pop.gal");
 			m_auts.insertAt(0, ((IList) ast.accept(bb)).elementAt(0));
+			AST ast = from_file("resources/Automata/MoveKeys+Pop.gal");
+			m_auts.insertAt(0, ((IList) ast.accept(bb)).elementAt(1));
+			AST ast = from_file("resources/Automata/MoveKeysArrows+Pop.gal");
+			m_auts.insertAt(0, ((IList) ast.accept(bb)).elementAt(2));
 		}
 		catch (ParseException ex) {
 			throw new RuntimeException("Erreur de parsing");
