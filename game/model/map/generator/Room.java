@@ -16,7 +16,7 @@ public class Room {
 		upperLeftX = -1; //On remplie à -1 parce que l'emplacement dès salle sera fait plus tard
 		upperLeftY = -1;
 		width = w;
-		height = h;
+		height = h;;
 
 		comp = new Case[w][h];
 
