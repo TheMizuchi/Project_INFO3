@@ -2,17 +2,17 @@ package view.animation;
 
 import model.Model;
 import view.animation.bank.AnimationBank;
-import view.animation.bank.BalloonBank;
+import view.animation.bank.BloonBank;
 
 
-public class BalloonAnimation extends EntityAnimation {
+public class BloonAnimation extends EntityAnimation {
 
-	BalloonBank bb;
+	BloonBank bb;
 
 
-	public BalloonAnimation () {
+	public BloonAnimation () {
 		super(AnimationBank.getAnimationBank(Model.BLOON_ID));
-		this.bb = (BalloonBank) AnimationBank.getAnimationBank(Model.BLOON_ID);
+		this.bb = (BloonBank) AnimationBank.getAnimationBank(Model.BLOON_ID);
 	}
 
 	public void explode () {

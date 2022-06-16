@@ -9,12 +9,12 @@ import javax.imageio.ImageIO;
 import view.animation.Sprite;
 
 
-public class BalloonBank extends EntityAnimationBank {
+public class BloonBank extends EntityAnimationBank {
 
 	public Sprite explode;
 
 
-	private BalloonBank () {
+	private BloonBank () {
 		BufferedImage[] images = new BufferedImage[6];
 		for(int i = 0; i<6; i++) {
 			images[i] = loadImages("ressources/green-ballon/"+i+1+".png");
@@ -26,13 +26,13 @@ public class BalloonBank extends EntityAnimationBank {
 	}
 
 
-	private static BalloonBank INSTANCE = null;
+	private static BloonBank INSTANCE = null;
 
 
-	public static BalloonBank getInstance () {
+	public static BloonBank getInstance () {
 
 		if (INSTANCE == null) {
-			INSTANCE = new BalloonBank();
+			INSTANCE = new BloonBank();
 		}
 		return INSTANCE;
 	}
