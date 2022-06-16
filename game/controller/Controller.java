@@ -29,7 +29,7 @@ public class Controller {
 		BotBuilder bb = BotBuilder.getInstance();
 
 		try {
-			AST ast = from_file("resources/Automata/MoveKeysArrows+Pop.gal");
+			AST ast = from_file("resources/Automata/MoveKeys+Pop.gal");
 			m_auts.insertAt(0, ((IList) ast.accept(bb)).elementAt(0));
 		}
 		catch (ParseException ex) {
@@ -115,7 +115,7 @@ public class Controller {
 
 		while (ite.hasNext()) {
 			c = (char) ite.next();
-			setKeyPrev(c, getKey(c));
+			setKeyPrev(c, !getKeyPrev(c));
 		}
 		m_keysToUpdate = new LinkedList();
 	}

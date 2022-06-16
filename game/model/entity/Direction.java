@@ -4,86 +4,103 @@ public class Direction {
 
 	private int m_dirX;
 	private int m_dirY;
-	
-	//private boolean m_actif ; 
-	
-	private double m_angle; 
 
-	public Direction() {
+	private boolean m_N;
+	private boolean m_S;
+	private boolean m_E;
+	private boolean m_W;
+
+	// private boolean m_actif ;
+
+	private double m_angle;
+
+
+	public Direction () {
 		m_dirX = 0;
 		m_dirY = 0;
-		m_angle = Math.PI/2;
-		//m_actif = false ; 
+		m_angle = Math.PI / 2;
 	}
-	
-	//public void setActif(boolean actif) {
-	//	m_actif = actif; 
-	//}
 
-	public int getDirectionX() {
+	public int getDirectionX () {
 		return m_dirX;
 	}
 
-	public int getDirectionY() {
+	public int getDirectionY () {
 		return m_dirY;
 	}
 
-	public void faceNorth() {
+	public void faceNorth () {
 		m_dirY = -1;
 	}
 
-	public void faceSouth() {
+	public void faceSouth () {
 		m_dirY = 1;
 	}
 
-	public void faceEst() {
+	public void faceEst () {
 		m_dirX = 1;
 	}
 
-	public void faceWest() {
+	public void faceWest () {
 		m_dirX = -1;
 	}
 
-	public void updateDirection(Direction dir) {
+	public void updateDirection (Direction dir) {
 		int dirX = dir.getDirectionX();
 		int dirY = dir.getDirectionY();
 
-		if (m_dirX == dirX) {
-			m_dirX = 0;
-		} else {
-			if (dirX != 0) {
-				m_dirX = dirX;
-			}
+		if (dirY == -1) {
+			m_N = !m_N;
+		} else if (dirY == 1) {
+			m_S = !m_S;
+		}
+		m_dirY = 0;
+
+		if (m_N) {
+			m_dirY -= 1;
 		}
 
-		if (m_dirY == dirY) {
-			m_dirY = 0;
-		} else {
-			if (dirY != 0) {
-				m_dirY = dirY;
-			}
+		if (m_S) {
+			m_dirY += 1;
 		}
-	}
-	
-	public void setAngle(double angle) {
-		m_angle= angle ; 
-	}
-	
-	public double getAngle() {
-		return m_angle; 
+
+		if (dirX == -1) {
+			m_W = !m_W;
+		} else if (dirX == 1) {
+			m_E = !m_E;
+		}
+		m_dirX = 0;
+
+		if (m_W) {
+			m_dirX -= 1;
+		}
+
+		if (m_E) {
+			m_dirX += 1;
+		}
+
 	}
 
-	public double toAngle() {
+	public void setAngle (double angle) {
+		m_angle = angle;
+	}
+
+	public double getAngle () {
+		return m_angle;
+	}
+
+	public double toAngle () {
 		double angle;
-		if(m_dirX==0) { // dirX ==0
-			return angle = Math.PI/2*m_dirY;
+
+		if (m_dirX == 0) { // dirX ==0
+			return angle = Math.PI / 2 * m_dirY;
 		}
-		angle = Math.atan(m_dirY/m_dirX);
-		
-		if (m_dirX >0) {
-			return angle ; 
-		}else { // (m_dirX<0)
-			return (angle+Math.PI) % (Math.PI*2);
+		angle = Math.atan(m_dirY / m_dirX);
+
+		if (m_dirX > 0) {
+			return angle;
+		} else { // (m_dirX<0)
+			return (angle + Math.PI) % (Math.PI * 2);
 		}
 	}
 }

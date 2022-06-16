@@ -16,9 +16,7 @@ public abstract class EntityAnimationBank {
 	public BufferedImage right;
 
 
-	public static void loadAnimations () {
-
-	}
+	protected static void loadAnimations () {}
 
 	protected abstract void loadBasicAnimation (Sprite spriteFile); // load sprite to fill field in this class
 	protected abstract void loadSpecificAnimation (Sprite spriteFile); // load sprite to fill field in the concrete class that extends this one

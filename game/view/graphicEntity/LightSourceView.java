@@ -2,7 +2,7 @@ package view.graphicEntity;
 
 import java.awt.Graphics;
 
-import view.ILightSource;
+import model.ILightSource;
 import view.ViewElement;
 
 

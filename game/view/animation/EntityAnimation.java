@@ -16,9 +16,9 @@ public abstract class EntityAnimation extends Animation {
 	protected EntityAnimationBank ab;
 
 
-	public EntityAnimation () {
+	public EntityAnimation (EntityAnimationBank a) {
 		super();
-		this.ab = AnimationBank.getAnimationBank(Model.COWBOY_ID);
+		this.ab = a;
 		this.scale = 1F;
 		this.h = this.ab.left.getHeight();
 		this.w = this.ab.left.getWidth();
