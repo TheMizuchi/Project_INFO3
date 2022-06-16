@@ -6,21 +6,21 @@ import model.entity.EntityInterface;
 import view.EntityView;
 import view.MyCanvas;
 import view.animation.Animation;
-import view.animation.BalloonAnimation;
+import view.animation.BloonAnimation;
 import view.animation.Animation.AnimationListener;
 import view.animation.bank.AnimationBank;
-import view.animation.bank.BalloonBank;
+import view.animation.bank.BloonBank;
 
 
-public class BalloonView extends EntityView {
+public class BloonView extends EntityView {
 
 	AnimationListener al;
-	BalloonAnimation a;
+	BloonAnimation a;
 
 
-	public BalloonView (EntityInterface e) {
+	public BloonView (EntityInterface e) {
 		super(0, 0, 1, e);
-		this.a = new BalloonAnimation();
+		this.a = new BloonAnimation();
 		a.setPosition(x, y, scale);
 		this.al = new AnimationListener() {
 
