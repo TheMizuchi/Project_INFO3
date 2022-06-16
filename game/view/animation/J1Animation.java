@@ -15,6 +15,11 @@ public class J1Animation extends EntityAnimation {
 		this.j1b = (J1Bank) AnimationBank.getAnimationBank(Model.J1_ID);
 	}
 
+	public void walk () { // Je rajoute walk ici, sinon je peux pas l'utiliser.
+		m_sprite = this.j1b.walk;
+		this.start();
+	}
+
 	public void attack () {
 		m_sprite = this.j1b.attack;
 		this.start();

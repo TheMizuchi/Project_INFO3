@@ -16,6 +16,7 @@ public class J1View extends EntityView {
 
 	
 	J1Animation a;
+	
 
 	public J1View (EntityInterface e) {
 		super(0, 0, 1, e, new J1Animation());
