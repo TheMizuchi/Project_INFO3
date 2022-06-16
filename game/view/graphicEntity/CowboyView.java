@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import model.entity.EntityInterface;
 import view.EntityView;
 import view.MyCanvas;
+import view.Viewport;
 import view.animation.Animation;
 import view.animation.CowboyAnimation;
 import view.animation.Animation.AnimationListener;
@@ -37,6 +38,11 @@ public class CowboyView extends EntityView {
 				idle();
 			}
 		};
+	}
+	
+	@Override
+	public void update(Viewport vp) {
+		this.setPosition(vp.toLocalX(this.entity.getPosX()), vp.toLocalY(this.entity.getPosY()), vp.getScale());
 	}
 
 	protected void idle () {

@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import model.entity.EntityInterface;
 import view.EntityView;
 import view.MyCanvas;
+import view.Viewport;
 import view.animation.Animation;
 import view.animation.J1Animation;
 import view.animation.Animation.AnimationListener;
@@ -29,6 +30,11 @@ public class J1View extends EntityView {
 
 			}
 		};
+	}
+
+	@Override
+	public void update (Viewport vp) {
+		this.setPosition(vp.toLocalX(this.entity.getPosX()), vp.toLocalY(this.entity.getPosY()), vp.getScale());
 	}
 
 	@Override

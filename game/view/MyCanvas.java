@@ -88,16 +88,13 @@ public class MyCanvas extends Component {
 		LinkedList.Iterator it = m_entityViews.iterator();
 
 		while (it.hasNext()) {
-			EntityView e = ((EntityView) it.next());
-			e.setPosition(vp.toLocalX(e.entity.getPosX()), vp.toLocalY(e.entity.getPosY()), vp.getScale());
+			((EntityView) it.next()).update(this.vp);
 		}
 		
 		// Mise à jour des sources de lumière
 		it = m_light.getLightSources().iterator();
 		while (it.hasNext()) {
-			LightSourceView s = (LightSourceView) it.next();
-			// Ici, les méthodes get*****(); servent à récupérer les informations de la source de lumière du model et non pas de la view 
-			s.setPosition(vp.toLocalX(s.getPosX()), vp.toLocalY(s.getPosY()), vp.getScale(), (int) (vp.getScale() * s.getRadius() * METRIC_BASE));
+			((LightSourceView) it.next()).update(this.vp);;
 		}
 		
 		// Mise à jour de la map
