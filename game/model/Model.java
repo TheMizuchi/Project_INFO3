@@ -51,9 +51,9 @@ public class Model {
 	
 	//méthode tmp pour les tests
 	private void loadEnv() {
-		Entity j1 = createEntity(20, 0, 0);
+		Entity j1 = createEntity(5, 0, 0);
 		createLightSource(j1);
-		Entity j2 = createEntity(-20, 0, 3);
+		Entity j2 = createEntity(-5, 0, 0);
 		createLightSource(j2);
 		m_cam = new Camera(m_canvas.getViewport(), j1, j2);
 	}

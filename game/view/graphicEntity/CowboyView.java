@@ -34,9 +34,13 @@ public class CowboyView extends EntityView {
 
 			@Override
 			public void done (Animation a) {
-
+				idle();
 			}
 		};
+	}
+
+	protected void idle () {
+		this.a.idle();
 	}
 
 	@Override
@@ -59,21 +63,13 @@ public class CowboyView extends EntityView {
 	@Override
 	public void turnLeft () {
 
-		if (!this.left) {
-			this.left = true;
-			this.a.setListener(this.al);
-			this.a.turnLeft();
-		}
+		this.a.turnLeft();
 	}
 
 	@Override
 	public void turnRight () {
 
-		if (this.left) {
-			this.left = false;
-			this.a.setListener(this.al);
-			this.a.turnRight();
-		}
+		this.a.turnRight();
 	}
 
 	@Override

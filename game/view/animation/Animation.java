@@ -81,7 +81,7 @@ public abstract class Animation {
 
 		public void start () {
 			this.last = System.currentTimeMillis();
-			this.t.setTimer(0, this);
+			this.t.setTimer(20, this);
 
 		}
 
