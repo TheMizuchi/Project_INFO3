@@ -31,3 +31,8 @@ Mine (Init) {
 		| Key(e) ? Pop / Hit / Power / Jump : ()
 		| True ? : (Waiting)
 }
+
+AZaz (Init) {
+	* (Init):
+		| True ? : (Init)
+}

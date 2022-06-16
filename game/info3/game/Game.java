@@ -53,6 +53,7 @@ public class Game {
 	}
 
 
+	long m_elapsedUpdate;
 	JFrame m_frame;
 	JLabel m_text;
 	GameCanvas m_canvas;
@@ -71,22 +72,24 @@ public class Game {
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
 		m_listener = new CanvasListener(this);
+		Dimension d = new Dimension(1920, 980);//
+		my_canvas = MyCanvas.getInstance();//
+		my_canvas.initCanvas(d.width, d.height);//
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
 
 		new MyTimer();
-
+		m_elapsedUpdate = 0;
 		m_m = Model.getInstance();
 		m_listener.m_cont.setModel();
 
 		System.out.println("  - creating frame...");
-		Dimension d = new Dimension(1920, 980);//
-		my_canvas = MyCanvas.getInstance();//
-		my_canvas.setDim(d.width, d.height);//
 		m_frame = m_canvas.createFrame(d);
 		System.out.println("  - setting up the frame...");
 		setupFrame();
+
+		m_m.createLightSource(m_m.createEntity());
 	}
 
 	/*
@@ -159,6 +162,7 @@ public class Game {
 		// Update every second
 		// the text on top of the frame: tick and fps
 		m_textElapsed += elapsed;
+		m_elapsedUpdate += elapsed;
 
 		if (m_textElapsed > 1000) {
 			m_textElapsed = 0;
@@ -171,10 +175,12 @@ public class Game {
 			txt = txt + fps + " fps   ";
 			m_text.setText(txt);
 		}
-
-		//my_canvas.fm.update(elapsed);
-
-		m_m.update(elapsed);
+		
+		if (m_elapsedUpdate >= 20) {
+			m_m.update(m_elapsedUpdate);
+			m_elapsedUpdate -= 20;
+		}
+		
 	}
 
 	/*
@@ -188,7 +194,7 @@ public class Game {
 		int height = m_canvas.getHeight();
 
 		// erase background
-		g.setColor(Color.gray);
+		g.setColor(Color.pink);
 		g.fillRect(0, 0, width, height);
 
 		// paint

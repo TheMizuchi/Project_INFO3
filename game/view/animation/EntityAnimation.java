@@ -3,19 +3,26 @@ package view.animation;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import model.Model;
+import view.animation.bank.AnimationBank;
 import view.animation.bank.EntityAnimationBank;
 
 
 public abstract class EntityAnimation extends Animation {
 
 	protected int x, y;
+	protected int h, w;
 	protected double scale;
 	protected EntityAnimationBank ab;
 
 
-	public EntityAnimation () {
+	public EntityAnimation (EntityAnimationBank a) {
 		super();
+		this.ab = a;
 		this.scale = 1F;
+		this.h = this.ab.left.getHeight();
+		this.w = this.ab.left.getWidth();
+		this.left();
 	}
 
 	public void setPosition (int x, int y, double scale) {
@@ -34,7 +41,7 @@ public abstract class EntityAnimation extends Animation {
 		} else {
 			img = m_sprite.m_images[m_idx];
 		}
-		g.drawImage(img, (int) (this.x - (m_sprite.m_width * this.scale / 2)), (int) (this.y - m_sprite.m_height * this.scale / 2), (int) (this.scale * img.getWidth()), (int) (this.scale * img.getHeight()), null);
+		g.drawImage(img, (int) (this.x - (this.w * this.scale / 2)), (int) (this.y - this.h * this.scale / 2), (int) (this.scale * img.getWidth()), (int) (this.scale * img.getHeight()), null);
 	}
 
 	public void turnLeft () {
@@ -58,11 +65,11 @@ public abstract class EntityAnimation extends Animation {
 	}
 
 	public int getH () {
-		return m_sprite.m_height;
+		return this.h;
 	}
 
 	public int getW () {
-		return m_sprite.m_width;
+		return this.w;
 	}
 
 }

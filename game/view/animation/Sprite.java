@@ -16,10 +16,10 @@ public class Sprite {
 	public BufferedImage[] m_images;
 
 
-	public Sprite (BufferedImage[] images, int width, int height) {
+	public Sprite (BufferedImage[] images) {
 		m_images = images;
-		m_width = width;
-		m_height = height;
+		m_width = images[0].getWidth();
+		m_height = images[0].getHeight();
 	}
 
 	public Sprite (InputStream is, int nrows, int ncolumns) throws IOException {
@@ -66,7 +66,7 @@ public class Sprite {
 					images[(i * ncols) + j] = image.getSubimage(x, y, width, height);
 				}
 			}
-			return new Sprite(images, width, height);
+			return new Sprite(images);
 		}
 		return null;
 	}
