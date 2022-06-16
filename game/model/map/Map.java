@@ -47,7 +47,7 @@ public class Map {
 				grid[i][j] = new Case();
 			}
 		}
-		
+
 		iter = rooms.iterator();
 
 		while (iter.hasNext()) {
@@ -140,7 +140,7 @@ public class Map {
 			throw new IllegalStateException("There is no spawn room");
 
 		//Placement spawn
-		spawn.setUpperLeft(-spawn.getWidth()/2, -spawn.getHeight()/2);
+		spawn.setUpperLeft(-spawn.getWidth() / 2, -spawn.getHeight() / 2);
 		rooms.insertAt(rooms.length(), spawn);
 		minX = spawn.getUpperLeftX();
 		minY = spawn.getUpperLeftY();
@@ -152,9 +152,10 @@ public class Map {
 		double angle = 0;
 		int placed = 0;
 		int k = random.nextInt(standardRooms.length());
+
 		while (standardRooms.length() != 0 && placed < N) {
 			Room r = (Room) standardRooms.elementAt(k);
-			r.setUpperLeft((int) (radius * Math.cos(angle) - r.getWidth()/2), (int) (radius * Math.sin(angle) - r.getHeight()/2));
+			r.setUpperLeft((int) (radius * Math.cos(angle) - r.getWidth() / 2), (int) (radius * Math.sin(angle) - r.getHeight() / 2));
 
 			if (!collision(r)) {
 				rooms.insertAt(rooms.length(), r);
@@ -176,20 +177,22 @@ public class Map {
 			}
 
 			angle += angleInc;
-			if (angle > 2*Math.PI) {
+
+			if (angle > 2 * Math.PI) {
 				angle = 0;
 				radius += radiusInc;
-			}	
+			}
 		}
 
 		//Placement clef et boss
-		radius = radiusInc*faraway;
+		radius = radiusInc * faraway;
 		angle = 0;
 		k = random.nextInt(keyRooms.length());
 		key = (Room) keyRooms.elementAt(k);
 		placed = 0;
+
 		while (placed == 0) {
-			key.setUpperLeft((int) (radius * Math.cos(angle) - key.getWidth()/2), (int) (radius * Math.sin(angle) - key.getHeight()/2));
+			key.setUpperLeft((int) (radius * Math.cos(angle) - key.getWidth() / 2), (int) (radius * Math.sin(angle) - key.getHeight() / 2));
 
 			if (!collision(key)) {
 				rooms.insertAt(rooms.length(), key);
@@ -206,17 +209,19 @@ public class Map {
 				key.setUpperLeft(-1, -1);
 			}
 			angle += angleInc;
-			if (angle > 2*Math.PI) {
+
+			if (angle > 2 * Math.PI) {
 				angle = 0;
 				radius += radiusInc;
 			}
 		}
-		
-		radius = radiusInc*faraway;
+
+		radius = radiusInc * faraway;
 		angle = 0;
 		placed = 0;
+
 		while (placed == 0) {
-			boss.setUpperLeft((int) (radius * Math.cos(angle) - boss.getWidth()/2), (int) (radius * Math.sin(angle) - boss.getHeight()/2));
+			boss.setUpperLeft((int) (radius * Math.cos(angle) - boss.getWidth() / 2), (int) (radius * Math.sin(angle) - boss.getHeight() / 2));
 
 			if (!collision(boss)) {
 				rooms.insertAt(rooms.length(), boss);
@@ -233,37 +238,33 @@ public class Map {
 				boss.setUpperLeft(-1, -1);
 			}
 			angle += angleInc;
-			if (angle > 2*Math.PI) {
+
+			if (angle > 2 * Math.PI) {
 				angle = 0;
 				radius += radiusInc;
 			}
 		}
-		
 
 		//On recale tout sur des coords positives
-		
-		
+
 		iter = rooms.iterator();
 
 		while (iter.hasNext()) {
 			Room r = (Room) iter.next();
-			r.setUpperLeft(r.getUpperLeftX() + max(-minX,maxX), r.getUpperLeftY() + max(-minY,maxY));
+			r.setUpperLeft(r.getUpperLeftX() + max(-minX, maxX), r.getUpperLeftY() + max(-minY, maxY));
 		}
 
-		
-		width = max(-minX,maxX)*2;
-		height = max(-minY,maxY)*2;
+		width = max(-minX, maxX) * 2;
+		height = max(-minY, maxY) * 2;
 
 	}
-	
-	private int max(int a, int b) {
+
+	private int max (int a, int b) {
 		if (a < b)
 			return b;
 		else
 			return a;
 	}
-
-	
 
 	//true si room a une collision avec au moins une des autres
 	private boolean collision (Room room) {
@@ -295,7 +296,7 @@ public class Map {
 
 		return false;
 	}
-	
+
 	private void placeRoomsRandomly (int N) {
 		Random random = new Random();
 		Room spawnRoom = null;
@@ -389,7 +390,7 @@ public class Map {
 		}
 
 	}
-	
+
 	private void placeSpecialRoom (Room room, int location) {
 		Random random = new Random();
 		int x, y;
