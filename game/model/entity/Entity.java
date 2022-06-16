@@ -2,6 +2,7 @@ package model.entity;
 
 import controller.RefAutomata;
 import model.Model;
+import view.EntityView;
 import view.MyCanvas;
 import view.graphicEntity.CowboyView;
 
@@ -11,7 +12,7 @@ public class Entity implements EntityInterface {
 	private Hitbox m_hitbox;
 	Direction m_orientation;
 	protected RefAutomata m_automata;
-	private CowboyView m_cv;
+	protected EntityView m_ev;
 	private double m_speedX;
 	private double m_speedY;
 
@@ -28,8 +29,6 @@ public class Entity implements EntityInterface {
 		m_hitbox = new Hitbox(x, y, 0.5, 0.5);
 		m_automata = new RefAutomata(this);
 
-		this.m_cv = new CowboyView(this);
-		MyCanvas.getInstance().createEntityView(this.m_cv);
 	}
 
 	public boolean getOrientation() {
@@ -77,7 +76,7 @@ public class Entity implements EntityInterface {
 
 	@Override
 	public void pop () {
-		this.m_cv.spin();
+		// TODO C'est un truc à faire ça 
 	}
 
 	@Override
