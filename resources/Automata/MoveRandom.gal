@@ -1,0 +1,4 @@
+MoveRandom (Init) {
+	* (Init):
+		| True ? Move(N) / Move(E) / Move(S) / Move(W) : (Init)
+}

@@ -28,8 +28,11 @@ import java.io.RandomAccessFile;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import common.MyTimer;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
+import view.MyCanvas;
+import model.Model;
 
 
 public class Game {
@@ -50,32 +53,43 @@ public class Game {
 	}
 
 
+	long m_elapsedUpdate;
 	JFrame m_frame;
 	JLabel m_text;
 	GameCanvas m_canvas;
+	MyCanvas my_canvas;
 	CanvasListener m_listener;
-	Cowboy m_cowboy;
+	//Cowboy m_cowboy;
 	Sound m_music;
+	Model m_m;
 
 
 	Game () throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		m_cowboy = new Cowboy();
+		//m_cowboy = new Cowboy();
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
 		m_listener = new CanvasListener(this);
+		Dimension d = new Dimension(1920, 980);//
+		my_canvas = MyCanvas.getInstance();//
+		my_canvas.initCanvas(d.width, d.height);//
 		// creating the game canvas to render the game,
 		// that would be a part of the view in the MVC pattern
 		m_canvas = new GameCanvas(m_listener);
 
-		System.out.println("  - creating frame...");
-		Dimension d = new Dimension(1024, 768);
-		m_frame = m_canvas.createFrame(d);
+		new MyTimer();
+		m_elapsedUpdate = 0;
+		m_m = Model.getInstance();
+		m_listener.m_cont.setModel();
 
+		System.out.println("  - creating frame...");
+		m_frame = m_canvas.createFrame(d);
 		System.out.println("  - setting up the frame...");
 		setupFrame();
+
+		m_m.createLightSource(m_m.createEntity());
 	}
 
 	/*
@@ -132,7 +146,7 @@ public class Game {
 
 
 	private int m_musicIndex = 0;
-	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" };
+	private String[] m_musicNames = new String[] { "DB_Theme" };
 
 	private long m_textElapsed;
 
@@ -143,11 +157,12 @@ public class Game {
 	 */
 	void tick (long elapsed) {
 
-		m_cowboy.tick(elapsed);
+		//m_cowboy.tick(elapsed);
 
 		// Update every second
 		// the text on top of the frame: tick and fps
 		m_textElapsed += elapsed;
+		m_elapsedUpdate += elapsed;
 
 		if (m_textElapsed > 1000) {
 			m_textElapsed = 0;
@@ -160,6 +175,12 @@ public class Game {
 			txt = txt + fps + " fps   ";
 			m_text.setText(txt);
 		}
+		
+		if (m_elapsedUpdate >= 20) {
+			m_m.update(m_elapsedUpdate);
+			m_elapsedUpdate -= 20;
+		}
+		
 	}
 
 	/*
@@ -173,11 +194,12 @@ public class Game {
 		int height = m_canvas.getHeight();
 
 		// erase background
-		g.setColor(Color.gray);
+		g.setColor(Color.pink);
 		g.fillRect(0, 0, width, height);
 
 		// paint
-		m_cowboy.paint(g, width, height);
+		//m_cowboy.paint(g, width, height);
+		my_canvas.paint(g);
 	}
 
 }
