@@ -1,5 +1,7 @@
 package model.entity;
 
+import model.Model;
+
 public class TypeEntity {
 
 	public static final int Allié = 1;
@@ -9,14 +11,14 @@ public class TypeEntity {
 	public static final int Item = 5;
 	// ajouter un type particulier pour les boss ?
 
-	int m_type; // de 1 à 4, allié, ennemi, neutre ou obstacle
+	int m_type; // de 1 à 5, allié, ennemi, neutre ou obstacle
 	int m_typeOrigine; // type à la création de l'entité
 
 
 	public TypeEntity (int ID) {
 
 		switch (ID) {
-			case 0:
+			case Model.COWBOY_ID:
 			case 1:
 			case 2:
 				m_type = 1;
@@ -62,6 +64,7 @@ public class TypeEntity {
 			default:
 				throw new RuntimeException("erreur création TypeEntity, string non reconnue");
 		}
+		m_typeOrigine = m_type;
 	}
 
 	public int getType () {
