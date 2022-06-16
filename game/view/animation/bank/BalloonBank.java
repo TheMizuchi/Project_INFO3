@@ -20,7 +20,7 @@ public class BalloonBank extends EntityAnimationBank {
 			images[i] = loadImages("ressources/green-ballon/"+i+1+".png");
 		}
 		
-		Sprite spriteFile = new Sprite(images, 0, 0);
+		Sprite spriteFile = new Sprite(images);
 		loadSpecificAnimation(spriteFile);
 		loadBasicAnimation(spriteFile);
 	}

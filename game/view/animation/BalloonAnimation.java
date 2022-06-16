@@ -11,7 +11,7 @@ public class BalloonAnimation extends EntityAnimation {
 
 
 	public BalloonAnimation () {
-		super();
+		super(AnimationBank.getAnimationBank(Model.BLOON_ID));
 		this.bb = (BalloonBank) AnimationBank.getAnimationBank(Model.BLOON_ID);
 	}
 
