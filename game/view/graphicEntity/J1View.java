@@ -17,6 +17,7 @@ public class J1View extends EntityView {
 
 	AnimationListener al;
 	J1Animation a;
+	
 
 
 	public J1View (EntityInterface e) {
@@ -31,11 +32,18 @@ public class J1View extends EntityView {
 
 			}
 		};
+//		a.setListener(al);
+//		a.setDelay(300);
+//		a.walk();
 	}
 
 	protected void idle () {
 		this.a.idle();
 	}
+	
+//	protected void walk() {
+//		this.a.walk();
+//	}
 
 	@Override
 	public void update (Viewport vp) {

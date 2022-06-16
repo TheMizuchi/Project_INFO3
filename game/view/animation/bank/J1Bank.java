@@ -13,7 +13,7 @@ public class J1Bank extends EntityAnimationBank {
 
 
 	private J1Bank () {
-		Sprite spriteFile = Sprite.loadSprite("resources/adventurer-v1.5-Sheet.png", 7, 16);
+		Sprite spriteFile = Sprite.loadSprite("resources/adventurer-v1.5-Sheet.png", 16, 7); //Problème avec la ressource.
 		
 		
 		loadBasicAnimation(spriteFile);

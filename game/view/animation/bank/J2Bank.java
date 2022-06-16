@@ -12,7 +12,7 @@ public class J2Bank extends EntityAnimationBank {
 
 
 	private J2Bank () {
-		Sprite spriteFile = Sprite.loadSprite("resources/adventurer-v1.5-Sheet.png", 7, 16);
+		Sprite spriteFile = Sprite.loadSprite("resources/adventurer-v1.5-Sheet.png", 16, 7);
 
 		loadBasicAnimation(spriteFile);
 		loadSpecificAnimation(spriteFile);
