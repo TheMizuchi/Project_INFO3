@@ -16,6 +16,8 @@ public class TestWorld {
 		World w = new World("resources/rooms.json");
 		Map m = new Map(w, 160, 120, 1);
 		new Frame(w, m);
+		m.generate_corridors();
+		new Frame(w, m);
 	}
 
 }
@@ -66,6 +68,8 @@ class Panel extends JPanel {
 					g.setColor(Color.BLACK);
 				else if (m.getCases()[i][j].getType() == TileType.FLOOR)
 					g.setColor(Color.WHITE);
+				else if (m.getCases()[i][j].getType() == TileType.VOID)
+					g.setColor(Color.RED);
 				g.fillRect(i * this.getWidth() / m.getWidth(), j * this.getHeight() / m.getHeight(), this.getWidth() / m.getWidth(), this.getHeight() / m.getHeight());
 			}
 		}

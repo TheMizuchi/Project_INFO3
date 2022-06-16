@@ -62,7 +62,7 @@ public class Map {
 		return this.width;
 	}
 
-	public int getHeight() {
+	public int getHeight () {
 		return this.height;
 	}
 
@@ -167,7 +167,7 @@ public class Map {
 			for (int i = 0; i < r.getWidth(); i++) {
 
 				for (int j = 0; j < r.getHeight(); j++) {
-					grid[i + r.getUpperLeftX()][j + r.getUpperLeftY()] = r.getComp()[i][j];
+					grid[i + r.getUpperLeftX()][j + r.getUpperLeftY()].setType(r.getComp()[i][j].getType());
 				}
 			}
 		}
@@ -234,6 +234,19 @@ public class Map {
 		return false;
 	}
 
+	private boolean PointInsideRoom (int x, int y) {
+		Iterator iter = rooms.iterator();
+
+		while (iter.hasNext()) {
+			Room r = (Room) iter.next();
+
+			if (r.containsPoint(x, y)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private void corridor (Arc a) {
 		Node dest1 = a.first();
 		Node dest2 = a.second();
@@ -241,46 +254,174 @@ public class Map {
 		int distX = dest2.centerX() - dest1.centerX();
 		int distY = dest2.centerY() - dest1.centerY();
 
-		double angle;
+		int posR1X = dest1.content().getUpperLeftX();
+		int posR1Y = dest1.content().getUpperLeftY();
+		int R1W = dest1.content().getWidth();
+		int R1H = dest1.content().getHeight();
 
-		if (angle > 45.0 && angle <= 135.0) {
-			int posX = dest1.centerX();
-			int posY;
+		int posR2X = dest2.content().getUpperLeftX();
+		int posR2Y = dest2.content().getUpperLeftY();
+		int R2W = dest2.content().getWidth();
+		int R2H = dest2.content().getHeight();
 
-			for (posY = dest1.content().getHeight(); posY < dest2.centerY(); posY++) {
-				Case tmp = grid[posX][posY];
-				grid[posX][posY].type = TileType.FLOOR;
-				grid[posX - 1][posY].type = TileType.WALL;
-				grid[posX + 1][posY].type = TileType.WALL;
+		int posX;
+		int posY;
 
-				if (tmp.type == TileType.WALL && grid[posX][posY + 1].type == TileType.FLOOR) {
-					return;
+		//Si les salles sont assez proches faire un couloir verticale
+		if (Math.abs(distX) < R1W / 2 - 1 && Math.abs(distX) < R2W / 2 - 1) {
+
+			posX = R1W / 2 + dest1.content().getUpperLeftX() + distX / 2;
+
+			if (distY > 0) {
+
+				for (posY = posR1Y; posY < posR2Y + R2H; posY++) {
+					grid[posX][posY].setType(TileType.VOID);
+				}
+			} else {
+
+				for (posY = posR1Y + R1H; posY > posR2Y; posY--) {
+					grid[posX][posY].setType(TileType.VOID);
 				}
 			}
-			
+		}
+		//Si les salles sont assez proches faire un couloir horizontale
+		else if (Math.abs(distY) < R1H / 2 && Math.abs(distY) < R2H / 2) {
+
+			posY = R1H / 2 + posR1Y + distY / 2;
+
+			if (distX > 0) {
+
+				for (posX = posR1X; posX < posR2X + R2W; posX++) {
+					grid[posX][posY].setType(TileType.VOID);
+				}
+			} else {
+
+				for (posX = posR1X + R1W; posX > posR2X; posX--) {
+					grid[posX][posY].setType(TileType.VOID);
+				}
+			}
 		}
 
-		if (angle > 135.0 && angle <= 180 || angle < -135.0 && angle >= -180) {
+		else {
 
+			if (Math.abs(distY) <= Math.abs(distX) && (!PointInsideRoom(dest1.centerX(), dest2.centerY())) || Math.abs(distY) > Math.abs(distX) && !PointInsideRoom(dest2.centerX(), dest1.centerY())) {
+				posY = dest1.centerY();
+
+				if (distX < 0 && distY < 0) {
+
+					for (posX = posR1X; posX > dest2.centerX(); posX--) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+
+					for (posY = dest1.centerY(); posY > posR2Y + R2H; posY--) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+
+				} else if (distX > 0 && distY < 0) {
+
+					for (posX = posR1X + R1W; posX < dest2.centerX(); posX++) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+
+					for (posY = dest1.centerY(); posY > posR2Y + R2H; posY--) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+
+				} else if (distX < 0 && distY > 0) {
+
+					for (posX = posR1X; posX > dest2.centerX(); posX--) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+
+					for (posY = dest1.centerY(); posY < posR2Y + R2H; posY++) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+
+				} else {
+
+					for (posX = posR1X + R1W; posX < dest2.centerX(); posX++) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+
+					for (posY = dest1.centerY(); posY < posR2Y + R2H; posY++) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+
+				}
+			} else if (Math.abs(distY) < Math.abs(distX) && (!PointInsideRoom(dest1.centerX(), dest2.centerY())) || Math.abs(distY) >= Math.abs(distX) && !PointInsideRoom(dest2.centerX(), dest1.centerY())) {
+				posX = dest1.centerX();
+
+				if (distX < 0 && distY < 0) {
+
+					for (posY = posR1Y + R1H; posY > dest2.centerY(); posY--) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+
+					for (posX = dest1.centerX(); posX > posR2X + R2W; posX--) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+
+				} else if (distX > 0 && distY < 0) {
+
+					for (posY = posR1Y + R1H; posY > dest2.centerY(); posY--) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+
+					for (posX = dest1.centerX(); posX < posR2X + R2W; posX++) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+
+				} else if (distX < 0 && distY > 0) {
+
+					for (posY = posR1Y + R1H; posY < dest2.centerY(); posY++) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+
+					for (posX = dest1.centerX(); posX > posR2X + R2W; posX--) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+
+				} else {
+
+					for (posY = posR1Y + R1H; posY < dest2.centerY(); posY++) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+
+					for (posX = dest1.centerX(); posX < posR2X + R2W; posX++) {
+						grid[posX][posY].setType(TileType.VOID);
+					}
+				}
+
+			} else {
+				Node milieu = new Node(new Room(dest1.centerX() + distX / 2, dest1.centerY() + distY / 2));
+				Arc mid1 = new Arc(dest1, milieu);
+				Arc mid2 = new Arc(milieu, dest2);
+				corridor(mid1);
+				corridor(mid2);
+			}
 		}
+		a.setDone();
 
-		if (angle <= 45.0 && angle >= -45) {
-
-		}
-
-		if (angle < -45.0 && angle >= -135) {
-
-		}
 	}
 
-	private void generate_corridors () {
+	public void generate_corridors () {
 		Graph G = new Graph(rooms);
 		G.delaunay();
 		Graph corGraph = G.min_spanning_tree();
 		corGraph.add_random_arc(G);
+		Iterator iterNode = corGraph.ListNode.iterator();
 
-		for (int i = 0; i < corGraph.ListNode.length(); i++) {
-			Node n = (Node) corGraph.ListNode.elementAt(i);
+		while (iterNode.hasNext()) {
+			Node n = (Node) iterNode.next();
+			Iterator iterArc = n.getListArc().iterator();
+
+			while (iterArc.hasNext()) {
+				Arc a = (Arc) iterArc.next();
+
+				if (!a.getDone()) {
+					corridor(a);
+				}
+			}
 
 		}
 	}

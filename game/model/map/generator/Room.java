@@ -39,7 +39,12 @@ public class Room {
 
 	}
 
-	public Room () {}
+	public Room (int x, int y) {
+		upperLeftX = x;
+		upperLeftY = y;
+		width = 0;
+		height = 0;
+	}
 
 	public int getUpperLeftX () {
 		return upperLeftX;
@@ -68,6 +73,10 @@ public class Room {
 	public void setUpperLeft (int x, int y) {
 		this.upperLeftX = x;
 		this.upperLeftY = y;
+	}
+
+	public boolean containsPoint (int x, int y) {
+		return (x >= upperLeftX && x <= upperLeftX + width && y >= upperLeftY && y <= upperLeftY + height);
 	}
 
 }
