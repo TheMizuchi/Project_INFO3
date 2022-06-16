@@ -64,6 +64,7 @@ public class Model {
 		while (it.hasNext()) {
 			Entity entity = (Entity) it.next();
 			entity.update(elapsed);
+			m_cam.setPosition(entity.getPosX(), entity.getPosY(), 1);
 		}
 
 		it = m_listeLight.iterator();
@@ -95,7 +96,7 @@ public class Model {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		m_map = new Map(m_w, 160, 120, 1);
+		m_map = new Map(m_w, 1, 100);
 		m_canvas.createMapView(m_map.getCases());
 	}
 
