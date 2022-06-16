@@ -41,12 +41,12 @@ public class J1Bank extends EntityAnimationBank {
 		for (int i = 0; i<3; i++) {
 			idle_img[i] = spriteFile.m_images[i];
 		}
-		Sprite idle = new Sprite(idle_img);
+		this.idle = new Sprite(idle_img);
 		
 		for (int i = 0; i<5; i++) {
 			walk_img[i] = spriteFile.m_images[i+9];
 		}
-		Sprite walk = new Sprite(walk_img);
+		this.walk = new Sprite(walk_img);
 
 	}
 
@@ -56,7 +56,7 @@ public class J1Bank extends EntityAnimationBank {
 		for (int i = 0; i<3; i++) {
 			attack_img[i] = spriteFile.m_images[i+56];
 		}
-		Sprite attack = new Sprite(attack_img);
+		this.attack = new Sprite(attack_img);
 
 	}
 
