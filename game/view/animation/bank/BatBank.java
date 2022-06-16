@@ -5,15 +5,26 @@ import view.animation.Sprite;
 public class BatBank extends EntityAnimationBank {
 	
 	private BatBank () {
-		Sprite spriteFile = Sprite.loadSprite("resources/winchester-4x6.png", 4, 6);
+		Sprite spriteFile = Sprite.loadSprite("Bat_Sprite_Sheet.png", 3, 5);
 		loadBasicAnimation(spriteFile);
 		loadSpecificAnimation(spriteFile);
 
 	}
+	
+	private static BatBank INSTANCE = null;
+
+
+	public static BatBank getInstance () {
+
+		if (INSTANCE == null) {
+			INSTANCE = new BatBank();
+		}
+		return INSTANCE;
+	}
 
 	@Override
 	protected void loadBasicAnimation (Sprite spriteFile) {
-		// TODO Auto-generated method stub
+		this.walk = spriteFile;
 		
 	}
 
