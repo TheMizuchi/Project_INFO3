@@ -12,7 +12,7 @@ public class Cowboy extends Entity{
 		super(x, y, Model.COWBOY_ID);
 		m_cv = new CowboyView(this);
 		m_ev = m_cv;
-		MyCanvas.getInstance().createEntityView(this.m_cv);
+		MyCanvas.getInstance().createEntityView(m_cv);
 	}
 	
 	@Override

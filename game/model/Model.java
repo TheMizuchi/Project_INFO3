@@ -45,14 +45,17 @@ public class Model {
 		m_listeLight = new LinkedList();
 		m_cont = Controller.getInstance();
 		m_canvas = MyCanvas.getInstance();
-		m_cam = new Camera(m_canvas.getViewport());
 		createMap();
 		loadEnv();
 	}
 	
 	//méthode tmp pour les tests
 	private void loadEnv() {
-		createLightSource(createEntity(0, 0, 0));
+		Entity j1 = createEntity(20, 0, 0);
+		createLightSource(j1);
+		Entity j2 = createEntity(-20, 0, 3);
+		createLightSource(j2);
+		m_cam = new Camera(m_canvas.getViewport(), j1, j2);
 	}
 
 	public static Model getInstance () {
@@ -78,6 +81,8 @@ public class Model {
 			LightSource ls = (LightSource) it.next();
 			ls.update();
 		}
+		
+		m_cam.update();
 	}
 
 	public Entity createEntity (int x, int y, int ID) {
