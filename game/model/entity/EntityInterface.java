@@ -5,10 +5,10 @@ public interface EntityInterface {
 	abstract boolean myDir (Direction orientation);
 	// retourn si la direciton est la bonne
 
-	//	abstract boolean cell(Direction orientation, TypeEntity type);
+	abstract boolean cell(Direction orientation, TypeEntity type);
 	// l'entité cible se situe devant (orientation) à une étapde de déplacement
 
-	//	abstract boolean closest(Direction orientation, TypeEntity type);
+	abstract boolean closest(Direction orientation, TypeEntity type);
 	// l'entité la plus proche du type est dans cette direciton
 
 	abstract boolean gotPower ();

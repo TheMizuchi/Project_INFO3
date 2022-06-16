@@ -32,9 +32,9 @@ public class Model {
 	private Controller m_cont;
 	private MyCanvas m_canvas;
 
-	// Variables locales
+	// Variables localesq
 	private int m_time_passed;
-	private LinkedList m_listeEntity;
+	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
 	private Camera m_cam;
 	private Map m_map;
@@ -110,6 +110,10 @@ public class Model {
 
 	public ArrayList getRooms () {
 		return this.rooms;
+	}
+
+	public static IList getlistEntity () {
+		return m_listeEntity;
 	}
 
 }

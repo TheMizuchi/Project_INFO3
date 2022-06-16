@@ -19,8 +19,10 @@ public class Controller {
 
 	Model m_model;
 	IList m_auts;
-	boolean tab[] = new boolean[26];
-	public boolean tab_prev[] = new boolean[26];
+	boolean m_dirKeys[] = new boolean[256];
+	boolean m_keys[] = new boolean[256];
+	boolean m_keysPrev[] = new boolean[256];
+	IList m_keysToUpdate;
 
 
 	private Controller () {
@@ -30,6 +32,10 @@ public class Controller {
 		try {
 			AST ast = from_file("resources/Automata/MoveKeys+Pop.gal");
 			m_auts.insertAt(0, ((IList) ast.accept(bb)).elementAt(0));
+			ast = from_file("resources/Automata/MoveKeys+Pop.gal");
+			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
+			ast = from_file("resources/Automata/MoveKeysArrows+Pop.gal");
+			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
 		}
 		catch (ParseException ex) {
 			throw new RuntimeException("Erreur de parsing");
@@ -41,6 +47,16 @@ public class Controller {
 			throw new RuntimeException("Erreur inconnue dans l'initialisation des automates du controller");
 		}
 
+		m_keysToUpdate = new LinkedList();
+		m_dirKeys['Z'] = true;
+		m_dirKeys['Q'] = true;
+		m_dirKeys['S'] = true;
+		m_dirKeys['D'] = true;
+
+		m_dirKeys[37] = true;
+		m_dirKeys[38] = true;
+		m_dirKeys[39] = true;
+		m_dirKeys[40] = true;
 	}
 
 	public void setModel () throws IOException, org.json.simple.parser.ParseException {
@@ -59,17 +75,17 @@ public class Controller {
 		return INSTANCE;
 	}
 
-	public static AST from_file (String path_file) throws Exception {
+	private static AST from_file (String path_file) throws Exception {
 		AST ast = new AutomataParser(new BufferedReader(new FileReader(path_file))).Run();
 		return ast;
 	}
 
-	public static AST from_string (String input) throws Exception {
+	private static AST from_string (String input) throws Exception {
 		AST ast = new AutomataParser(new java.io.StringReader(input)).Run();
 		return ast;
 	}
 
-	public BotAutomata getAut (int id) {
+	BotAutomata getAut (int id) {
 		return (BotAutomata) m_auts.elementAt(id);
 	}
 
@@ -90,39 +106,49 @@ public class Controller {
 	public void keyTyped (KeyEvent e) {}
 
 	public void keyPressed (KeyEvent e) {
-		int tmp = e.getKeyCode() - 65;
-
-		if (0 <= tmp && tmp < 26) {
-			tab[tmp] = true;
-		}
+		setKey((char) e.getKeyCode(), true);
 	}
 
 	public void keyReleased (KeyEvent e) {
-		int tmp = e.getKeyCode() - 65;
-
-		if (0 <= tmp && tmp < 26) {
-			tab[tmp] = false;
-		}
+		setKey((char) e.getKeyCode(), false);
 	}
 
 	// A appeler dans le model juste AVANT la boucle qui force les automates à step
 	public void transfertTab () {
-		tab_prev = tab;
+		IList.Iterator ite = m_keysToUpdate.iterator();
+		char c;
+
+		while (ite.hasNext()) {
+			c = (char) ite.next();
+			setKeyPrev(c, !getKeyPrev(c));
+		}
+		m_keysToUpdate = new LinkedList();
 	}
 
-	public boolean[] getTabKeys () {
-		return tab;
+	public boolean getKey (char c) {
+		return m_keys[c];
 	}
 
-	public boolean[] getTabKeys_prev () {
-		return tab_prev;
+	public boolean getKeyPrev (char c) {
+		return m_keysPrev[c];
 	}
 
-	public void affTabKeys () {
+	public void useKey (char c) {
 
-		System.out.println("\n");
-		for (int i = 0; i < 26; i++)
-			System.out.println(tab[i]);
-		System.out.println("\n");
+		if (!m_keysToUpdate.contains(c)) {
+			m_keysToUpdate.insertAt(0, c);
+		}
+	}
+
+	public boolean isdir (char c) {
+		return m_dirKeys[c];
+	}
+
+	public void setKey (char c, boolean state) {
+		m_keys[c] = state;
+	}
+
+	public void setKeyPrev (char c, boolean state) {
+		m_keysPrev[c] = state;
 	}
 }
