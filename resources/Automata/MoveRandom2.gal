@@ -1,0 +1,10 @@
+MoveRandom2 (Haut) {
+	* (Haut):
+		| True ? Move(N) : (_)
+	* (Bas):
+		| True ? Move(S) : (_)
+	* (Gauche):
+		| True ? Move(W) : (_)
+	* (Droite):
+		| True ? Move(E) : (_)
+}
