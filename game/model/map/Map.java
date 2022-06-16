@@ -13,14 +13,14 @@ import model.map.generator.RoomType;
 
 public class Map {
 
-	World world;
-	int level;
+	private World world;
+	private int level;
 
-	int width;
-	int height;
+	private int width;
+	private int height;
 
-	Case[][] grid;
-	ArrayList rooms; //Salles présentes dans l'étage
+	private Case[][] grid;
+	private ArrayList rooms; //Salles présentes dans l'étage
 
 
 	public Map (World world, int level, int nbRoomsMax) {
@@ -79,7 +79,7 @@ public class Map {
 			}
 		}
 
-		IList.Iterator iter = (Iterator) world.rooms.iterator();
+		IList.Iterator iter = (Iterator) world.getRooms().iterator();
 
 		while (iter.hasNext()) {
 			Room r = (Room) iter.next();
@@ -297,6 +297,18 @@ public class Map {
 		return false;
 	}
 
+	public Case[][] getCases () {
+		return grid;
+	}
+
+	public int getWidth () {
+		return this.width;
+	}
+
+	public int getHeight() {
+		return this.height;
+	}
+
 	private void placeRoomsRandomly (int N) {
 		Random random = new Random();
 		Room spawnRoom = null;
@@ -304,8 +316,8 @@ public class Map {
 		ArrayList keyRooms = new ArrayList();
 		ArrayList standardRooms = new ArrayList();
 
-		for (int i = 0; i < world.rooms.length(); i++) {
-			Room r = (Room) world.rooms.elementAt(i);
+		for (int i = 0; i < world.getRooms().length(); i++) {
+			Room r = (Room) world.getRooms().elementAt(i);
 			RoomType t = r.getType();
 
 			switch (t) {

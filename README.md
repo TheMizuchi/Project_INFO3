@@ -25,14 +25,27 @@ Les joueurs peuvent prendre possession de l'ennemi le plus proche (sauf Boss) pe
 
 ## Ennemi (mobs)
 
+Les mobs sont controlés par des automates (Voir partie Menu).
+
 ### Ennemi classique (Contrainte : EGG)
 
 Le jeu possède plusieurs ennemis :
 
 - Ballon se dupliquant jusqu'à 2 fois (Contrainte : EGG)
+
+> Le ballon posséde un point de vie (PV), à sa mort il se divise en 2 ballons de couleurs différentes (Initialement en vert, il passe en bleu puis en rouge (s'il meurt en étant rouge, il meurt définivement)). Le ballon inflige des dégats importants et posséde une trajectoire aléatoire. Le ballon rebondit sur les murs.
+
 - Chauve souris
+
+> Les chauves souris sont des ennemis passif, ils n'attaquent pas le jouer. Les chauves souris volent et peuvent donc passer au dessus du vide cependant elles meurent en heurtant un mur.
+
 - Zombie
+
+> Les zombies pourchassent le joueur le plus proche et attaque au corps à corps.
+
 - Singe à fléchettes
+
+> Le singe à fléchettes reste éloigné des joueurs et s'en rapprochent pour tirer.
 
 ### Boss (Contrainte doublure (avec les biomes))
 
@@ -64,9 +77,13 @@ Les salles sont préfaites et on les places aléatoirement avec des liaisons par
 - Autre solution :
 Une grille dont chaque case représente l'unité de mesure minimale d'une salle. Une salle est alors un ensemble de cases de la grille.
 
-## Camera
+## Camera (Contrainte Viewport)
 
 Centrée sur les 2 joueurs, La caméra s'agrandit quand les joueurs s'éloignent l'un de l'autre, et inversement (elle se réduit lorsque les joueurs se rapprochent). La caméra possède un seuil de zoom minimal et maximal. Si les joueurs essaient de s'éloigner hors de ce seuil, alors leurs mouvements sont entravés (Ils ne peuvent pas sortir de l'écran et les mouvements vers l'extérieur de l'écran sont annulés). Une distance maximale est imposée entre les 2 joueurs.
+
+## Menu (Contrainte chargement des automates)
+
+Tous les automates sont stockés dans des fichiers dans un même dossier. Au lancement du jeu, le jeu nous demande de choisir les automates à affecter pour chacune des entités.
 
 ## ATH
 
