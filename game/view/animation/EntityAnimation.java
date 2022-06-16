@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import model.Model;
+import view.animation.Animation.AnimationListener;
 import view.animation.bank.AnimationBank;
 import view.animation.bank.EntityAnimationBank;
 
@@ -25,6 +26,14 @@ public abstract class EntityAnimation extends Animation {
 		this.h = this.ab.idle.m_height;
 		this.w = this.ab.idle.m_width;
 		this.orientation = 1;
+		this.al = new AnimationListener() {
+
+			@Override
+			public void done (Animation a) {
+				idle();
+			}
+			
+		};
 		this.idle();
 	}
 
@@ -38,7 +47,7 @@ public abstract class EntityAnimation extends Animation {
 	public void paint (Graphics g) {
 		//if(m_sprite == null || m_fixImage == null) return;
 		BufferedImage img = m_sprite.m_images[m_idx];
-		g.drawImage(img, (int) (this.x - (this.w * this.scale / 2)), (int) (this.y - this.h * this.scale / 2), (int) (this.scale * img.getWidth() * this.orientation), (int) (this.scale * img.getHeight()), null);
+		g.drawImage(img, (int) (this.x - (this.orientation * this.w * this.scale / 2)), (int) (this.y - this.h * this.scale / 2), (int) (this.scale * img.getWidth() * this.orientation), (int) (this.scale * img.getHeight()), null);
 		g.setColor(Color.red);
 		g.fillOval(x, y, 10, 10);
 	}
@@ -50,15 +59,38 @@ public abstract class EntityAnimation extends Animation {
 	public void turnRight () {
 		this.orientation = 1;
 	}
-	
-	public void idle() {
-		m_sprite = this.ab.idle;
-		this.start();
+
+	public void idle () {
+			m_sprite = this.ab.idle;
+			this.start();
 	}
-	
-	public void walk() {
-		m_sprite = this.ab.walk;
-		this.start();
+
+	public void walk () {
+			m_sprite = this.ab.walk;
+			this.start();
+	}
+
+	public void repeat () {
+		this.setListener(new AnimationListener() {
+
+			@Override
+			public void done (Animation a) {
+				start();
+			}
+
+		});
+	}
+
+	public void interrupt () {
+		this.setListener(new AnimationListener() {
+
+			@Override
+			public void done (Animation a) {
+				idle();
+			}
+
+		});
+		this.stop();
 	}
 
 	public int getH () {

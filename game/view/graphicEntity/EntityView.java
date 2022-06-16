@@ -24,6 +24,8 @@ public abstract class EntityView extends ViewElement {
 				idle();
 			}
 		};
+		this.a.setListener(al);
+		this.a.idle();
 		this.setPosition(x, y, scale);
 	}
 
@@ -42,12 +44,27 @@ public abstract class EntityView extends ViewElement {
 		a.setDelay(delay);
 	}
 	
-	protected void idle () {
+	public void repeat() {
+		this.a.repeat();
+	}
+	
+	public void stop() {
+		this.a.stop();
+	}
+	
+	public void idle () {
 		this.a.idle();
 	}
 	
-	protected void walk() {
-		this.a.walk();
+	boolean walk = false;
+	public void walk() {
+		if(!walk) {
+			this.a.walk();
+			this.a.repeat();
+		}else {
+			this.a.interrupt();
+		}
+		walk = !walk;
 	}
 
 	public void update (Viewport vp) {
@@ -63,11 +80,11 @@ public abstract class EntityView extends ViewElement {
 	}
 
 	public void turnLeft () {
-		this.orientation = -1;
+		this.a.turnLeft();
 	}
 
 	public void turnRight () {
-		this.orientation = 1;
+		this.a.turnRight();
 	}
 
 	public void paint (Graphics g) {

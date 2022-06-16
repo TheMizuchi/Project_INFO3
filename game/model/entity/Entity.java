@@ -118,6 +118,12 @@ public class Entity implements EntityInterface {
 	@Override
 	public void move (Direction dir) {
 		dir.move(m_vecDir);
+		if(dir.getX() < 0) {
+			m_ev.turnLeft();
+		}else if(dir.getX() > 0) { //On ne veut pas changer de direction si X = 0
+			m_ev.turnRight();
+		}
+		m_ev.walk();	
 	}
 
 	@Override

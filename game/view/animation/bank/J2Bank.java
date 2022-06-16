@@ -53,7 +53,6 @@ public class J2Bank extends EntityAnimationBank {
 
 		for (int i = 0; i < 4; i++) {
 			attack_img[i] = spriteFile.m_images[i + 56];
-
 		}
 		this.attack = new Sprite(attack_img);
 

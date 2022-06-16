@@ -14,24 +14,13 @@ import view.animation.bank.J1Bank;
 
 public class J1View extends EntityView {
 
-	
 	J1Animation a;
-	
+
 
 	public J1View (EntityInterface e) {
 		super(0, 0, 1, e, new J1Animation());
 		this.a = (J1Animation) super.a;
-		this.al = new AnimationListener() {
-
-			@Override
-			public void done (Animation a) {
-				walk();
-
-			}
-		};
-		a.setListener(al);
-		a.setDelay(150);
-		a.walk();
+		this.a.setDelay(150);
 	}
 
 	public void attack () {
