@@ -231,15 +231,11 @@ public class Map {
 		width = max(-minX, maxX) * 2;
 		height = max(-minY, maxY) * 2;
 
-<<<<<<< HEAD
 				for (int j = 0; j < r.getHeight(); j++) {
 					grid[i + r.getUpperLeftX()][j + r.getUpperLeftY()].setType(r.getComp()[i][j].getType());
 				}
 			}
 		}
-=======
-	}
->>>>>>> ModelMapGen
 
 	private int max (int a, int b) {
 		if (a < b)
@@ -283,7 +279,6 @@ public class Map {
 		return false;
 	}
 
-<<<<<<< HEAD
 	private boolean PointInsideRoom (int x, int y) {
 		Iterator iter = rooms.iterator();
 
@@ -474,7 +469,6 @@ public class Map {
 			}
 
 		}
-=======
 	public Case[][] getCases () {
 		return grid;
 	}
@@ -485,7 +479,6 @@ public class Map {
 
 	public int getHeight () {
 		return this.height;
->>>>>>> ModelMapGen
 	}
 
 }
