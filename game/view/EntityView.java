@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Graphics;
 
+import model.entity.EntityInterface;
+
 
 public abstract class EntityView extends ViewElement {
 
@@ -20,6 +22,12 @@ public abstract class EntityView extends ViewElement {
 		this.y = y;
 		this.scale = scale;
 	}
+
+	public abstract int getH ();
+	public abstract int getW ();
+
+	public abstract void turnLeft ();
+	public abstract void turnRight ();
 
 	public abstract void paint (Graphics g);
 

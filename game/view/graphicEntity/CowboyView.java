@@ -2,7 +2,7 @@ package view.graphicEntity;
 
 import java.awt.Graphics;
 
-import view.EntityInterface;
+import model.entity.EntityInterface;
 import view.EntityView;
 import view.MyCanvas;
 import view.animation.Animation;
@@ -63,6 +63,7 @@ public class CowboyView extends EntityView {
 		a.spin();
 	}
 
+	@Override
 	public void turnLeft () {
 
 		if (!this.left) {
@@ -72,6 +73,7 @@ public class CowboyView extends EntityView {
 		}
 	}
 
+	@Override
 	public void turnRight () {
 
 		if (this.left) {
@@ -84,6 +86,16 @@ public class CowboyView extends EntityView {
 	@Override
 	public void paint (Graphics g) {
 		a.paint(g);
+	}
+
+	@Override
+	public int getH () {
+		return this.a.getH();
+	}
+
+	@Override
+	public int getW () {
+		return this.a.getW();
 	}
 
 }

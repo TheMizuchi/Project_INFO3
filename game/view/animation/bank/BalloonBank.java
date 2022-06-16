@@ -30,6 +30,7 @@ public class BalloonBank extends EntityAnimationBank {
 
 	@Override
 	protected void loadSpecificAnimation (Sprite spriteFile) {
+		//vérifier par rapport au sprite
 		this.explode = spriteFile;
 
 	}

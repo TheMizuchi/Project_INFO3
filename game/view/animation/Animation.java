@@ -71,24 +71,37 @@ public abstract class Animation {
 	protected class _AnimationListener implements TimerListener {
 
 		MyTimer t;
+		long elapsed;
+		long last;
 
 
 		public _AnimationListener () {
-			t = MyTimer.getTimer();
+			this.t = MyTimer.getTimer();
 		}
 
 		public void start () {
-			t.setTimer(0, this);
+			this.last = System.currentTimeMillis();
+			this.t.setTimer(0, this);
+
 		}
 
 		@Override
 		public void expired () {
+			long now = System.currentTimeMillis();
+			this.elapsed += now - this.last;
+			this.last = now;
 
-			if (nextImage()) {
-				t.setTimer(delay, this);
-			} else {
-				if (al != null)
-					al.done(Animation.this);
+			while (this.elapsed > delay) {
+
+				if (!nextImage()) {
+					if (al != null)
+						al.done(Animation.this);
+				}
+				this.elapsed -= delay;
+			}
+
+			if (!m_done) {
+				this.t.setTimer(delay, this);
 			}
 		}
 	}

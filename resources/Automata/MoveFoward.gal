@@ -1,0 +1,4 @@
+MoveFoward (Init) {
+	* (Init):
+		| True ? Move(E) : (Init)
+}

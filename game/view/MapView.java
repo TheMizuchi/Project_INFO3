@@ -10,7 +10,6 @@ import view.animation.Texture;
 public class MapView extends ViewElement {
 
 	//ICI je pars du principe que la map est affiché par un tableau a deux dimensions de int. Dans le cas ou "carte[][]" est pour une salle seulement alors ont fait une liste de ces salles là.
-	private static final int TAILLE_CASE = 25;
 	int carte[][];
 	int nb_salle;
 	Texture tex = Texture.loadTexture("resources/textures.png", 1, 4);
@@ -20,8 +19,7 @@ public class MapView extends ViewElement {
 	public MapView (int carte[][]) {
 		super(0, 0, 1);
 		this.carte = carte;
-		Texture tex = Texture.loadTexture("resources/texture.png", 32, 109);
-		this.t_case = (int) (TAILLE_CASE);
+		this.t_case = (int) (MyCanvas.METRIC_BASE);
 	}
 
 	public void setPosition (int x, int y, double scale) {
@@ -46,8 +44,8 @@ public class MapView extends ViewElement {
 	}
 
 	@Override
-	void paint (Graphics g) {
-		this.t_case = (int) (TAILLE_CASE * this.scale);
+	protected void paint (Graphics g) {
+		this.t_case = (int) (MyCanvas.METRIC_BASE * this.scale);
 		int h = 0;
 		int l = 0;
 		BufferedImage img;
@@ -82,8 +80,7 @@ public class MapView extends ViewElement {
 						img = tex.m_images[0];
 				}
 				g.setColor(Color.black);
-				g.drawRect(x + this.t_case * h, y + this.t_case * l, this.t_case, this.t_case);
-				g.drawImage(img, x + this.t_case * h, y + this.t_case * l, this.t_case, this.t_case, null);
+				g.drawImage(img, (int) (x + this.t_case * (double) ((double) h - (double) this.hauteur() / 2)), (int) (y + this.t_case * (double) ((double) l - (double) this.largeur() / 2)), this.t_case, this.t_case, null);
 
 			}
 		}

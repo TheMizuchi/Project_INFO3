@@ -2,7 +2,7 @@ package view.graphicEntity;
 
 import java.awt.Graphics;
 
-import view.EntityInterface;
+import model.entity.EntityInterface;
 import view.EntityView;
 import view.MyCanvas;
 import view.animation.Animation;
@@ -45,5 +45,21 @@ public class BalloonView extends EntityView {
 		a.paint(g);
 
 	}
+
+	@Override
+	public int getH () {
+		return this.a.getH();
+	}
+
+	@Override
+	public int getW () {
+		return this.a.getW();
+	}
+
+	@Override
+	public void turnLeft () {}
+
+	@Override
+	public void turnRight () {}
 
 }

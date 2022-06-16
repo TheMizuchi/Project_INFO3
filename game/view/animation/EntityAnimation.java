@@ -5,22 +5,25 @@ import java.awt.image.BufferedImage;
 
 import view.animation.bank.EntityAnimationBank;
 
-public abstract class EntityAnimation extends Animation{
+
+public abstract class EntityAnimation extends Animation {
+
 	protected int x, y;
 	protected double scale;
 	protected EntityAnimationBank ab;
-	
-	public EntityAnimation() {
+
+
+	public EntityAnimation () {
 		super();
 		this.scale = 1F;
 	}
-	
-	public void setPosition(int x, int y, double scale) {
+
+	public void setPosition (int x, int y, double scale) {
 		this.x = x;
 		this.y = y;
 		this.scale = scale;
 	}
-	
+
 	@Override
 	public void paint (Graphics g) {
 		//if(m_sprite == null || m_fixImage == null) return;
@@ -33,26 +36,33 @@ public abstract class EntityAnimation extends Animation{
 		}
 		g.drawImage(img, (int) (this.x - (m_sprite.m_width * this.scale / 2)), (int) (this.y - m_sprite.m_height * this.scale / 2), (int) (this.scale * img.getWidth()), (int) (this.scale * img.getHeight()), null);
 	}
-	
-	
-	public void turnLeft() {
+
+	public void turnLeft () {
 		m_sprite = ab.turnLeft;
 		this.left();
 		this.start();
 	}
-	
-	public void turnRight() {
+
+	public void turnRight () {
 		m_sprite = ab.turnRight;
 		this.right();
 		this.start();
 	}
-	
-	public void left() {
+
+	public void left () {
 		m_fixImage = ab.left;
 	}
 
-	public void right() {
+	public void right () {
 		m_fixImage = ab.right;
 	}
-	
+
+	public int getH () {
+		return m_sprite.m_height;
+	}
+
+	public int getW () {
+		return m_sprite.m_width;
+	}
+
 }

@@ -16,7 +16,7 @@ public abstract class ViewElement {
 		this.scale = scale;
 	}
 
-	abstract void paint (Graphics g);
+	protected abstract void paint (Graphics g);
 
 	protected abstract void setPosition (int x, int y, double scale);
 }
