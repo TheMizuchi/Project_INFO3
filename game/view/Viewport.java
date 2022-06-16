@@ -2,9 +2,12 @@ package view;
 
 public class Viewport {
 	private static final double SCALE_BASE = 4;
-	double x, y, scale;
-	int w, h;
+	private double x, y, scale;
+	private int w, h;
 
+	/*
+	 * Méthodes public pour la caméra du model
+	 */
 
 	public Viewport (int width, int height) {
 		this.w = width;
@@ -14,14 +17,22 @@ public class Viewport {
 		this.scale = SCALE_BASE;
 	}
 
-	void setPosition (double x, double y) {
+	public void setPosition (double x, double y) {
 		this.x = (x);
 		this.y = (y);
 	}
 
-	void setPosition (double x, double y, double s) {
+	public void setPosition (double x, double y, double s) {
 		this.scale = s * SCALE_BASE;
 		this.setPosition(x, y);
+	}
+	
+	/*
+	 * Méthodes pour la view
+	 */
+	
+	double getScale() {
+		return this.scale;
 	}
 
 	boolean isInside (int x, int y, int w, int h) { //récupérer des paramètres pour connaitre la largeur et la hauteur du sprite de l'entité en pixel pour pouvoir les désafficher uniquement si l'image est entièrement en dehors de l'écran

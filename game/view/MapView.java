@@ -4,21 +4,21 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import model.map.Case;
 import view.animation.Texture;
 
 
 public class MapView extends ViewElement {
 
-	//ICI je pars du principe que la map est affiché par un tableau a deux dimensions de int. Dans le cas ou "carte[][]" est pour une salle seulement alors ont fait une liste de ces salles là.
-	int carte[][];
-	int nb_salle;
-	Texture tex = Texture.loadTexture("resources/textures.png", 1, 4);
-	int t_case;
+	//ICI je pars du principe que la map est affiché par un tableau a deux dimensions de cases. Dans le cas ou "carte[][]" est pour une salle seulement alors ont fait une liste de ces salles là.
+	private Case[][] carte;
+	private Texture tex = Texture.loadTexture("resources/textures.png", 1, 4);
+	private int t_case;
 
 
-	public MapView (int carte[][]) {
+	public MapView (Case[][] cases) {
 		super(0, 0, 1);
-		this.carte = carte;
+		this.carte = cases;
 		this.t_case = (int) (MyCanvas.METRIC_BASE);
 	}
 
@@ -54,34 +54,21 @@ public class MapView extends ViewElement {
 
 			for (l = 0; l < this.largeur(); l++) {
 
-				switch (carte[h][l]) {
+				switch (carte[h][l].getType().getID()) {
 					case 1:
-						//noir;
-						//g.setColor(Color.black);
-						//g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
 						img = tex.m_images[1];
 						break;
 					case 2:
-						//orange;
-						//g.setColor(Color.orange);
-						//g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
 						img = tex.m_images[2];
 						break;
 					case 3:
-						//vert
-						//g.setColor(Color.green);
-						//g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
 						img = tex.m_images[3];
 						break;
 					default:
-						//bleu
-						//g.setColor(Color.blue);
-						//g.fillRect(x + h_case * h, y + l_case * l, l_case, h_case);
 						img = tex.m_images[0];
 				}
 				g.setColor(Color.black);
 				g.drawImage(img, (int) (x + this.t_case * (double) ((double) h - (double) this.hauteur() / 2)), (int) (y + this.t_case * (double) ((double) l - (double) this.largeur() / 2)), this.t_case, this.t_case, null);
-
 			}
 		}
 	}

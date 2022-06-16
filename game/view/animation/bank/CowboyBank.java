@@ -37,14 +37,14 @@ public class CowboyBank extends EntityAnimationBank {
 		for (int i = 12; i >= 0; i--) {
 			turnLeftTab[i] = spriteFile.m_images[(19 + i) % 24];
 		}
-		this.turnLeft = new Sprite(turnLeftTab, spriteFile.m_width, spriteFile.m_height);
+		this.turnLeft = new Sprite(turnLeftTab);
 
 		BufferedImage[] turnRightTab = new BufferedImage[13];
 
 		for (int i = 0; i < 13; i++) {
 			turnRightTab[i] = spriteFile.m_images[(32 - i) % 24];
 		}
-		this.turnRight = new Sprite(turnRightTab, spriteFile.m_width, spriteFile.m_height);
+		this.turnRight = new Sprite(turnRightTab);
 
 		this.left = this.turnRight.m_images[0];
 		this.right = this.turnLeft.m_images[0];

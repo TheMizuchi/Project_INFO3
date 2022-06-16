@@ -1,15 +1,14 @@
 package model;
 
 import model.entity.Entity;
-import view.ILightSource;
 import view.MyCanvas;
 import view.graphicEntity.LightSourceView;
 
 public class LightSource implements ILightSource{
-	double x, y;
-	double radius;
-	Entity entity;
-	LightSourceView sv;
+	private double x, y;
+	private double radius;
+	private Entity entity;
+	private LightSourceView sv;
 	
 	public LightSource (double x, double y, double radius, Entity e) {
 		this(x, y, radius);
@@ -44,7 +43,7 @@ public class LightSource implements ILightSource{
 		this.entity = e;
 	}
 	
-	void update() {
+	public void update() {
 		if(this.entity!=null) {
 			this.setPosition(this.entity.getPosX(), this.entity.getPosY());
 		}

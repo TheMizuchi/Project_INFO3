@@ -18,8 +18,8 @@ public abstract class Animation {
 
 	AnimationListener al;
 	protected _AnimationListener _al;
-	BufferedImage[] m_images;
-	int delay;
+	protected BufferedImage[] m_images;
+	protected int delay;
 
 	protected int m_idx;
 	protected Sprite m_sprite;
@@ -27,7 +27,7 @@ public abstract class Animation {
 	protected boolean m_done;
 
 
-	public Animation () {
+	protected Animation () {
 		m_idx = 0;
 		m_done = true;
 		this.delay = 20;
@@ -43,7 +43,7 @@ public abstract class Animation {
 	}
 
 	//Passe à l'image suivante de l'animation et renvoie true si réussi, false sinon
-	public boolean nextImage () {
+	private boolean nextImage () {
 
 		if (m_idx < m_sprite.m_images.length - 1) {
 			m_idx++;
@@ -55,11 +55,11 @@ public abstract class Animation {
 	}
 
 	//Renvoie True si l'animation est terminé
-	public boolean done () {
+	protected boolean done () {
 		return m_done;
 	}
 
-	public void start () {
+	protected void start () {
 		m_idx = 0;
 		m_done = false;
 		this._al.start();
@@ -68,7 +68,7 @@ public abstract class Animation {
 	public abstract void paint (Graphics g);
 
 
-	protected class _AnimationListener implements TimerListener {
+	private class _AnimationListener implements TimerListener {
 
 		MyTimer t;
 		long elapsed;

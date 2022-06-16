@@ -2,7 +2,7 @@ package model.map;
 
 public class Case {
 
-	TileType type;
+	private TileType type;
 
 
 	public Case () {
@@ -19,6 +19,14 @@ public class Case {
 				type = tileTypes[k];
 			k++;
 		}
+	}
+
+	public TileType getType () {
+		return type;
+	}
+	
+	public void setType(TileType t) {
+		this.type = t;
 	}
 
 }

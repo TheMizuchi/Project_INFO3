@@ -7,11 +7,11 @@ import view.animation.bank.CowboyBank;
 
 public class CowboyAnimation extends EntityAnimation {
 
-	CowboyBank cb;
+	private CowboyBank cb;
 
 
 	public CowboyAnimation () {
-		super();
+		super(AnimationBank.getAnimationBank(Model.COWBOY_ID));
 		this.cb = (CowboyBank) AnimationBank.getAnimationBank(Model.COWBOY_ID);
 	}
 

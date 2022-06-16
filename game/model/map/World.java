@@ -10,8 +10,8 @@ import model.map.generator.JsonDecode;
 
 public class World {
 
-	ArrayList rooms; //Totalité des salles pour pouvoir piocher dedans
-	JsonDecode jd;
+	private ArrayList rooms; //Totalité des salles pour pouvoir piocher dedans
+	private JsonDecode jd;
 
 
 	public World (String jsonPath) throws ParseException, IOException {
@@ -21,6 +21,10 @@ public class World {
 		for (int i = 0; i < jd.getNbRooms(); i++) {
 			rooms.insertAt(rooms.length(), jd.newRoom(i));
 		}
+	}
+	
+	public ArrayList getRooms() {
+		return this.rooms;
 	}
 
 }
