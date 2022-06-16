@@ -14,7 +14,7 @@ public class TestWorld {
 
 	public static void main (String[] args) throws ParseException, IOException {
 		World w = new World("resources/rooms.json");
-		Map m = new Map(w, 160, 120, 1);
+		Map m = new Map(w, 1, 100);
 		new Frame(w, m);
 		m.generate_corridors();
 		new Frame(w, m);
