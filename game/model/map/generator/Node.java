@@ -28,6 +28,18 @@ public class Node {
 		ListArc = new ArrayList();
 	}
 
+	public Room content () {
+		return content;
+	}
+
+	public int centerX () {
+		return mid_x;
+	}
+
+	public int centerY () {
+		return mid_y;
+	}
+
 	int numberArcs () {
 		return ListArc.length();
 	}

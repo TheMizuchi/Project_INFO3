@@ -5,6 +5,9 @@ import java.util.Random;
 import edu.polytech.oop.collections.ArrayList;
 import edu.polytech.oop.collections.ICollection.Iterator;
 import edu.polytech.oop.collections.IList;
+import model.map.generator.Arc;
+import model.map.generator.Graph;
+import model.map.generator.Node;
 import model.map.generator.RectangleCollisionTEMPORAIRE;
 import model.map.generator.RectangleTEMPORAIRE;
 import model.map.generator.Room;
@@ -217,6 +220,57 @@ public class Map {
 		}
 
 		return false;
+	}
+
+	private void corridor (Arc a) {
+		Node dest1 = a.first();
+		Node dest2 = a.second();
+
+		int distX = dest2.centerX() - dest1.centerX();
+		int distY = dest2.centerY() - dest1.centerY();
+
+		double angle;
+
+		if (angle > 45.0 && angle <= 135.0) {
+			int posX = dest1.centerX();
+			int posY;
+
+			for (posY = dest1.content().getHeight(); posY < dest2.centerY(); posY++) {
+				Case tmp = grid[posX][posY];
+				grid[posX][posY].type = TileType.FLOOR;
+				grid[posX - 1][posY].type = TileType.WALL;
+				grid[posX + 1][posY].type = TileType.WALL;
+
+				if (tmp.type == TileType.WALL && grid[posX][posY + 1].type == TileType.FLOOR) {
+					return;
+				}
+			}
+			
+		}
+
+		if (angle > 135.0 && angle <= 180 || angle < -135.0 && angle >= -180) {
+
+		}
+
+		if (angle <= 45.0 && angle >= -45) {
+
+		}
+
+		if (angle < -45.0 && angle >= -135) {
+
+		}
+	}
+
+	private void generate_corridors () {
+		Graph G = new Graph(rooms);
+		G.delaunay();
+		Graph corGraph = G.min_spanning_tree();
+		corGraph.add_random_arc(G);
+
+		for (int i = 0; i < corGraph.ListNode.length(); i++) {
+			Node n = (Node) corGraph.ListNode.elementAt(i);
+
+		}
 	}
 
 }

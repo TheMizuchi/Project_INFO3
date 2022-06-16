@@ -1,15 +1,17 @@
 package model.map.generator;
 
+import java.util.Random;
+
 import edu.polytech.oop.collections.ArrayList;
 import edu.polytech.oop.collections.IList;
 
 
 public class Graph {
 
-	IList ListNode;
+	public IList ListNode;
 
 
-	Graph (IList rooms) {
+	public Graph (IList rooms) {
 		int l = rooms.length();
 		ListNode = new ArrayList();
 		Room r;
@@ -23,6 +25,48 @@ public class Graph {
 
 	Graph (IList nodes, int nbn) {
 		this.ListNode = nodes;
+	}
+
+	boolean containsArc (int d1x, int d1y, int d2x, int d2y) {
+
+		for (int i = 0; i < ListNode.length(); i++) {
+			Node n = (Node) ListNode.elementAt(i);
+
+			for (int j = 0; j < n.ListArc.length(); j++) {
+				Arc a = (Arc) n.ListArc.elementAt(j);
+
+				if (a.dest1.mid_x == d1x && a.dest1.mid_y == d1y && a.dest2.mid_x == d2x && a.dest2.mid_y == d2y) {
+					return true;
+				}
+
+				if (a.dest2.mid_x == d1x && a.dest2.mid_y == d1y && a.dest1.mid_x == d2x && a.dest1.mid_y == d2y) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	Node findNode (int x, int y) {
+
+		for (int i = 0; i < ListNode.length(); i++) {
+			Node n = (Node) ListNode.elementAt(i);
+
+			if (n.mid_x == x && n.mid_y == y) {
+				return n;
+			}
+		}
+		return null;
+	}
+
+	int numberArc () {
+		int nba = 0;
+
+		for (int i = 0; i < ListNode.length(); i++) {
+			Node n = (Node) ListNode.elementAt(i);
+			nba += n.numberArcs();
+		}
+		return nba;
 	}
 
 	int getPosXMax () {
@@ -63,7 +107,7 @@ public class Graph {
 		return new Triangle(A, B, C);
 	}
 
-	void delaunay () {
+	public void delaunay () {
 
 		Triangle supertriangle = supertri(getPosXMax(), getPosYMax(), 1);
 
@@ -253,7 +297,7 @@ public class Graph {
 		return newG;
 	}
 
-	Graph min_spanning_tree () {
+	public Graph min_spanning_tree () {
 		double min = Double.MAX_VALUE;
 		Graph MST = null;
 
@@ -266,7 +310,40 @@ public class Graph {
 				min = weight;
 				MST = dijk;
 			}
+
+			for (int j = 0; j < ListNode.length(); j++) {
+				Node reset = (Node) ListNode.elementAt(j);
+				reset.dijk_pds = 0;
+				reset.dijk_proch = null;
+			}
 		}
 		return MST;
+	}
+
+	public void add_random_arc (Graph g) {
+		int nb_add = (int) Math.round((0.15 * numberArc()));
+
+		for (int i = 0; i < nb_add; i++) {
+			Arc arc = null;
+
+			while (arc == null) {
+				int elem_node = (int) Math.floor(Math.random() * (ListNode.length()));
+				Node node = (Node) g.ListNode.elementAt(elem_node);
+				int elem_arc = (int) Math.floor(Math.random() * (node.ListArc.length()));
+				arc = (Arc) node.ListArc.elementAt(elem_arc);
+
+				if (containsArc(arc.dest1.mid_x, arc.dest1.mid_y, arc.dest2.mid_x, arc.dest2.mid_y)) {
+					arc = null;
+				}
+			}
+
+			Node n1 = findNode(arc.dest1.mid_x, arc.dest1.mid_y);
+			Node n2 = findNode(arc.dest2.mid_x, arc.dest2.mid_y);
+			Arc na = new Arc(n1, n2);
+			n1.addArc(na);
+			n2.addArc(na);
+
+		}
+
 	}
 }
