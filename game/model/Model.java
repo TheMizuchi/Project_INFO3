@@ -43,10 +43,10 @@ public class Model {
 	public void update (long elapsed) {
 		m_time_passed += elapsed;
 
+		m_cont.transfertTab();
 
 		if (m_time_passed > 100) {
-			m_cont.transfertTab();
-			
+
 			Iterator it = m_listeEntity.iterator();
 
 			while (it.hasNext()) {
@@ -68,8 +68,8 @@ public class Model {
 		m_listeEntity.insertAt(0, e);
 		return e;
 	}
-	
-	public void createLightSource(Entity e) {
+
+	public void createLightSource (Entity e) {
 		m_listeLight.insertAt(0, new LightSource(0, 0, 5, e));
 	}
 
