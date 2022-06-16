@@ -40,75 +40,51 @@ public class CanvasListener implements GameCanvasListener {
 
 	@Override
 	public void mouseClicked (MouseEvent e) {
-//		System.out.println("Mouse clicked: (" + e.getX() + "," + e.getY() + ")");
-//		System.out.println("   modifiers=" + e.getModifiersEx());
-//		System.out.println("   buttons=" + e.getButton());
 		m_cont.mouseClicked(e);
 	}
 
 	@Override
 	public void mousePressed (MouseEvent e) {
-//		System.out.println("Mouse pressed: (" + e.getX() + "," + e.getY() + ")");
-//		System.out.println("   modifiers=" + e.getModifiersEx());
-//		System.out.println("   buttons=" + e.getButton());
 		m_cont.mousePressed(e);
 	}
 
 	@Override
 	public void mouseReleased (MouseEvent e) {
-//		System.out.println("Mouse released: (" + e.getX() + "," + e.getY() + ")");
-//		System.out.println("   modifiers=" + e.getModifiersEx());
-//		System.out.println("   buttons=" + e.getButton());
 		m_cont.mouseReleased(e);
 	}
 
 	@Override
 	public void mouseEntered (MouseEvent e) {
-//		System.out.println("Mouse entered: (" + e.getX() + "," + e.getY() + ")");
-//		System.out.println("   modifiers=" + e.getModifiersEx());
-//		System.out.println("   buttons=" + e.getButton());
 		m_cont.mouseEntered(e);
 	}
 
 	@Override
 	public void mouseExited (MouseEvent e) {
-//		System.out.println("Mouse exited: (" + e.getX() + "," + e.getY() + ")");
-//		System.out.println("   modifiers=" + e.getModifiersEx());
-//		System.out.println("   buttons=" + e.getButton());
 		m_cont.mouseExited(e);
 	}
 
 	@Override
 	public void mouseDragged (MouseEvent e) {
-//		System.out.println("Mouse dragged: (" + e.getX() + "," + e.getY() + ")");
-//		System.out.println("   modifiers=" + e.getModifiersEx());
-//		System.out.println("   buttons=" + e.getButton());
 		m_cont.mouseDragged(e);
 	}
 
 	@Override
 	public void mouseMoved (MouseEvent e) {
-//		System.out.println("Mouse moved: (" + e.getX() + "," + e.getY() + ")");
-//		System.out.println("   modifiers=" + e.getModifiersEx());
-//		System.out.println("   buttons=" + e.getButton());
 		m_cont.mouseMoved(e);
 	}
 
 	@Override
 	public void keyTyped (KeyEvent e) {
-//		System.out.println("Key typed: " + e.getKeyChar() + " code=" + e.getKeyCode());
 		m_cont.keyTyped(e);
 	}
 
 	@Override
 	public void keyPressed (KeyEvent e) {
-		System.out.println("Key pressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
 		m_cont.keyPressed(e);
 	}
 
 	@Override
 	public void keyReleased (KeyEvent e) {
-		System.out.println("Key released: " + e.getKeyChar() + " code=" + e.getKeyCode());
 		m_cont.keyReleased(e);
 	}
 

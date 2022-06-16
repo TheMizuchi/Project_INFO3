@@ -34,17 +34,8 @@ public class BotKey implements ICondition {
 	public boolean eval () {
 		Controller surveillant = Controller.getInstance();
 
-		if (m_c == 'Q') {
-			System.out.print(surveillant.getKeyPrev(m_c));
-			System.out.println(surveillant.getKey(m_c));
-		}
-
 		if (surveillant.isdir(m_c) && (surveillant.getKey(m_c) ^ surveillant.getKeyPrev(m_c))) {
 			surveillant.useKey(m_c);
-
-			if (m_c == 'Q') {
-				System.out.println(m_c);
-			}
 			return true;
 		} else if (!surveillant.isdir(m_c) && !surveillant.getKeyPrev(m_c) && surveillant.getKey(m_c)) {
 			surveillant.useKey(m_c);
