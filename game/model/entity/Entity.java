@@ -1,6 +1,8 @@
 package model.entity;
 
 import controller.RefAutomata;
+import model.Model;
+import view.EntityView;
 import view.MyCanvas;
 import view.graphicEntity.CowboyView;
 
@@ -10,7 +12,7 @@ public class Entity implements EntityInterface {
 	public int m_ID;
 	private Hitbox m_hitbox;
 	protected RefAutomata m_automata;
-	private CowboyView m_cv;
+	protected EntityView m_ev;
 
 	private static final double ENTITY_MAX_SPEED = 2; // vitesse par seconde
 	private Vector m_vecDir = new Vector();
@@ -22,9 +24,33 @@ public class Entity implements EntityInterface {
 		m_ID = ID;
 		m_hitbox = new Hitbox(x, y, 0.5, 0.5);
 		m_automata = new RefAutomata(this);
+	}
 
-		this.m_cv = new CowboyView(this);
-		MyCanvas.getInstance().createEntityView(this.m_cv);
+	public static Entity createEntity (int x, int y, int ID) {
+		Entity e = null;
+
+		switch (ID) {
+			case Model.COWBOY_ID:
+				e = new Cowboy(x, y);
+				break;
+			case Model.J1_ID:
+				break;
+			case Model.J2_ID:
+				break;
+			case Model.BLOON_ID:
+				e = new Bloon(x, y);
+				break;
+			case Model.ZOMBIE_ID:
+				break;
+			case Model.BAT_ID:
+				break;
+			case Model.DART_MONKEY_ID:
+				break;
+			default:
+				System.out.println("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
+
+		}
+		return e;
 	}
 
 	public boolean getOrientation () {
@@ -72,7 +98,7 @@ public class Entity implements EntityInterface {
 
 	@Override
 	public void pop () {
-		this.m_cv.spin();
+		// TODO C'est un truc à faire ça 
 	}
 
 	@Override
