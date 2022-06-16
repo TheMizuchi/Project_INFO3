@@ -1,89 +1,22 @@
 package model.entity;
 
-public class Direction {
+public abstract class Direction {
 
-	private int m_dirX;
-	private int m_dirY;
-	
-	//private boolean m_actif ; 
-	
-	private double m_angle; 
+	static final double RACINE_DE_DEUX_SUR_DEUX = 1 / Math.sqrt(2);
 
-	public Direction() {
-		m_dirX = 0;
-		m_dirY = 0;
-		m_angle = Math.PI/2;
-		//m_actif = false ; 
-	}
-	
-	//public void setActif(boolean actif) {
-	//	m_actif = actif; 
-	//}
+	protected Vector m_v;
 
-	public int getDirectionX() {
-		return m_dirX;
+
+	public double getX () {
+		return m_v.getX();
 	}
 
-	public int getDirectionY() {
-		return m_dirY;
+	public double getY () {
+		return m_v.getY();
 	}
 
-	public void faceNorth() {
-		m_dirY = -1;
-	}
+	abstract void compute ();
 
-	public void faceSouth() {
-		m_dirY = 1;
-	}
+	abstract void move (Vector v);
 
-	public void faceEst() {
-		m_dirX = 1;
-	}
-
-	public void faceWest() {
-		m_dirX = -1;
-	}
-
-	public void updateDirection(Direction dir) {
-		int dirX = dir.getDirectionX();
-		int dirY = dir.getDirectionY();
-
-		if (m_dirX == dirX) {
-			m_dirX = 0;
-		} else {
-			if (dirX != 0) {
-				m_dirX = dirX;
-			}
-		}
-
-		if (m_dirY == dirY) {
-			m_dirY = 0;
-		} else {
-			if (dirY != 0) {
-				m_dirY = dirY;
-			}
-		}
-	}
-	
-	public void setAngle(double angle) {
-		m_angle= angle ; 
-	}
-	
-	public double getAngle() {
-		return m_angle; 
-	}
-
-	public double toAngle() {
-		double angle;
-		if(m_dirX==0) { // dirX ==0
-			return angle = Math.PI/2*m_dirY;
-		}
-		angle = Math.atan(m_dirY/m_dirX);
-		
-		if (m_dirX >0) {
-			return angle ; 
-		}else { // (m_dirX<0)
-			return (angle+Math.PI) % (Math.PI*2);
-		}
-	}
 }

@@ -3,6 +3,7 @@ package model.entity;
 import controller.RefAutomata;
 import edu.polytech.oop.collections.ICollection;
 import model.Model;
+import view.EntityView;
 import view.MyCanvas;
 import view.graphicEntity.CowboyView;
 
@@ -11,34 +12,52 @@ public class Entity implements EntityInterface {
 
 	public int m_ID;
 	private Hitbox m_hitbox;
-	Direction m_orientation;
 	TypeEntity type;
 	protected RefAutomata m_automata;
-	private CowboyView m_cv;
-	private double m_speedX;
-	private double m_speedY;
+	protected EntityView m_ev;
 
 	private static final double ENTITY_MAX_SPEED = 2; // vitesse par seconde
-	private static final double ENTITY_MAX_SPEED_DIAGONAL = Math.sqrt(ENTITY_MAX_SPEED) / 2;
+	private Vector m_vecDir = new Vector();
 
 	// Liste d'items
-
-	//
 
 
 	public Entity (double x, double y, int ID) {
 		m_ID = ID;
-		m_orientation = new Direction();
 		m_hitbox = new Hitbox(x, y, 0.5, 0.5);
 		m_automata = new RefAutomata(this);
+	}
 
-		this.m_cv = new CowboyView(this);
-		MyCanvas.getInstance().createEntityView(this.m_cv);
+	public static Entity createEntity (int x, int y, int ID) {
+		Entity e = null;
+
+		switch (ID) {
+			case Model.COWBOY_ID:
+				e = new Cowboy(x, y);
+				break;
+			case Model.J1_ID:
+				break;
+			case Model.J2_ID:
+				break;
+			case Model.BLOON_ID:
+				e = new Bloon(x, y);
+				break;
+			case Model.ZOMBIE_ID:
+				break;
+			case Model.BAT_ID:
+				break;
+			case Model.DART_MONKEY_ID:
+				break;
+			default:
+				System.out.println("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
+
+		}
+		return e;
 	}
 
 	public boolean getOrientation () {
 		// T si gauche / north
-		return m_orientation.getDirectionX() < 0 || m_orientation.getDirectionY() < 0;
+		return m_vecDir.getX() < 0;
 	}
 
 	public double getPosX () {
@@ -52,7 +71,9 @@ public class Entity implements EntityInterface {
 	public void update (long elapsed) {
 		// déplacement
 		m_automata.step();
-		this.deplacement(elapsed);
+		double speedX = m_vecDir.getX() * ENTITY_MAX_SPEED;
+		double speedY = m_vecDir.getY() * ENTITY_MAX_SPEED;
+		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 	}
 
 	void attack () {}
@@ -61,7 +82,8 @@ public class Entity implements EntityInterface {
 
 	@Override
 	public boolean myDir (Direction orientation) {
-		return m_orientation.getAngle() == orientation.getAngle();
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -110,7 +132,7 @@ public class Entity implements EntityInterface {
 
 	@Override
 	public void pop () {
-		this.m_cv.spin();
+		// TODO C'est un truc à faire ça 
 	}
 
 	@Override
@@ -126,8 +148,8 @@ public class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void move (Direction orientation) {
-		m_orientation.updateDirection(orientation);
+	public void move (Direction dir) {
+		dir.move(m_vecDir);
 	}
 
 	@Override
@@ -197,13 +219,4 @@ public class Entity implements EntityInterface {
 		double y = Math.pow(h1.getY(), h1.getY()) - Math.pow(h2.getY(), h2.getY());
 		return Math.sqrt(x + y);
 	}
-
-	private void deplacement (long elapse) {
-		double angle = m_orientation.toAngle();
-		m_speedX = Math.cos(angle) * Math.abs(m_orientation.getDirectionX()) * ENTITY_MAX_SPEED;
-		m_speedY = Math.sin(angle) * Math.abs(m_orientation.getDirectionY()) * ENTITY_MAX_SPEED;
-		System.out.println(m_orientation.getDirectionX() + " y : " + m_orientation.getDirectionY() + " elapse : " + elapse);
-		m_hitbox.move(m_speedX * elapse / 1000, m_speedY * elapse / 1000);
-	}
-
 }

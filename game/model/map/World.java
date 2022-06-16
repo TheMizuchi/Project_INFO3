@@ -22,8 +22,8 @@ public class World {
 			rooms.insertAt(rooms.length(), jd.newRoom(i));
 		}
 	}
-	
-	public ArrayList getRooms() {
+
+	public ArrayList getRooms () {
 		return this.rooms;
 	}
 

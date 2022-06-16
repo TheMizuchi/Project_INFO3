@@ -26,7 +26,7 @@ public class LightView {
 		this.lightSource = new LinkedList();
 
 	}
-	
+
 	public LinkedList getLightSources () {
 		return this.lightSource;
 	}
