@@ -11,7 +11,7 @@ public class J1Animation extends EntityAnimation {
 
 
 	public J1Animation () {
-		super(AnimationBank.getAnimationBank(Model.COWBOY_ID));
+		super(AnimationBank.getAnimationBank(Model.J2_ID));
 		this.j1b = (J1Bank) AnimationBank.getAnimationBank(Model.J1_ID);
 	}
 

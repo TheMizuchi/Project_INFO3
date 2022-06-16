@@ -26,9 +26,14 @@ public class J1View extends EntityView {
 
 			@Override
 			public void done (Animation a) {
+				idle();
 
 			}
 		};
+	}
+
+	protected void idle () {
+		this.a.idle();
 	}
 
 	@Override
