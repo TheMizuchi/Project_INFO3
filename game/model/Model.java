@@ -48,12 +48,12 @@ public class Model {
 		createMap();
 		loadEnv();
 	}
-	
+
 	//méthode tmp pour les tests
-	private void loadEnv() {
-		Entity j1 = createEntity(5, 0, 0);
+	private void loadEnv () {
+		Entity j1 = createEntity(5, 0, J1_ID);
 		createLightSource(j1);
-		Entity j2 = createEntity(-5, 0, 0);
+		Entity j2 = createEntity(-5, 0, J2_ID);
 		createLightSource(j2);
 		m_cam = new Camera(m_canvas.getViewport(), j1, j2);
 	}
@@ -82,7 +82,7 @@ public class Model {
 			LightSource ls = (LightSource) it.next();
 			ls.update();
 		}
-		
+
 		m_cam.update();
 	}
 

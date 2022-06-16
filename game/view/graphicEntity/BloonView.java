@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import model.entity.EntityInterface;
 import view.EntityView;
 import view.MyCanvas;
+import view.Viewport;
 import view.animation.Animation;
 import view.animation.BloonAnimation;
 import view.animation.Animation.AnimationListener;
@@ -34,6 +35,11 @@ public class BloonView extends EntityView {
 
 	public void explode () {
 		this.a.explode();
+	}
+
+	@Override
+	public void update (Viewport vp) {
+		this.setPosition(vp.toLocalX(this.entity.getPosX()), vp.toLocalY(this.entity.getPosY()), vp.getScale());
 	}
 
 	@Override

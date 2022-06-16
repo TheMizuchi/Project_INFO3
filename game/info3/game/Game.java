@@ -174,12 +174,12 @@ public class Game {
 			txt = txt + fps + " fps   ";
 			m_text.setText(txt);
 		}
-		
+
 		if (m_elapsedUpdate >= 20) {
 			m_m.update(m_elapsedUpdate);
 			m_elapsedUpdate -= 20;
 		}
-		
+
 	}
 
 	/*

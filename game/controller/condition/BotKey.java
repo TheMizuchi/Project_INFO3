@@ -6,21 +6,43 @@ import controller.ICondition;
 
 public class BotKey implements ICondition {
 
-	String m_s;
+	char m_c;
 
 
 	public BotKey (String s) {
-		m_s = s;
+		m_c = s.toUpperCase().charAt(0);
+
+		switch (s) {
+			case "FU":
+				m_c = 38;
+				break;
+			case "FL":
+				m_c = 37;
+				break;
+			case "FD":
+				m_c = 40;
+				break;
+			case "FR":
+				m_c = 39;
+				break;
+			default:
+				break;
+		}
 	}
 
 	@Override
 	public boolean eval () {
 		Controller surveillant = Controller.getInstance();
-		m_s = m_s.toUpperCase();
 
-		if (surveillant.getTabKeys_prev()[m_s.codePointAt(0) - 65]) {
-			System.out.println(m_s);
+		if (surveillant.isdir(m_c) && (surveillant.getKey(m_c) ^ surveillant.getKeyPrev(m_c))) {
+			surveillant.useKey(m_c);
 			return true;
+		} else if (!surveillant.isdir(m_c) && !surveillant.getKeyPrev(m_c) && surveillant.getKey(m_c)) {
+			surveillant.useKey(m_c);
+			return true;
+		} else if (surveillant.getKey(m_c) ^ surveillant.getKeyPrev(m_c)) {
+			surveillant.useKey(m_c);
+			return false;
 		}
 		return false;
 	}

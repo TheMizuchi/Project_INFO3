@@ -22,7 +22,11 @@ public abstract class EntityView extends ViewElement {
 		this.y = y;
 		this.scale = scale;
 	}
-
+	
+	public void update(Viewport vp) {
+		this.setPosition(vp.toLocalX(this.entity.getPosX()), vp.toLocalY(this.entity.getPosY()), vp.getScale());
+	}
+	
 	public abstract int getH ();
 	public abstract int getW ();
 
