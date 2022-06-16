@@ -128,7 +128,7 @@ public class MyCanvas extends Component {
 		//System.out.println("Nb d'entité dessiné : " + i);
 		
 		// Applique un masque pour couvrir les zones non éclairées.
-		//m_light.paint(g);
+		m_light.paint(g);
 
 	}
 
