@@ -22,7 +22,12 @@ public class PlayerAbsoluteDirection extends Direction {
 	}
 
 	@Override
-	void move (Vector dirEntity) {
+	boolean move (Vector dirEntity) {
+
+		// On teste s'il y avait un mouvement sur l'axe x et y
+		boolean xWasMoving = dirEntity.getW() ^ dirEntity.getE();
+		boolean yWasMoving = dirEntity.getN() ^ dirEntity.getS();
+		boolean wasMoving = xWasMoving || yWasMoving;
 
 		compute();
 
@@ -44,18 +49,19 @@ public class PlayerAbsoluteDirection extends Direction {
 		}
 
 		// On teste s'il y a un mouvement sur l'axe x et y
-		boolean xMove = dirEntity.getW() ^ dirEntity.getE();
-		boolean yMove = dirEntity.getN() ^ dirEntity.getS();
+		boolean xMoving = dirEntity.getW() ^ dirEntity.getE();
+		boolean yMoving = dirEntity.getN() ^ dirEntity.getS();
+		boolean isMoving = xMoving || yMoving;
 
 		// Initialement on ne bouge pas puis on utilise xmove et ymove pour définir le mouvement
 		dirEntity.setX(0);
 		dirEntity.setY(0);
 
-		if (xMove && yMove) {
+		if (xMoving && yMoving) {
 			// S'il y a un mouvement sur les 2 axes il faut trouver quelle diagonale pour affection la bonne vitesse
 			dirEntity.setY((dirEntity.getN()) ? (-RACINE_DE_DEUX_SUR_DEUX) : (RACINE_DE_DEUX_SUR_DEUX));
 			dirEntity.setX((dirEntity.getW()) ? (-RACINE_DE_DEUX_SUR_DEUX) : (RACINE_DE_DEUX_SUR_DEUX));
-		} else if (xMove) {
+		} else if (xMoving) {
 
 			// S'il y a seulement un mouvement suivant x il suffit de trouver dans quel sens de l'axe
 			if (dirEntity.getW()) {
@@ -63,7 +69,7 @@ public class PlayerAbsoluteDirection extends Direction {
 			} else {
 				dirEntity.setX(1);
 			}
-		} else if (yMove) {
+		} else if (yMoving) {
 
 			// S'il y a seulement un mouvement suivant y il suffit de trouver dans quel sens de l'axe
 			if (dirEntity.getN()) {
@@ -72,10 +78,10 @@ public class PlayerAbsoluteDirection extends Direction {
 				dirEntity.setY(1);
 			}
 		} else {
-			return;
+			return isMoving ^ wasMoving;
 		}
 		dirEntity.updateAngle();
-		System.out.println(dirEntity.getAngle());
+		return isMoving ^ wasMoving;
 	}
 
 }

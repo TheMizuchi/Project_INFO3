@@ -56,17 +56,18 @@ public class Entity implements EntityInterface {
 	}
 
 	public int getOrientation () {
+
 		// T si gauche / north
-		if(m_vecDir.getX() < 0) {
+		if (m_vecDir.getX() < 0) {
 			return -1;
-		}else if(m_vecDir.getX() > 0) {
+		} else if (m_vecDir.getX() > 0) {
 			return 1;
-		}else {
+		} else {
 			return 0;
 		}
 	}
-	
-	public Vector getDirVector() {
+
+	public Vector getDirVector () {
 		return m_vecDir;
 	}
 
@@ -128,7 +129,8 @@ public class Entity implements EntityInterface {
 	@Override
 	public void move (Direction dir) {
 		boolean sw = dir.move(m_vecDir);
-		if(sw) m_ev.walk();
+		if (sw)
+			m_ev.walk();
 	}
 
 	@Override

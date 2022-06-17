@@ -10,8 +10,6 @@ public class PlayerDirection {
 	private boolean m_E;
 	private boolean m_W;
 
-	// private boolean m_actif ;
-
 	private double m_angle;
 
 
