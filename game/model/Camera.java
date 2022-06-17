@@ -25,7 +25,8 @@ public class Camera {
 	public void update () {
 		double dx = Math.abs(j1.getPosX() - j2.getPosX());
 		double dy = Math.abs(j1.getPosY() - j2.getPosY());
-		double scale = Math.min(Math.max(13 / Math.max(dx, 13), 13 / Math.max(dy, 9) / 9), 1);
+		double scale = Math.min(Math.min(13 / Math.max(dx, 13), 5 / Math.max(dy, 5)), 1);
+		scale = Math.max(scale, 0.75);
 		this.setPosition((double) (j1.getPosX() + j2.getPosX()) / 2, (double) (j1.getPosY() + j2.getPosY()) / 2, scale);
 	}
 
@@ -37,8 +38,7 @@ public class Camera {
 		this.j2 = j;
 	}
 
-	//passer en private quand on aura les deux joueurs
-	public void setPosition (double x, double y, double scale) {
+	private void setPosition (double x, double y, double scale) {
 		this.vp.setPosition(x, y, scale);
 	}
 }

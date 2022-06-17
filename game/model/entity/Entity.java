@@ -3,9 +3,9 @@ package model.entity;
 import controller.RefAutomata;
 import edu.polytech.oop.collections.ICollection;
 import model.Model;
-import view.EntityView;
 import view.MyCanvas;
 import view.graphicEntity.CowboyView;
+import view.graphicEntity.EntityView;
 
 
 public class Entity implements EntityInterface {
@@ -60,9 +60,20 @@ public class Entity implements EntityInterface {
 		return e;
 	}
 
-	public boolean getOrientation () {
+	public int getOrientation () {
+
 		// T si gauche / north
-		return m_vecDir.getX() < 0;
+		if (m_vecDir.getX() < 0) {
+			return -1;
+		} else if (m_vecDir.getX() > 0) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+
+	public Vector getDirVector () {
+		return m_vecDir;
 	}
 
 	public double getPosX () {
@@ -154,7 +165,9 @@ public class Entity implements EntityInterface {
 
 	@Override
 	public void move (Direction dir) {
-		dir.move(m_vecDir);
+		boolean sw = dir.move(m_vecDir);
+		if (sw)
+			m_ev.walk();
 	}
 
 	@Override

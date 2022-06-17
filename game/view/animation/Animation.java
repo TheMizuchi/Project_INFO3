@@ -64,6 +64,11 @@ public abstract class Animation {
 		m_done = false;
 		this._al.start();
 	}
+	
+	public void stop() {
+		m_done = true;
+		al.done(Animation.this);
+	}
 
 	public abstract void paint (Graphics g);
 
@@ -81,7 +86,7 @@ public abstract class Animation {
 
 		public void start () {
 			this.last = System.currentTimeMillis();
-			this.t.setTimer(0, this);
+			this.t.setTimer(20, this);
 
 		}
 

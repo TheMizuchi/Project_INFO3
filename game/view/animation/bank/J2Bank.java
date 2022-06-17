@@ -5,27 +5,27 @@ import java.awt.image.BufferedImage;
 import view.animation.Sprite;
 
 
-public class J1Bank extends EntityAnimationBank {
+public class J2Bank extends EntityAnimationBank {
 
-	//Liste des aniations spécifique au J1;
+	//Liste des aniations spécifique au J2;
 	public Sprite attack;
 
 
-	private J1Bank () {
-		Sprite spriteFile = Sprite.loadSprite("resources/adventurer-v1.5-Sheet.png", 16, 7); //Problème avec la ressource.
+	private J2Bank () {
+		Sprite spriteFile = Sprite.loadSprite("resources/adventurer-v1.5-Sheet.png", 16, 7);
 
 		loadBasicAnimation(spriteFile);
 		loadSpecificAnimation(spriteFile);
 	}
 
 
-	private static J1Bank INSTANCE = null;
+	private static J2Bank INSTANCE = null;
 
 
-	public static J1Bank getInstance () {
+	public static J2Bank getInstance () {
 
 		if (INSTANCE == null) {
-			INSTANCE = new J1Bank();
+			INSTANCE = new J2Bank();
 		}
 		return INSTANCE;
 	}
@@ -33,14 +33,14 @@ public class J1Bank extends EntityAnimationBank {
 	@Override
 	protected void loadBasicAnimation (Sprite spriteFile) {
 		BufferedImage[] idle_img = new BufferedImage[4];
-		BufferedImage[] walk_img = new BufferedImage[5];
+		BufferedImage[] walk_img = new BufferedImage[6];
 
 		for (int i = 0; i < 4; i++) {
 			idle_img[i] = spriteFile.m_images[i];
 		}
 		this.idle = new Sprite(idle_img);
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 6; i++) {
 			walk_img[i] = spriteFile.m_images[i + 9];
 		}
 		this.walk = new Sprite(walk_img);

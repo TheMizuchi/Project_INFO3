@@ -63,6 +63,6 @@ public interface EntityInterface {
 	double getPosY ();
 
 	// Renvoie true si l'orientation est comprise entre pi/2 et 3pi/2, false sinon
-	boolean getOrientation ();
+	int getOrientation ();
 
 }

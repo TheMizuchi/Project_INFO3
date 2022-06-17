@@ -17,9 +17,9 @@ public class BloonBank extends EntityAnimationBank {
 	private BloonBank () {
 		BufferedImage[] images = new BufferedImage[6];
 		for(int i = 0; i<6; i++) {
-			images[i] = loadImages("ressources/green-ballon/"+i+1+".png");
+			images[i] = loadImages("resources/green-balloon/"+((int)(i+1))+".png");
 		}
-		
+
 		Sprite spriteFile = new Sprite(images);
 		loadSpecificAnimation(spriteFile);
 		loadBasicAnimation(spriteFile);
@@ -36,8 +36,8 @@ public class BloonBank extends EntityAnimationBank {
 		}
 		return INSTANCE;
 	}
-	
-	private BufferedImage loadImages(String filename) {
+
+	private BufferedImage loadImages (String filename) {
 		File imageFile = new File(filename);
 
 		if (imageFile.exists()) {
@@ -53,7 +53,7 @@ public class BloonBank extends EntityAnimationBank {
 			return image;
 		}
 		return null;
-		
+
 	}
 
 	@Override
