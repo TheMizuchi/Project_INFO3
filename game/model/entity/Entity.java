@@ -11,7 +11,7 @@ import view.graphicEntity.EntityView;
 public class Entity implements EntityInterface {
 
 	public int m_ID;
-	private Hitbox m_hitbox;
+	protected Hitbox m_hitbox;
 	TypeEntity type;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
@@ -54,6 +54,8 @@ public class Entity implements EntityInterface {
 			case Model.DART_MONKEY_ID:
 				e = new DartMonkey(x, y);
 				break;
+			case Model.TORCHE_ID:
+				e = new Torche(x, y);
 			default:
 				System.out.println("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
 
