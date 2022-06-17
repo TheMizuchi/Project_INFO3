@@ -25,6 +25,7 @@ public class Torch extends Entity {
 	@Override
 	public void update (long elapsed) {
 		// si automate, faire un step
-		m_hitbox.move(porteur);
+		if (porteur != null)
+			m_hitbox.move(porteur);
 	}
 }
