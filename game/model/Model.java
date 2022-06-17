@@ -24,7 +24,6 @@ public class Model {
 	public static final int SKELETON_ID = 4;
 	public static final int BAT_ID = 5;
 	public static final int DART_MONKEY_ID = 6;
-
 	public static final int ENTITY_NUMBER = 7;
 
 	// Référence MVC
