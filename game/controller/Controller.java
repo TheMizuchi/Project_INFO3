@@ -36,9 +36,7 @@ public class Controller {
 			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
 			ast = from_file("resources/Automata/MoveKeysArrows+Pop.gal");
 			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
-			ast = from_file("resources/Automata/MoveKeysArrows+Pop.gal");
-			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
-			ast = from_file("resources/Automata/MoveKeysArrows+Pop.gal");
+			ast = from_file("resources/Automata/Torch.gal");
 			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
 		}
 		catch (ParseException ex) {
