@@ -45,8 +45,8 @@ public class Entity implements EntityInterface {
 			case Model.BLOON_ID:
 				e = new Bloon(x, y);
 				break;
-			case Model.ZOMBIE_ID:
-				e = new Zombie(x, y);
+			case Model.SKELETON_ID:
+				e = new Skeleton(x, y);
 				break;
 			case Model.BAT_ID:
 				e = new Bat(x, y);
