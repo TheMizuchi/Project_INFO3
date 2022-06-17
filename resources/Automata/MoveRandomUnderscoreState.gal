@@ -1,4 +1,4 @@
-MoveRandom2 (Haut) {
+MoveRandomUnderscoreState (Haut) {
 	* (Haut):
 		| True ? Move(N) : (_)
 	* (Bas):

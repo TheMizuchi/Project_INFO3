@@ -11,7 +11,7 @@ public class SkeletonView extends EntityView {
 	public SkeletonView (EntityInterface e) {
 		super(0, 0, 1, e, new SkeletonAnimation());
 		this.a = (SkeletonAnimation) super.a;
-		this.a.setDelay(150);
+		this.a.setDelay(50);
 	}
 
 	public void attack () {

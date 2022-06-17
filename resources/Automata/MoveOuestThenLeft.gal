@@ -1,0 +1,6 @@
+MoveFoward (Init) {
+	* (Init):
+		| True ? Move(NW) : (Left)
+	* (Left):
+		| True ? Move(L) : (Left)
+}

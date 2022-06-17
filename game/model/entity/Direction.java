@@ -15,7 +15,11 @@ public abstract class Direction {
 		return m_v.getY();
 	}
 
-	abstract void compute ();
+	public double getAngle () {
+		return m_v.getAngle();
+	}
+
+	protected abstract void compute ();
 
 	// Renvoit true si l'on passe de bouger à pas bouger et de pas bouger et bouger
 	abstract boolean move (Vector v);

@@ -9,7 +9,7 @@ public class Vector {
 	private boolean m_W;
 	private boolean m_S;
 	private boolean m_E;
-	
+
 	private double m_angle;
 
 
@@ -80,7 +80,7 @@ public class Vector {
 		}
 	}
 
-	public double updateAngle () {
+	public double updatePlayerAngle () {
 		boolean xMove = getW() ^ getE();
 		boolean yMove = getN() ^ getS();
 
@@ -120,9 +120,13 @@ public class Vector {
 		}
 		return m_angle;
 	}
-	
-	public double getAngle() {
+
+	public double getAngle () {
 		return m_angle;
+	}
+
+	public void setAngle (double angle) {
+		m_angle = angle;
 	}
 
 }
