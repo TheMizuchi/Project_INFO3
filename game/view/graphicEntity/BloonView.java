@@ -12,6 +12,7 @@ public class BloonView extends EntityView {
 	public BloonView (EntityInterface e) {
 		super(0, 0, 1, e, new BloonAnimation());
 		this.a = (BloonAnimation) super.a;
+		this.a.setDelay(50);
 	}
 
 	public void explode () {
