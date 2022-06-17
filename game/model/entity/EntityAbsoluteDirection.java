@@ -1,11 +1,11 @@
 package model.entity;
 
-public class PlayerAbsoluteDirection extends Direction {
+public class EntityAbsoluteDirection extends Direction {
 
 	private double m_angle;
 
 
-	public PlayerAbsoluteDirection (double angle) {
+	public EntityAbsoluteDirection (double angle) {
 		m_angle = angle;
 		m_v = new Vector();
 	}

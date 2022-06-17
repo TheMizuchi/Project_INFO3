@@ -1,27 +1,9 @@
 package model.entity;
 
-public class PlayerAbsoluteDirection extends Direction {
+public class EntityRelativeDirection extends PlayerAbsoluteDirection {
 
-	private double m_angle;
-
-
-	public PlayerAbsoluteDirection (double angle) {
-		m_angle = angle;
-		m_v = new Vector();
-	}
-
-	public void setAngle(double angle) {
-		m_angle = angle;
-	}
-	
-	@Override
-	protected void compute () {
-		double x = Math.cos(m_angle);
-		double y = Math.sin(m_angle);
-		x = (Math.abs(x) > 0.0000001) ? (x) : (0);
-		y = (Math.abs(y) > 0.0000001) ? (y) : (0);
-		m_v.setX(x);
-		m_v.setY(-y);
+	public EntityRelativeDirection (Entity e, double angle) {
+		super(angle + e.getDirVector().getAngle());
 	}
 
 	@Override
@@ -83,8 +65,6 @@ public class PlayerAbsoluteDirection extends Direction {
 		} else {
 			return isMoving ^ wasMoving;
 		}
-		dirEntity.updateAngle();
 		return isMoving ^ wasMoving;
 	}
-
 }

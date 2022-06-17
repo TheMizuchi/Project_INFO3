@@ -5,7 +5,7 @@ import model.Model;
 
 public enum TileType {
 
-	WALL(0, 0, -1), FLOOR(1, 1, -1), COWBOY(100, 1, Model.COWBOY_ID), J1(101, 1, Model.J1_ID), J2(102, 1, Model.J2_ID);
+	WALL(0, 0, -1), FLOOR(1, 1, -1), COWBOY(100, 1, Model.COWBOY_ID), J1(101, 1, Model.J1_ID), J2(102, 1, Model.J2_ID), SKELETON(104, 1, Model.SKELETON_ID);
 
 
 	private int id;

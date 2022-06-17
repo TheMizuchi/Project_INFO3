@@ -36,6 +36,10 @@ public class Controller {
 			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
 			ast = from_file("resources/Automata/MoveKeysArrows+Pop.gal");
 			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
+			ast = from_file("resources/Automata/MoveKeysArrows+Pop.gal");
+			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
+			ast = from_file("resources/Automata/MoveKeysArrows+Pop.gal");
+			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
 		}
 		catch (ParseException ex) {
 			throw new RuntimeException("Erreur de parsing");
@@ -106,11 +110,21 @@ public class Controller {
 	public void keyTyped (KeyEvent e) {}
 
 	public void keyPressed (KeyEvent e) {
-		setKey((char) e.getKeyCode(), true);
+
+		if (checkKey((char) e.getKeyCode())) {
+			setKey((char) e.getKeyCode(), true);
+		}
 	}
 
 	public void keyReleased (KeyEvent e) {
-		setKey((char) e.getKeyCode(), false);
+
+		if (checkKey((char) e.getKeyCode())) {
+			setKey((char) e.getKeyCode(), false);
+		}
+	}
+
+	private boolean checkKey (char c) {
+		return 0 <= c && c < 256;
 	}
 
 	// A appeler dans le model juste AVANT la boucle qui force les automates à step

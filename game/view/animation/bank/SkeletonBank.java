@@ -7,10 +7,10 @@ public class SkeletonBank extends EntityAnimationBank {
 	public Sprite attack;
 	
 	private SkeletonBank () {
-		//Sprite spriteFile = Sprite.loadSprite("", 16, 7);
+		Sprite spriteFile = Sprite.loadSprite("Skeleton Idle.png", 1, 11);
 
-		loadBasicAnimation(null);
-		loadSpecificAnimation(null);
+		loadBasicAnimation(spriteFile);
+		loadSpecificAnimation(spriteFile);
 	}
 
 
