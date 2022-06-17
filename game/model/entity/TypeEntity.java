@@ -24,7 +24,7 @@ public class TypeEntity {
 				m_type = Allié;
 				break;
 			case Model.BLOON_ID:
-			case Model.ZOMBIE_ID:
+			case Model.SKELETON_ID:
 			case Model.DART_MONKEY_ID:
 				m_type = Ennemi;
 				break;
