@@ -16,6 +16,7 @@ public class Entity implements EntityInterface {
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 
+	static final double rangeDetection = 10;
 	private static final double ENTITY_MAX_SPEED = 2; // vitesse par seconde
 	private Vector m_vecDir = new Vector();
 
@@ -120,7 +121,7 @@ public class Entity implements EntityInterface {
 			if (e.type.getType() == type.getType()) {
 				double dist = distance(e);
 
-				if (distMin > dist) {
+				if (distMin > dist && distMin < rangeDetection) {
 					e_min = e;
 					distMin = dist;
 				}
