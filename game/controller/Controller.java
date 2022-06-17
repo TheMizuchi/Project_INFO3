@@ -30,7 +30,9 @@ public class Controller {
 		BotBuilder bb = BotBuilder.getInstance();
 
 		try {
+
 			AST ast = from_file("resources/Automata/MoveKeys+Pop.gal");
+
 			m_auts.insertAt(0, ((IList) ast.accept(bb)).elementAt(0));
 			ast = from_file("resources/Automata/MoveKeys+Pop.gal");
 			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
