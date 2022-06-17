@@ -65,6 +65,10 @@ public class Entity implements EntityInterface {
 			return 0;
 		}
 	}
+	
+	public Vector getDirVector() {
+		return m_vecDir;
+	}
 
 	public double getPosX () {
 		return m_hitbox.getX();
