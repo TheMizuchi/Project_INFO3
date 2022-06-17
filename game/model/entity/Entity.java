@@ -42,7 +42,7 @@ public class Entity implements EntityInterface {
 			case Model.BLOON_ID:
 				e = new Bloon(x, y);
 				break;
-			case Model.ZOMBIE_ID:
+			case Model.SKELETON_ID:
 				break;
 			case Model.BAT_ID:
 				break;
