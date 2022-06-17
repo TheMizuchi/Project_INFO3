@@ -62,8 +62,9 @@ public class Model {
 
 	//méthode tmp pour les tests
 	private void loadEnv (Room spawnRoom) {
+		m_cam = new Camera(m_canvas.getViewport());
 		spawnRoom.spawnEntities(m_map);
-		m_cam = new Camera(m_canvas.getViewport(), (Entity) m_listeEntity.elementAt(0), (Entity) m_listeEntity.elementAt(1));
+		
 	}
 
 	public static Model getInstance () throws ParseException, IOException {
@@ -97,6 +98,11 @@ public class Model {
 	public Entity createEntity (int x, int y, int ID) {
 		Entity e = Entity.createEntity(x, y, ID);
 		m_listeEntity.insertAt(m_listeEntity.length(), e);
+		if(ID==J1_ID) {
+			m_cam.setj1(e);
+		}else if(ID==J2_ID);{
+			m_cam.setj2(e);
+		}
 		return e;
 	}
 
