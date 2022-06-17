@@ -9,7 +9,8 @@ import edu.polytech.oop.collections.*;
 import edu.polytech.oop.collections.LinkedList.Iterator;
 import model.entity.Entity;
 import model.map.Map;
-import model.map.World;
+import model.map.generator.JsonDecode;
+import model.map.generator.Room;
 import view.MyCanvas;
 
 
@@ -31,33 +32,39 @@ public class Model {
 	private Controller m_cont;
 	private MyCanvas m_canvas;
 
-	// Variables locales
-	private LinkedList m_listeEntity;
+	// Variables localesq
+	private int m_time_passed;
+	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
 	private Camera m_cam;
-	private World m_w;
 	private Map m_map;
+	private ArrayList rooms; //Totalité des salles pour pouvoir piocher dedans
+	private JsonDecode jd;
 
 
-	private Model () {
+	private Model () throws ParseException, IOException {
+		String jsonPath = "resources/rooms.json";
+		jd = new JsonDecode(this, jsonPath);
+		rooms = new ArrayList();
+
+		for (int i = 0; i < jd.getNbRooms(); i++) {
+			rooms.insertAt(rooms.length(), jd.newRoom(i));
+		}
 		m_listeEntity = new LinkedList();
 		m_listeLight = new LinkedList();
 		m_cont = Controller.getInstance();
 		m_canvas = MyCanvas.getInstance();
-		createMap();
-		loadEnv();
+		Room spawnRoom = createMap();
+		loadEnv(spawnRoom);
 	}
 
 	//méthode tmp pour les tests
-	private void loadEnv () {
-		Entity j1 = createEntity(5, 0, J1_ID);
-		createLightSource(j1);
-		Entity j2 = createEntity(-5, 0, J2_ID);
-		createLightSource(j2);
-		m_cam = new Camera(m_canvas.getViewport(), j1, j2);
+	private void loadEnv (Room spawnRoom) {
+		spawnRoom.spawnEntities(m_map);
+		m_cam = new Camera(m_canvas.getViewport(), (Entity) m_listeEntity.elementAt(0), (Entity) m_listeEntity.elementAt(1));
 	}
 
-	public static Model getInstance () {
+	public static Model getInstance () throws ParseException, IOException {
 		if (m_instance == null)
 			m_instance = new Model();
 		return m_instance;
@@ -87,7 +94,7 @@ public class Model {
 
 	public Entity createEntity (int x, int y, int ID) {
 		Entity e = Entity.createEntity(x, y, ID);
-		m_listeEntity.insertAt(0, e);
+		m_listeEntity.insertAt(m_listeEntity.length(), e);
 		return e;
 	}
 
@@ -95,19 +102,18 @@ public class Model {
 		m_listeLight.insertAt(0, new LightSource(0, 0, 5, e));
 	}
 
-	public void createMap () {
-
-		try {
-			m_w = new World("resources/rooms.json");
-		}
-		catch (ParseException e) {
-			e.printStackTrace();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		m_map = new Map(m_w, 1, 100);
+	public Room createMap () {
+		m_map = new Map(this, 1, 100);
 		m_canvas.createMapView(m_map.getCases());
+		return m_map.getSpawn();
+	}
+
+	public ArrayList getRooms () {
+		return this.rooms;
+	}
+
+	public static IList getlistEntity () {
+		return m_listeEntity;
 	}
 
 }

@@ -1,6 +1,7 @@
 package model.entity;
 
 import controller.RefAutomata;
+import edu.polytech.oop.collections.ICollection;
 import model.Model;
 import view.MyCanvas;
 import view.graphicEntity.CowboyView;
@@ -11,6 +12,7 @@ public class Entity implements EntityInterface {
 
 	public int m_ID;
 	private Hitbox m_hitbox;
+	TypeEntity type;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 
@@ -43,10 +45,13 @@ public class Entity implements EntityInterface {
 				e = new Bloon(x, y);
 				break;
 			case Model.ZOMBIE_ID:
+				e = new Zombie(x, y);
 				break;
 			case Model.BAT_ID:
+				e = new Bat(x, y);
 				break;
 			case Model.DART_MONKEY_ID:
+				e = new DartMonkey(x, y);
 				break;
 			default:
 				System.out.println("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
@@ -95,6 +100,38 @@ public class Entity implements EntityInterface {
 	public boolean myDir (Direction orientation) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public boolean cell (Direction orientation, TypeEntity type) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean closest (Direction orientation, TypeEntity type) {
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e, e_min;
+		double distMin = Float.MAX_VALUE;
+
+		while (iter.hasNext()) {
+			e = (Entity) iter.next();
+
+			if (e.type.getType() == type.getType()) {
+				double dist = distance(e);
+
+				if (distMin > dist) {
+					e_min = e;
+					distMin = dist;
+				}
+
+			}
+		}
+		// à implémenter lorsque les directions de dova et diego sont stables
+		//if (e_min.position in range of orientation)
+		//	return true;
+		return false;
+
 	}
 
 	@Override
@@ -193,4 +230,11 @@ public class Entity implements EntityInterface {
 
 	}
 
+	public double distance (Entity e) {
+		Hitbox h1 = this.m_hitbox;
+		Hitbox h2 = e.m_hitbox;
+		double x = Math.pow(h1.getX(), h1.getX()) - Math.pow(h2.getX(), h2.getX());
+		double y = Math.pow(h1.getY(), h1.getY()) - Math.pow(h2.getY(), h2.getY());
+		return Math.sqrt(x + y);
+	}
 }

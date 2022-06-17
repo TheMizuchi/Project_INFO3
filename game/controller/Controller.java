@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
@@ -58,7 +59,7 @@ public class Controller {
 		m_dirKeys[40] = true;
 	}
 
-	public void setModel () {
+	public void setModel () throws IOException, org.json.simple.parser.ParseException {
 		m_model = Model.getInstance();
 	}
 

@@ -54,7 +54,7 @@ public class MapView extends ViewElement {
 
 			for (l = 0; l < this.largeur(); l++) {
 
-				switch (carte[h][l].getType().getID()) {
+				switch (carte[h][l].getType().getTextureID()) {
 					case 1:
 						img = tex.m_images[1];
 						break;
