@@ -7,10 +7,8 @@ public class SkeletonBank extends EntityAnimationBank {
 	public Sprite attack;
 	
 	private SkeletonBank () {
-		Sprite spriteFile = Sprite.loadSprite("Skeleton Idle.png", 1, 11);
-
-		loadBasicAnimation(spriteFile);
-		loadSpecificAnimation(spriteFile);
+		loadBasicAnimation(null);
+		loadSpecificAnimation(null);
 	}
 
 
@@ -27,8 +25,8 @@ public class SkeletonBank extends EntityAnimationBank {
 
 	@Override
 	protected void loadBasicAnimation (Sprite spriteFile) {
-		Sprite spriteFileIdle = Sprite.loadSprite("Skeleton Idle.png", 1, 11);
-		Sprite spriteFileWalk = Sprite.loadSprite("Skeleton Walk.png", 1, 13);
+		Sprite spriteFileIdle = Sprite.loadSprite("resources/Skeleton Idle.png", 1, 11);
+		Sprite spriteFileWalk = Sprite.loadSprite("resources/Skeleton Walk.png", 1, 13);
 		this.idle = spriteFileIdle;
 		this.walk = spriteFileWalk;
 		
@@ -36,7 +34,7 @@ public class SkeletonBank extends EntityAnimationBank {
 
 	@Override
 	protected void loadSpecificAnimation (Sprite spriteFile) {
-		Sprite spriteFileAttack = Sprite.loadSprite("Skeleton Attack.png", 1, 18);
+		Sprite spriteFileAttack = Sprite.loadSprite("resources/Skeleton Attack.png", 1, 18);
 		this.attack = spriteFileAttack;
 		
 	}
