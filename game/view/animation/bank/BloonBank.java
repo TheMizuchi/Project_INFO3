@@ -66,6 +66,9 @@ public class BloonBank extends EntityAnimationBank {
 	@Override
 	protected void loadBasicAnimation (Sprite spriteFile) {
 		//Dépend du sprite que l'on va trouver.
+		BufferedImage[] idle_img = new BufferedImage[4];
+		idle_img[0] = spriteFile.m_images[1];
+		this.idle = new Sprite(idle_img);
 
 	}
 

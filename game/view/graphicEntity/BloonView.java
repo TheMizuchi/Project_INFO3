@@ -24,6 +24,7 @@ public class BloonView extends EntityView {
 	}
 
 	public void explode () {
+		a.setListener(this.al);
 		this.a.explode();
 	}
 }
