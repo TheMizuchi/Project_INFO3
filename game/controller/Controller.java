@@ -52,24 +52,18 @@ public class Controller {
 			BotAutomata moveRandomUnderscoreState = getAutFromFile("resources/Automata/MoveRandomUnderscoreState.gal");
 			BotAutomata moveRelativeKeys = getAutFromFile("resources/Automata/MoveRelativeKeys.gal");
 			BotAutomata moveSquare = getAutFromFile("resources/Automata/MoveSquare.gal");
+			BotAutomata moveBigSquare = getAutFromFile("resources/Automata/MoveBigSquare.gal");
+			BotAutomata moveOuestThenLeft = getAutFromFile("resources/Automata/MoveOuestThenLeft.gal");
 			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
 
 			insertAt(m_auts, Model.COWBOY_ID, moveSquare);
 			insertAt(m_auts, Model.J1_ID, moveKeys);
 			insertAt(m_auts, Model.J2_ID, moveKeysArrows);
 			insertAt(m_auts, Model.BLOON_ID, moveSquare);
-			insertAt(m_auts, Model.SKELETON_ID, moveFoward);
+			insertAt(m_auts, Model.SKELETON_ID, torch);
 			insertAt(m_auts, Model.BAT_ID, moveSquare);
 			insertAt(m_auts, Model.DART_MONKEY_ID, moveSquare);
 			insertAt(m_auts, Model.TORCH_ID, torch);
-			//			m_auts.updateAt(Model.COWBOY_ID, moveSquare);
-			//			m_auts.updateAt(Model.J1_ID, moveKeys);
-			//			m_auts.updateAt(Model.J2_ID, moveKeysArrows);
-			//			m_auts.updateAt(Model.BLOON_ID, moveSquare);
-			//			m_auts.updateAt(Model.SKELETON_ID, moveFoward);
-			//			m_auts.updateAt(Model.BAT_ID, moveSquare);
-			//			m_auts.updateAt(Model.DART_MONKEY_ID, moveSquare);
-			//			m_auts.updateAt(Model.TORCH_ID, torch);
 		}
 		catch (ParseException ex) {
 			throw new RuntimeException("Erreur de parsing");

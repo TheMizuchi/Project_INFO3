@@ -57,6 +57,7 @@ public class Entity implements EntityInterface {
 				break;
 			case Model.TORCH_ID:
 				e = new Torch(x, y);
+				break;
 			default:
 				System.out.println("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
 

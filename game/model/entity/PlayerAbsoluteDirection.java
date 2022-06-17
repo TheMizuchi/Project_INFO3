@@ -83,7 +83,7 @@ public class PlayerAbsoluteDirection extends Direction {
 		} else {
 			return isMoving ^ wasMoving;
 		}
-		dirEntity.updateAngle();
+		dirEntity.updatePlayerAngle();
 		return isMoving ^ wasMoving;
 	}
 

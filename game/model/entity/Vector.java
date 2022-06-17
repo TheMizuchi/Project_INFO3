@@ -80,7 +80,7 @@ public class Vector {
 		}
 	}
 
-	public double updateAngle () {
+	public double updatePlayerAngle () {
 		boolean xMove = getW() ^ getE();
 		boolean yMove = getN() ^ getS();
 

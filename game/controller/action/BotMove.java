@@ -55,30 +55,30 @@ public class BotMove extends BotAction {
 				break;
 			case "NW":
 				if (type == TypeEntity.Allié) {
-					e.move(new PlayerRelativeDirection(e, 3 * Math.PI / 4));
+					e.move(new PlayerAbsoluteDirection(3 * Math.PI / 4));
 				} else {
-					e.move(new EntityRelativeDirection(e, 3 * Math.PI / 4));
+					e.move(new EntityAbsoluteDirection(3 * Math.PI / 4));
 				}
 				break;
 			case "NE":
 				if (type == TypeEntity.Allié) {
-					e.move(new PlayerRelativeDirection(e, Math.PI / 4));
+					e.move(new PlayerAbsoluteDirection(Math.PI / 4));
 				} else {
-					e.move(new EntityRelativeDirection(e, Math.PI / 4));
+					e.move(new EntityAbsoluteDirection(Math.PI / 4));
 				}
 				break;
 			case "SE":
 				if (type == TypeEntity.Allié) {
-					e.move(new PlayerRelativeDirection(e, 7 * Math.PI / 4));
+					e.move(new PlayerAbsoluteDirection(7 * Math.PI / 4));
 				} else {
-					e.move(new EntityRelativeDirection(e, 7 * Math.PI / 4));
+					e.move(new EntityAbsoluteDirection(7 * Math.PI / 4));
 				}
 				break;
 			case "SW":
 				if (type == TypeEntity.Allié) {
-					e.move(new PlayerRelativeDirection(e, 5 * Math.PI / 4));
+					e.move(new PlayerAbsoluteDirection(5 * Math.PI / 4));
 				} else {
-					e.move(new EntityRelativeDirection(e, 5 * Math.PI / 4));
+					e.move(new EntityAbsoluteDirection(5 * Math.PI / 4));
 				}
 				break;
 			case "F":
