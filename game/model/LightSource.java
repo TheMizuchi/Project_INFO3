@@ -47,7 +47,7 @@ public class LightSource implements ILightSource {
 	public void update () {
 
 		if (this.entity != null) {
-			this.setPosition(this.entity.getPosX(), this.entity.getPosY());
+			this.setPosition(this.entity.getForViewPosX(), this.entity.getForViewPosY());
 		}
 	}
 

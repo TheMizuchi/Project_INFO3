@@ -34,7 +34,7 @@ public class Model {
 	private JsonDecode jd;
 
 
-	private Model () throws ParseException, IOException {
+	public Model () throws ParseException, IOException {
 		String jsonPath = "resources/rooms.json";
 		jd = new JsonDecode(this, jsonPath);
 		rooms = new ArrayList();
@@ -86,7 +86,7 @@ public class Model {
 	}
 
 	public Entity createEntity (int x, int y, EntityProperties entityProperties) {
-		Entity e = Entity.createEntity(x, y, entityProperties);
+		Entity e = Entity.createEntity(this, x, y, entityProperties);
 		m_listeEntity.insertAt(m_listeEntity.length(), e);
 
 		if (entityProperties == EntityProperties.J1) {
@@ -113,6 +113,10 @@ public class Model {
 
 	public static IList getlistEntity () {
 		return m_listeEntity;
+	}
+
+	public Map getMap () {
+		return m_map;
 	}
 
 }

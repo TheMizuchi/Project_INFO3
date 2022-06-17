@@ -3,14 +3,12 @@ package model.entity;
 import controller.RefAutomata;
 import edu.polytech.oop.collections.ICollection;
 import model.Model;
-import model.map.generator.RoomType;
-import view.MyCanvas;
-import view.graphicEntity.CowboyView;
 import view.graphicEntity.EntityView;
 
 
 public class Entity implements EntityInterface {
 
+	Model m_model;
 	public int m_ID;
 	private int m_pv;
 	protected Hitbox m_hitbox;
@@ -24,7 +22,8 @@ public class Entity implements EntityInterface {
 	// Liste d'items
 
 
-	public Entity (double x, double y, EntityProperties ep) {
+	public Entity (Model model, double x, double y, EntityProperties ep) {
+		m_model = model;
 		m_entityProperties = ep;
 		m_ID = ep.getID();
 		m_pv = ep.getInitialPv();
@@ -32,33 +31,33 @@ public class Entity implements EntityInterface {
 		m_automata = new RefAutomata(this);
 	}
 
-	public static Entity createEntity (int x, int y, EntityProperties entityProperties) {
+	public static Entity createEntity (Model m, int x, int y, EntityProperties entityProperties) {
 		Entity e = null;
 
 		switch (entityProperties) {
 			case COWBOY:
-				e = new Cowboy(x, y);
+				e = new Cowboy(m, x, y);
 				break;
 			case J1:
-				e = new J1(x, y);
+				e = new J1(m, x, y);
 				break;
 			case J2:
-				e = new J2(x, y);
+				e = new J2(m, x, y);
 				break;
 			case BLOON:
-				e = new Bloon(x, y);
+				e = new Bloon(m, x, y);
 				break;
 			case SKELETON:
-				e = new Skeleton(x, y);
+				e = new Skeleton(m, x, y);
 				break;
 			case BAT:
-				e = new Bat(x, y);
+				e = new Bat(m, x, y);
 				break;
 			case DART_MONKEY:
-				e = new DartMonkey(x, y);
+				e = new DartMonkey(m, x, y);
 				break;
 			case TORCH:
-				e = new Torch(x, y);
+				e = new Torch(m, x, y);
 				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
@@ -83,12 +82,12 @@ public class Entity implements EntityInterface {
 		return m_vecDir;
 	}
 
-	public double getPosX () {
-		return m_hitbox.getX();
+	public double getForViewPosX () {
+		return m_hitbox.getX() - m_model.getMap().getWidth() / 2;
 	}
 
-	public double getPosY () {
-		return m_hitbox.getY();
+	public double getForViewPosY () {
+		return m_hitbox.getY() - m_model.getMap().getHeight() / 2;
 	}
 
 	public void update (long elapsed) {
@@ -246,6 +245,16 @@ public class Entity implements EntityInterface {
 
 	public EntityType getType () {
 		return m_entityProperties.getEntityType();
+	}
+
+	@Override
+	public double getPosX () {
+		return m_hitbox.getX();
+	}
+
+	@Override
+	public double getPosY () {
+		return m_hitbox.getY();
 	}
 
 }

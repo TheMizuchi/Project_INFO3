@@ -23,11 +23,11 @@ public class Camera {
 	}
 
 	public void update () {
-		double dx = Math.abs(j1.getPosX() - j2.getPosX());
-		double dy = Math.abs(j1.getPosY() - j2.getPosY());
+		double dx = Math.abs(j1.getForViewPosX() - j2.getForViewPosX());
+		double dy = Math.abs(j1.getForViewPosY() - j2.getForViewPosY());
 		double scale = Math.min(Math.min(13 / Math.max(dx, 13), 5 / Math.max(dy, 5)), 1);
 		scale = Math.max(scale, 0.75);
-		this.setPosition((double) (j1.getPosX() + j2.getPosX()) / 2, (double) (j1.getPosY() + j2.getPosY()) / 2, scale);
+		this.setPosition((double) (j1.getForViewPosX() + j2.getForViewPosX()) / 2, (double) (j1.getForViewPosY() + j2.getForViewPosY()) / 2, scale);
 	}
 
 	public void setj1 (Entity j) {

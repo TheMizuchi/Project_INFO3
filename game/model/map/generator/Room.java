@@ -58,8 +58,8 @@ public class Room {
 				EntityProperties entityProperties = c.getType().getEntityProperties();
 
 				if (entityProperties != null) {
-					int x = i + upperLeftX - m.getWidth() / 2;
-					int y = j + upperLeftY - m.getHeight() / 2;
+					int x = i + upperLeftX;
+					int y = j + upperLeftY;
 					Entity e = model.createEntity(x, y, entityProperties);
 					//à enelever plus tard 
 					model.createLightSource(e);
