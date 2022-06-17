@@ -18,5 +18,9 @@ public abstract class ViewElement {
 
 	protected abstract void paint (Graphics g);
 
-	protected abstract void setPosition (int x, int y, double scale);
+	protected void setPosition (int x, int y, double scale) {
+		this.x = x;
+		this.y = y;
+		this.scale = scale;
+	}
 }

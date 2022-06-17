@@ -26,7 +26,7 @@ public class LightView {
 		this.lightSource = new LinkedList();
 
 	}
-	
+
 	public LinkedList getLightSources () {
 		return this.lightSource;
 	}
@@ -42,7 +42,6 @@ public class LightView {
 
 	boolean isInside (int x, int y) {
 		LinkedList.Iterator it = this.lightSource.iterator();
-
 		while (it.hasNext()) {
 			LightSourceView l = (LightSourceView) it.next();
 			int rad = (int) (l.radius * this.scale);

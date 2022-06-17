@@ -1,10 +1,15 @@
 package model.map.generator;
 
+import model.Model;
+import model.entity.Entity;
 import model.map.Case;
+import model.map.Map;
 
 
 public class Room {
 
+	Model model;
+	
 	private int upperLeftX, upperLeftY;
 	private int width, height;
 
@@ -12,7 +17,9 @@ public class Room {
 	private RoomType type;
 
 
-	public Room (int w, int h, Case[][] composition, int typeID) {
+	public Room (Model m, int w, int h, Case[][] composition, int typeID) {
+		model = m;
+		
 		upperLeftX = -1; //On remplie à -1 parce que l'emplacement dès salle sera fait plus tard
 		upperLeftY = -1;
 		width = w;
@@ -40,6 +47,24 @@ public class Room {
 	}
 
 	public Room () {}
+
+	public void spawnEntities (Map m) {
+
+		for (int i = 0; i < width; i++) {
+
+			for (int j = 0; j < height; j++) {
+				Case c = comp[i][j];
+				int entityID = c.getType().getSpawnerID();
+
+				if (entityID != -1) {
+					int x = i + upperLeftX - m.getWidth()/2;
+					int y = j + upperLeftY - m.getHeight()/2;
+					Entity e = model.createEntity(x, y, entityID);
+					model.createLightSource(e);
+				}
+			}
+		}
+	}
 
 	public int getUpperLeftX () {
 		return upperLeftX;

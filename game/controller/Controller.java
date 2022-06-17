@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
@@ -29,8 +30,12 @@ public class Controller {
 		BotBuilder bb = BotBuilder.getInstance();
 
 		try {
-			AST ast = from_file("resources/Automata/MoveKeysArrows+Pop.gal");
+			AST ast = from_file("resources/Automata/MoveKeys+Pop.gal");
 			m_auts.insertAt(0, ((IList) ast.accept(bb)).elementAt(0));
+			ast = from_file("resources/Automata/MoveKeys+Pop.gal");
+			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
+			ast = from_file("resources/Automata/MoveKeysArrows+Pop.gal");
+			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
 		}
 		catch (ParseException ex) {
 			throw new RuntimeException("Erreur de parsing");
@@ -54,7 +59,7 @@ public class Controller {
 		m_dirKeys[40] = true;
 	}
 
-	public void setModel () {
+	public void setModel () throws IOException, org.json.simple.parser.ParseException {
 		m_model = Model.getInstance();
 	}
 
@@ -115,7 +120,7 @@ public class Controller {
 
 		while (ite.hasNext()) {
 			c = (char) ite.next();
-			setKeyPrev(c, getKey(c));
+			setKeyPrev(c, !getKeyPrev(c));
 		}
 		m_keysToUpdate = new LinkedList();
 	}

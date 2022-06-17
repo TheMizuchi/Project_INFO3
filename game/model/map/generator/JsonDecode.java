@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import model.Model;
 import model.map.Case;
 
 
@@ -16,9 +17,11 @@ public class JsonDecode {
 	FileReader fr;
 	JSONArray rooms;
 	int nbRooms;
+	Model model;
 
 
-	public JsonDecode (String jsonPath) throws ParseException, IOException {
+	public JsonDecode (Model m, String jsonPath) throws ParseException, IOException {
+		model = m;
 		fr = new FileReader(jsonPath);
 		JSONParser parser = new JSONParser();
 		Object o = parser.parse(fr);
@@ -63,7 +66,7 @@ public class JsonDecode {
 				comp[i][j] = tile;
 			}
 		}
-		return new Room(width, height, comp, type);
+		return new Room(model, width, height, comp, type);
 	}
 
 	public int getNbRooms () {

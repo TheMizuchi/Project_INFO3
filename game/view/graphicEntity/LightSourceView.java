@@ -3,7 +3,9 @@ package view.graphicEntity;
 import java.awt.Graphics;
 
 import model.ILightSource;
+import view.MyCanvas;
 import view.ViewElement;
+import view.Viewport;
 
 
 public class LightSourceView extends ViewElement implements ILightSource {
@@ -15,6 +17,10 @@ public class LightSourceView extends ViewElement implements ILightSource {
 	public LightSourceView (ILightSource l) {
 		super(0, 0, 1);
 		this.source = l;
+	}
+
+	public void update (Viewport vp) {
+		this.setPosition(vp.toLocalX(this.getPosX()), vp.toLocalY(this.getPosY()), vp.getScale(), (int) (vp.getScale() * this.getRadius() * MyCanvas.METRIC_BASE));
 	}
 
 	@Override
