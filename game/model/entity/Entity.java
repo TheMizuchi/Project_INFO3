@@ -11,7 +11,7 @@ import view.graphicEntity.EntityView;
 public class Entity implements EntityInterface {
 
 	public int m_ID;
-	private Hitbox m_hitbox;
+	protected Hitbox m_hitbox;
 	TypeEntity type;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
@@ -27,6 +27,7 @@ public class Entity implements EntityInterface {
 		m_ID = ID;
 		m_hitbox = new Hitbox(x, y, 0.5, 0.5);
 		m_automata = new RefAutomata(this);
+		type = new TypeEntity(ID);
 	}
 
 	public static Entity createEntity (int x, int y, int ID) {
@@ -45,14 +46,17 @@ public class Entity implements EntityInterface {
 			case Model.BLOON_ID:
 				e = new Bloon(x, y);
 				break;
-			case Model.ZOMBIE_ID:
-				e = new Zombie(x, y);
+			case Model.SKELETON_ID:
+				e = new Skeleton(x, y);
 				break;
 			case Model.BAT_ID:
 				e = new Bat(x, y);
 				break;
 			case Model.DART_MONKEY_ID:
 				e = new DartMonkey(x, y);
+				break;
+			case Model.TORCH_ID:
+				e = new Torch(x, y);
 				break;
 			default:
 				System.out.println("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
@@ -237,5 +241,9 @@ public class Entity implements EntityInterface {
 		double x = Math.pow(h1.getX(), h1.getX()) - Math.pow(h2.getX(), h2.getX());
 		double y = Math.pow(h1.getY(), h1.getY()) - Math.pow(h2.getY(), h2.getY());
 		return Math.sqrt(x + y);
+	}
+
+	public int getType () {
+		return type.getType();
 	}
 }

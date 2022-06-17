@@ -60,6 +60,7 @@ public class Room {
 					int x = i + upperLeftX - m.getWidth()/2;
 					int y = j + upperLeftY - m.getHeight()/2;
 					Entity e = model.createEntity(x, y, entityID);
+					//à enelever plus tard 
 					model.createLightSource(e);
 				}
 			}

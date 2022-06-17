@@ -20,12 +20,13 @@ public class Model {
 	public static final int COWBOY_ID = 0;
 	public static final int J1_ID = 1;
 	public static final int J2_ID = 2;
-	public static final int BLOON_ID = 3;
-	public static final int ZOMBIE_ID = 4;
+	public static final int TORCH_ID = 3;
+	public static final int SKELETON_ID = 4;
 	public static final int BAT_ID = 5;
 	public static final int DART_MONKEY_ID = 6;
+	public static final int BLOON_ID = 7;
 
-	public static final int ENTITY_NUMBER = 7;
+	public static final int ENTITY_NUMBER = 8;
 
 	// Référence MVC
 	private static Model m_instance = null;
@@ -60,8 +61,9 @@ public class Model {
 
 	//méthode tmp pour les tests
 	private void loadEnv (Room spawnRoom) {
+		m_cam = new Camera(m_canvas.getViewport());
 		spawnRoom.spawnEntities(m_map);
-		m_cam = new Camera(m_canvas.getViewport(), (Entity) m_listeEntity.elementAt(0), (Entity) m_listeEntity.elementAt(1));
+
 	}
 
 	public static Model getInstance () throws ParseException, IOException {
@@ -95,6 +97,12 @@ public class Model {
 	public Entity createEntity (int x, int y, int ID) {
 		Entity e = Entity.createEntity(x, y, ID);
 		m_listeEntity.insertAt(m_listeEntity.length(), e);
+
+		if (ID == J1_ID) {
+			m_cam.setj1(e);
+		} else if (ID == J2_ID) {
+			m_cam.setj2(e);
+		}
 		return e;
 	}
 
