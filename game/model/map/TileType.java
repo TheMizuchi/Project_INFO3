@@ -1,24 +1,29 @@
 package model.map;
 
-import model.Model;
+import model.entity.EntityProperties;
 
 
 public enum TileType {
 
-	WALL(0, 0, -1), FLOOR(1, 1, -1), COWBOY(100, 1, Model.COWBOY_ID), J1(101, 1, Model.J1_ID), J2(102, 1, Model.J2_ID),
-	BLOON(103, 1, Model.BLOON_ID), ZOMBIE(104, 1, Model.ZOMBIE_ID), BAT(105, 1, Model.BAT_ID),
-	DART_MONKEY(105, 1, Model.DART_MONKEY_ID);
+	WALL(0, 0, null), FLOOR(1, 1, null), COWBOY(EntityProperties.COWBOY.spawnerID(), 1, EntityProperties.COWBOY),
+	J1(EntityProperties.J1.spawnerID(), 1, EntityProperties.J1),
+	J2(EntityProperties.J2.spawnerID(), 1, EntityProperties.J2),
+	TORCH(EntityProperties.TORCH.spawnerID(), 1, EntityProperties.TORCH),
+	SKELETON(EntityProperties.SKELETON.spawnerID(), 1, EntityProperties.SKELETON),
+	BAT(EntityProperties.BAT.spawnerID(), 1, EntityProperties.BAT),
+	DART_MONKEY(EntityProperties.DART_MONKEY.spawnerID(), 1, EntityProperties.DART_MONKEY),
+	BLOON(EntityProperties.BLOON.spawnerID(), 1, EntityProperties.BLOON);
 
 
 	private int id;
 	private int textureID;
-	private int spawnerID;
+	private EntityProperties entityProperties;
 
 
-	TileType (final int id, final int tid, final int sid) {
+	TileType (final int id, final int tid, final EntityProperties entityProperties) {
 		this.id = id;
 		this.textureID = tid;
-		this.spawnerID = sid;
+		this.entityProperties = entityProperties;
 	}
 
 	public int getID () {
@@ -29,8 +34,8 @@ public enum TileType {
 		return textureID;
 	}
 
-	public int getSpawnerID () {
-		return spawnerID;
+	public EntityProperties getEntityProperties () {
+		return entityProperties;
 	}
 
 }

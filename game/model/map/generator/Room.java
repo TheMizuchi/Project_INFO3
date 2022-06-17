@@ -2,7 +2,7 @@ package model.map.generator;
 
 import model.Model;
 import model.entity.Entity;
-import model.entity.TypeEntity;
+import model.entity.EntityProperties;
 import model.map.Case;
 import model.map.Map;
 
@@ -55,13 +55,13 @@ public class Room {
 
 			for (int j = 0; j < height; j++) {
 				Case c = comp[i][j];
-				int entityID = c.getType().getSpawnerID();
+				EntityProperties entityProperties = c.getType().getEntityProperties();
 
-				if (entityID != -1) {
+				if (entityProperties != null) {
 					int x = i + upperLeftX - m.getWidth() / 2;
 					int y = j + upperLeftY - m.getHeight() / 2;
-					TypeEntity te = new TypeEntity(entityID);
-					Entity e = model.createEntity(x, y, entityID, te.getInitialPv());
+					Entity e = model.createEntity(x, y, entityProperties);
+					//à enelever plus tard 
 					model.createLightSource(e);
 				}
 			}

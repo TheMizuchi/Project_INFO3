@@ -6,6 +6,10 @@ import model.entity.Entity;
 
 public class BotTurn extends BotAction {
 
+	public static final int LEFT = 0;
+	public static final int RIGHT = 1;
+	public static final int BACK = 2;
+	public static final int FORWARD = 3;
 	String m_s;
 
 

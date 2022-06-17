@@ -23,6 +23,7 @@ public abstract class EntityAnimation extends Animation {
 		super();
 		this.ab = a;
 		this.scale = 1F;
+		this.ab = a;
 		this.h = this.ab.idle.m_height;
 		this.w = this.ab.idle.m_width;
 		this.orientation = 1;
@@ -32,7 +33,7 @@ public abstract class EntityAnimation extends Animation {
 			public void done (Animation a) {
 				idle();
 			}
-			
+
 		};
 		this.idle();
 	}
@@ -47,21 +48,20 @@ public abstract class EntityAnimation extends Animation {
 	public void paint (Graphics g) {
 		BufferedImage img = m_sprite.m_images[m_idx];
 		g.drawImage(img, (int) (this.x - (this.orientation * this.w * this.scale / 2)), (int) (this.y - this.h * this.scale / 2), (int) (this.scale * img.getWidth() * this.orientation), (int) (this.scale * img.getHeight()), null);
-
 	}
 
-	public void setOrientation(int o) {
+	public void setOrientation (int o) {
 		this.orientation = o;
 	}
 
 	public void idle () {
-			m_sprite = this.ab.idle;
-			this.start();
+		m_sprite = this.ab.idle;
+		this.start();
 	}
 
 	public void walk () {
-			m_sprite = this.ab.walk;
-			this.start();
+		m_sprite = this.ab.walk;
+		this.start();
 	}
 
 	public void repeat () {

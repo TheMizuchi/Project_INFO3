@@ -9,7 +9,6 @@ public class CowboyBank extends EntityAnimationBank {
 
 	// Liste des animations spécifique au cowboy
 	public Sprite spin;
-	public Sprite turn;
 
 	private CowboyBank () {
 		Sprite spriteFile = Sprite.loadSprite("resources/winchester-4x6.png", 4, 6);
@@ -32,13 +31,6 @@ public class CowboyBank extends EntityAnimationBank {
 
 	@Override
 	protected void loadBasicAnimation (Sprite spriteFile) {
-		BufferedImage[] turnTab = new BufferedImage[13];
-
-		for (int i = 12; i >= 0; i--) {
-			turnTab[i] = spriteFile.m_images[(19 + i) % 24];
-		}
-		this.turn = new Sprite(turnTab);
-		
 		BufferedImage[] idleTab = new BufferedImage[1];
 		idleTab[0] = spriteFile.m_images[20];
 		this.idle = new Sprite(idleTab);

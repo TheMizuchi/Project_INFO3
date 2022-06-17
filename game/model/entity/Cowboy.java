@@ -1,6 +1,5 @@
 package model.entity;
 
-import model.Model;
 import view.MyCanvas;
 import view.graphicEntity.CowboyView;
 
@@ -11,7 +10,7 @@ public class Cowboy extends Entity {
 
 
 	public Cowboy (double x, double y) {
-		super(x, y, Model.COWBOY_ID);
+		super(x, y, EntityProperties.COWBOY);
 		m_cv = new CowboyView(this);
 		m_ev = m_cv;
 		MyCanvas.getInstance().createEntityView(m_cv);

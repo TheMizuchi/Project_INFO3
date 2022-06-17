@@ -3,6 +3,7 @@ package model.entity;
 import controller.RefAutomata;
 import edu.polytech.oop.collections.ICollection;
 import model.Model;
+import model.map.generator.RoomType;
 import view.MyCanvas;
 import view.graphicEntity.CowboyView;
 import view.graphicEntity.EntityView;
@@ -12,11 +13,10 @@ public class Entity implements EntityInterface {
 
 	public int m_ID;
 	private int m_pv;
-	private Hitbox m_hitbox;
-	TypeEntity type;
+	protected Hitbox m_hitbox;
+	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
-
 	static final double rangeDetection = 10;
 	private static final double ENTITY_MAX_SPEED = 2; // vitesse par seconde
 	private Vector m_vecDir = new Vector();
@@ -24,41 +24,44 @@ public class Entity implements EntityInterface {
 	// Liste d'items
 
 
-	public Entity (double x, double y, int ID) {
-		m_ID = ID;
-		type = new TypeEntity(ID);
-		m_pv = type.getInitialPv();
+	public Entity (double x, double y, EntityProperties ep) {
+		m_entityProperties = ep;
+		m_ID = ep.getID();
+		m_pv = ep.getInitialPv();
 		m_hitbox = new Hitbox(x, y, 0.5, 0.5);
 		m_automata = new RefAutomata(this);
 	}
 
-	public static Entity createEntity (int x, int y, int ID, int pv) {
+	public static Entity createEntity (int x, int y, EntityProperties entityProperties) {
 		Entity e = null;
 
-		switch (ID) {
-			case Model.COWBOY_ID:
+		switch (entityProperties) {
+			case COWBOY:
 				e = new Cowboy(x, y);
 				break;
-			case Model.J1_ID:
+			case J1:
 				e = new J1(x, y);
 				break;
-			case Model.J2_ID:
+			case J2:
 				e = new J2(x, y);
 				break;
-			case Model.BLOON_ID:
+			case BLOON:
 				e = new Bloon(x, y);
 				break;
-			case Model.ZOMBIE_ID:
-				e = new Zombie(x, y);
+			case SKELETON:
+				e = new Skeleton(x, y);
 				break;
-			case Model.BAT_ID:
+			case BAT:
 				e = new Bat(x, y);
 				break;
-			case Model.DART_MONKEY_ID:
+			case DART_MONKEY:
 				e = new DartMonkey(x, y);
 				break;
+			case TORCH:
+				e = new Torch(x, y);
+				break;
 			default:
-				System.out.println("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
+				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
 
 		}
 		return e;
@@ -107,13 +110,13 @@ public class Entity implements EntityInterface {
 	}
 
 	@Override
-	public boolean cell (Direction orientation, TypeEntity type) {
+	public boolean cell (Direction orientation, EntityType type) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean closest (Direction orientation, TypeEntity type) {
+	public boolean closest (Direction orientation, EntityType type) {
 		ICollection.Iterator iter = Model.getlistEntity().iterator();
 		Entity e, e_min;
 		double distMin = Float.MAX_VALUE;
@@ -121,7 +124,7 @@ public class Entity implements EntityInterface {
 		while (iter.hasNext()) {
 			e = (Entity) iter.next();
 
-			if (e.type.getType() == type.getType()) {
+			if (e.getType() == type) {
 				double dist = distance(e);
 
 				if (distMin > dist && distMin < rangeDetection) {
@@ -240,4 +243,9 @@ public class Entity implements EntityInterface {
 		double y = Math.pow(h1.getY(), h1.getY()) - Math.pow(h2.getY(), h2.getY());
 		return Math.sqrt(x + y);
 	}
+
+	public EntityType getType () {
+		return m_entityProperties.getEntityType();
+	}
+
 }

@@ -1,0 +1,66 @@
+MoveBigSquare (Ouest) {
+	* (Ouest):
+		| True ? Move(N) : (Ouest2)
+	* (Ouest2):
+		| True ? Move(N) : (Ouest3)
+	* (Ouest3):
+		| True ? Move(N) : (Ouest4)
+	* (Ouest4):
+		| True ? Move(N) : (Ouest5)
+	* (Ouest5):
+		| True ? Move(N) : (Ouest6)
+	* (Ouest6):
+		| True ? Move(N) : (Ouest7)
+	* (Ouest7):
+		| True ? Move(N) : (Ouest8)
+	* (Ouest8):
+		| True ? Move(N) : (Nord)
+	* (Nord):
+		| True ? Move(E) : (Nord2)
+	* (Nord2):
+		| True ? Move(E) : (Nord3)
+	* (Nord3):
+		| True ? Move(E) : (Nord4)
+	* (Nord4):
+		| True ? Move(E) : (Nord5)
+	* (Nord5):
+		| True ? Move(E) : (Nord6)
+	* (Nord6):
+		| True ? Move(E) : (Nord7)
+	* (Nord7):
+		| True ? Move(E) : (Nord8)
+	* (Nord8):
+		| True ? Move(E) : (Est)
+	* (Est):
+		| True ? Move(S) : (Est2)
+	* (Est2):
+		| True ? Move(S) : (Est3)
+	* (Est3):
+		| True ? Move(S) : (Est4)
+	* (Est4):
+		| True ? Move(S) : (Est5)
+	* (Est5):
+		| True ? Move(S) : (Est6)
+	* (Est6):
+		| True ? Move(S) : (Est7)
+	* (Est7):
+		| True ? Move(S) : (Est8)
+	* (Est8):
+		| True ? Move(S) : (Sud)
+	* (Sud):
+		| True ? Move(W) : (Sud2)
+	* (Sud2):
+		| True ? Move(W) : (Sud3)
+	* (Sud3):
+		| True ? Move(W) : (Sud4)
+	* (Sud4):
+		| True ? Move(W) : (Sud5)
+	* (Sud5):
+		| True ? Move(W) : (Sud6)
+	* (Sud6):
+		| True ? Move(W) : (Sud7)
+	* (Sud7):
+		| True ? Move(W) : (Sud8)
+	* (Sud8):
+		| True ? Move(W) : (Ouest)
+}

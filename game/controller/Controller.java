@@ -7,12 +7,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import edu.polytech.oop.collections.ArrayList;
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 import info3.game.automata.ast.AST;
 import info3.game.automata.parser.AutomataParser;
 import info3.game.automata.parser.ParseException;
 import model.Model;
+import model.entity.EntityProperties;
 
 
 public class Controller {
@@ -25,17 +27,44 @@ public class Controller {
 	IList m_keysToUpdate;
 
 
-	private Controller () {
-		m_auts = new LinkedList();
+	private BotAutomata getAutFromFile (String filePath) throws Exception {
 		BotBuilder bb = BotBuilder.getInstance();
+		return (BotAutomata) ((IList) from_file(filePath).accept(bb)).elementAt(0);
+	}
+
+	private void insertAt (IList aut, int index, Object o) {
 
 		try {
-			AST ast = from_file("resources/Automata/MoveKeys+Pop.gal");
-			m_auts.insertAt(0, ((IList) ast.accept(bb)).elementAt(0));
-			ast = from_file("resources/Automata/MoveKeys+Pop.gal");
-			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
-			ast = from_file("resources/Automata/MoveKeysArrows+Pop.gal");
-			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
+			aut.updateAt(index, o);
+		}
+		catch (Exception ex) {
+			aut.insertAt(index, o);
+		}
+	}
+
+	private Controller () {
+		m_auts = new ArrayList();
+
+		try {
+			BotAutomata moveFoward = getAutFromFile("resources/Automata/MoveFoward.gal");
+			BotAutomata moveKeys = getAutFromFile("resources/Automata/MoveKeys.gal");
+			BotAutomata moveKeysArrows = getAutFromFile("resources/Automata/MoveKeysArrows.gal");
+			BotAutomata moveRandom = getAutFromFile("resources/Automata/MoveRandom.gal");
+			BotAutomata moveRandomUnderscoreState = getAutFromFile("resources/Automata/MoveRandomUnderscoreState.gal");
+			BotAutomata moveRelativeKeys = getAutFromFile("resources/Automata/MoveRelativeKeys.gal");
+			BotAutomata moveSquare = getAutFromFile("resources/Automata/MoveSquare.gal");
+			BotAutomata moveBigSquare = getAutFromFile("resources/Automata/MoveBigSquare.gal");
+			BotAutomata moveOuestThenLeft = getAutFromFile("resources/Automata/MoveOuestThenLeft.gal");
+			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
+
+			insertAt(m_auts, EntityProperties.COWBOY.getID(), moveSquare);
+			insertAt(m_auts, EntityProperties.J1.getID(), moveKeys);
+			insertAt(m_auts, EntityProperties.J2.getID(), moveKeysArrows);
+			insertAt(m_auts, EntityProperties.BLOON.getID(), torch);
+			insertAt(m_auts, EntityProperties.SKELETON.getID(), torch);
+			insertAt(m_auts, EntityProperties.BAT.getID(), torch);
+			insertAt(m_auts, EntityProperties.DART_MONKEY.getID(), moveSquare);
+			insertAt(m_auts, EntityProperties.TORCH.getID(), torch);
 		}
 		catch (ParseException ex) {
 			throw new RuntimeException("Erreur de parsing");
@@ -106,11 +135,21 @@ public class Controller {
 	public void keyTyped (KeyEvent e) {}
 
 	public void keyPressed (KeyEvent e) {
-		setKey((char) e.getKeyCode(), true);
+
+		if (checkKey((char) e.getKeyCode())) {
+			setKey((char) e.getKeyCode(), true);
+		}
 	}
 
 	public void keyReleased (KeyEvent e) {
-		setKey((char) e.getKeyCode(), false);
+
+		if (checkKey((char) e.getKeyCode())) {
+			setKey((char) e.getKeyCode(), false);
+		}
+	}
+
+	private boolean checkKey (char c) {
+		return 0 <= c && c < 256;
 	}
 
 	// A appeler dans le model juste AVANT la boucle qui force les automates à step

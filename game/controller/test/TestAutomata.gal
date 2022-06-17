@@ -23,9 +23,85 @@ Test1 (Init) {
 		| True ? : (Init)
 }
 
+Balloon (Init) {
+	* (Init) :
+		| True ? Move(NE) / Move(NW) / Move(SE) / Move(SW) : (Moving)
+	* (Moving) :		
+		| !(GotPower) ? Egg(F) : (Die)
+		| MyDir(SE) & Cell(E,O) ? Move(SW) : (Moving)
+		| MyDir(SE) & Cell(S,O) ? Move(NE) : (Moving)
+		| MyDir(SW) & Cell(W,O) ? Move(SE) : (Moving)
+		| MyDir(SW) & Cell(S,O) ? Move(NW) : (Moving)
+		| MyDir(NW) & Cell(W,O) ? Move(NE) : (Moving)
+		| MyDir(NW) & Cell(N,O) ? Move(SW) : (Moving)
+		| MyDir(NE) & Cell(E,O) ? Move(NW) : (Moving)
+		| MyDir(NE) & Cell(N,O) ? Move(SE) : (Moving)
+	* (Die) :
+		| True ? Explode : ()
+}		
+
+Balloon2 (Init) {
+	* (Init) : 
+		| True ? Move(NE) / Move(NW) / Move(SE) / Move(SW) : (Moving)
+	* (Moving) :
+		| !(GotPower) ? Egg(F) : (Die)
+		| Cell(F,V) ? Move(F) : (Moving)
+		| Cell(F,O) & Cell(L,V) ? Turn(L) : (Moving)
+		| Cell(F,O) & Cell(R,V) ? Turn(R) : (Moving)
+		| True ? Turn(B) : (Moving)
+	*(Die)
+		| True ? Explode : ()
+}
+		
+Skeleton (Init) {
+	* (Init) :
+		| True ? Move(F) : (Init)
+	}
+	
+Bat (Init) {
+   	* (Init) :
+   		| !(GotPower) ? Explode : ()
+   		| Cell(F,O) ? Explode : ()
+   		| True ? Move(F) : (Init)
+}
+
+Singe (Init) {
+	* (Init) :
+		| !(GotPower) ? Explode : ()
+		| Closest(N,T) ? Throw(N) : (Init)
+		| Closest(S,T) ? Throw(S) : (Init)
+		| Closest(E,T) ? Throw(E) : (Init)
+		| Closest(W,T) ? Throw(W) : (Init)
+		| Closest(NE,T) ? Throw(NE) : (Init)
+		| Closest(NW,T) ? Throw(NW) : (Init)
+		| Closest(SE,T) ? Throw(SE) : (Init)
+		| Closest(SW,T) ? Throw(SW) : (Init)
+		| Cell(N,T) ? Move(S) : (Init)
+		| Cell(S,T) ? Move(N) : (Init)
+		| Cell(E,T) ? Move(W) : (Init)
+		| Cell(W,T) ? Move(E) : (Init)
+		| Cell(NE,T) ? Move(SW) : (Init)
+		| Cell(NW,T) ? Move(SE) : (Init)
+		| Cell(SE,T) ? Move(NW) : (Init)
+		| Cell(SW,T) ? Move(NE) : (Init)
+}
+		
+Flechette (Init) {
+	* (Init) :
+		| Cell(F, _) ? Hit(F) : (Die)
+		| True ? Move(F) : (Init)
+	* (Die) :
+		| True ? Explode : ()
+}	
+	
+Torche (Init) {
+	* (Init) :
+		| True ? Move() : (Init)
+}
+	
 Mine (Init) {
 	* (Init):
-		| Cell(F, V) ? Move(F) : (Init)
+		| Cell(N, V) ? Move(F) : (Init)
 		| True ? : (Waiting)
 	* (Waiting):
 		| Key(e) ? Pop / Hit / Power / Jump : ()

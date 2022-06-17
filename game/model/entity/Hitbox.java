@@ -24,6 +24,12 @@ public class Hitbox {
 		//System.out.println("déplacement en " + m_y + " , " + m_x);
 	}
 
+	public void move (EntityInterface e) {
+		m_x = e.getPosX();
+		m_y = e.getPosY();
+		//System.out.println("déplacement en " + m_y + " , " + m_x);
+	}
+
 	public double getX () {
 		return m_x;
 	}

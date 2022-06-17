@@ -8,6 +8,7 @@ import controller.Controller;
 import edu.polytech.oop.collections.*;
 import edu.polytech.oop.collections.LinkedList.Iterator;
 import model.entity.Entity;
+import model.entity.EntityProperties;
 import model.map.Map;
 import model.map.generator.JsonDecode;
 import model.map.generator.Room;
@@ -15,16 +16,6 @@ import view.MyCanvas;
 
 
 public class Model {
-
-	// Constante pour définir les ID des entités
-	public static final int COWBOY_ID = 0;
-	public static final int J1_ID = 1;
-	public static final int J2_ID = 2;
-	public static final int BLOON_ID = 3;
-	public static final int ZOMBIE_ID = 4;
-	public static final int BAT_ID = 5;
-	public static final int DART_MONKEY_ID = 6;
-	public static final int ENTITY_NUMBER = 7;
 
 	// Référence MVC
 	private static Model m_instance = null;
@@ -59,8 +50,9 @@ public class Model {
 
 	//méthode tmp pour les tests
 	private void loadEnv (Room spawnRoom) {
+		m_cam = new Camera(m_canvas.getViewport());
 		spawnRoom.spawnEntities(m_map);
-		m_cam = new Camera(m_canvas.getViewport(), (Entity) m_listeEntity.elementAt(0), (Entity) m_listeEntity.elementAt(1));
+
 	}
 
 	public static Model getInstance () throws ParseException, IOException {
@@ -91,9 +83,15 @@ public class Model {
 		m_cam.update();
 	}
 
-	public Entity createEntity (int x, int y, int ID, int pv) {
-		Entity e = Entity.createEntity(x, y, ID, pv);
+	public Entity createEntity (int x, int y, EntityProperties entityProperties) {
+		Entity e = Entity.createEntity(x, y, entityProperties);
 		m_listeEntity.insertAt(m_listeEntity.length(), e);
+
+		if (entityProperties == EntityProperties.J1) {
+			m_cam.setj1(e);
+		} else if (entityProperties == EntityProperties.J2) {
+			m_cam.setj2(e);
+		}
 		return e;
 	}
 
@@ -113,6 +111,19 @@ public class Model {
 
 	public static IList getlistEntity () {
 		return m_listeEntity;
+	}
+
+	public EntityProperties getProperties (int entityId) {
+		EntityProperties prop = null;
+		EntityProperties[] props = EntityProperties.values();
+		int k = 0;
+
+		while (k < props.length && prop == null) {
+			if (props[k].getID() == entityId)
+				prop = props[k];
+			k++;
+		}
+		return prop;
 	}
 
 }
