@@ -8,7 +8,7 @@ public class Bat extends Entity{
 
 
 	public Bat (double x, double y) {
-		super(x, y, Model.ZOMBIE_ID);
+		super(x, y, Model.BAT_ID);
 		//m_bv = new ZombieView(this);
 		//m_ev = m_bv;
 		//MyCanvas.getInstance().createEntityView(m_bv);
