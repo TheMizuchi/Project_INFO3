@@ -127,8 +127,8 @@ public class Entity implements EntityInterface {
 
 	@Override
 	public void move (Direction dir) {
-		dir.move(m_vecDir);
-		m_ev.walk();
+		boolean sw = dir.move(m_vecDir);
+		if(sw) m_ev.walk();
 	}
 
 	@Override
