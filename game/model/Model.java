@@ -5,7 +5,9 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
 import controller.Controller;
-import edu.polytech.oop.collections.*;
+import edu.polytech.oop.collections.ArrayList;
+import edu.polytech.oop.collections.IList;
+import edu.polytech.oop.collections.LinkedList;
 import edu.polytech.oop.collections.LinkedList.Iterator;
 import model.entity.Entity;
 import model.entity.EntityProperties;
@@ -111,19 +113,6 @@ public class Model {
 
 	public static IList getlistEntity () {
 		return m_listeEntity;
-	}
-
-	public EntityProperties getProperties (int entityId) {
-		EntityProperties prop = null;
-		EntityProperties[] props = EntityProperties.values();
-		int k = 0;
-
-		while (k < props.length && prop == null) {
-			if (props[k].getID() == entityId)
-				prop = props[k];
-			k++;
-		}
-		return prop;
 	}
 
 }
