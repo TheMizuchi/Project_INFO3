@@ -56,11 +56,14 @@ public class Controller {
 			BotAutomata moveOuestThenLeft = getAutFromFile("resources/Automata/MoveOuestThenLeft.gal");
 			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
 
+			// Mobs
+			BotAutomata Skeleton = getAutFromFile("resources/Automata/Skeleton.gal");
+
 			insertAt(m_auts, Model.COWBOY_ID, moveSquare);
 			insertAt(m_auts, Model.J1_ID, moveKeys);
 			insertAt(m_auts, Model.J2_ID, moveKeysArrows);
 			insertAt(m_auts, Model.BLOON_ID, moveSquare);
-			insertAt(m_auts, Model.SKELETON_ID, moveFoward);
+			insertAt(m_auts, Model.SKELETON_ID, Skeleton);
 			insertAt(m_auts, Model.BAT_ID, moveSquare);
 			insertAt(m_auts, Model.DART_MONKEY_ID, moveSquare);
 			insertAt(m_auts, Model.TORCH_ID, torch);

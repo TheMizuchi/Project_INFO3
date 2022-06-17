@@ -18,8 +18,6 @@ public class EntityAbsoluteDirection extends Direction {
 	protected void compute () {
 		double x = Math.cos(m_angle);
 		double y = Math.sin(m_angle);
-		x = (Math.abs(x) > 0.0000001) ? (x) : (0);
-		y = (Math.abs(y) > 0.0000001) ? (y) : (0);
 		m_v.setX(x);
 		m_v.setY(-y);
 	}
@@ -32,6 +30,7 @@ public class EntityAbsoluteDirection extends Direction {
 		boolean yWasMoving = dirEntity.getY() != 0;
 		boolean wasMoving = xWasMoving || yWasMoving;
 
+		dirEntity.setApply(true);
 		compute();
 
 		// On récupére le vecteur envoyé par la nouvelle destination
@@ -46,7 +45,6 @@ public class EntityAbsoluteDirection extends Direction {
 		// Initialement on ne bouge pas puis on utilise xmove et ymove pour définir le mouvement
 		dirEntity.setX(m_v.getX());
 		dirEntity.setY(m_v.getY());
-//		dirEntity.updateAngle();
 		dirEntity.setAngle(m_angle);
 		return isMoving ^ wasMoving;
 	}

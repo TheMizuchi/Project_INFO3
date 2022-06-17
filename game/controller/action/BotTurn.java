@@ -6,10 +6,10 @@ import model.entity.Entity;
 
 public class BotTurn extends BotAction {
 
-	public static final double LEFT = (Math.PI)/4;
-	public static final	double RIGHT = -(Math.PI)/4;
-	public static final double BACK = (Math.PI)/2;
-	public static final double FORWARD = 0;
+	private static final double LEFT = Math.PI / 2;
+	private static final double RIGHT = 3 * Math.PI / 2;
+	private static final double BACK = Math.PI;
+	private static final double FORWARD = 0;
 	String m_s;
 
 

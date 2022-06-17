@@ -21,13 +21,13 @@ public class Hitbox {
 	public void move (double dx, double dy) {
 		m_x += dx;
 		m_y += dy;
-		//System.out.println("déplacement en " + m_y + " , " + m_x);
+//		System.out.println("déplacement en " + m_y + " , " + m_x);
 	}
 	
 	public void move (EntityInterface e) {
 		m_x = e.getPosX();
 		m_y = e.getPosY();
-		//System.out.println("déplacement en " + m_y + " , " + m_x);
+//		System.out.println("déplacement en " + m_y + " , " + m_x);
 	}
 
 	public double getX () {

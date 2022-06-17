@@ -5,7 +5,9 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
 import controller.Controller;
-import edu.polytech.oop.collections.*;
+import edu.polytech.oop.collections.ArrayList;
+import edu.polytech.oop.collections.IList;
+import edu.polytech.oop.collections.LinkedList;
 import edu.polytech.oop.collections.LinkedList.Iterator;
 import model.entity.Entity;
 import model.map.Map;
@@ -33,7 +35,7 @@ public class Model {
 	private Controller m_cont;
 	private MyCanvas m_canvas;
 
-	// Variables localesq
+	// Variables locales
 	private int m_time_passed;
 	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
@@ -82,6 +84,7 @@ public class Model {
 			Entity entity = (Entity) it.next();
 			entity.update(elapsed);
 			m_cam.update();
+
 		}
 
 		it = m_listeLight.iterator();

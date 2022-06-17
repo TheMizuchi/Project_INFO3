@@ -5,6 +5,7 @@ public class Vector {
 	private double m_x;
 	private double m_y;
 
+	// Used only by players
 	private boolean m_N;
 	private boolean m_W;
 	private boolean m_S;
@@ -12,6 +13,17 @@ public class Vector {
 
 	private double m_angle;
 
+	// Use only by entity (that are not players)
+	private boolean m_apply;
+
+
+	public boolean isApplied () {
+		return m_apply;
+	}
+
+	public void setApply (boolean apply) {
+		m_apply = apply;
+	}
 
 	public boolean getN () {
 		return m_N;
@@ -80,6 +92,7 @@ public class Vector {
 		}
 	}
 
+	// Used only by players
 	public double updatePlayerAngle () {
 		boolean xMove = getW() ^ getE();
 		boolean yMove = getN() ^ getS();
