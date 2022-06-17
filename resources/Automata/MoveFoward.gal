@@ -1,4 +1,4 @@
-MoveKeys (Init) {
+MoveFoward (Init) {
 	* (Init):
 		| True ? Move(E) : (Init)
 }

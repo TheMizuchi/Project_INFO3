@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import edu.polytech.oop.collections.ArrayList;
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 import info3.game.automata.ast.AST;
@@ -25,19 +26,50 @@ public class Controller {
 	IList m_keysToUpdate;
 
 
-	private Controller () {
-		m_auts = new LinkedList();
+	private BotAutomata getAutFromFile (String filePath) throws Exception {
 		BotBuilder bb = BotBuilder.getInstance();
+		return (BotAutomata) ((IList) from_file(filePath).accept(bb)).elementAt(0);
+	}
+
+	private void insertAt (IList aut, int index, Object o) {
 
 		try {
-			AST ast = from_file("resources/Automata/MoveKeys+Pop.gal");
-			m_auts.insertAt(0, ((IList) ast.accept(bb)).elementAt(0));
-			ast = from_file("resources/Automata/MoveKeys+Pop.gal");
-			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
-			ast = from_file("resources/Automata/MoveKeysArrows+Pop.gal");
-			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
-			ast = from_file("resources/Automata/Torch.gal");
-			m_auts.insertAt(m_auts.length(), ((IList) ast.accept(bb)).elementAt(0));
+			aut.updateAt(index, o);
+		}
+		catch (Exception ex) {
+			aut.insertAt(index, o);
+		}
+	}
+
+	private Controller () {
+		m_auts = new ArrayList();
+
+		try {
+			BotAutomata moveFoward = getAutFromFile("resources/Automata/MoveFoward.gal");
+			BotAutomata moveKeys = getAutFromFile("resources/Automata/MoveKeys.gal");
+			BotAutomata moveKeysArrows = getAutFromFile("resources/Automata/MoveKeysArrows.gal");
+			BotAutomata moveRandom = getAutFromFile("resources/Automata/MoveRandom.gal");
+			BotAutomata moveRandomUnderscoreState = getAutFromFile("resources/Automata/MoveRandomUnderscoreState.gal");
+			BotAutomata moveRelativeKeys = getAutFromFile("resources/Automata/MoveRelativeKeys.gal");
+			BotAutomata moveSquare = getAutFromFile("resources/Automata/MoveSquare.gal");
+			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
+
+			insertAt(m_auts, Model.COWBOY_ID, moveSquare);
+			insertAt(m_auts, Model.J1_ID, moveKeys);
+			insertAt(m_auts, Model.J2_ID, moveKeysArrows);
+			insertAt(m_auts, Model.BLOON_ID, moveSquare);
+			insertAt(m_auts, Model.SKELETON_ID, moveFoward);
+			insertAt(m_auts, Model.BAT_ID, moveSquare);
+			insertAt(m_auts, Model.DART_MONKEY_ID, moveSquare);
+			insertAt(m_auts, Model.TORCH_ID, torch);
+			//			m_auts.updateAt(Model.COWBOY_ID, moveSquare);
+			//			m_auts.updateAt(Model.J1_ID, moveKeys);
+			//			m_auts.updateAt(Model.J2_ID, moveKeysArrows);
+			//			m_auts.updateAt(Model.BLOON_ID, moveSquare);
+			//			m_auts.updateAt(Model.SKELETON_ID, moveFoward);
+			//			m_auts.updateAt(Model.BAT_ID, moveSquare);
+			//			m_auts.updateAt(Model.DART_MONKEY_ID, moveSquare);
+			//			m_auts.updateAt(Model.TORCH_ID, torch);
 		}
 		catch (ParseException ex) {
 			throw new RuntimeException("Erreur de parsing");
