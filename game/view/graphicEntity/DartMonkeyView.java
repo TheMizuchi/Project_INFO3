@@ -1,6 +1,6 @@
 package view.graphicEntity;
 
 
-public class DartViewView {
+public class DartMonkeyView {
 
 }

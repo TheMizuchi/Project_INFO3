@@ -52,12 +52,8 @@ public abstract class EntityAnimation extends Animation {
 		g.fillOval(x, y, 10, 10);
 	}
 
-	public void turnLeft () {
-		this.orientation = -1;
-	}
-
-	public void turnRight () {
-		this.orientation = 1;
+	public void setOrientation(int o) {
+		this.orientation = o;
 	}
 
 	public void idle () {

@@ -69,6 +69,7 @@ public abstract class EntityView extends ViewElement {
 
 	public void update (Viewport vp) {
 		this.setPosition(vp.toLocalX(this.entity.getPosX()), vp.toLocalY(this.entity.getPosY()), vp.getScale());
+		if(this.entity.getOrientation()!=0) this.a.setOrientation(this.entity.getOrientation());
 	}
 
 	public int getH () {
@@ -77,14 +78,6 @@ public abstract class EntityView extends ViewElement {
 	
 	public int getW () {
 		return this.a.getW();
-	}
-
-	public void turnLeft () {
-		this.a.turnLeft();
-	}
-
-	public void turnRight () {
-		this.a.turnRight();
 	}
 
 	public void paint (Graphics g) {
