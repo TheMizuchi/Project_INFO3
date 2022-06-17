@@ -45,8 +45,8 @@ public class Entity implements EntityInterface {
 			case Model.BLOON_ID:
 				e = new Bloon(x, y);
 				break;
-			case Model.ZOMBIE_ID:
-				e = new Zombie(x, y);
+			case Model.SKELETON_ID:
+				e = new Skeleton(x, y);
 				break;
 			case Model.BAT_ID:
 				e = new Bat(x, y);
@@ -54,8 +54,8 @@ public class Entity implements EntityInterface {
 			case Model.DART_MONKEY_ID:
 				e = new DartMonkey(x, y);
 				break;
-			case Model.TORCHE_ID:
-				e = new Torche(x, y);
+			case Model.TORCH_ID:
+				e = new Torch(x, y);
 			default:
 				System.out.println("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
 

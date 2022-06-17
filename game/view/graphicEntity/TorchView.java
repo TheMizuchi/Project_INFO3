@@ -1,0 +1,19 @@
+package view.graphicEntity;
+
+import model.entity.EntityInterface;
+import view.animation.J1Animation;
+import view.animation.TorchAnimation;
+
+public class TorchView extends EntityView{
+
+	TorchAnimation a;
+
+	public TorchView (EntityInterface e) {
+		super(0, 0, 1, e, new J1Animation());
+		this.a = (TorchAnimation) super.a;
+		this.a.setDelay(150);
+	}
+	
+	@Override
+	public void walk() {}
+}

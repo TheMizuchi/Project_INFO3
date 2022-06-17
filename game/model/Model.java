@@ -21,12 +21,13 @@ public class Model {
 	public static final int J1_ID = 1;
 	public static final int J2_ID = 2;
 	public static final int BLOON_ID = 3;
-	public static final int ZOMBIE_ID = 4;
+	public static final int SKELETON_ID = 4;
 	public static final int BAT_ID = 5;
 	public static final int DART_MONKEY_ID = 6;
-	public static final int TORCHE_ID = 8;
+	public static final int TORCH_ID = 7;
 
-	public static final int ENTITY_NUMBER = 7;
+
+	public static final int ENTITY_NUMBER = 8;
 
 	// Référence MVC
 	private static Model m_instance = null;
