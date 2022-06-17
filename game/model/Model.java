@@ -100,10 +100,7 @@ public class Model {
 
 		if (ID == J1_ID) {
 			m_cam.setj1(e);
-		} else if (ID == J2_ID)
-			;
-
-		{
+		} else if (ID == J2_ID) {
 			m_cam.setj2(e);
 		}
 		return e;

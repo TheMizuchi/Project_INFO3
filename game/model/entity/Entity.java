@@ -27,6 +27,7 @@ public class Entity implements EntityInterface {
 		m_ID = ID;
 		m_hitbox = new Hitbox(x, y, 0.5, 0.5);
 		m_automata = new RefAutomata(this);
+		type = new TypeEntity(ID);
 	}
 
 	public static Entity createEntity (int x, int y, int ID) {
@@ -240,5 +241,9 @@ public class Entity implements EntityInterface {
 		double x = Math.pow(h1.getX(), h1.getX()) - Math.pow(h2.getX(), h2.getX());
 		double y = Math.pow(h1.getY(), h1.getY()) - Math.pow(h2.getY(), h2.getY());
 		return Math.sqrt(x + y);
+	}
+
+	public int getType () {
+		return type.getType();
 	}
 }
