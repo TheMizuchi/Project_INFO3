@@ -17,7 +17,7 @@ public class AnimationBank {
 		EAB[Model.J2_ID] = J2Bank.getInstance();
 		EAB[Model.BLOON_ID] = BloonBank.getInstance();
 		EAB[Model.SKELETON_ID] = SkeletonBank.getInstance();
-		//		EAB[BATID] = new BatBank();
+		EAB[Model.BAT_ID] = BatBank.getInstance();
 		//		EAB[DARTMONKEYID] = new DartMonkeyBank();
  		EAB[Model.TORCH_ID] = TorchBank.getInstance();
 

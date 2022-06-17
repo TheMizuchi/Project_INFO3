@@ -27,6 +27,7 @@ public class BatBank extends EntityAnimationBank {
 	@Override
 	protected void loadBasicAnimation (Sprite spriteFile) {
 		this.walk = spriteFile;
+		this.idle = spriteFile;
 
 	}
 
