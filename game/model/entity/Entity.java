@@ -176,8 +176,11 @@ public class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void rotation (Direction orientation) {
-		// TODO Auto-generated method stub
+	public void rotation (double orientation) {
+		System.out.println(m_vecDir.getAngle());
+		m_vecDir.setAngle(m_vecDir.getAngle()+ orientation);
+		System.out.println(orientation);
+		System.out.println(m_vecDir.getAngle());
 
 	}
 

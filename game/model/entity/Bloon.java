@@ -22,7 +22,7 @@ public class Bloon extends Entity{
 	}
 	
 	@Override
-	public void rotation(Direction dir) {
+	public void rotation(double dir) {
 		//ROTATE
 	}
 

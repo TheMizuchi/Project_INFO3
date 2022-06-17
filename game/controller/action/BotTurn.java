@@ -6,10 +6,10 @@ import model.entity.Entity;
 
 public class BotTurn extends BotAction {
 
-	public static final int LEFT = 0;
-	public static final int RIGHT = 1;
-	public static final int BACK = 2;
-	public static final int FORWARD = 3;
+	public static final double LEFT = (Math.PI)/4;
+	public static final	double RIGHT = -(Math.PI)/4;
+	public static final double BACK = (Math.PI)/2;
+	public static final double FORWARD = 0;
 	String m_s;
 
 
@@ -22,16 +22,16 @@ public class BotTurn extends BotAction {
 
 		switch (m_s) {
 			case "F":
-				
+				e.rotation(FORWARD);
 				break;
 			case "B":
-
+				e.rotation(BACK);
 				break;
 			case "L":
-
+				e.rotation(LEFT);
 				break;
 			case "R":
-
+				e.rotation(RIGHT);
 				break;
 		}
 		return true;

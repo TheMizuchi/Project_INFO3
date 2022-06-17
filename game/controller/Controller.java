@@ -60,7 +60,7 @@ public class Controller {
 			insertAt(m_auts, Model.J1_ID, moveKeys);
 			insertAt(m_auts, Model.J2_ID, moveKeysArrows);
 			insertAt(m_auts, Model.BLOON_ID, moveSquare);
-			insertAt(m_auts, Model.SKELETON_ID, torch);
+			insertAt(m_auts, Model.SKELETON_ID, moveFoward);
 			insertAt(m_auts, Model.BAT_ID, moveSquare);
 			insertAt(m_auts, Model.DART_MONKEY_ID, moveSquare);
 			insertAt(m_auts, Model.TORCH_ID, torch);

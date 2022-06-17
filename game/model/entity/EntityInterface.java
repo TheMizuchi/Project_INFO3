@@ -28,7 +28,7 @@ public interface EntityInterface {
 	abstract void move (Direction orientation);
 	// déplacement, pas de retour
 
-	abstract void rotation (Direction orientation);
+	abstract void rotation (double orientation);
 	// direction absolue
 
 	abstract void hit (Direction orientation);

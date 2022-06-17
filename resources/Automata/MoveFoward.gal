@@ -1,4 +1,30 @@
 MoveFoward (Init) {
 	* (Init):
-		| True ? Move(NE) : (Init)
+		| True ? Move(NE) : (Droit)
+	* (Droit) :
+		| True ? Move(F) : (Droit1)
+	* (Droit1) :
+		| True ? Move(F) : (Droit2)
+	* (Droit2) : 
+		| True ? Move(F) : (Droit3)
+	* (Droit3) :
+		| True ? Move(F) : (Droit4)
+	* (Droit4) :
+		| True ? Move(F) : (Droit5)
+	* (Droit5) : 
+		| True ? Move(F) : (Droit6)
+	* (Droit6) :
+		| True ? Move(F) : (Droit7)
+	* (Droit7) :
+		| True ? Move(F) : (Droit8)
+	* (Droit8) : 
+		| True ? Move(F) : (Droit9)
+	* (Droit9) :
+		| True ? Move(F) : (Droit10)
+	* (Droit10) :
+		| True ? Move(F) : (Droit11)
+	* (Droit11) : 
+		| True ? Move(F) : (Tourn)
+	* (Tourn) :
+		| True ? Turn(L) : (Droit)
 }
