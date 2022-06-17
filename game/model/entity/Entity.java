@@ -12,7 +12,7 @@ public class Entity implements EntityInterface {
 
 	public int m_ID;
 	protected Hitbox m_hitbox;
-	TypeEntity type;
+	TypeEntity m_type;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 
@@ -27,7 +27,7 @@ public class Entity implements EntityInterface {
 		m_ID = ID;
 		m_hitbox = new Hitbox(x, y, 0.5, 0.5);
 		m_automata = new RefAutomata(this);
-		type = new TypeEntity(ID);
+		m_type = new TypeEntity(ID);
 	}
 
 	public static Entity createEntity (int x, int y, int ID) {
@@ -122,7 +122,7 @@ public class Entity implements EntityInterface {
 		while (iter.hasNext()) {
 			e = (Entity) iter.next();
 
-			if (e.type.getType() == type.getType()) {
+			if (e.m_type.getType() == type.getType()) {
 				double dist = distance(e);
 
 				if (distMin > dist && distMin < rangeDetection) {
@@ -244,6 +244,6 @@ public class Entity implements EntityInterface {
 	}
 
 	public int getType () {
-		return type.getType();
+		return m_type.getType();
 	}
 }
