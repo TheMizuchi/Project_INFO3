@@ -5,6 +5,7 @@ import controller.Controller;
 import model.entity.Direction;
 import model.entity.Entity;
 import model.entity.PlayerAbsoluteDirection;
+import model.entity.PlayerRelativeDirection;
 
 
 public class BotMove extends BotAction {
@@ -18,26 +19,35 @@ public class BotMove extends BotAction {
 
 	@Override
 	public boolean apply (Entity e) {
-		double angle = 0;
 
 		switch (m_s) {
 			case "N":
-				angle = Math.PI / 2;
-				break;
-			case "S":
-				angle = 3 * Math.PI / 2;
+				e.move(new PlayerAbsoluteDirection(Math.PI / 2));
 				break;
 			case "W":
-				angle = Math.PI;
+				e.move(new PlayerAbsoluteDirection(Math.PI));
+				break;
+			case "S":
+				e.move(new PlayerAbsoluteDirection(3 * Math.PI / 2));
 				break;
 			case "E":
-				angle = 0;
+				e.move(new PlayerAbsoluteDirection(0));
+				break;
+			case "F":
+				e.move(new PlayerRelativeDirection(e, 0));
+				break;
+			case "L":
+				e.move(new PlayerRelativeDirection(e, Math.PI / 2));
+				break;
+			case "B":
+				e.move(new PlayerRelativeDirection(e, Math.PI));
+				break;
+			case "R":
+				e.move(new PlayerRelativeDirection(e, 3 * Math.PI / 2));
 				break;
 			default:
 				break;
 		}
-		Direction dir = new PlayerAbsoluteDirection(angle);
-		e.move(dir);
 		return true;
 	}
 

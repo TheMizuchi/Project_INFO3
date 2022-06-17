@@ -1,19 +1,34 @@
 package model.map;
 
+import model.Model;
+
+
 public enum TileType {
 
-	WALL(0), FLOOR(1), SOMETHING(2), SOMETHING_ELSE(3), VOID(4);
+	WALL(0, 0, -1), FLOOR(1, 1, -1), COWBOY(100, 1, Model.COWBOY_ID), J1(101, 1, Model.J1_ID), J2(102, 1, Model.J2_ID);
 
 
 	private int id;
+	private int textureID;
+	private int spawnerID;
 
 
-	TileType (final int id) {
+	TileType (final int id, final int tid, final int sid) {
 		this.id = id;
+		this.textureID = tid;
+		this.spawnerID = sid;
 	}
 
 	public int getID () {
 		return id;
+	}
+
+	public int getTextureID () {
+		return textureID;
+	}
+
+	public int getSpawnerID () {
+		return spawnerID;
 	}
 
 }
