@@ -2,6 +2,7 @@ package model.map.generator;
 
 import model.Model;
 import model.entity.Entity;
+import model.entity.TypeEntity;
 import model.map.Case;
 import model.map.Map;
 
@@ -59,7 +60,8 @@ public class Room {
 				if (entityID != -1) {
 					int x = i + upperLeftX - m.getWidth()/2;
 					int y = j + upperLeftY - m.getHeight()/2;
-					Entity e = model.createEntity(x, y, entityID);
+					TypeEntity te = new TypeEntity(entityID);
+					Entity e = model.createEntity(x, y, entityID, te.getInitialPv());
 					model.createLightSource(e);
 				}
 			}

@@ -24,7 +24,6 @@ public class Model {
 	public static final int ZOMBIE_ID = 4;
 	public static final int BAT_ID = 5;
 	public static final int DART_MONKEY_ID = 6;
-
 	public static final int ENTITY_NUMBER = 7;
 
 	// Référence MVC
@@ -92,8 +91,8 @@ public class Model {
 		m_cam.update();
 	}
 
-	public Entity createEntity (int x, int y, int ID) {
-		Entity e = Entity.createEntity(x, y, ID);
+	public Entity createEntity (int x, int y, int ID, int pv) {
+		Entity e = Entity.createEntity(x, y, ID, pv);
 		m_listeEntity.insertAt(m_listeEntity.length(), e);
 		return e;
 	}

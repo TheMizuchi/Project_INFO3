@@ -11,6 +11,7 @@ import view.graphicEntity.EntityView;
 public class Entity implements EntityInterface {
 
 	public int m_ID;
+	private int m_pv;
 	private Hitbox m_hitbox;
 	TypeEntity type;
 	protected RefAutomata m_automata;
@@ -25,11 +26,13 @@ public class Entity implements EntityInterface {
 
 	public Entity (double x, double y, int ID) {
 		m_ID = ID;
+		type = new TypeEntity(ID);
+		m_pv = type.getInitialPv();
 		m_hitbox = new Hitbox(x, y, 0.5, 0.5);
 		m_automata = new RefAutomata(this);
 	}
 
-	public static Entity createEntity (int x, int y, int ID) {
+	public static Entity createEntity (int x, int y, int ID, int pv) {
 		Entity e = null;
 
 		switch (ID) {
@@ -137,8 +140,7 @@ public class Entity implements EntityInterface {
 
 	@Override
 	public boolean gotPower () {
-		// TODO Auto-generated method stub
-		return false;
+		return m_pv > 0;
 	}
 
 	@Override

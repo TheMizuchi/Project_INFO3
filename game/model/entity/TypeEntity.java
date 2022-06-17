@@ -11,25 +11,40 @@ public class TypeEntity {
 	public static final int Item = 5;
 	// ajouter un type particulier pour les boss ?
 
-	int m_type; // de 1 à 5, allié, ennemi, neutre ou obstacle
-	int m_typeOrigine; // type à la création de l'entité
-
+	private int m_type; // de 1 à 5, allié, ennemi, neutre ou obstacle
+	private int m_typeOrigine; // type à la création de l'entité
+	private int m_intialPv;
 
 	public TypeEntity (int ID) {
 
 		switch (ID) {
 			case Model.COWBOY_ID:
+				m_type = Allié;
+				m_intialPv = 1;
+				break;
 			case Model.J1_ID:
+				m_type = Allié;
+				m_intialPv = 1;
+				break;
 			case Model.J2_ID:
 				m_type = Allié;
+				m_intialPv = 1;
 				break;
 			case Model.BLOON_ID:
+				m_type = Ennemi;
+				m_intialPv = 1;
+				break;
 			case Model.ZOMBIE_ID:
+				m_type = Ennemi;
+				m_intialPv = 1;
+				break;
 			case Model.DART_MONKEY_ID:
 				m_type = Ennemi;
+				m_intialPv = 1;
 				break;
 			case Model.BAT_ID:
 				m_type = Neutre;
+				m_intialPv = 1;
 				break;
 			/*
 			 * case block
@@ -71,6 +86,10 @@ public class TypeEntity {
 
 	public int getType () {
 		return m_type;
+	}
+	
+	public int getInitialPv () {
+		return m_intialPv;
 	}
 
 	public void devientGentil () {
