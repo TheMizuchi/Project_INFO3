@@ -11,11 +11,12 @@ import view.graphicEntity.EntityView;
 public class Entity implements EntityInterface {
 
 	public int m_ID;
-	private Hitbox m_hitbox;
+	protected Hitbox m_hitbox;
 	TypeEntity type;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 
+	static final double rangeDetection = 10;
 	private static final double ENTITY_MAX_SPEED = 2; // vitesse par seconde
 	private Vector m_vecDir = new Vector();
 
@@ -53,6 +54,8 @@ public class Entity implements EntityInterface {
 			case Model.DART_MONKEY_ID:
 				e = new DartMonkey(x, y);
 				break;
+			case Model.TORCH_ID:
+				e = new Torch(x, y);
 			default:
 				System.out.println("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
 
@@ -120,7 +123,7 @@ public class Entity implements EntityInterface {
 			if (e.type.getType() == type.getType()) {
 				double dist = distance(e);
 
-				if (distMin > dist) {
+				if (distMin > dist && distMin < rangeDetection) {
 					e_min = e;
 					distMin = dist;
 				}

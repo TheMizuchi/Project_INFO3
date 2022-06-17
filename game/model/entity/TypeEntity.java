@@ -19,22 +19,24 @@ public class TypeEntity {
 
 		switch (ID) {
 			case Model.COWBOY_ID:
-			case 1:
-			case 2:
-				m_type = 1;
+			case Model.J1_ID:
+			case Model.J2_ID:
+				m_type = Allié;
 				break;
-			case 3:
-			case 4:
-			case 6:
-				m_type = 2;
+			case Model.BLOON_ID:
+			case Model.SKELETON_ID:
+			case Model.DART_MONKEY_ID:
+				m_type = Ennemi;
 				break;
-			case 5:
-				m_type = 3;
+			case Model.BAT_ID:
+				m_type = Neutre;
 				break;
 			/*
-			 * case block m_type = 4;
+			 * case block
+			 *  m_type = Obstacle;
 			 * 
-			 * case torche m_type = 5;
+			 * case torche
+			 *  m_type = Item;
 			 */
 			default:
 				throw new RuntimeException("erreur création TypeEntity, type non reconnu");
@@ -47,19 +49,19 @@ public class TypeEntity {
 
 		switch (type) {
 			case "ally":
-				m_type = 1;
+				m_type = Allié;
 				break;
 			case "ennemy":
-				m_type = 2;
+				m_type = Ennemi;
 				break;
 			case "neutral":
-				m_type = 3;
+				m_type = Neutre;
 				break;
 			case "obstacle":
-				m_type = 4;
+				m_type = Obstacle;
 				break;
 			case "item":
-				m_type = 5;
+				m_type = Item;
 				break;
 			default:
 				throw new RuntimeException("erreur création TypeEntity, string non reconnue");
@@ -72,7 +74,7 @@ public class TypeEntity {
 	}
 
 	public void devientGentil () {
-		m_type = 1;
+		m_type = Allié;
 	}
 
 	public void restaureType () {
