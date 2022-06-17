@@ -17,8 +17,8 @@ public class Entity implements EntityInterface {
 	protected EntityView m_ev;
 
 	static final double rangeDetection = 10;
-	private static final double ENTITY_MAX_SPEED = 2; // vitesse par seconde
-	private Vector m_vecDir = new Vector();
+	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
+	protected Vector m_vecDir = new Vector();
 
 	// Liste d'items
 
@@ -56,6 +56,7 @@ public class Entity implements EntityInterface {
 				break;
 			case Model.TORCH_ID:
 				e = new Torch(x, y);
+				break;
 			default:
 				System.out.println("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
 

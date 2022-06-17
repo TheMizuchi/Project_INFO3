@@ -21,11 +21,9 @@ public class Torch extends Entity {
 	public void updatePorteur (EntityInterface e) {
 		porteur = e;
 	}
-
-	@Override
-	public void update (long elapsed) {
+	
+	public void update (Entity e) {
 		// si automate, faire un step
-		if (porteur != null)
-			m_hitbox.move(porteur);
+		m_hitbox.move(e);
 	}
 }
