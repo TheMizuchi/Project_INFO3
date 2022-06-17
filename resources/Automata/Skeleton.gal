@@ -1,0 +1,5 @@
+Skeleton (Init) {
+	* (Init) :
+		| True ? Move(F) : (Init)
+}
+	
