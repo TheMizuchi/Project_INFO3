@@ -24,8 +24,8 @@ public class Case {
 	public TileType getType () {
 		return type;
 	}
-	
-	public void setType(TileType t) {
+
+	public void setType (TileType t) {
 		this.type = t;
 	}
 
