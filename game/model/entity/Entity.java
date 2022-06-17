@@ -34,8 +34,10 @@ public class Entity implements EntityInterface {
 				e = new Cowboy(x, y);
 				break;
 			case Model.J1_ID:
+				e = new J1(x, y);
 				break;
 			case Model.J2_ID:
+				e = new J2(x, y);
 				break;
 			case Model.BLOON_ID:
 				e = new Bloon(x, y);
@@ -56,6 +58,10 @@ public class Entity implements EntityInterface {
 	public boolean getOrientation () {
 		// T si gauche / north
 		return m_vecDir.getX() < 0;
+	}
+	
+	public Vector getDirVector() {
+		return m_vecDir;
 	}
 
 	public double getPosX () {

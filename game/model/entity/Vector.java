@@ -9,6 +9,8 @@ public class Vector {
 	private boolean m_W;
 	private boolean m_S;
 	private boolean m_E;
+	
+	private double m_angle;
 
 
 	public boolean getN () {
@@ -76,6 +78,51 @@ public class Vector {
 		if (E) {
 			m_E = !m_E;
 		}
+	}
+
+	public double updateAngle () {
+		boolean xMove = getW() ^ getE();
+		boolean yMove = getN() ^ getS();
+
+		m_angle = 0;
+
+		if (xMove && yMove) {
+
+			if (getN()) {
+
+				if (getW()) {
+					m_angle = 3 * Math.PI / 4;
+				} else {
+					m_angle = Math.PI / 4;
+				}
+			} else {
+
+				if (getW()) {
+					m_angle = 5 * Math.PI / 4;
+				} else {
+					m_angle = 7 * Math.PI / 4;
+				}
+			}
+		} else if (xMove) {
+
+			if (getW()) {
+				m_angle = Math.PI;
+			} else {
+				m_angle = 0;
+			}
+		} else if (yMove) {
+
+			if (getN()) {
+				m_angle = Math.PI / 2;
+			} else {
+				m_angle = 3 * Math.PI;
+			}
+		}
+		return m_angle;
+	}
+	
+	public double getAngle() {
+		return m_angle;
 	}
 
 }
