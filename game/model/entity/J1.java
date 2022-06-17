@@ -6,7 +6,7 @@ import view.graphicEntity.BloonView;
 import view.graphicEntity.J1View;
 
 
-public class J1 extends Entity{
+public class J1 extends Entity {
 
 	J1View m_jv;
 

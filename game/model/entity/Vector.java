@@ -9,7 +9,7 @@ public class Vector {
 	private boolean m_W;
 	private boolean m_S;
 	private boolean m_E;
-	
+
 	private double m_angle;
 
 
@@ -120,8 +120,8 @@ public class Vector {
 		}
 		return m_angle;
 	}
-	
-	public double getAngle() {
+
+	public double getAngle () {
 		return m_angle;
 	}
 

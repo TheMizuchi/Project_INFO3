@@ -2,6 +2,7 @@ package model.entity;
 
 import model.Model;
 
+
 public class TypeEntity {
 
 	public static final int Allié = 1;
@@ -14,6 +15,7 @@ public class TypeEntity {
 	private int m_type; // de 1 à 5, allié, ennemi, neutre ou obstacle
 	private int m_typeOrigine; // type à la création de l'entité
 	private int m_intialPv;
+
 
 	public TypeEntity (int ID) {
 
@@ -47,11 +49,9 @@ public class TypeEntity {
 				m_intialPv = 1;
 				break;
 			/*
-			 * case block
-			 *  m_type = Obstacle;
+			 * case block m_type = Obstacle;
 			 * 
-			 * case torche
-			 *  m_type = Item;
+			 * case torche m_type = Item;
 			 */
 			default:
 				throw new RuntimeException("erreur création TypeEntity, type non reconnu");
@@ -87,7 +87,7 @@ public class TypeEntity {
 	public int getType () {
 		return m_type;
 	}
-	
+
 	public int getInitialPv () {
 		return m_intialPv;
 	}

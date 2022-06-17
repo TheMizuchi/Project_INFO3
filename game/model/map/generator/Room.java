@@ -10,7 +10,7 @@ import model.map.Map;
 public class Room {
 
 	Model model;
-	
+
 	private int upperLeftX, upperLeftY;
 	private int width, height;
 
@@ -20,7 +20,7 @@ public class Room {
 
 	public Room (Model m, int w, int h, Case[][] composition, int typeID) {
 		model = m;
-		
+
 		upperLeftX = -1; //On remplie à -1 parce que l'emplacement dès salle sera fait plus tard
 		upperLeftY = -1;
 		width = w;
@@ -58,8 +58,8 @@ public class Room {
 				int entityID = c.getType().getSpawnerID();
 
 				if (entityID != -1) {
-					int x = i + upperLeftX - m.getWidth()/2;
-					int y = j + upperLeftY - m.getHeight()/2;
+					int x = i + upperLeftX - m.getWidth() / 2;
+					int y = j + upperLeftY - m.getHeight() / 2;
 					TypeEntity te = new TypeEntity(entityID);
 					Entity e = model.createEntity(x, y, entityID, te.getInitialPv());
 					model.createLightSource(e);
