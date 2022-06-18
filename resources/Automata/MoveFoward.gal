@@ -1,4 +1,4 @@
 MoveFoward (Init) {
 	* (Init):
-		| True ? Move(NE) : (Init)
+		| True ? Move(F) : (Init)
 }

@@ -55,13 +55,17 @@ public class Controller {
 			BotAutomata moveBigSquare = getAutFromFile("resources/Automata/MoveBigSquare.gal");
 			BotAutomata moveOuestThenLeft = getAutFromFile("resources/Automata/MoveOuestThenLeft.gal");
 			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
+			BotAutomata idle = getAutFromFile("resources/Automata/Idle.gal");
+
+			// Mobs
+			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
 
 			insertAt(m_auts, Model.COWBOY_ID, moveSquare);
 			insertAt(m_auts, Model.J1_ID, moveKeys);
 			insertAt(m_auts, Model.J2_ID, moveKeysArrows);
-			insertAt(m_auts, Model.BLOON_ID, torch);
-			insertAt(m_auts, Model.SKELETON_ID, torch);
-			insertAt(m_auts, Model.BAT_ID, torch);
+			insertAt(m_auts, Model.BLOON_ID, idle);
+			insertAt(m_auts, Model.SKELETON_ID, EntityTurnTest);
+			insertAt(m_auts, Model.BAT_ID, idle);
 			insertAt(m_auts, Model.DART_MONKEY_ID, moveSquare);
 			insertAt(m_auts, Model.TORCH_ID, torch);
 		}

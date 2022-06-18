@@ -31,8 +31,8 @@ import javax.swing.JLabel;
 import common.MyTimer;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
-import view.MyCanvas;
 import model.Model;
+import view.MyCanvas;
 
 
 public class Game {

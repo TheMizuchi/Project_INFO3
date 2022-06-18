@@ -1,4 +1,4 @@
-MoveFoward (Init) {
+MoveOuestThenLeft (Init) {
 	* (Init):
 		| True ? Move(NW) : (Left)
 	* (Left):

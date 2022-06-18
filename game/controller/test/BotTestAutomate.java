@@ -20,8 +20,6 @@ public class BotTestAutomate {
 		while (true) {
 			e.update(100);
 		}
-
-		//System.out.println("zer");
 	}
 
 }

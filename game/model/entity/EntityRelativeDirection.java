@@ -14,6 +14,7 @@ public class EntityRelativeDirection extends EntityAbsoluteDirection {
 		boolean yWasMoving = dirEntity.getY() != 0;
 		boolean wasMoving = xWasMoving || yWasMoving;
 
+		dirEntity.setApply(true);
 		compute();
 
 		// On récupére le vecteur envoyé par la nouvelle destination

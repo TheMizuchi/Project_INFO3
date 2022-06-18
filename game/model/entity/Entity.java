@@ -3,8 +3,6 @@ package model.entity;
 import controller.RefAutomata;
 import edu.polytech.oop.collections.ICollection;
 import model.Model;
-import view.MyCanvas;
-import view.graphicEntity.CowboyView;
 import view.graphicEntity.EntityView;
 
 
@@ -17,8 +15,8 @@ public class Entity implements EntityInterface {
 	protected EntityView m_ev;
 
 	static final double rangeDetection = 10;
-	private static final double ENTITY_MAX_SPEED = 2; // vitesse par seconde
-	private Vector m_vecDir = new Vector();
+	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
+	protected Vector m_vecDir = new Vector();
 
 	// Liste d'items
 
@@ -132,6 +130,7 @@ public class Entity implements EntityInterface {
 
 			}
 		}
+		// TODO
 		// à implémenter lorsque les directions de dova et diego sont stables
 		//if (e_min.position in range of orientation)
 		//	return true;
@@ -176,8 +175,8 @@ public class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void rotation (Direction orientation) {
-		// TODO Auto-generated method stub
+	public void turn (double orientation, boolean absolute) {
+		m_vecDir.setAngle((absolute) ? (orientation) : (m_vecDir.getAngle() + orientation));
 
 	}
 
