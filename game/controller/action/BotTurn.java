@@ -18,20 +18,47 @@ public class BotTurn extends BotAction {
 	}
 
 	@Override
-	public boolean apply (Entity e) {		//quelle dir? (devant, droite ou NSEW?)
+	public boolean apply (Entity e) {
 
 		switch (m_s) {
+			// Rotation absolue
+			case "N":
+				e.turn(Math.PI / 2, true);
+				break;
+			case "W":
+				e.turn(Math.PI, true);
+				break;
+			case "S":
+				e.turn(3 * Math.PI / 2, true);
+				break;
+			case "E":
+				e.turn(0, true);
+				break;
+			case "NW":
+				e.turn(3 * Math.PI / 4, true);
+				break;
+			case "NE":
+				e.turn(Math.PI / 4, true);
+				break;
+			case "SE":
+				e.turn(7 * Math.PI / 4, true);
+				break;
+			case "SW":
+				e.turn(5 * Math.PI / 4, true);
+				break;
+
+			// Rotation relative
 			case "F":
-				e.rotation(FORWARD);
+				e.turn(FORWARD, false);
 				break;
 			case "B":
-				e.rotation(BACK);
+				e.turn(BACK, false);
 				break;
 			case "L":
-				e.rotation(LEFT);
+				e.turn(LEFT, false);
 				break;
 			case "R":
-				e.rotation(RIGHT);
+				e.turn(RIGHT, false);
 				break;
 		}
 		return true;

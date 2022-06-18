@@ -23,11 +23,6 @@ public class Bloon extends Entity {
 	}
 
 	@Override
-	public void rotation (double dir) {
-		//ROTATE
-	}
-
-	@Override
 	public void update (long elapsed) {
 		// déplacement
 		m_automata.step();

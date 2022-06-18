@@ -1,6 +1,7 @@
 Skeleton (Init) {
 	* (Init):
 		| Key(e) ? Move(NE) : (Droit)
+
 	* (Droit) :
 		| True ? Move(F) : (Droit1)
 	* (Droit1) :
@@ -44,6 +45,18 @@ Skeleton (Init) {
 	* (Droit20) :
 		| True ? Move(F) : (Tourner)
 	* (Tourner) :
-		| Key(e) ? : (Init)
-		| True ? Turn(L) : (Droit)
+		| Key(t) ? Turn(F) : (Droit)
+		| Key(f) ? Turn(L) : (Droit)
+		| Key(g) ? Turn(B) : (Droit)
+		| Key(h) ? Turn(R) : (Droit)
+
+		| Key(o) ? Turn(N) : (Droit)
+		| Key(k) ? Turn(W) : (Droit)
+		| Key(l) ? Turn(S) : (Droit)
+		| Key(m) ? Turn(E) : (Droit)
+
+		| Key(i) ? Turn(NW) : (Droit)
+		| Key(p) ? Turn(NE) : (Droit)
+		| Key(w) ? Turn(SW) : (Droit)
+		| Key(x) ? Turn(SE) : (Droit)
 }

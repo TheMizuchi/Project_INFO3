@@ -175,8 +175,8 @@ public class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void rotation (double orientation) {
-		m_vecDir.setAngle(m_vecDir.getAngle() + orientation);
+	public void turn (double orientation, boolean absolute) {
+		m_vecDir.setAngle((absolute) ? (orientation) : (m_vecDir.getAngle() + orientation));
 
 	}
 
