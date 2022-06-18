@@ -1,6 +1,6 @@
-Skeleton (Init) {
+EntityTurnTest (Init) {
 	* (Init):
-		| Key(e) ? Move(NE) : (Droit)
+		| Key(e) ? Move(NE) / Move(NW) / Move(SW) / Move(SE) : (Droit)
 
 	* (Droit) :
 		| True ? Move(F) : (Droit1)
@@ -44,7 +44,10 @@ Skeleton (Init) {
 		| True ? Move(F) : (Droit20)
 	* (Droit20) :
 		| True ? Move(F) : (Tourner)
+
 	* (Tourner) :
+		| Key(e) ? : (Init)
+
 		| Key(t) ? Turn(F) : (Droit)
 		| Key(f) ? Turn(L) : (Droit)
 		| Key(g) ? Turn(B) : (Droit)
