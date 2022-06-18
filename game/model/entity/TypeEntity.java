@@ -2,6 +2,7 @@ package model.entity;
 
 import model.Model;
 
+
 public class TypeEntity {
 
 	public static final int Allié = 1;
@@ -32,12 +33,12 @@ public class TypeEntity {
 				m_type = Neutre;
 				break;
 			/*
-			 * case block
-			 *  m_type = Obstacle;
-			 * 
-			 * case torche
-			 *  m_type = Item;
+			 * case block m_type = Obstacle;
 			 */
+			case Model.TORCH_ID:
+				m_type = Item;
+				break;
+
 			default:
 				throw new RuntimeException("erreur création TypeEntity, type non reconnu");
 		}

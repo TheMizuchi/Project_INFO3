@@ -35,7 +35,7 @@ public interface EntityInterface {
 
 	abstract void protect (Direction orientation);
 
-	abstract void pick (Direction orientation);
+	abstract void pick ();
 	// ramasser un object
 
 	abstract void put (Direction orientation);

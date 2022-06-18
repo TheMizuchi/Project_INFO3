@@ -12,7 +12,7 @@ public class Entity implements EntityInterface {
 
 	public int m_ID;
 	protected Hitbox m_hitbox;
-	TypeEntity type;
+	TypeEntity m_type;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 
@@ -27,6 +27,7 @@ public class Entity implements EntityInterface {
 		m_ID = ID;
 		m_hitbox = new Hitbox(x, y, 0.5, 0.5);
 		m_automata = new RefAutomata(this);
+		m_type = new TypeEntity(ID);
 	}
 
 	public static Entity createEntity (int x, int y, int ID) {
@@ -121,7 +122,7 @@ public class Entity implements EntityInterface {
 		while (iter.hasNext()) {
 			e = (Entity) iter.next();
 
-			if (e.type.getType() == type.getType()) {
+			if (e.m_type.getType() == type.getType()) {
 				double dist = distance(e);
 
 				if (distMin > dist && distMin < rangeDetection) {
@@ -135,7 +136,27 @@ public class Entity implements EntityInterface {
 		//if (e_min.position in range of orientation)
 		//	return true;
 		return false;
+	}
 
+	public Entity closest (TypeEntity type) {
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e, e_min = null;
+		double distMin = Double.MAX_VALUE;
+
+		while (iter.hasNext()) {
+			e = (Entity) iter.next();
+
+			if (e.m_type.getType() == type.getType()) {
+				double dist = distance(e);
+
+				if (distMin > dist) {
+					e_min = e;
+					distMin = dist;
+				}
+
+			}
+		}
+		return e_min;
 	}
 
 	@Override
@@ -193,7 +214,7 @@ public class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void pick (Direction orientation) {
+	public void pick () {
 		// TODO Auto-generated method stub
 
 	}
@@ -237,8 +258,8 @@ public class Entity implements EntityInterface {
 	public double distance (Entity e) {
 		Hitbox h1 = this.m_hitbox;
 		Hitbox h2 = e.m_hitbox;
-		double x = Math.pow(h1.getX(), h1.getX()) - Math.pow(h2.getX(), h2.getX());
-		double y = Math.pow(h1.getY(), h1.getY()) - Math.pow(h2.getY(), h2.getY());
+		double x = Math.pow(h1.getX(), 2) - Math.pow(h2.getX(), 2);
+		double y = Math.pow(h1.getY(), 2) - Math.pow(h2.getY(), 2);
 		return Math.sqrt(x + y);
 	}
 }

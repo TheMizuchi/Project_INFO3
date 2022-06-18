@@ -40,4 +40,17 @@ public class J1 extends Entity {
 		return t;
 	}
 
+	@Override
+	public void pick () {
+
+		if (m_torch != null) {
+			m_torch = null;
+			return;
+		}
+		Torch torche = (Torch) closest(new TypeEntity(Model.TORCH_ID));
+		// if (distance(torche) <= 2)
+		m_torch = torche;
+		return;
+	}
+
 }
