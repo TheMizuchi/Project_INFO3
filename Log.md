@@ -40,4 +40,24 @@ Fait : Implémentation de toutes les signatures des conditions et actions.
 
 ## 16 Juin
 
-Objectif : Améliorer l'implémentation des BotKey + Implémenter plus d'action et de condition (discuter avec le model)
+Objectif : Améliorer l'implémentation des BotKey + Implémenter plus d'actions et de conditions (discuter avec le model)
+
+Fait : Améliorer implémentation des BotKeys ==> Le personnage bouge mais la fonction move ne permettra jamais de déplacer des entités avec cette implémentation
+
+Implémenter plus d'actions et de condition a été commencé en discutant avec le model (Comment faire la fonction Move ?)
+
+## 17 Juin
+
+Objectif : Faire la fonction Move avec le Model
+
+Fait : Faire la fonction Move + écriture des PlayerAbsoluteDir et PlayerRelativeDir
+
+Problème la réimplémentation des Directions a empêché d'écrire d'autres action (Les directions ont du être revisité de A à Z).
+
+Commencé : EntityAbsoluteDir et EntityRelativeDir (bugé)
+
+Création de l'objet torche qui est fonctionnel
+
+## 18 Juin
+
+Correction des EntityAbsoluteDir EntityRelativeDir + Amélioration implémentation BotMove et BotTurn
