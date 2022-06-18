@@ -61,14 +61,8 @@ public class Room {
 					int x = i + upperLeftX - m.getWidth() / 2;
 					int y = j + upperLeftY - m.getHeight() / 2;
 					Entity e = model.createEntity(x, y, entityID);
-
-					if (e.m_ID == Model.J1_ID) {
-						Torch torch = (Torch) model.createEntity(x, y, Model.TORCH_ID);
-						torch.updatePorteur(e);
-						model.createLightSource(torch);
-					}
-					if (e.m_ID == Model.TORCH_ID)
-						model.createLightSource(e);
+					//à enelever plus tard 
+					model.createLightSource(e);
 				}
 			}
 		}

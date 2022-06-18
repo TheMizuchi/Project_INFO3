@@ -15,5 +15,7 @@ public class TorchView extends EntityView{
 	}
 	
 	@Override
-	public void walk() {}
+	public void walk() {
+		this.idle();
+	}
 }

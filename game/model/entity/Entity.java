@@ -59,7 +59,7 @@ public class Entity implements EntityInterface {
 				e = new Torch(x, y);
 				break;
 			default:
-				System.out.println("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
+				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
 
 		}
 		return e;
@@ -261,5 +261,9 @@ public class Entity implements EntityInterface {
 		double x = Math.pow(h1.getX(), 2) - Math.pow(h2.getX(), 2);
 		double y = Math.pow(h1.getY(), 2) - Math.pow(h2.getY(), 2);
 		return Math.sqrt(x + y);
+	}
+
+	public int getType () {
+		return m_type.getType();
 	}
 }

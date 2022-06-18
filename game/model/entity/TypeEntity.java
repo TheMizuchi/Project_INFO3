@@ -32,9 +32,9 @@ public class TypeEntity {
 			case Model.BAT_ID:
 				m_type = Neutre;
 				break;
-			/*
-			 * case block m_type = Obstacle;
-			 */
+			//			case Model:
+			//				m_type = Obstacle;
+			//				break;
 			case Model.TORCH_ID:
 				m_type = Item;
 				break;
