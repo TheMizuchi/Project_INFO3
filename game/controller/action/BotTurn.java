@@ -6,61 +6,51 @@ import model.entity.Entity;
 
 public class BotTurn extends BotAction {
 
-	private static final double LEFT = Math.PI / 2;
-	private static final double RIGHT = 3 * Math.PI / 2;
-	private static final double BACK = Math.PI;
-	private static final double FORWARD = 0;
-	String m_s;
+	double m_angle;
+	boolean m_absolute;
 
 
 	public BotTurn (String s) {
-		m_s = s;
+		m_angle = 0;
+		m_absolute = true;
+
+		double ang = Math.PI / 4;
+
+		switch (s) {
+			// Rotation relative
+			case "R":
+				m_angle += 2 * ang;
+			case "B":
+				m_angle += 2 * ang;
+			case "L":
+				m_angle += 2 * ang;
+			case "F":
+				m_absolute = false;
+				break;
+
+			// Rotation absolue
+			case "SE":
+				m_angle += ang;
+			case "S":
+				m_angle += ang;
+			case "SW":
+				m_angle += ang;
+			case "W":
+				m_angle += ang;
+			case "NW":
+				m_angle += ang;
+			case "N":
+				m_angle += ang;
+			case "NE":
+				m_angle += ang;
+			case "E":
+				break;
+		}
 	}
 
 	@Override
 	public boolean apply (Entity e) {
-
-		switch (m_s) {
-			// Rotation absolue
-			case "N":
-				e.turn(Math.PI / 2, true);
-				break;
-			case "W":
-				e.turn(Math.PI, true);
-				break;
-			case "S":
-				e.turn(3 * Math.PI / 2, true);
-				break;
-			case "E":
-				e.turn(0, true);
-				break;
-			case "NW":
-				e.turn(3 * Math.PI / 4, true);
-				break;
-			case "NE":
-				e.turn(Math.PI / 4, true);
-				break;
-			case "SE":
-				e.turn(7 * Math.PI / 4, true);
-				break;
-			case "SW":
-				e.turn(5 * Math.PI / 4, true);
-				break;
-
-			// Rotation relative
-			case "F":
-				e.turn(FORWARD, false);
-				break;
-			case "B":
-				e.turn(BACK, false);
-				break;
-			case "L":
-				e.turn(LEFT, false);
-				break;
-			case "R":
-				e.turn(RIGHT, false);
-				break;
-		}
+		e.turn(m_angle, m_absolute);
 		return true;
 	}
 }
