@@ -27,8 +27,9 @@ public class Model {
 	public static final int BAT_ID = 5;
 	public static final int DART_MONKEY_ID = 6;
 	public static final int BLOON_ID = 7;
+	public static final int DOGE_ID = 8;
 
-	public static final int ENTITY_NUMBER = 8;
+	public static final int ENTITY_NUMBER = 9;
 
 	// Référence MVC
 	private static Model m_instance = null;

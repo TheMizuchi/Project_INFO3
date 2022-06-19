@@ -28,10 +28,7 @@ public class Camera {
 		double dy = Math.abs(j1.getPosY() - j2.getPosY());
 		double scale = Math.min(Math.min(13 / Math.max(dx, 13), 5 / Math.max(dy, 5)), 1);
 		scale = Math.max(scale, 0.75);
-
-		if (scale != 1) {
-			this.setPosition((double) (j1.getPosX() + j2.getPosX()) / 2, (double) (j1.getPosY() + j2.getPosY()) / 2, scale);
-		}
+		this.setPosition((double) (j1.getPosX() + j2.getPosX()) / 2, (double) (j1.getPosY() + j2.getPosY()) / 2, scale);
 	}
 
 	public void setj1 (Entity j) {
