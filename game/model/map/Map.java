@@ -6,6 +6,7 @@ import edu.polytech.oop.collections.ArrayList;
 import edu.polytech.oop.collections.ICollection.Iterator;
 import edu.polytech.oop.collections.IList;
 import model.map.generator.Arc;
+import model.map.generator.Corridor;
 import model.map.generator.Graph;
 import model.map.generator.Node;
 import model.map.generator.RectangleCollisionTEMPORAIRE;
@@ -231,11 +232,7 @@ public class Map {
 		width = max(-minX, maxX) * 2;
 		height = max(-minY, maxY) * 2;
 
-				for (int j = 0; j < r.getHeight(); j++) {
-					grid[i + r.getUpperLeftX()][j + r.getUpperLeftY()].setType(r.getComp()[i][j].getType());
-				}
-			}
-		}
+	}
 
 	private int max (int a, int b) {
 		if (a < b)
@@ -279,196 +276,6 @@ public class Map {
 		return false;
 	}
 
-	private boolean PointInsideRoom (int x, int y) {
-		Iterator iter = rooms.iterator();
-
-		while (iter.hasNext()) {
-			Room r = (Room) iter.next();
-
-			if (r.containsPoint(x, y)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private void corridor (Arc a) {
-		Node dest1 = a.first();
-		Node dest2 = a.second();
-
-		int distX = dest2.centerX() - dest1.centerX();
-		int distY = dest2.centerY() - dest1.centerY();
-
-		int posR1X = dest1.content().getUpperLeftX();
-		int posR1Y = dest1.content().getUpperLeftY();
-		int R1W = dest1.content().getWidth();
-		int R1H = dest1.content().getHeight();
-
-		int posR2X = dest2.content().getUpperLeftX();
-		int posR2Y = dest2.content().getUpperLeftY();
-		int R2W = dest2.content().getWidth();
-		int R2H = dest2.content().getHeight();
-
-		int posX;
-		int posY;
-
-		//Si les salles sont assez proches faire un couloir verticale
-		if (Math.abs(distX) < R1W / 2 - 1 && Math.abs(distX) < R2W / 2 - 1) {
-
-			posX = R1W / 2 + dest1.content().getUpperLeftX() + distX / 2;
-
-			if (distY > 0) {
-
-				for (posY = posR1Y; posY < posR2Y + R2H; posY++) {
-					grid[posX][posY].setType(TileType.VOID);
-				}
-			} else {
-
-				for (posY = posR1Y + R1H; posY > posR2Y; posY--) {
-					grid[posX][posY].setType(TileType.VOID);
-				}
-			}
-		}
-		//Si les salles sont assez proches faire un couloir horizontale
-		else if (Math.abs(distY) < R1H / 2 && Math.abs(distY) < R2H / 2) {
-
-			posY = R1H / 2 + posR1Y + distY / 2;
-
-			if (distX > 0) {
-
-				for (posX = posR1X; posX < posR2X + R2W; posX++) {
-					grid[posX][posY].setType(TileType.VOID);
-				}
-			} else {
-
-				for (posX = posR1X + R1W; posX > posR2X; posX--) {
-					grid[posX][posY].setType(TileType.VOID);
-				}
-			}
-		}
-
-		else {
-
-			if (Math.abs(distY) <= Math.abs(distX) && (!PointInsideRoom(dest1.centerX(), dest2.centerY())) || Math.abs(distY) > Math.abs(distX) && !PointInsideRoom(dest2.centerX(), dest1.centerY())) {
-				posY = dest1.centerY();
-
-				if (distX < 0 && distY < 0) {
-
-					for (posX = posR1X; posX > dest2.centerX(); posX--) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-
-					for (posY = dest1.centerY(); posY > posR2Y + R2H; posY--) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-
-				} else if (distX > 0 && distY < 0) {
-
-					for (posX = posR1X + R1W; posX < dest2.centerX(); posX++) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-
-					for (posY = dest1.centerY(); posY > posR2Y + R2H; posY--) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-
-				} else if (distX < 0 && distY > 0) {
-
-					for (posX = posR1X; posX > dest2.centerX(); posX--) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-
-					for (posY = dest1.centerY(); posY < posR2Y + R2H; posY++) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-
-				} else {
-
-					for (posX = posR1X + R1W; posX < dest2.centerX(); posX++) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-
-					for (posY = dest1.centerY(); posY < posR2Y + R2H; posY++) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-
-				}
-			} else if (Math.abs(distY) < Math.abs(distX) && (!PointInsideRoom(dest1.centerX(), dest2.centerY())) || Math.abs(distY) >= Math.abs(distX) && !PointInsideRoom(dest2.centerX(), dest1.centerY())) {
-				posX = dest1.centerX();
-
-				if (distX < 0 && distY < 0) {
-
-					for (posY = posR1Y + R1H; posY > dest2.centerY(); posY--) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-
-					for (posX = dest1.centerX(); posX > posR2X + R2W; posX--) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-
-				} else if (distX > 0 && distY < 0) {
-
-					for (posY = posR1Y + R1H; posY > dest2.centerY(); posY--) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-
-					for (posX = dest1.centerX(); posX < posR2X + R2W; posX++) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-
-				} else if (distX < 0 && distY > 0) {
-
-					for (posY = posR1Y + R1H; posY < dest2.centerY(); posY++) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-
-					for (posX = dest1.centerX(); posX > posR2X + R2W; posX--) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-
-				} else {
-
-					for (posY = posR1Y + R1H; posY < dest2.centerY(); posY++) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-
-					for (posX = dest1.centerX(); posX < posR2X + R2W; posX++) {
-						grid[posX][posY].setType(TileType.VOID);
-					}
-				}
-
-			} else {
-				Node milieu = new Node(new Room(dest1.centerX() + distX / 2, dest1.centerY() + distY / 2));
-				Arc mid1 = new Arc(dest1, milieu);
-				Arc mid2 = new Arc(milieu, dest2);
-				corridor(mid1);
-				corridor(mid2);
-			}
-		}
-		a.setDone();
-
-	}
-
-	public void generate_corridors () {
-		Graph G = new Graph(rooms);
-		G.delaunay();
-		Graph corGraph = G.min_spanning_tree();
-		corGraph.add_random_arc(G);
-		Iterator iterNode = corGraph.ListNode.iterator();
-
-		while (iterNode.hasNext()) {
-			Node n = (Node) iterNode.next();
-			Iterator iterArc = n.getListArc().iterator();
-
-			while (iterArc.hasNext()) {
-				Arc a = (Arc) iterArc.next();
-
-				if (!a.getDone()) {
-					corridor(a);
-				}
-			}
-
-		}
 	public Case[][] getCases () {
 		return grid;
 	}
@@ -479,6 +286,76 @@ public class Map {
 
 	public int getHeight () {
 		return this.height;
+	}
+
+	private void corridorOnMap (Corridor c) {
+
+		Iterator iterPath = c.getPath().iterator();
+		Node n1 = (Node) iterPath.next();
+		Node begin = n1;
+
+		int posX = n1.centerX();
+		int posY = n1.centerY();
+
+		while (iterPath.hasNext()) {
+			Node n2 = (Node) iterPath.next();
+
+			if (n1.centerX() == n2.centerX()) {
+
+				for (posY = n1.centerY(); posY != n2.centerY(); posY += Integer.signum(n2.centerY() - n1.centerY())) {
+					grid[posX][posY].setType(TileType.VOID);
+				}
+			} else {
+
+				for (posX = n1.centerX(); posX != n2.centerX(); posX += Integer.signum(n2.centerX() - n1.centerX())) {
+					grid[posX][posY].setType(TileType.VOID);
+				}
+
+			}
+			n1 = n2;
+
+		}
+		int distX = n1.centerX()-begin.centerX();
+		int distY = n1.centerY()-begin.centerY();
+				grid[posX][posY].setType(TileType.VOID);
+	}
+
+	public void corridors () {
+		Graph g = new Graph(rooms);
+		g.delaunay();
+		Graph MST = g.min_spanning_tree();
+		MST.add_random_arc(g);
+		for (int i = 0; i < MST.ListNode.length(); i++) {
+			Node n = (Node) MST.ListNode.elementAt(i);
+			System.out.println("From node (" + n.centerX() + ", " + n.centerY() + ")");
+
+			for (int j = 0; j < n.numberArcs(); j++) {
+				Arc a = (Arc) n.getListArc().elementAt(j);
+				System.out.println("( " + a.first().centerX() + ", " + a.first().centerY() + ") to (" + a.second().centerX() + ", " + a.second().centerY() + ")");
+			}
+		}
+
+		IList nodes = MST.ListNode;
+		Iterator iterNode = nodes.iterator();
+
+		while (iterNode.hasNext()) {
+			Node n = (Node) iterNode.next();
+			IList arcs = n.getListArc();
+			Iterator iterArc = arcs.iterator();
+
+			while (iterArc.hasNext()) {
+				Arc a = (Arc) iterArc.next();
+
+				if (!a.getDone()) {
+
+					Corridor c = new Corridor(a, rooms);
+
+					a.setDone();
+					this.corridorOnMap(c);
+				}
+			}
+		}
+
 	}
 
 }

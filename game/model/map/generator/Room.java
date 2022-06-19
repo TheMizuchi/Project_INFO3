@@ -76,7 +76,7 @@ public class Room {
 	}
 
 	public boolean containsPoint (int x, int y) {
-		return (x >= upperLeftX && x <= upperLeftX + width && y >= upperLeftY && y <= upperLeftY + height);
+		return (x >= upperLeftX && x <= upperLeftX + width-1 && y >= upperLeftY && y <= upperLeftY + height-1);
 	}
 
 }

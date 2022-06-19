@@ -3,7 +3,9 @@ package model.map.generator;
 import java.util.Random;
 
 import edu.polytech.oop.collections.ArrayList;
+import edu.polytech.oop.collections.ICollection.Iterator;
 import edu.polytech.oop.collections.IList;
+import edu.polytech.oop.collections.LinkedList;
 
 
 public class Graph {
@@ -12,12 +14,13 @@ public class Graph {
 
 
 	public Graph (IList rooms) {
-		int l = rooms.length();
 		ListNode = new ArrayList();
 		Room r;
 
-		for (int i = 0; i < l; i++) {
-			r = (Room) rooms.removeAt(0);
+		Iterator iterRoom = rooms.iterator();
+
+		while (iterRoom.hasNext()) {
+			r = (Room) iterRoom.next();
 			Node n = new Node(r);
 			ListNode.insertAt(0, n);
 		}
@@ -111,74 +114,91 @@ public class Graph {
 
 		Triangle supertriangle = supertri(getPosXMax(), getPosYMax(), 1);
 
-		IList triangles = new ArrayList();
+		IList triangles = new LinkedList();
 		triangles.insertAt(0, supertriangle);
+		Iterator iterNode = ListNode.iterator();
 
-		for (int i = 0; i < ListNode.length(); i++) {
+		while (iterNode.hasNext()) {
 
-			Node n = (Node) ListNode.elementAt(i);
+			Node n = (Node) iterNode.next();
 
-			IList englobant = new ArrayList();
-			IList suppress = new ArrayList();
+			IList englobant = new LinkedList();
+			IList suppress = new LinkedList();
 
 			Triangle tri;
 
-			for (int t = 0; t < triangles.length(); t++) {
-				tri = (Triangle) triangles.elementAt(t);
+			Iterator iterTri = triangles.iterator();
+
+			while (iterTri.hasNext()) {
+				tri = (Triangle) iterTri.next();
 
 				if (tri.containsPoint(n)) {
 					suppress.insertAt(0, tri);
 				}
 			}
 
-			for (int ts = 0; ts < suppress.length(); ts++) {
-				tri = (Triangle) suppress.elementAt(ts);
+			Iterator iterSup = suppress.iterator();
 
-				if (tri.edgeShared(tri.AB, suppress)) {
+			while (iterSup.hasNext()) {
+				tri = (Triangle) iterSup.next();
+
+				if (!tri.edgeShared(tri.AB, suppress,tri)) {
 					englobant.insertAt(0, tri.AB);
 				}
 
-				if (tri.edgeShared(tri.AC, suppress)) {
+				if (!tri.edgeShared(tri.AC, suppress,tri)) {
 					englobant.insertAt(0, tri.AC);
 				}
 
-				if (tri.edgeShared(tri.BC, suppress)) {
+				if (!tri.edgeShared(tri.BC, suppress,tri)) {
 					englobant.insertAt(0, tri.BC);
 				}
 			}
 
-			for (int ts = 0; ts < suppress.length(); ts++) {
-				triangles.remove(suppress.elementAt(ts));
+			iterSup = suppress.iterator();
+
+			while (iterSup.hasNext()) {
+				triangles.remove(iterSup.next());
 			}
 
-			for (int ar = 0; ar < englobant.length(); ar++) {
-				Node Pt1 = ((Arc) englobant.elementAt(ar)).dest1;
-				Node Pt2 = ((Arc) englobant.elementAt(ar)).dest2;
+			Iterator iterEngl = englobant.iterator();
+
+			while (iterEngl.hasNext()) {
+				Arc a = (Arc) iterEngl.next();
+				Node Pt1 = a.dest1;
+				Node Pt2 = a.dest2;
 
 				Triangle newTri = new Triangle(Pt1, Pt2, n);
 				triangles.insertAt(0, newTri);
 			}
 		}
-		ArrayList suppress = new ArrayList();
+		LinkedList suppress = new LinkedList();
 
-		for (int t = 0; t < triangles.length(); t++) {
-			Triangle tri = (Triangle) triangles.elementAt(t);
+		for (int i = 0; i < triangles.length(); i++) {
+			Triangle tri = (Triangle) triangles.elementAt(i);
 
-			for (int i = 0; i < ListNode.length(); i++) {
-				Node n = (Node) ListNode.elementAt(i);
+			iterNode = ListNode.iterator();
 
-				if (tri.containsPoint(n) && !suppress.contains(tri)) {
+			while (iterNode.hasNext()) {
+				Node n = (Node) iterNode.next();
+
+				if (tri.containsPoint(n)) {
 					suppress.insertAt(0, tri);
 				}
 			}
 		}
 
-		for (int s = 0; s < suppress.length(); s++) {
-			triangles.remove(suppress.elementAt(s));
+		Iterator iterSup = suppress.iterator();
+
+		while (iterSup.hasNext()) {
+			Triangle sup = (Triangle) iterSup.next();
+			triangles.remove(sup);
 		}
 
-		for (int t = 0; t < triangles.length(); t++) {
-			Triangle tri = (Triangle) triangles.elementAt(t);
+		Iterator iterTri = triangles.iterator();
+
+		while (iterTri.hasNext()) {
+			Triangle tri = (Triangle) iterTri.next();
 
 			if (!(tri.AB.dest1.equals(supertriangle.A) || tri.AB.dest2.equals(supertriangle.A) || tri.AB.dest1.equals(supertriangle.B) || tri.AB.dest2.equals(supertriangle.B) || tri.AB.dest1.equals(supertriangle.C) || tri.AB.dest2.equals(supertriangle.C))) {
 				tri.AB.dest1.addArc(tri.AB);

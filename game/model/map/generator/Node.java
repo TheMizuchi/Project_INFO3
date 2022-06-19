@@ -45,7 +45,7 @@ public class Node {
 		return ListArc;
 	}
 
-	int numberArcs () {
+	public int numberArcs () {
 		return ListArc.length();
 	}
 

@@ -16,8 +16,7 @@ public class TestWorld {
 		World w = new World("resources/rooms.json");
 		Map m = new Map(w, 1, 100);
 		new Frame(w, m);
-		m.generate_corridors();
-		new Frame(w, m);
+		m.corridors();  
 	}
 
 }
