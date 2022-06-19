@@ -193,7 +193,7 @@ public class Map {
 		}
 
 		radius = radiusInc * faraway;
-		angle = 0;
+		angle = Math.PI;
 		placed = 0;
 
 		while (placed == 0) {
@@ -215,8 +215,8 @@ public class Map {
 			}
 			angle += angleInc;
 
-			if (angle > 2 * Math.PI) {
-				angle = 0;
+			if (angle > 3 * Math.PI) {
+				angle = Math.PI;
 				radius += radiusInc;
 			}
 		}
@@ -315,9 +315,9 @@ public class Map {
 			n1 = n2;
 
 		}
-		int distX = n1.centerX()-begin.centerX();
-		int distY = n1.centerY()-begin.centerY();
-				grid[posX][posY].setType(TileType.VOID);
+		int distX = n1.centerX() - begin.centerX();
+		int distY = n1.centerY() - begin.centerY();
+		grid[posX][posY].setType(TileType.VOID);
 	}
 
 	public void corridors () {
@@ -325,6 +325,7 @@ public class Map {
 		g.delaunay();
 		Graph MST = g.min_spanning_tree();
 		MST.add_random_arc(g);
+
 		for (int i = 0; i < MST.ListNode.length(); i++) {
 			Node n = (Node) MST.ListNode.elementAt(i);
 			System.out.println("From node (" + n.centerX() + ", " + n.centerY() + ")");
