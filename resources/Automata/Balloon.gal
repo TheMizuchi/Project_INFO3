@@ -1,0 +1,29 @@
+Balloon (Init) {
+	* (Init) :
+		| True ? Move(NE) / Move(NW) / Move(SE) / Move(SW) : (Moving)
+	* (Moving) :		
+		| !(GotPower) ? Egg(F) : (Die)
+		| MyDir(SE) & Cell(E,O) ? Move(SW) : (Moving)
+		| MyDir(SE) & Cell(S,O) ? Move(NE) : (Moving)
+		| MyDir(SW) & Cell(W,O) ? Move(SE) : (Moving)
+		| MyDir(SW) & Cell(S,O) ? Move(NW) : (Moving)
+		| MyDir(NW) & Cell(W,O) ? Move(NE) : (Moving)
+		| MyDir(NW) & Cell(N,O) ? Move(SW) : (Moving)
+		| MyDir(NE) & Cell(E,O) ? Move(NW) : (Moving)
+		| MyDir(NE) & Cell(N,O) ? Move(SE) : (Moving)
+	* (Die) :
+		| True ? Explode : ()
+}		
+
+Balloon2 (Init) {
+	* (Init) : 
+		| True ? Move(NE) / Move(NW) / Move(SE) / Move(SW) : (Moving)
+	* (Moving) :
+		| !(GotPower) ? Egg(F) : (Die)
+		| Cell(F,V) ? Move(F) : (Moving)
+		| Cell(F,O) & Cell(L,V) ? Turn(L) : (Moving)
+		| Cell(F,O) & Cell(R,V) ? Turn(R) : (Moving)
+		| True ? Turn(B) : (Moving)
+	*(Die)
+		| True ? Explode : ()
+}

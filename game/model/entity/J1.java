@@ -2,11 +2,10 @@ package model.entity;
 
 import model.Model;
 import view.MyCanvas;
-import view.graphicEntity.BloonView;
 import view.graphicEntity.J1View;
 
 
-public class J1 extends Entity{
+public class J1 extends Player {
 
 	J1View m_jv;
 
@@ -17,4 +16,5 @@ public class J1 extends Entity{
 		m_ev = m_jv;
 		MyCanvas.getInstance().createEntityView(m_jv);
 	}
+
 }

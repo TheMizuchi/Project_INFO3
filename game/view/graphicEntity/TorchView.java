@@ -9,11 +9,13 @@ public class TorchView extends EntityView{
 	TorchAnimation a;
 
 	public TorchView (EntityInterface e) {
-		super(0, 0, 1, e, new J1Animation());
+		super(0, 0, 1, e, new TorchAnimation());
 		this.a = (TorchAnimation) super.a;
 		this.a.setDelay(150);
 	}
 	
 	@Override
-	public void walk() {}
+	public void walk() {
+		this.idle();
+	}
 }

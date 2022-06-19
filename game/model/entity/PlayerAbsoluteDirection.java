@@ -8,15 +8,18 @@ public class PlayerAbsoluteDirection extends Direction {
 	public PlayerAbsoluteDirection (double angle) {
 		m_angle = angle;
 		m_v = new Vector();
+	}
 
+	public void setAngle (double angle) {
+		m_angle = angle;
 	}
 
 	@Override
-	void compute () {
+	protected void compute () {
 		double x = Math.cos(m_angle);
 		double y = Math.sin(m_angle);
-		x = (Math.abs(x) > 0.0000001) ? (x) : (0);
-		y = (Math.abs(y) > 0.0000001) ? (y) : (0);
+		x = Math.round(x);
+		y = Math.round(y);
 		m_v.setX(x);
 		m_v.setY(-y);
 	}
@@ -80,7 +83,7 @@ public class PlayerAbsoluteDirection extends Direction {
 		} else {
 			return isMoving ^ wasMoving;
 		}
-		dirEntity.updateAngle();
+		dirEntity.updatePlayerAngle();
 		return isMoving ^ wasMoving;
 	}
 

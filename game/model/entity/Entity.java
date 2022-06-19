@@ -2,30 +2,38 @@ package model.entity;
 
 import controller.RefAutomata;
 import edu.polytech.oop.collections.ICollection;
+import edu.polytech.oop.collections.LinkedList;
 import model.Model;
-import view.MyCanvas;
-import view.graphicEntity.CowboyView;
+import model.map.TileType;
 import view.graphicEntity.EntityView;
 
 
-public class Entity implements EntityInterface {
+public abstract class Entity implements EntityInterface {
 
 	public int m_ID;
-	private Hitbox m_hitbox;
-	TypeEntity type;
+	protected Hitbox m_hitbox;
+	TypeEntity m_type;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 
-	private static final double ENTITY_MAX_SPEED = 2; // vitesse par seconde
-	private Vector m_vecDir = new Vector();
+	static final double rangeDetection = 10;
+	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
+	protected Vector m_vecDir = new Vector();
+
+	protected LinkedList m_blockInterdit;
+	protected boolean m_tangible;
 
 	// Liste d'items
 
 
 	public Entity (double x, double y, int ID) {
 		m_ID = ID;
-		m_hitbox = new Hitbox(x, y, 0.5, 0.5);
+		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this);
 		m_automata = new RefAutomata(this);
+		m_blockInterdit = new LinkedList();
+		m_blockInterdit.insertAt(0, TileType.WALL);
+		m_type = new TypeEntity(ID);
+		m_tangible = true;
 	}
 
 	public static Entity createEntity (int x, int y, int ID) {
@@ -53,8 +61,11 @@ public class Entity implements EntityInterface {
 			case Model.DART_MONKEY_ID:
 				e = new DartMonkey(x, y);
 				break;
+			case Model.TORCH_ID:
+				e = Torch.getInstance(x, y);
+				break;
 			default:
-				System.out.println("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
+				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
 
 		}
 		return e;
@@ -77,11 +88,11 @@ public class Entity implements EntityInterface {
 	}
 
 	public double getPosX () {
-		return m_hitbox.getX();
+		return m_hitbox.getCenterX();
 	}
 
 	public double getPosY () {
-		return m_hitbox.getY();
+		return m_hitbox.getCenterY();
 	}
 
 	public void update (long elapsed) {
@@ -117,7 +128,31 @@ public class Entity implements EntityInterface {
 		while (iter.hasNext()) {
 			e = (Entity) iter.next();
 
-			if (e.type.getType() == type.getType()) {
+			if (e.m_type.getType() == type.getType()) {
+				double dist = distance(e);
+
+				if (distMin > dist && distMin < rangeDetection) {
+					e_min = e;
+					distMin = dist;
+				}
+			}
+		}
+		// TODO
+		// à implémenter lorsque les directions de dova et diego sont stables
+		//if (e_min.position in range of orientation)
+		//	return true;
+		return false;
+	}
+
+	public Entity closest (TypeEntity type) {
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e, e_min = null;
+		double distMin = Double.MAX_VALUE;
+
+		while (iter.hasNext()) {
+			e = (Entity) iter.next();
+
+			if (e.m_type.getType() == type.getType()) {
 				double dist = distance(e);
 
 				if (distMin > dist) {
@@ -127,11 +162,7 @@ public class Entity implements EntityInterface {
 
 			}
 		}
-		// à implémenter lorsque les directions de dova et diego sont stables
-		//if (e_min.position in range of orientation)
-		//	return true;
-		return false;
-
+		return e_min;
 	}
 
 	@Override
@@ -171,8 +202,8 @@ public class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void rotation (Direction orientation) {
-		// TODO Auto-generated method stub
+	public void turn (double orientation, boolean absolute) {
+		m_vecDir.setAngle((absolute) ? (orientation) : (m_vecDir.getAngle() + orientation));
 
 	}
 
@@ -189,7 +220,7 @@ public class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void pick (Direction orientation) {
+	public void pick () {
 		// TODO Auto-generated method stub
 
 	}
@@ -233,8 +264,24 @@ public class Entity implements EntityInterface {
 	public double distance (Entity e) {
 		Hitbox h1 = this.m_hitbox;
 		Hitbox h2 = e.m_hitbox;
-		double x = Math.pow(h1.getX(), h1.getX()) - Math.pow(h2.getX(), h2.getX());
-		double y = Math.pow(h1.getY(), h1.getY()) - Math.pow(h2.getY(), h2.getY());
-		return Math.sqrt(x + y);
+		double x = h1.getX() - h2.getX();
+		double y = h1.getY() - h2.getY();
+		return Math.sqrt(x * x + y * y);
+	}
+
+	public int getType () {
+		return m_type.getType();
+	}
+
+	public LinkedList getTuileInterdite () {
+		return m_blockInterdit;
+	}
+
+	public boolean isTanguible () {
+		return m_tangible;
+	}
+
+	Hitbox getHibox () {
+		return m_hitbox;
 	}
 }

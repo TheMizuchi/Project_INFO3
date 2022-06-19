@@ -5,7 +5,9 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
 import controller.Controller;
-import edu.polytech.oop.collections.*;
+import edu.polytech.oop.collections.ArrayList;
+import edu.polytech.oop.collections.IList;
+import edu.polytech.oop.collections.LinkedList;
 import edu.polytech.oop.collections.LinkedList.Iterator;
 import model.entity.Entity;
 import model.map.Map;
@@ -20,11 +22,11 @@ public class Model {
 	public static final int COWBOY_ID = 0;
 	public static final int J1_ID = 1;
 	public static final int J2_ID = 2;
-	public static final int BLOON_ID = 3;
+	public static final int TORCH_ID = 3;
 	public static final int SKELETON_ID = 4;
 	public static final int BAT_ID = 5;
 	public static final int DART_MONKEY_ID = 6;
-	public static final int TORCH_ID = 7;
+	public static final int BLOON_ID = 7;
 
 	public static final int ENTITY_NUMBER = 8;
 
@@ -33,12 +35,12 @@ public class Model {
 	private Controller m_cont;
 	private MyCanvas m_canvas;
 
-	// Variables localesq
+	// Variables locales
 	private int m_time_passed;
 	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
 	private Camera m_cam;
-	private Map m_map;
+	private static Map m_map;
 	private ArrayList rooms; //Totalité des salles pour pouvoir piocher dedans
 	private JsonDecode jd;
 
@@ -57,12 +59,14 @@ public class Model {
 		m_canvas = MyCanvas.getInstance();
 		Room spawnRoom = createMap();
 		loadEnv(spawnRoom);
+
 	}
 
 	//méthode tmp pour les tests
 	private void loadEnv (Room spawnRoom) {
+		m_cam = new Camera(m_canvas.getViewport());
 		spawnRoom.spawnEntities(m_map);
-		m_cam = new Camera(m_canvas.getViewport(), (Entity) m_listeEntity.elementAt(0), (Entity) m_listeEntity.elementAt(1));
+
 	}
 
 	public static Model getInstance () throws ParseException, IOException {
@@ -81,6 +85,7 @@ public class Model {
 			Entity entity = (Entity) it.next();
 			entity.update(elapsed);
 			m_cam.update();
+
 		}
 
 		it = m_listeLight.iterator();
@@ -96,6 +101,12 @@ public class Model {
 	public Entity createEntity (int x, int y, int ID) {
 		Entity e = Entity.createEntity(x, y, ID);
 		m_listeEntity.insertAt(m_listeEntity.length(), e);
+
+		if (ID == J1_ID) {
+			m_cam.setj1(e);
+		} else if (ID == J2_ID) {
+			m_cam.setj2(e);
+		}
 		return e;
 	}
 
@@ -115,6 +126,10 @@ public class Model {
 
 	public static IList getlistEntity () {
 		return m_listeEntity;
+	}
+
+	public static Map getMap () {
+		return m_map;
 	}
 
 }

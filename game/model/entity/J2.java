@@ -5,7 +5,7 @@ import view.MyCanvas;
 import view.graphicEntity.J2View;
 
 
-public class J2 extends Entity {
+public class J2 extends Player {
 
 	J2View m_jv;
 
@@ -16,4 +16,5 @@ public class J2 extends Entity {
 		m_ev = m_jv;
 		MyCanvas.getInstance().createEntityView(m_jv);
 	}
+
 }
