@@ -40,7 +40,7 @@ public class Model {
 	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
 	private Camera m_cam;
-	private Map m_map;
+	private static Map m_map;
 	private ArrayList rooms; //Totalité des salles pour pouvoir piocher dedans
 	private JsonDecode jd;
 
@@ -59,6 +59,7 @@ public class Model {
 		m_canvas = MyCanvas.getInstance();
 		Room spawnRoom = createMap();
 		loadEnv(spawnRoom);
+
 	}
 
 	//méthode tmp pour les tests
@@ -125,6 +126,10 @@ public class Model {
 
 	public static IList getlistEntity () {
 		return m_listeEntity;
+	}
+
+	public static Map getMap () {
+		return m_map;
 	}
 
 }

@@ -2,7 +2,6 @@ package model.map.generator;
 
 import model.Model;
 import model.entity.Entity;
-import model.entity.Torch;
 import model.map.Case;
 import model.map.Map;
 
@@ -58,8 +57,8 @@ public class Room {
 				int entityID = c.getType().getSpawnerID();
 
 				if (entityID != -1) {
-					int x = i + upperLeftX - m.getWidth() / 2;
-					int y = j + upperLeftY - m.getHeight() / 2;
+					int x = i + upperLeftX;
+					int y = j + upperLeftY;
 					Entity e = model.createEntity(x, y, entityID);
 					//à enelever plus tard 
 					model.createLightSource(e);

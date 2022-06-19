@@ -2,7 +2,9 @@ package model.entity;
 
 import controller.RefAutomata;
 import edu.polytech.oop.collections.ICollection;
+import edu.polytech.oop.collections.LinkedList;
 import model.Model;
+import model.map.TileType;
 import view.graphicEntity.EntityView;
 
 
@@ -18,14 +20,20 @@ public class Entity implements EntityInterface {
 	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
 	protected Vector m_vecDir = new Vector();
 
+	protected LinkedList m_blockInterdit;
+	protected boolean m_tangible;
+
 	// Liste d'items
 
 
 	public Entity (double x, double y, int ID) {
 		m_ID = ID;
-		m_hitbox = new Hitbox(x, y, 0.5, 0.5);
+		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this);
 		m_automata = new RefAutomata(this);
+		m_blockInterdit = new LinkedList();
+		m_blockInterdit.insertAt(0, TileType.WALL);
 		m_type = new TypeEntity(ID);
+		m_tangible = true;
 	}
 
 	public static Entity createEntity (int x, int y, int ID) {
@@ -54,7 +62,7 @@ public class Entity implements EntityInterface {
 				e = new DartMonkey(x, y);
 				break;
 			case Model.TORCH_ID:
-				e = new Torch(x, y);
+				e = Torch.getInstance(x, y);
 				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
@@ -80,11 +88,11 @@ public class Entity implements EntityInterface {
 	}
 
 	public double getPosX () {
-		return m_hitbox.getX();
+		return m_hitbox.getCenterX();
 	}
 
 	public double getPosY () {
-		return m_hitbox.getY();
+		return m_hitbox.getCenterY();
 	}
 
 	public void update (long elapsed) {
@@ -264,5 +272,17 @@ public class Entity implements EntityInterface {
 
 	public int getType () {
 		return m_type.getType();
+	}
+
+	public LinkedList getTuileInterdite () {
+		return m_blockInterdit;
+	}
+
+	public boolean isTanguible () {
+		return m_tangible;
+	}
+
+	Hitbox getHibox () {
+		return m_hitbox;
 	}
 }

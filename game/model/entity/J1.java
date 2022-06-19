@@ -29,16 +29,6 @@ public class J1 extends Entity {
 			m_torch.update(this);
 	}
 
-	public void getTorch (Torch t) {
-		m_torch = t;
-	}
-
-	public Torch dropTorch () {
-		Torch t = m_torch;
-		m_torch = null;
-		return t;
-	}
-
 	@Override
 	public void pick () {
 
