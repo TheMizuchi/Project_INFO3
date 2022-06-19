@@ -257,9 +257,9 @@ public class Entity implements EntityInterface {
 	public double distance (Entity e) {
 		Hitbox h1 = this.m_hitbox;
 		Hitbox h2 = e.m_hitbox;
-		double x = Math.pow(h1.getX(), 2) - Math.pow(h2.getX(), 2);
-		double y = Math.pow(h1.getY(), 2) - Math.pow(h2.getY(), 2);
-		return Math.sqrt(x + y);
+		double x = h1.getX() - h2.getX();
+		double y = h1.getY() - h2.getY();
+		return Math.sqrt(x * x + y * y);
 	}
 
 	public int getType () {

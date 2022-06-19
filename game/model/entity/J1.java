@@ -2,7 +2,6 @@ package model.entity;
 
 import model.Model;
 import view.MyCanvas;
-import view.graphicEntity.BloonView;
 import view.graphicEntity.J1View;
 
 
@@ -48,8 +47,8 @@ public class J1 extends Entity {
 			return;
 		}
 		Torch torche = (Torch) closest(new TypeEntity(Model.TORCH_ID));
-		// if (distance(torche) <= 2)
-		m_torch = torche;
+		if (distance(torche) <= 2)
+			m_torch = torche;
 		return;
 	}
 
