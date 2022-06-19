@@ -15,6 +15,7 @@ public class BotPick extends BotAction {
 
 	@Override
 	public boolean apply (Entity e) {
+		e.pick();
 
 		switch (m_s) {
 			case "F":

@@ -135,7 +135,27 @@ public class Entity implements EntityInterface {
 		//if (e_min.position in range of orientation)
 		//	return true;
 		return false;
+	}
 
+	public Entity closest (TypeEntity type) {
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e, e_min = null;
+		double distMin = Double.MAX_VALUE;
+
+		while (iter.hasNext()) {
+			e = (Entity) iter.next();
+
+			if (e.m_type.getType() == type.getType()) {
+				double dist = distance(e);
+
+				if (distMin > dist) {
+					e_min = e;
+					distMin = dist;
+				}
+
+			}
+		}
+		return e_min;
 	}
 
 	@Override
@@ -193,7 +213,7 @@ public class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void pick (Direction orientation) {
+	public void pick () {
 		// TODO Auto-generated method stub
 
 	}
@@ -237,8 +257,8 @@ public class Entity implements EntityInterface {
 	public double distance (Entity e) {
 		Hitbox h1 = this.m_hitbox;
 		Hitbox h2 = e.m_hitbox;
-		double x = Math.pow(h1.getX(), h1.getX()) - Math.pow(h2.getX(), h2.getX());
-		double y = Math.pow(h1.getY(), h1.getY()) - Math.pow(h2.getY(), h2.getY());
+		double x = Math.pow(h1.getX(), 2) - Math.pow(h2.getX(), 2);
+		double y = Math.pow(h1.getY(), 2) - Math.pow(h2.getY(), 2);
 		return Math.sqrt(x + y);
 	}
 
