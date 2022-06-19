@@ -64,7 +64,7 @@ public class Model {
 
 	//méthode tmp pour les tests
 	private void loadEnv (Room spawnRoom) {
-		m_cam = new Camera(m_canvas.getViewport());
+		m_cam = new Camera(m_canvas.getViewport(), m_map.getWidth()/2, m_map.getHeight()/2);
 		spawnRoom.spawnEntities(m_map);
 
 	}
