@@ -8,7 +8,7 @@ import model.map.TileType;
 import view.graphicEntity.EntityView;
 
 
-public class Entity implements EntityInterface {
+public abstract class Entity implements EntityInterface {
 
 	public int m_ID;
 	protected Hitbox m_hitbox;
@@ -135,7 +135,6 @@ public class Entity implements EntityInterface {
 					e_min = e;
 					distMin = dist;
 				}
-
 			}
 		}
 		// TODO

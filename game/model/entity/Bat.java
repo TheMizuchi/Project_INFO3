@@ -5,7 +5,7 @@ import view.MyCanvas;
 import view.graphicEntity.BatView;
 
 
-public class Bat extends Entity {
+public class Bat extends Mob {
 
 	BatView m_bv;
 
@@ -17,16 +17,4 @@ public class Bat extends Entity {
 		MyCanvas.getInstance().createEntityView(m_bv);
 	}
 
-	@Override
-	public void update (long elapsed) {
-		// déplacement
-		m_automata.step();
-
-		if (m_vecDir.isApplied()) {
-			double speedX = m_vecDir.getX() * ENTITY_MAX_SPEED;
-			double speedY = m_vecDir.getY() * ENTITY_MAX_SPEED;
-			m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
-			m_vecDir.setApply(false);
-		}
-	}
 }

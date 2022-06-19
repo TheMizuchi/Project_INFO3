@@ -84,7 +84,6 @@ public class Hitbox {
 			if (!e.equals(m_e) && e.isTanguible()) {
 
 				if (this.conflitHitbox(x, y, (e).getHibox())) {
-					System.out.println("colition entre : " + m_e.m_ID + " et :" + e.m_ID);
 					return true;
 				}
 			}
