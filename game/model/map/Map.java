@@ -284,7 +284,6 @@ public class Map {
 		return this.height;
 	}
 
-<<<<<<< HEAD
 	private void corridorOnMap (Corridor c) {
 
 		Iterator iterPath = c.getPath().iterator();
@@ -361,7 +360,6 @@ public class Map {
 			}
 		}
 
-=======
 	public Room getSpawn () {
 		IList.Iterator iter = rooms.iterator();
 
@@ -371,7 +369,6 @@ public class Map {
 				return r;
 		}
 		return null;
->>>>>>> master
 	}
 
 }
