@@ -1,6 +1,5 @@
 package model.entity;
 
-import model.Model;
 import view.MyCanvas;
 import view.graphicEntity.J1View;
 
@@ -11,7 +10,7 @@ public class J1 extends Player {
 
 
 	public J1 (double x, double y) {
-		super(x, y, Model.J1_ID);
+		super(x, y, EntityProperties.J1);
 		m_jv = new J1View(this);
 		m_ev = m_jv;
 		MyCanvas.getInstance().createEntityView(m_jv);

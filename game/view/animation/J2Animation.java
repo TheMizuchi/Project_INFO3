@@ -1,6 +1,7 @@
 package view.animation;
 
 import model.Model;
+import model.entity.EntityProperties;
 import view.animation.bank.AnimationBank;
 import view.animation.bank.J2Bank;
 
@@ -11,8 +12,8 @@ public class J2Animation extends EntityAnimation {
 
 
 	public J2Animation () {
-		super(AnimationBank.getAnimationBank(Model.J2_ID));
-		this.j2b = (J2Bank) AnimationBank.getAnimationBank(Model.J2_ID);
+		super(AnimationBank.getAnimationBank(EntityProperties.J2.getID()));
+		this.j2b = (J2Bank) AnimationBank.getAnimationBank(EntityProperties.J2.getID());
 	}
 
 	public void attack () {

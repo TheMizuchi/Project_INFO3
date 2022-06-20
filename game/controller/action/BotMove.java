@@ -4,9 +4,9 @@ import controller.BotAction;
 import model.entity.Entity;
 import model.entity.EntityAbsoluteDirection;
 import model.entity.EntityRelativeDirection;
+import model.entity.EntityType;
 import model.entity.PlayerAbsoluteDirection;
 import model.entity.PlayerRelativeDirection;
-import model.entity.TypeEntity;
 
 
 public class BotMove extends BotAction {
@@ -50,15 +50,16 @@ public class BotMove extends BotAction {
 			case "NE":
 				m_angle += ang;
 			case "E":
+
 				break;
 		}
 	}
 
 	@Override
 	public boolean apply (Entity e) {
-		int type = e.getType();
+		EntityType type = e.getType();
 
-		if (type == TypeEntity.Allié) {
+		if (type == EntityType.ALLY) {
 
 			if (m_absolute) {
 				e.move(new PlayerAbsoluteDirection(m_angle));
