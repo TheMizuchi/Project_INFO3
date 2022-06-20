@@ -5,10 +5,10 @@ import java.awt.Graphics;
 
 import edu.polytech.oop.collections.LinkedList;
 import model.ILightSource;
+import model.entity.Entity;
 import model.map.Case;
+import view.ATH.ATH;
 import view.animation.bank.AnimationBank;
-import view.animation.bank.CowboyBank;
-import view.graphicEntity.CowboyView;
 import view.graphicEntity.EntityView;
 import view.graphicEntity.LightSourceView;
 
@@ -30,6 +30,7 @@ public class MyCanvas extends Component {
 	LinkedList m_entityViews;
 	LightView m_light;
 	MapView m_map;
+	ATH m_ath;
 
 	// Objets graphiques locaux
 	Viewport vp;
@@ -59,6 +60,10 @@ public class MyCanvas extends Component {
 		this.win_w = w;
 		this.vp = new Viewport(win_w, win_h);
 		m_light = new LightView(this.win_w, this.win_h, 1);
+	}
+
+	public void initATH (Entity j1, Entity j2) {
+		m_ath = ATH.getInstance(j1, j2);
 	}
 
 	/*
@@ -131,7 +136,7 @@ public class MyCanvas extends Component {
 
 		// Applique un masque pour couvrir les zones non éclairées.
 		m_light.paint(g);
-
+		m_ath.paint(g);
 	}
 
 }
