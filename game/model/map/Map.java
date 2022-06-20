@@ -5,6 +5,10 @@ import java.util.Random;
 import edu.polytech.oop.collections.ArrayList;
 import edu.polytech.oop.collections.ICollection.Iterator;
 import edu.polytech.oop.collections.IList;
+import model.map.generator.Arc;
+import model.map.generator.Corridor;
+import model.map.generator.Graph;
+import model.map.generator.Node;
 import model.Model;
 import model.map.generator.RectangleCollisionTEMPORAIRE;
 import model.map.generator.RectangleTEMPORAIRE;
@@ -189,7 +193,7 @@ public class Map {
 		}
 
 		radius = radiusInc * faraway;
-		angle = 0;
+		angle = Math.PI;
 		placed = 0;
 
 		while (placed == 0) {
@@ -211,8 +215,8 @@ public class Map {
 			}
 			angle += angleInc;
 
-			if (angle > 2 * Math.PI) {
-				angle = 0;
+			if (angle > 3 * Math.PI) {
+				angle = Math.PI;
 				radius += radiusInc;
 			}
 		}
@@ -242,7 +246,7 @@ public class Map {
 		if (room == null)
 			return true;
 
-		int margin = 2; //Marge dans la collision pour laisser de l'espace entre les salles
+		int margin = 5; //Marge dans la collision pour laisser de l'espace entre les salles
 
 		IList.Iterator iter = rooms.iterator();
 
@@ -278,6 +282,66 @@ public class Map {
 
 	public int getHeight () {
 		return this.height;
+	}
+
+	private void corridorOnMap (Corridor c) {
+
+		Iterator iterPath = c.getPath().iterator();
+		Node n1 = (Node) iterPath.next();
+
+		int posX = n1.centerX();
+		int posY = n1.centerY();
+
+		while (iterPath.hasNext()) {
+			Node n2 = (Node) iterPath.next();
+
+			if (n1.centerX() == n2.centerX()) {
+
+				for (posY = n1.centerY(); posY != n2.centerY(); posY += Integer.signum(n2.centerY() - n1.centerY())) {
+					grid[posX][posY].setType(TileType.FLOOR);
+				}
+			} else {
+
+				for (posX = n1.centerX(); posX != n2.centerX(); posX += Integer.signum(n2.centerX() - n1.centerX())) {
+					grid[posX][posY].setType(TileType.FLOOR);
+				}
+
+			}
+			n1 = n2;
+
+		}
+		grid[posX][posY].setType(TileType.FLOOR);
+	}
+
+	public void corridors (Graph MST) {
+
+		IList nodes = MST.ListNode;
+		Iterator iterNode = nodes.iterator();
+
+		while (iterNode.hasNext()) {
+			Node n = (Node) iterNode.next();
+			IList arcs = n.getListArc();
+			Iterator iterArc = arcs.iterator();
+
+			while (iterArc.hasNext()) {
+				Arc a = (Arc) iterArc.next();
+
+				if (!a.getDone()) {
+
+					TileType tmp1 = grid[a.first().centerX()][a.first().centerY()].getType();
+					TileType tmp2 = grid[a.second().centerX()][a.second().centerY()].getType();
+					grid[a.first().centerX()][a.first().centerY()].setType(TileType.VOID);
+					grid[a.second().centerX()][a.second().centerY()].setType(TileType.VOID);
+
+					Corridor c = new Corridor(a, rooms);
+
+					a.setDone();
+					this.corridorOnMap(c);
+					grid[a.first().centerX()][a.first().centerY()].setType(tmp1);
+					grid[a.second().centerX()][a.second().centerY()].setType(tmp2);
+				}
+			}
+		}
 	}
 
 	public Room getSpawn () {

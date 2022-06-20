@@ -1,6 +1,7 @@
 package model.map.generator;
 
 import edu.polytech.oop.collections.ArrayList;
+import edu.polytech.oop.collections.ICollection.Iterator;
 import edu.polytech.oop.collections.IList;
 
 
@@ -14,7 +15,7 @@ public class Node {
 	IList ListArc;
 
 
-	Node (Room r) {
+	public Node (Room r) {
 		content = r;
 		mid_x = r.getUpperLeftX() + (r.getWidth() / 2);
 		mid_y = r.getUpperLeftY() + (r.getHeight() / 2);
@@ -28,7 +29,23 @@ public class Node {
 		ListArc = new ArrayList();
 	}
 
-	int numberArcs () {
+	public Room content () {
+		return content;
+	}
+
+	public int centerX () {
+		return mid_x;
+	}
+
+	public int centerY () {
+		return mid_y;
+	}
+
+	public IList getListArc () {
+		return ListArc;
+	}
+
+	public int numberArcs () {
 		return ListArc.length();
 	}
 
@@ -43,8 +60,10 @@ public class Node {
 
 	void addArc (Arc a) {
 
-		for (int i = 0; i < numberArcs(); i++) {
-			Arc current = (Arc) ListArc.elementAt(i);
+		Iterator iter = ListArc.iterator();
+
+		for (int i = 0; iter.hasNext(); i++) {
+			Arc current = (Arc) iter.next();
 
 			if (current.dest1 == a.dest1 && current.dest2 == a.dest2 || current.dest1 == a.dest2 && current.dest2 == a.dest1) {
 				return;
