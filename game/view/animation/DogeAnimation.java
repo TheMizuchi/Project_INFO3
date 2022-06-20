@@ -5,8 +5,9 @@ import view.animation.bank.AnimationBank;
 import view.animation.bank.CowboyBank;
 import view.animation.bank.DogeBank;
 
-public class DogeAnimation extends EntityAnimation  {
-	
+
+public class DogeAnimation extends EntityAnimation {
+
 	private DogeBank db;
 
 

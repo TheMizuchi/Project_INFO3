@@ -8,14 +8,10 @@ import view.animation.Sprite;
 public abstract class EntityAnimationBank {
 
 	// Liste des états 
-	
 
 	// Liste des états persistants fixes
 	public Sprite idle;
 	public Sprite walk;
-	
-	
-	
 
 
 	protected static void loadAnimations () {}

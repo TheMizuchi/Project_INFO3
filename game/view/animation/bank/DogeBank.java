@@ -15,7 +15,7 @@ public class DogeBank extends EntityAnimationBank {
 	protected void loadBasicAnimation (Sprite spriteFile) {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("DogeBank NYI");
-		
+
 	}
 
 	@Override

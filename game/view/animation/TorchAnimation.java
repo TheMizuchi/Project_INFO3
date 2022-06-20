@@ -5,7 +5,9 @@ import view.animation.bank.AnimationBank;
 import view.animation.bank.CowboyBank;
 import view.animation.bank.TorchBank;
 
-public class TorchAnimation extends EntityAnimation{
+
+public class TorchAnimation extends EntityAnimation {
+
 	private TorchBank cb;
 
 
@@ -13,5 +15,5 @@ public class TorchAnimation extends EntityAnimation{
 		super(AnimationBank.getAnimationBank(Model.TORCH_ID));
 		this.cb = (TorchBank) AnimationBank.getAnimationBank(Model.TORCH_ID);
 	}
-	
+
 }

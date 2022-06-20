@@ -4,7 +4,9 @@ import model.entity.EntityInterface;
 import view.animation.CowboyAnimation;
 import view.animation.DogeAnimation;
 
-public class DogeView extends EntityView{
+
+public class DogeView extends EntityView {
+
 	DogeAnimation a;
 
 

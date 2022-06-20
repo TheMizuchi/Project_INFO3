@@ -64,8 +64,8 @@ public abstract class Animation {
 		m_done = false;
 		this._al.start();
 	}
-	
-	public void stop() {
+
+	public void stop () {
 		m_done = true;
 		al.done(Animation.this);
 	}
