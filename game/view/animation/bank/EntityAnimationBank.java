@@ -8,12 +8,14 @@ import view.animation.Sprite;
 public abstract class EntityAnimationBank {
 
 	// Liste des états 
-	public Sprite turnLeft;
-	public Sprite turnRight;
+	
 
 	// Liste des états persistants fixes
-	public BufferedImage left;
-	public BufferedImage right;
+	public Sprite idle;
+	public Sprite walk;
+	
+	
+	
 
 
 	protected static void loadAnimations () {}

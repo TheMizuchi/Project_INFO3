@@ -1,30 +1,19 @@
 package model;
 
-import java.io.IOException;
-
-import org.json.simple.parser.ParseException;
-
 import controller.Controller;
-import edu.polytech.oop.collections.*;
+import edu.polytech.oop.collections.ArrayList;
+import edu.polytech.oop.collections.IList;
+import edu.polytech.oop.collections.LinkedList;
 import edu.polytech.oop.collections.LinkedList.Iterator;
 import model.entity.Entity;
+import model.entity.EntityProperties;
 import model.map.Map;
-import model.map.World;
+import model.map.generator.JsonDecode;
+import model.map.generator.Room;
 import view.MyCanvas;
 
 
 public class Model {
-
-	// Constante pour définir les ID des entités
-	public static final int COWBOY_ID = 0;
-	public static final int J1_ID = 1;
-	public static final int J2_ID = 2;
-	public static final int BLOON_ID = 3;
-	public static final int ZOMBIE_ID = 4;
-	public static final int BAT_ID = 5;
-	public static final int DART_MONKEY_ID = 6;
-
-	public static final int ENTITY_NUMBER = 7;
 
 	// Référence MVC
 	private static Model m_instance = null;
@@ -33,20 +22,53 @@ public class Model {
 
 	// Variables locales
 	private int m_time_passed;
-	private LinkedList m_listeEntity;
+	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
 	private Camera m_cam;
-	private World m_w;
-	private Map m_map;
+	private static Map m_map;
+	private ArrayList rooms; //Totalité des salles pour pouvoir piocher dedans
+	private JsonDecode jd;
 
 
-	private Model () {
+	public Model () {
+		String jsonPath = "resources/rooms.json";
+		jd = new JsonDecode(this, jsonPath);
+		rooms = new ArrayList();
+
+		for (int i = 0; i < jd.getNbRooms(); i++) {
+			rooms.insertAt(rooms.length(), jd.newRoom(i));
+		}
 		m_listeEntity = new LinkedList();
 		m_listeLight = new LinkedList();
 		m_cont = Controller.getInstance();
 		m_canvas = MyCanvas.getInstance();
-		m_cam = new Camera(m_canvas.getViewport());
+		Room spawnRoom = createMap();
+		loadEnv(spawnRoom);
+
+	}
+	
+	//Constructeur pour TestWorld
+	public Model (Object o) {
+		String jsonPath = "resources/rooms.json";
+		jd = new JsonDecode(this, jsonPath);
+		rooms = new ArrayList();
+
+		for (int i = 0; i < jd.getNbRooms(); i++) {
+			rooms.insertAt(rooms.length(), jd.newRoom(i));
+		}
+		m_listeEntity = new LinkedList();
+		m_listeLight = new LinkedList();
+		m_cont = Controller.getInstance();
+		m_canvas = MyCanvas.getInstance();
 		createMap();
+
+	}
+
+	//méthode tmp pour les tests
+	private void loadEnv (Room spawnRoom) {
+		m_cam = new Camera(m_canvas.getViewport());
+		spawnRoom.spawnEntities(m_map);
+
 	}
 
 	public static Model getInstance () {
@@ -64,7 +86,8 @@ public class Model {
 		while (it.hasNext()) {
 			Entity entity = (Entity) it.next();
 			entity.update(elapsed);
-			m_cam.setPosition(entity.getPosX(), entity.getPosY(), 1);
+			m_cam.update();
+
 		}
 
 		it = m_listeLight.iterator();
@@ -73,11 +96,19 @@ public class Model {
 			LightSource ls = (LightSource) it.next();
 			ls.update();
 		}
+
+		m_cam.update();
 	}
 
-	public Entity createEntity () {
-		Entity e = new Entity(1, 1, 0);
-		m_listeEntity.insertAt(0, e);
+	public Entity createEntity (double x, double y, EntityProperties entityProperties) {
+		Entity e = Entity.createEntity(x, y, entityProperties);
+		m_listeEntity.insertAt(m_listeEntity.length(), e);
+
+		if (entityProperties == EntityProperties.J1) {
+			m_cam.setj1(e);
+		} else if (entityProperties == EntityProperties.J2) {
+			m_cam.setj2(e);
+		}
 		return e;
 	}
 
@@ -85,19 +116,22 @@ public class Model {
 		m_listeLight.insertAt(0, new LightSource(0, 0, 5, e));
 	}
 
-	public void createMap () {
-
-		try {
-			m_w = new World("resources/rooms.json");
-		}
-		catch (ParseException e) {
-			e.printStackTrace();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		m_map = new Map(m_w, 1, 100);
+	public Room createMap () {
+		m_map = new Map(this, 1, 100);
 		m_canvas.createMapView(m_map.getCases());
+		return m_map.getSpawn();
+	}
+
+	public ArrayList getRooms () {
+		return this.rooms;
+	}
+
+	public static IList getlistEntity () {
+		return m_listeEntity;
+	}
+
+	public static Map getMap () {
+		return m_map;
 	}
 
 }

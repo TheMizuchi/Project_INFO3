@@ -1,59 +1,78 @@
 package controller.action;
 
 import controller.BotAction;
-import model.entity.Direction;
 import model.entity.Entity;
+import model.entity.EntityAbsoluteDirection;
+import model.entity.EntityRelativeDirection;
+import model.entity.EntityType;
+import model.entity.PlayerAbsoluteDirection;
+import model.entity.PlayerRelativeDirection;
+
 
 public class BotMove extends BotAction {
 
-	String m_s;
+	double m_angle;
+	boolean m_absolute;
 
-	public BotMove(String s) {
-		m_s = s;
+
+	public BotMove (String s) {
+		m_angle = 0;
+		m_absolute = true;
+
+		double ang = Math.PI / 4;
+
+		switch (s) {
+			// Rotation relative
+			case "R":
+				m_angle += 2 * ang;
+			case "B":
+				m_angle += 2 * ang;
+			case "L":
+				m_angle += 2 * ang;
+			case "F":
+			case "":
+				m_absolute = false;
+				break;
+
+			// Rotation absolue
+			case "SE":
+				m_angle += ang;
+			case "S":
+				m_angle += ang;
+			case "SW":
+				m_angle += ang;
+			case "W":
+				m_angle += ang;
+			case "NW":
+				m_angle += ang;
+			case "N":
+				m_angle += ang;
+			case "NE":
+				m_angle += ang;
+			case "E":
+
+				break;
+		}
 	}
 
 	@Override
-	public boolean apply(Entity e) {
-		
-		Direction dir = new Direction(); 
+	public boolean apply (Entity e) {
+		EntityType type = e.getType();
 
-		switch (m_s) {
-		case "N":
-			dir.faceNorth();
-			e.move(dir);
-			break;
-		case "W":
-			dir.faceWest();
-			e.move(dir);
-			break;
-		case "S":
-			dir.faceSouth();
-			e.move(dir);
-			break;
-		case "E":
-			dir.faceEst();
-			e.move(dir);
-			break;
-		case "NE":
-			dir.faceNorth();
-			dir.faceEst();
-			e.move(dir);
-			break;
-		case "NW":
-			dir.faceNorth();
-			dir.faceWest();
-			e.move(dir);
-			break;
-		case "SE":
-			dir.faceSouth();
-			dir.faceEst();
-			e.move(dir);
-			break;
-		case "SW":
-			dir.faceSouth();
-			dir.faceWest();
-			e.move(dir);
-			break;
+		if (type == EntityType.ALLY) {
+
+			if (m_absolute) {
+				e.move(new PlayerAbsoluteDirection(m_angle));
+			} else {
+				e.move(new PlayerRelativeDirection(e, m_angle));
+			}
+		} else {
+
+			if (m_absolute) {
+				e.move(new EntityAbsoluteDirection(m_angle));
+			} else {
+				e.move(new EntityRelativeDirection(e, m_angle));
+			}
 		}
 		return true;
 	}

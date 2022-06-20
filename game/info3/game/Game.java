@@ -31,8 +31,8 @@ import javax.swing.JLabel;
 import common.MyTimer;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
-import view.MyCanvas;
 import model.Model;
+import view.MyCanvas;
 
 
 public class Game {
@@ -89,7 +89,6 @@ public class Game {
 		System.out.println("  - setting up the frame...");
 		setupFrame();
 
-		m_m.createLightSource(m_m.createEntity());
 	}
 
 	/*
@@ -175,12 +174,12 @@ public class Game {
 			txt = txt + fps + " fps   ";
 			m_text.setText(txt);
 		}
-		
+
 		if (m_elapsedUpdate >= 20) {
 			m_m.update(m_elapsedUpdate);
 			m_elapsedUpdate -= 20;
 		}
-		
+
 	}
 
 	/*

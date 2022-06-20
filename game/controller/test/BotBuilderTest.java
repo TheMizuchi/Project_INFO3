@@ -28,7 +28,8 @@ public class BotBuilderTest {
 		//		AST ast = from_file("resources/Automata/MoveFoward.gal");
 		//		AST ast = from_file("resources/Automata/MoveSquare.gal");
 		//		AST ast = from_file("resources/Automata/MoveRandom.gal");
-		AST ast = from_file("resources/Automata/MoveRandom2.gal");
+		//		AST ast = from_file("resources/Automata/MoveRandom2.gal");
+		AST ast = from_file("resources/Automata/MoveKeysArrows+Pop.gal");
 		ast.accept(bb);
 		ast.accept(bb);
 		ast.accept(bb2);

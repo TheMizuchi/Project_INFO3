@@ -9,11 +9,13 @@ import javax.swing.JPanel;
 
 import org.json.simple.parser.ParseException;
 
+import model.Model;
+
 
 public class TestWorld {
 
 	public static void main (String[] args) throws ParseException, IOException {
-		World w = new World("resources/rooms.json");
+		Model w = new Model(null);
 		Map m = new Map(w, 1, 15);
 		new Frame(w, m);
 		m.corridors();
@@ -26,12 +28,12 @@ public class TestWorld {
 class Frame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	World w;
+	Model w;
 	Map m;
 	Panel p;
 
 
-	public Frame (World w, Map m) {
+	public Frame (Model w, Map m) {
 		this.w = w;
 		this.m = m;
 		p = new Panel(w, m);
@@ -48,11 +50,11 @@ class Frame extends JFrame {
 class Panel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	World w;
+	Model w;
 	Map m;
 
 
-	public Panel (World w, Map m) {
+	public Panel (Model w, Map m) {
 		this.w = w;
 		this.m = m;
 	}

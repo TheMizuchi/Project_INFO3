@@ -5,10 +5,10 @@ public interface EntityInterface {
 	abstract boolean myDir (Direction orientation);
 	// retourn si la direciton est la bonne
 
-	//	abstract boolean cell(Direction orientation, TypeEntity type);
+	abstract boolean cell (Direction orientation, EntityType type);
 	// l'entité cible se situe devant (orientation) à une étapde de déplacement
 
-	//	abstract boolean closest(Direction orientation, TypeEntity type);
+	abstract boolean closest (Direction orientation, EntityType type);
 	// l'entité la plus proche du type est dans cette direciton
 
 	abstract boolean gotPower ();
@@ -28,14 +28,14 @@ public interface EntityInterface {
 	abstract void move (Direction orientation);
 	// déplacement, pas de retour
 
-	abstract void rotation (Direction orientation);
-	// direction absolue
+	abstract void turn (double orientation, boolean absolute);
+	// rotation absolue ou relative suivant la valeur du boolean
 
 	abstract void hit (Direction orientation);
 
 	abstract void protect (Direction orientation);
 
-	abstract void pick (Direction orientation);
+	abstract void pick ();
 	// ramasser un object
 
 	abstract void put (Direction orientation);
@@ -63,6 +63,6 @@ public interface EntityInterface {
 	double getPosY ();
 
 	// Renvoie true si l'orientation est comprise entre pi/2 et 3pi/2, false sinon
-	boolean getOrientation ();
+	int getOrientation ();
 
 }

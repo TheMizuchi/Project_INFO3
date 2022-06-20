@@ -9,7 +9,7 @@ import model.entity.Entity;
 public class BotAutomata {
 
 	String m_name;
-	BotState m_initial_state;
+	public BotState m_initial_state;
 	IList m_states;
 
 

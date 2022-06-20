@@ -1,5 +1,6 @@
 package model.map.generator;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -8,6 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import model.Model;
 import model.map.Case;
 
 
@@ -16,12 +18,29 @@ public class JsonDecode {
 	FileReader fr;
 	JSONArray rooms;
 	int nbRooms;
+	Model model;
 
 
-	public JsonDecode (String jsonPath) throws ParseException, IOException {
-		fr = new FileReader(jsonPath);
+	public JsonDecode (Model m, String jsonPath) {
+		model = m;
+
+		try {
+			fr = new FileReader(jsonPath);
+		}
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		JSONParser parser = new JSONParser();
-		Object o = parser.parse(fr);
+		Object o = null;
+
+		try {
+			o = parser.parse(fr);
+		}
+		catch (IOException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		rooms = (JSONArray) o;
 		nbRooms = rooms.size();
 	}
@@ -63,7 +82,7 @@ public class JsonDecode {
 				comp[i][j] = tile;
 			}
 		}
-		return new Room(width, height, comp, type);
+		return new Room(model, width, height, comp, type);
 	}
 
 	public int getNbRooms () {

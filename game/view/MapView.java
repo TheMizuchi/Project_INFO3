@@ -54,7 +54,7 @@ public class MapView extends ViewElement {
 
 			for (l = 0; l < this.largeur(); l++) {
 
-				switch (carte[h][l].getType().getID()) {
+				switch (carte[h][l].getType().getTextureID()) {
 					case 1:
 						img = tex.m_images[1];
 						break;
@@ -68,7 +68,7 @@ public class MapView extends ViewElement {
 						img = tex.m_images[0];
 				}
 				g.setColor(Color.black);
-				g.drawImage(img, (int) (x + this.t_case * (double) ((double) h - (double) this.hauteur() / 2)), (int) (y + this.t_case * (double) ((double) l - (double) this.largeur() / 2)), this.t_case, this.t_case, null);
+				g.drawImage(img, (int) (x + this.t_case * (double) h), (int) (y + this.t_case * (double) l), this.t_case, this.t_case, null);
 			}
 		}
 	}

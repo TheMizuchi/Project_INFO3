@@ -1,6 +1,7 @@
 package view.animation;
 
 import model.Model;
+import model.entity.EntityProperties;
 import view.animation.bank.AnimationBank;
 import view.animation.bank.CowboyBank;
 
@@ -11,8 +12,8 @@ public class CowboyAnimation extends EntityAnimation {
 
 
 	public CowboyAnimation () {
-		super(AnimationBank.getAnimationBank(Model.COWBOY_ID));
-		this.cb = (CowboyBank) AnimationBank.getAnimationBank(Model.COWBOY_ID);
+		super(AnimationBank.getAnimationBank(EntityProperties.COWBOY.getID()));
+		this.cb = (CowboyBank) AnimationBank.getAnimationBank(EntityProperties.COWBOY.getID());
 	}
 
 	public void spin () {

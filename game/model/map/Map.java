@@ -9,6 +9,7 @@ import model.map.generator.Arc;
 import model.map.generator.Corridor;
 import model.map.generator.Graph;
 import model.map.generator.Node;
+import model.Model;
 import model.map.generator.RectangleCollisionTEMPORAIRE;
 import model.map.generator.RectangleTEMPORAIRE;
 import model.map.generator.Room;
@@ -17,7 +18,7 @@ import model.map.generator.RoomType;
 
 public class Map {
 
-	private World world;
+	private Model model;
 	private int level;
 
 	private int width;
@@ -27,14 +28,14 @@ public class Map {
 	private ArrayList rooms; //Salles présentes dans l'étage
 
 
-	public Map (World world, int level, int nbRoomsMax) {
-		this.world = world;
+	public Map (Model model, int level, int nbRoomsMax) {
+		this.model = model;
 
 		this.level = level;
 
 		rooms = new ArrayList();
 
-		IList.Iterator iter = (Iterator) world.getRooms().iterator();
+		IList.Iterator iter = (Iterator) model.getRooms().iterator();
 
 		while (iter.hasNext()) {
 			Room r = (Room) iter.next();
@@ -64,7 +65,6 @@ public class Map {
 				}
 			}
 		}
-
 	}
 
 	//N : nombre de salles standards
@@ -78,7 +78,7 @@ public class Map {
 		int minX = 0, minY = 0, maxX = 0, maxY = 0;
 		int faraway = 5;
 
-		IList.Iterator iter = world.getRooms().iterator();
+		IList.Iterator iter = model.getRooms().iterator();
 
 		while (iter.hasNext()) {
 			Room r = (Room) iter.next();
@@ -241,10 +241,6 @@ public class Map {
 			return a;
 	}
 
-	private void expand () {
-
-	}
-
 	//true si room a une collision avec au moins une des autres
 	private boolean collision (Room room) {
 		if (room == null)
@@ -288,6 +284,7 @@ public class Map {
 		return this.height;
 	}
 
+<<<<<<< HEAD
 	private void corridorOnMap (Corridor c) {
 
 		Iterator iterPath = c.getPath().iterator();
@@ -364,6 +361,17 @@ public class Map {
 			}
 		}
 
+=======
+	public Room getSpawn () {
+		IList.Iterator iter = rooms.iterator();
+
+		while (iter.hasNext()) {
+			Room r = (Room) iter.next();
+			if (r.getType() == RoomType.SPAWN)
+				return r;
+		}
+		return null;
+>>>>>>> master
 	}
 
 }
