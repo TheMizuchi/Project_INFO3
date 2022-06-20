@@ -66,6 +66,9 @@ public abstract class Entity implements EntityInterface {
 			case TORCH:
 				e = Torch.getInstance(x, y);
 				break;
+			case DOGE:
+				e = new Doge(x, y);
+				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
 
