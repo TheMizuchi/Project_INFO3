@@ -59,14 +59,14 @@ public class MenuFrame extends JFrame implements ActionListener {
 		but_Mystery = new JButton();
 		but_launch = new JButton();
 
-		but_J1.setBounds(250, 0, 100, 30);
-		but_J2.setBounds(250, 30, 100, 30);
-		but_Bloon.setBounds(250, 60, 100, 30);
-		but_Bat.setBounds(250, 90, 100, 30);
-		but_Skeleton.setBounds(250, 120, 100, 30);
-		but_Doge.setBounds(250, 150, 100, 30);
-		but_Mystery.setBounds(250, 180, 100, 30);
-		but_launch.setBounds(250, 210, 100, 30);
+		but_J1.setBounds(200, 0, 200, 30);
+		but_J2.setBounds(200, 30, 200, 30);
+		but_Bloon.setBounds(200, 60, 200, 30);
+		but_Bat.setBounds(200, 90, 200, 30);
+		but_Skeleton.setBounds(200, 120, 200, 30);
+		but_Doge.setBounds(200, 150, 200, 30);
+		but_Mystery.setBounds(200, 180, 200, 30);
+		but_launch.setBounds(200, 210, 200, 30);
 
 		but_J1.addActionListener(this);
 		//button.addActionListener(e -> System.out.println("BOUTON !"));
