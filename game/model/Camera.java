@@ -12,14 +12,15 @@ public class Camera {
 	private EntityInterface j2;
 
 
-	public Camera (Viewport vp, Entity j1, Entity j2) {
-		this(vp);
+	public Camera (Viewport vp, Entity j1, Entity j2, double x, double y) {
+		this(vp, x, y);
 		this.j1 = j1;
 		this.j2 = j2;
 	}
 
-	public Camera (Viewport vp) {
+	public Camera (Viewport vp, double x, double y) {
 		this.vp = vp;
+		this.setPosition(x, y, 1);
 	}
 
 	public void update () {

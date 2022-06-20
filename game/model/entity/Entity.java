@@ -1,5 +1,9 @@
 package model.entity;
 
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
 import controller.RefAutomata;
 import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.LinkedList;
@@ -37,7 +41,7 @@ public abstract class Entity implements EntityInterface {
 		m_tangible = true;
 	}
 
-	public static Entity createEntity (int x, int y, EntityProperties entityProperties) {
+	public static Entity createEntity (double x, double y, EntityProperties entityProperties) {
 		Entity e = null;
 
 		switch (entityProperties) {
@@ -64,6 +68,12 @@ public abstract class Entity implements EntityInterface {
 				break;
 			case TORCH:
 				e = Torch.getInstance(x, y);
+				break;
+			case DOGE:
+				e = new Doge(x, y);
+				break;
+			case MYSTERY:
+				e = new MysteryMachine(x, y);
 				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
@@ -257,7 +267,9 @@ public abstract class Entity implements EntityInterface {
 
 	@Override
 	public void egg (Direction orientation) {
-		// TODO Auto-generated method stub
+		Model m;
+		m = Model.getInstance();
+		Entity e = m.createEntity(m_vecDir.getX(), m_vecDir.getY(), this.m_entityProperties);
 
 	}
 

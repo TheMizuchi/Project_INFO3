@@ -1,9 +1,5 @@
 package model;
 
-import java.io.IOException;
-
-import org.json.simple.parser.ParseException;
-
 import controller.Controller;
 import edu.polytech.oop.collections.ArrayList;
 import edu.polytech.oop.collections.IList;
@@ -25,7 +21,6 @@ public class Model {
 	private MyCanvas m_canvas;
 
 	// Variables locales
-	private int m_time_passed;
 	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
 	private Camera m_cam;
@@ -34,7 +29,7 @@ public class Model {
 	private JsonDecode jd;
 
 
-	public Model () throws ParseException, IOException {
+	public Model () {
 		String jsonPath = "resources/rooms.json";
 		jd = new JsonDecode(this, jsonPath);
 		rooms = new ArrayList();
@@ -53,12 +48,12 @@ public class Model {
 
 	//méthode tmp pour les tests
 	private void loadEnv (Room spawnRoom) {
-		m_cam = new Camera(m_canvas.getViewport());
+		m_cam = new Camera(m_canvas.getViewport(), m_map.getWidth() / 2, m_map.getHeight() / 2);
 		spawnRoom.spawnEntities(m_map);
 
 	}
 
-	public static Model getInstance () throws ParseException, IOException {
+	public static Model getInstance () {
 		if (m_instance == null)
 			m_instance = new Model();
 		return m_instance;
@@ -87,7 +82,7 @@ public class Model {
 		m_cam.update();
 	}
 
-	public Entity createEntity (int x, int y, EntityProperties entityProperties) {
+	public Entity createEntity (double x, double y, EntityProperties entityProperties) {
 		Entity e = Entity.createEntity(x, y, entityProperties);
 		m_listeEntity.insertAt(m_listeEntity.length(), e);
 
