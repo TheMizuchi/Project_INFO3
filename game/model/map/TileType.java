@@ -13,7 +13,8 @@ public enum TileType {
 	BAT(EntityProperties.BAT.spawnerID(), 1, EntityProperties.BAT),
 	DART_MONKEY(EntityProperties.DART_MONKEY.spawnerID(), 1, EntityProperties.DART_MONKEY),
 	BLOON(EntityProperties.BLOON.spawnerID(), 1, EntityProperties.BLOON),
-	DOGE(EntityProperties.DOGE.spawnerID(), 1, EntityProperties.DOGE);
+	DOGE(EntityProperties.DOGE.spawnerID(), 1, EntityProperties.DOGE),
+	MYSTERY(EntityProperties.MYSTERY.spawnerID(), 1, EntityProperties.MYSTERY);
 
 
 	private int id;

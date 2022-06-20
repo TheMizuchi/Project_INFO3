@@ -58,6 +58,7 @@ public class Controller {
 			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
 			BotAutomata idle = getAutFromFile("resources/Automata/Idle.gal");
 			BotAutomata doge = getAutFromFile("resources/Automata/Doge.gal");
+			BotAutomata mystery = getAutFromFile("resources/Automata/Mystery.gal");
 
 			// Mobs
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
@@ -71,6 +72,8 @@ public class Controller {
 			insertAt(m_auts, EntityProperties.DART_MONKEY.getID(), moveSquare);
 			insertAt(m_auts, EntityProperties.TORCH.getID(), torch);
 			insertAt(m_auts, EntityProperties.DOGE.getID(), doge);
+			insertAt(m_auts, EntityProperties.MYSTERY.getID(), mystery);
+
 
 		}
 		catch (ParseException ex) {

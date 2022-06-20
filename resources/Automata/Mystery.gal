@@ -1,0 +1,24 @@
+MoveFoward (Init) {
+	* (Init):
+		| True ? Turn() : (move1)
+	* (move1):
+		| True ? Move(F) : (move2)
+	* (move2):
+		| True ? Move(F) : (move3)
+	* (move3):
+		| True ? Move(F) : (move4)
+	* (move4):
+		| True ? Move(F) : (move5)
+	* (move5):
+		| True ? Move(F) : (move6)
+	* (move6):
+		| True ? Move(F) : (move7)
+	* (move7):
+		| True ? Move(F) : (move8)
+	* (move8):
+		| True ? Move(F) : (move9)
+	* (move9):
+		| True ? Move(F) : (move10)
+	* (move10):
+		| True ? Move(F) : (Init)
+}
