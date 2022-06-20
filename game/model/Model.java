@@ -94,6 +94,10 @@ public class Model {
 		return e;
 	}
 
+	public void deleteEntity (Entity e) {
+		// TODO
+	}
+
 	public void createLightSource (Entity e) {
 		m_listeLight.insertAt(0, new LightSource(0, 0, 5, e));
 	}
