@@ -250,7 +250,7 @@ public class Map {
 		if (room == null)
 			return true;
 
-		int margin = 2; //Marge dans la collision pour laisser de l'espace entre les salles
+		int margin = 5; //Marge dans la collision pour laisser de l'espace entre les salles
 
 		IList.Iterator iter = rooms.iterator();
 
@@ -349,10 +349,17 @@ public class Map {
 
 				if (!a.getDone()) {
 
+					TileType tmp1 = grid[a.first().centerX()][a.first().centerY()].getType();
+					TileType tmp2 = grid[a.second().centerX()][a.second().centerY()].getType();
+					grid[a.first().centerX()][a.first().centerY()].setType(TileType.VOID);
+					grid[a.second().centerX()][a.second().centerY()].setType(TileType.VOID);
+					
 					Corridor c = new Corridor(a, rooms);
 
 					a.setDone();
 					this.corridorOnMap(c);
+					grid[a.first().centerX()][a.first().centerY()].setType(tmp1);
+					grid[a.second().centerX()][a.second().centerY()].setType(tmp2);
 				}
 			}
 		}
