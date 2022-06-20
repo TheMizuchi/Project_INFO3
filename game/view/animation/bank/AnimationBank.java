@@ -20,6 +20,7 @@ public class AnimationBank {
 		EAB[Model.BAT_ID] = BatBank.getInstance();
 		//		EAB[DARTMONKEYID] = new DartMonkeyBank();
 		EAB[Model.TORCH_ID] = TorchBank.getInstance();
+		EAB[Model.DOGE_ID] = DogeBank.getInstance();
 
 	}
 

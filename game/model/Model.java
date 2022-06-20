@@ -28,8 +28,9 @@ public class Model {
 	public static final int DART_MONKEY_ID = 6;
 	public static final int BLOON_ID = 7;
 	public static final int DOGE_ID = 8;
+	public static final int MYSTERY_ID = 9;
 
-	public static final int ENTITY_NUMBER = 9;
+	public static final int ENTITY_NUMBER = 10;
 
 	// Référence MVC
 	private static Model m_instance = null;
@@ -37,7 +38,6 @@ public class Model {
 	private MyCanvas m_canvas;
 
 	// Variables locales
-	private int m_time_passed;
 	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
 	private Camera m_cam;
