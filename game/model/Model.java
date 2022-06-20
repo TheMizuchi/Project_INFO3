@@ -83,7 +83,7 @@ public class Model {
 		m_cam.update();
 	}
 
-	public Entity createEntity (int x, int y, EntityProperties entityProperties) {
+	public Entity createEntity (double x, double y, EntityProperties entityProperties) {
 		Entity e = Entity.createEntity(x, y, entityProperties);
 		m_listeEntity.insertAt(m_listeEntity.length(), e);
 
