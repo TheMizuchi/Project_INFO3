@@ -1,25 +1,31 @@
 package model.map;
 
-import model.Model;
+import model.entity.EntityProperties;
 
 
 public enum TileType {
 
-	WALL(0, 0, -1), FLOOR(1, 1, -1), COWBOY(100, 1, Model.COWBOY_ID), J1(100 + Model.J1_ID, 1, Model.J1_ID),
-	J2(100 + Model.J2_ID, 1, Model.J2_ID), SKELETON(100 + Model.SKELETON_ID, 1, Model.SKELETON_ID),
-	BLOON(100 + Model.BLOON_ID, 1, Model.BLOON_ID), DART_MONKEY(100 + Model.DART_MONKEY_ID, 1, Model.DART_MONKEY_ID),
-	BAT(100 + Model.BAT_ID, 1, Model.BAT_ID), TORCH(100 + Model.TORCH_ID, 1, Model.TORCH_ID);
+	WALL(0, 0, null), FLOOR(1, 1, null), COWBOY(EntityProperties.COWBOY.spawnerID(), 1, EntityProperties.COWBOY),
+	J1(EntityProperties.J1.spawnerID(), 1, EntityProperties.J1),
+	J2(EntityProperties.J2.spawnerID(), 1, EntityProperties.J2),
+	TORCH(EntityProperties.TORCH.spawnerID(), 1, EntityProperties.TORCH),
+	SKELETON(EntityProperties.SKELETON.spawnerID(), 1, EntityProperties.SKELETON),
+	BAT(EntityProperties.BAT.spawnerID(), 1, EntityProperties.BAT),
+	DART_MONKEY(EntityProperties.DART_MONKEY.spawnerID(), 1, EntityProperties.DART_MONKEY),
+	BLOON(EntityProperties.BLOON.spawnerID(), 1, EntityProperties.BLOON),
+	DOGE(EntityProperties.DOGE.spawnerID(), 1, EntityProperties.DOGE),
+	MYSTERY(EntityProperties.MYSTERY.spawnerID(), 1, EntityProperties.MYSTERY);
 
 
 	private int id;
 	private int textureID;
-	private int spawnerID;
+	private EntityProperties entityProperties;
 
 
-	TileType (final int id, final int tid, final int sid) {
+	TileType (final int id, final int tid, final EntityProperties entityProperties) {
 		this.id = id;
 		this.textureID = tid;
-		this.spawnerID = sid;
+		this.entityProperties = entityProperties;
 	}
 
 	public int getID () {
@@ -30,8 +36,8 @@ public enum TileType {
 		return textureID;
 	}
 
-	public int getSpawnerID () {
-		return spawnerID;
+	public EntityProperties getEntityProperties () {
+		return entityProperties;
 	}
 
 }

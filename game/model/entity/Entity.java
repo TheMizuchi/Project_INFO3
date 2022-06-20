@@ -1,5 +1,9 @@
 package model.entity;
 
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
 import controller.RefAutomata;
 import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.LinkedList;
@@ -11,11 +15,11 @@ import view.graphicEntity.EntityView;
 public abstract class Entity implements EntityInterface {
 
 	public int m_ID;
+	private int m_pv;
 	protected Hitbox m_hitbox;
-	TypeEntity m_type;
+	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
-
 	static final double rangeDetection = 10;
 	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
 	protected Vector m_vecDir = new Vector();
@@ -26,43 +30,50 @@ public abstract class Entity implements EntityInterface {
 	// Liste d'items
 
 
-	public Entity (double x, double y, int ID) {
-		m_ID = ID;
+	public Entity (double x, double y, EntityProperties ep) {
+		m_entityProperties = ep;
+		m_ID = ep.getID();
+		m_pv = ep.getInitialPv();
 		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this);
 		m_automata = new RefAutomata(this);
 		m_blockInterdit = new LinkedList();
 		m_blockInterdit.insertAt(0, TileType.WALL);
-		m_type = new TypeEntity(ID);
 		m_tangible = true;
 	}
 
-	public static Entity createEntity (int x, int y, int ID) {
+	public static Entity createEntity (double x, double y, EntityProperties entityProperties) {
 		Entity e = null;
 
-		switch (ID) {
-			case Model.COWBOY_ID:
+		switch (entityProperties) {
+			case COWBOY:
 				e = new Cowboy(x, y);
 				break;
-			case Model.J1_ID:
+			case J1:
 				e = new J1(x, y);
 				break;
-			case Model.J2_ID:
+			case J2:
 				e = new J2(x, y);
 				break;
-			case Model.BLOON_ID:
+			case BLOON:
 				e = new Bloon(x, y);
 				break;
-			case Model.SKELETON_ID:
+			case SKELETON:
 				e = new Skeleton(x, y);
 				break;
-			case Model.BAT_ID:
+			case BAT:
 				e = new Bat(x, y);
 				break;
-			case Model.DART_MONKEY_ID:
+			case DART_MONKEY:
 				e = new DartMonkey(x, y);
 				break;
-			case Model.TORCH_ID:
+			case TORCH:
 				e = Torch.getInstance(x, y);
+				break;
+			case DOGE:
+				e = new Doge(x, y);
+				break;
+			case MYSTERY:
+				e = new MysteryMachine(x, y);
 				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
@@ -114,13 +125,13 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	@Override
-	public boolean cell (Direction orientation, TypeEntity type) {
+	public boolean cell (Direction orientation, EntityType type) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean closest (Direction orientation, TypeEntity type) {
+	public boolean closest (Direction orientation, EntityType type) {
 		ICollection.Iterator iter = Model.getlistEntity().iterator();
 		Entity e, e_min;
 		double distMin = Float.MAX_VALUE;
@@ -128,7 +139,7 @@ public abstract class Entity implements EntityInterface {
 		while (iter.hasNext()) {
 			e = (Entity) iter.next();
 
-			if (e.m_type.getType() == type.getType()) {
+			if (e.getType() == type) {
 				double dist = distance(e);
 
 				if (distMin > dist && distMin < rangeDetection) {
@@ -144,7 +155,7 @@ public abstract class Entity implements EntityInterface {
 		return false;
 	}
 
-	public Entity closest (TypeEntity type) {
+	public Entity closest (EntityType type) {
 		ICollection.Iterator iter = Model.getlistEntity().iterator();
 		Entity e, e_min = null;
 		double distMin = Double.MAX_VALUE;
@@ -152,7 +163,7 @@ public abstract class Entity implements EntityInterface {
 		while (iter.hasNext()) {
 			e = (Entity) iter.next();
 
-			if (e.m_type.getType() == type.getType()) {
+			if (e.getType() == type) {
 				double dist = distance(e);
 
 				if (distMin > dist) {
@@ -167,8 +178,7 @@ public abstract class Entity implements EntityInterface {
 
 	@Override
 	public boolean gotPower () {
-		// TODO Auto-generated method stub
-		return false;
+		return m_pv > 0;
 	}
 
 	@Override
@@ -257,7 +267,9 @@ public abstract class Entity implements EntityInterface {
 
 	@Override
 	public void egg (Direction orientation) {
-		// TODO Auto-generated method stub
+		Model m;
+		m = Model.getInstance();
+		Entity e = m.createEntity(m_vecDir.getX(), m_vecDir.getY(), this.m_entityProperties);
 
 	}
 
@@ -269,8 +281,8 @@ public abstract class Entity implements EntityInterface {
 		return Math.sqrt(x * x + y * y);
 	}
 
-	public int getType () {
-		return m_type.getType();
+	public EntityType getType () {
+		return m_entityProperties.getEntityType();
 	}
 
 	public LinkedList getTuileInterdite () {

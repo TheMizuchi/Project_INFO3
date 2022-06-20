@@ -2,8 +2,8 @@ package model.entity;
 
 public abstract class Player extends Entity {
 
-	public Player (double x, double y, int ID) {
-		super(x, y, ID);
+	public Player (double x, double y, EntityProperties ep) {
+		super(x, y, ep);
 	}
 
 	@Override

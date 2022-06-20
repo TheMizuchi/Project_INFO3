@@ -1,6 +1,7 @@
 package view.animation;
 
 import model.Model;
+import model.entity.EntityProperties;
 import view.animation.bank.AnimationBank;
 import view.animation.bank.BloonBank;
 
@@ -11,8 +12,8 @@ public class BloonAnimation extends EntityAnimation {
 
 
 	public BloonAnimation () {
-		super(AnimationBank.getAnimationBank(Model.BLOON_ID));
-		this.bb = (BloonBank) AnimationBank.getAnimationBank(Model.BLOON_ID);
+		super(AnimationBank.getAnimationBank(EntityProperties.BLOON.getID()));
+		this.bb = (BloonBank) AnimationBank.getAnimationBank(EntityProperties.BLOON.getID());
 	}
 
 	public void explode () {

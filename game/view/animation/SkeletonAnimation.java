@@ -1,6 +1,7 @@
 package view.animation;
 
 import model.Model;
+import model.entity.EntityProperties;
 import view.animation.bank.AnimationBank;
 import view.animation.bank.SkeletonBank;
 
@@ -11,8 +12,8 @@ public class SkeletonAnimation extends EntityAnimation {
 
 
 	public SkeletonAnimation () {
-		super(AnimationBank.getAnimationBank(Model.SKELETON_ID));
-		this.zb = (SkeletonBank) AnimationBank.getAnimationBank(Model.SKELETON_ID);
+		super(AnimationBank.getAnimationBank(EntityProperties.SKELETON.getID()));
+		this.zb = (SkeletonBank) AnimationBank.getAnimationBank(EntityProperties.SKELETON.getID());
 	}
 
 	public void attack () {

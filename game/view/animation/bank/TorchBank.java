@@ -2,14 +2,16 @@ package view.animation.bank;
 
 import view.animation.Sprite;
 
-public class TorchBank extends EntityAnimationBank{
-	
+
+public class TorchBank extends EntityAnimationBank {
+
 	private TorchBank () {
 		Sprite spriteFile = Sprite.loadSprite("resources/torch.png", 1, 6);
 		loadBasicAnimation(spriteFile);
 		loadSpecificAnimation(spriteFile);
 	}
-	
+
+
 	private static TorchBank INSTANCE = null;
 
 
@@ -24,7 +26,7 @@ public class TorchBank extends EntityAnimationBank{
 	@Override
 	protected void loadBasicAnimation (Sprite spriteFile) {
 		this.idle = spriteFile;
-		
+
 	}
 
 	@Override
