@@ -23,6 +23,7 @@ public abstract class EntityAnimation extends Animation {
 		super();
 		this.ab = a;
 		this.scale = 1F;
+		this.ab = a;
 		this.h = this.ab.idle.m_height;
 		this.w = this.ab.idle.m_width;
 		this.orientation = 1;

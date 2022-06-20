@@ -2,8 +2,8 @@ package model.entity;
 
 public class Mob extends Entity {
 
-	public Mob (double x, double y, int ID) {
-		super(x, y, ID);
+	public Mob (double x, double y, EntityProperties ep) {
+		super(x, y, ep);
 	}
 
 	@Override

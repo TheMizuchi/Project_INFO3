@@ -14,6 +14,7 @@ import info3.game.automata.ast.AST;
 import info3.game.automata.parser.AutomataParser;
 import info3.game.automata.parser.ParseException;
 import model.Model;
+import model.entity.EntityProperties;
 
 
 public class Controller {
@@ -60,14 +61,15 @@ public class Controller {
 			// Mobs
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
 
-			insertAt(m_auts, Model.COWBOY_ID, moveSquare);
-			insertAt(m_auts, Model.J1_ID, moveKeys);
-			insertAt(m_auts, Model.J2_ID, moveKeysArrows);
-			insertAt(m_auts, Model.BLOON_ID, idle);
-			insertAt(m_auts, Model.SKELETON_ID, EntityTurnTest);
-			insertAt(m_auts, Model.BAT_ID, idle);
-			insertAt(m_auts, Model.DART_MONKEY_ID, moveSquare);
-			insertAt(m_auts, Model.TORCH_ID, torch);
+			insertAt(m_auts, EntityProperties.COWBOY.getID(), moveSquare);
+			insertAt(m_auts, EntityProperties.J1.getID(), moveKeys);
+			insertAt(m_auts, EntityProperties.J2.getID(), moveKeysArrows);
+			insertAt(m_auts, EntityProperties.BLOON.getID(), torch);
+			insertAt(m_auts, EntityProperties.SKELETON.getID(), torch);
+			insertAt(m_auts, EntityProperties.BAT.getID(), torch);
+			insertAt(m_auts, EntityProperties.DART_MONKEY.getID(), moveSquare);
+			insertAt(m_auts, EntityProperties.TORCH.getID(), torch);
+
 		}
 		catch (ParseException ex) {
 			throw new RuntimeException("Erreur de parsing");

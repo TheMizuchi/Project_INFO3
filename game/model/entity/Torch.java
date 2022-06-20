@@ -1,6 +1,5 @@
 package model.entity;
 
-import model.Model;
 import view.MyCanvas;
 import view.graphicEntity.TorchView;
 
@@ -11,8 +10,8 @@ public class Torch extends Entity {
 	EntityInterface porteur;
 
 
-	private Torch (double x, double y) {
-		super(x, y, Model.TORCH_ID);
+	public Torch (double x, double y) {
+		super(x, y, EntityProperties.TORCH);
 		m_tv = new TorchView(this);
 		m_ev = m_tv;
 		MyCanvas.getInstance().createEntityView(m_tv);

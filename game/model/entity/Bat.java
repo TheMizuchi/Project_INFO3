@@ -1,6 +1,5 @@
 package model.entity;
 
-import model.Model;
 import view.MyCanvas;
 import view.graphicEntity.BatView;
 
@@ -11,7 +10,7 @@ public class Bat extends Mob {
 
 
 	public Bat (double x, double y) {
-		super(x, y, Model.BAT_ID);
+		super(x, y, EntityProperties.BAT);
 		m_bv = new BatView(this);
 		m_ev = m_bv;
 		MyCanvas.getInstance().createEntityView(m_bv);
