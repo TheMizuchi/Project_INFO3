@@ -25,6 +25,9 @@ public class BotKey implements ICondition {
 			case "FR":
 				m_c = 39;
 				break;
+			case "SPACE":
+				m_c = 32;
+				break;
 			default:
 				break;
 		}

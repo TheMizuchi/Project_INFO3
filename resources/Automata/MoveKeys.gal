@@ -5,4 +5,5 @@ MoveKeys (Init) {
 		| Key(s) ? Move(S) : (Init)
 		| Key(d) ? Move(E) : (Init)
 		| Key(t) ? Pick : (Init)
+		| Key(SPACE) ? Wizz : (Init)
 }

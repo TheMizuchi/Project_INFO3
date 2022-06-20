@@ -13,7 +13,19 @@ public class RefAutomata {
 	public RefAutomata (Entity e) {
 		m_e = e;
 		Controller cont = Controller.getInstance();
-		m_aut = cont.getAut(m_e.m_ID);
+		m_aut = cont.getAut(m_e.getID());
+		m_current_state = m_aut.m_initial_state;
+	}
+
+	public RefAutomata (Entity e, boolean idle) {
+		m_e = e;
+		Controller cont = Controller.getInstance();
+
+		if (idle) {
+			m_aut = cont.getIdleAutomata();
+		} else {
+			m_aut = cont.getAut(m_e.m_ID);
+		}
 		m_current_state = m_aut.m_initial_state;
 	}
 

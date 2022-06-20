@@ -11,7 +11,7 @@ import view.graphicEntity.EntityView;
 public abstract class Entity implements EntityInterface {
 
 	public int m_ID;
-	private int m_pv;
+	protected int m_pv;
 	protected Hitbox m_hitbox;
 	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
@@ -271,6 +271,10 @@ public abstract class Entity implements EntityInterface {
 
 	public EntityType getType () {
 		return m_entityProperties.getEntityType();
+	}
+
+	public int getID () {
+		return m_entityProperties.getID();
 	}
 
 	public LinkedList getTuileInterdite () {

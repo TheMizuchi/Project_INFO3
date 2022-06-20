@@ -1,8 +1,5 @@
 package model.entity;
 
-import model.Model;
-
-
 public enum EntityProperties {
 
 	COWBOY(0, 1, EntityType.ALLY), J1(1, 1, EntityType.ALLY), J2(2, 1, EntityType.ALLY), TORCH(3, 1, EntityType.ITEM),

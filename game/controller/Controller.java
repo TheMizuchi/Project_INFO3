@@ -25,6 +25,7 @@ public class Controller {
 	boolean m_keys[] = new boolean[256];
 	boolean m_keysPrev[] = new boolean[256];
 	IList m_keysToUpdate;
+	BotAutomata m_IdleAutomata;
 
 
 	private BotAutomata getAutFromFile (String filePath) throws Exception {
@@ -56,17 +57,17 @@ public class Controller {
 			BotAutomata moveBigSquare = getAutFromFile("resources/Automata/MoveBigSquare.gal");
 			BotAutomata moveOuestThenLeft = getAutFromFile("resources/Automata/MoveOuestThenLeft.gal");
 			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
-			BotAutomata idle = getAutFromFile("resources/Automata/Idle.gal");
+			m_IdleAutomata = getAutFromFile("resources/Automata/Idle.gal");
 
 			// Mobs
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
-			
+
 			insertAt(m_auts, EntityProperties.COWBOY.getID(), moveSquare);
 			insertAt(m_auts, EntityProperties.J1.getID(), moveKeys);
 			insertAt(m_auts, EntityProperties.J2.getID(), moveKeysArrows);
-			insertAt(m_auts, EntityProperties.BLOON.getID(), idle);
+			insertAt(m_auts, EntityProperties.BLOON.getID(), m_IdleAutomata);
 			insertAt(m_auts, EntityProperties.SKELETON.getID(), EntityTurnTest);
-			insertAt(m_auts, EntityProperties.BAT.getID(), EntityTurnTest);
+			insertAt(m_auts, EntityProperties.BAT.getID(), m_IdleAutomata);
 			insertAt(m_auts, EntityProperties.DART_MONKEY.getID(), EntityTurnTest);
 			insertAt(m_auts, EntityProperties.TORCH.getID(), torch);
 		}
@@ -90,6 +91,10 @@ public class Controller {
 		m_dirKeys[38] = true;
 		m_dirKeys[39] = true;
 		m_dirKeys[40] = true;
+	}
+
+	public BotAutomata getIdleAutomata () {
+		return m_IdleAutomata;
 	}
 
 	public void setModel () throws IOException, org.json.simple.parser.ParseException {
