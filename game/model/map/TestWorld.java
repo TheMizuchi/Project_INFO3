@@ -16,9 +16,8 @@ public class TestWorld {
 
 	public static void main (String[] args) throws ParseException, IOException {
 		Model w = new Model(null);
-		Map m = new Map(w, 1, 15);
+		Map m = w.getMap();
 		new Frame(w, m);
-		m.corridors();
 
 	}
 

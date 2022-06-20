@@ -288,7 +288,6 @@ public class Map {
 
 		Iterator iterPath = c.getPath().iterator();
 		Node n1 = (Node) iterPath.next();
-		Node begin = n1;
 
 		int posX = n1.centerX();
 		int posY = n1.centerY();
@@ -299,38 +298,22 @@ public class Map {
 			if (n1.centerX() == n2.centerX()) {
 
 				for (posY = n1.centerY(); posY != n2.centerY(); posY += Integer.signum(n2.centerY() - n1.centerY())) {
-					grid[posX][posY].setType(TileType.VOID);
+					grid[posX][posY].setType(TileType.FLOOR);
 				}
 			} else {
 
 				for (posX = n1.centerX(); posX != n2.centerX(); posX += Integer.signum(n2.centerX() - n1.centerX())) {
-					grid[posX][posY].setType(TileType.VOID);
+					grid[posX][posY].setType(TileType.FLOOR);
 				}
 
 			}
 			n1 = n2;
 
 		}
-		int distX = n1.centerX() - begin.centerX();
-		int distY = n1.centerY() - begin.centerY();
-		grid[posX][posY].setType(TileType.VOID);
+		grid[posX][posY].setType(TileType.FLOOR);
 	}
 
-	public void corridors () {
-		Graph g = new Graph(rooms);
-		g.delaunay();
-		Graph MST = g.min_spanning_tree();
-		MST.add_random_arc(g);
-
-		for (int i = 0; i < MST.ListNode.length(); i++) {
-			Node n = (Node) MST.ListNode.elementAt(i);
-			System.out.println("From node (" + n.centerX() + ", " + n.centerY() + ")");
-
-			for (int j = 0; j < n.numberArcs(); j++) {
-				Arc a = (Arc) n.getListArc().elementAt(j);
-				System.out.println("( " + a.first().centerX() + ", " + a.first().centerY() + ") to (" + a.second().centerX() + ", " + a.second().centerY() + ")");
-			}
-		}
+	public void corridors (Graph MST) {
 
 		IList nodes = MST.ListNode;
 		Iterator iterNode = nodes.iterator();
@@ -349,7 +332,7 @@ public class Map {
 					TileType tmp2 = grid[a.second().centerX()][a.second().centerY()].getType();
 					grid[a.first().centerX()][a.first().centerY()].setType(TileType.VOID);
 					grid[a.second().centerX()][a.second().centerY()].setType(TileType.VOID);
-					
+
 					Corridor c = new Corridor(a, rooms);
 
 					a.setDone();

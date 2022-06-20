@@ -20,9 +20,13 @@ public class Graph {
 		Iterator iterRoom = rooms.iterator();
 
 		while (iterRoom.hasNext()) {
+
 			r = (Room) iterRoom.next();
-			Node n = new Node(r);
-			ListNode.insertAt(0, n);
+
+			if (r.getUpperLeftX() != -1 && r.getUpperLeftY() != -1) {
+				Node n = new Node(r);
+				ListNode.insertAt(0, n);
+			}
 		}
 	}
 
@@ -142,15 +146,15 @@ public class Graph {
 			while (iterSup.hasNext()) {
 				tri = (Triangle) iterSup.next();
 
-				if (!tri.edgeShared(tri.AB, suppress,tri)) {
+				if (!tri.edgeShared(tri.AB, suppress, tri)) {
 					englobant.insertAt(0, tri.AB);
 				}
 
-				if (!tri.edgeShared(tri.AC, suppress,tri)) {
+				if (!tri.edgeShared(tri.AC, suppress, tri)) {
 					englobant.insertAt(0, tri.AC);
 				}
 
-				if (!tri.edgeShared(tri.BC, suppress,tri)) {
+				if (!tri.edgeShared(tri.BC, suppress, tri)) {
 					englobant.insertAt(0, tri.BC);
 				}
 			}
@@ -230,8 +234,11 @@ public class Graph {
 	Graph dijkstra (Node n) {
 		ArrayList vis = new ArrayList();
 
-		for (int i = 0; i < ListNode.length(); i++) {
-			vis.insertAt(i, ListNode.elementAt(i));
+		Iterator iterNode = ListNode.iterator();
+
+		while (iterNode.hasNext()) {
+			Node init = (Node) iterNode.next();
+			vis.insertAt(0, init);
 		}
 
 		ArrayList file = new ArrayList();
@@ -252,11 +259,12 @@ public class Graph {
 				}
 
 				IList ListArc = current.ListArc;
+				Iterator iterArc = ListArc.iterator();
 
-				for (int i = 0; i < ListArc.length(); i++) {
-					Arc a = (Arc) ListArc.elementAt(i);
+				while (iterArc.hasNext()) {
+					Arc a = (Arc) iterArc.next();
 
-					if (a.dest1 == current) {
+					if (a.dest1.mid_x == current.mid_x && a.dest1.mid_y == current.mid_y) {
 
 						if (vis.contains(a.dest2)) {
 							file.insertAt(ind, a.dest2);
@@ -265,14 +273,14 @@ public class Graph {
 
 						double dist = current.distance(a.dest2);
 
-						if (a.dest2 != n && a.dest2.dijk_proch == null) {
+						if (!(a.dest2.mid_x == n.mid_x && a.dest2.mid_y == n.mid_y) && a.dest2.dijk_proch == null) {
 							a.dest2.dijk_proch = current;
 							a.dest2.dijk_pds = current.dijk_pds + dist;
-						} else if (a.dest2 != n && a.dest2.dijk_pds > current.dijk_pds + dist) {
+						} else if (!(a.dest2.mid_x == n.mid_x && a.dest2.mid_y == n.mid_y) && a.dest2.dijk_pds > current.dijk_pds + dist) {
 							a.dest2.dijk_proch = current;
 							a.dest2.dijk_pds = current.dijk_pds + dist;
 						}
-					} else if (a.dest2 == current) {
+					} else if (a.dest2.mid_x == current.mid_x && a.dest2.mid_y == current.mid_y) {
 
 						if (vis.contains(a.dest1)) {
 							file.insertAt(ind, a.dest1);
@@ -280,14 +288,17 @@ public class Graph {
 						}
 						double dist = current.distance(a.dest1);
 
-						if (a.dest1 != n && a.dest1.dijk_proch == null) {
+						if (!(a.dest1.mid_x == n.mid_x && a.dest1.mid_y == n.mid_y) && a.dest1.dijk_proch == null) {
 							a.dest1.dijk_proch = current;
 							a.dest1.dijk_pds = current.dijk_pds + dist;
-						} else if (a.dest1 != n && a.dest1.dijk_pds > current.dijk_pds + dist) {
+						} else if (!(a.dest1.mid_x == n.mid_x && a.dest1.mid_y == n.mid_y) && a.dest1.dijk_pds > current.dijk_pds + dist) {
 							a.dest1.dijk_proch = current;
 							a.dest1.dijk_pds = current.dijk_pds + dist;
 						}
+					} else {
+						System.out.println("WTF?");
 					}
+
 				}
 			}
 		}
@@ -326,7 +337,7 @@ public class Graph {
 			Graph dijk = dijkstra(current);
 			double weight = dijk.weight_of_tree();
 
-			if (min > weight) {
+			if (min > weight && dijk.ListNode.length() == this.ListNode.length()) {
 				min = weight;
 				MST = dijk;
 			}
