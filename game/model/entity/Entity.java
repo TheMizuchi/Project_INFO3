@@ -10,7 +10,6 @@ import view.graphicEntity.EntityView;
 
 public abstract class Entity implements EntityInterface {
 
-	Model m_model;
 	public int m_ID;
 	private int m_pv;
 	protected Hitbox m_hitbox;
@@ -38,7 +37,7 @@ public abstract class Entity implements EntityInterface {
 		m_tangible = true;
 	}
 
-	public static Entity createEntity (Model m, int x, int y, EntityProperties entityProperties) {
+	public static Entity createEntity (int x, int y, EntityProperties entityProperties) {
 		Entity e = null;
 
 		switch (entityProperties) {

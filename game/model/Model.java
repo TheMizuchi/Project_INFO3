@@ -88,7 +88,7 @@ public class Model {
 	}
 
 	public Entity createEntity (int x, int y, EntityProperties entityProperties) {
-		Entity e = Entity.createEntity(this, x, y, entityProperties);
+		Entity e = Entity.createEntity(x, y, entityProperties);
 		m_listeEntity.insertAt(m_listeEntity.length(), e);
 
 		if (entityProperties == EntityProperties.J1) {
