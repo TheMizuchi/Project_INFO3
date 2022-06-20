@@ -21,7 +21,6 @@ public class Model {
 	private MyCanvas m_canvas;
 
 	// Variables locales
-	private int m_time_passed;
 	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
 	private Camera m_cam;

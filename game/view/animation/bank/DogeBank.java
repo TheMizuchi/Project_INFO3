@@ -5,23 +5,36 @@ import view.animation.Sprite;
 
 public class DogeBank extends EntityAnimationBank {
 
+	public Sprite angry;
+
+
 	private DogeBank () {
-		Sprite spriteFile = Sprite.loadSprite("resources/winchester-4x6.png", 4, 6);
+		Sprite spriteFile = Sprite.loadSprite("resources/BaseDoge.png", 1, 1);
 		loadBasicAnimation(spriteFile);
-		loadSpecificAnimation(spriteFile);
+		loadSpecificAnimation(null);
+	}
+
+
+	private static DogeBank INSTANCE = null;
+
+
+	public static DogeBank getInstance () {
+
+		if (INSTANCE == null) {
+			INSTANCE = new DogeBank();
+		}
+		return INSTANCE;
 	}
 
 	@Override
 	protected void loadBasicAnimation (Sprite spriteFile) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("DogeBank NYI");
-
+		this.idle = spriteFile;
+		this.walk = spriteFile;
 	}
 
 	@Override
 	protected void loadSpecificAnimation (Sprite spriteFile) {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("DogeBank NYI");
+		this.angry = Sprite.loadSprite("resources/AngryDoge.png", 1, 1);
 	}
 
 }
