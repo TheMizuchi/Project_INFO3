@@ -14,4 +14,11 @@ public class MysteryAnimation extends EntityAnimation {
 		super(AnimationBank.getAnimationBank(EntityProperties.MYSTERY.getID()));
 		this.mb = (MysteryBank) AnimationBank.getAnimationBank(EntityProperties.MYSTERY.getID());
 	}
+
+	@Override
+	public void setPosition (int x, int y, double scale) {
+		this.x = x;
+		this.y = y;
+		this.scale = scale / 6;
+	}
 }

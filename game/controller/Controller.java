@@ -74,7 +74,6 @@ public class Controller {
 			insertAt(m_auts, EntityProperties.DOGE.getID(), doge);
 			insertAt(m_auts, EntityProperties.MYSTERY.getID(), mystery);
 
-
 		}
 		catch (ParseException ex) {
 			throw new RuntimeException("Erreur de parsing");

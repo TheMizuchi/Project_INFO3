@@ -9,7 +9,7 @@ public class MysteryBank extends EntityAnimationBank {
 
 
 	private MysteryBank () {
-		Sprite spriteFile = Sprite.loadSprite("resources/Mystery.png", 1, 1);
+		Sprite spriteFile = Sprite.loadSprite("resources/MysteryMachine.png", 1, 1);
 		loadBasicAnimation(spriteFile);
 		loadSpecificAnimation(null);
 	}
