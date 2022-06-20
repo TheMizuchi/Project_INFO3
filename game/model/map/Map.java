@@ -359,6 +359,7 @@ public class Map {
 				}
 			}
 		}
+	}
 
 	public Room getSpawn () {
 		IList.Iterator iter = rooms.iterator();
