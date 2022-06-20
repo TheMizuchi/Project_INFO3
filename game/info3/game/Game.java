@@ -43,7 +43,10 @@ public class Game {
 
 	public static void main (String args[]) throws Exception {
 		
-		MenuFrame menuFrame = new MenuFrame();
+		new MenuFrame();
+		while(MenuFrame.getBoolFen() == true) {
+			
+		}
 
 		try {
 			System.out.println("Game starting...");

@@ -14,6 +14,7 @@ import info3.game.automata.ast.AST;
 import info3.game.automata.parser.AutomataParser;
 import info3.game.automata.parser.ParseException;
 import model.Model;
+import view.MenuFrame;
 
 
 public class Controller {
@@ -56,17 +57,23 @@ public class Controller {
 			BotAutomata moveOuestThenLeft = getAutFromFile("resources/Automata/MoveOuestThenLeft.gal");
 			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
 			BotAutomata idle = getAutFromFile("resources/Automata/Idle.gal");
+			
+			BotAutomata J1 = getAutFromFile(MenuFrame.getFileJ1());
+			BotAutomata J2 = getAutFromFile(MenuFrame.getFileJ2());
+			BotAutomata Bloon = getAutFromFile(MenuFrame.getFileBloon());
+			BotAutomata Bat = getAutFromFile(MenuFrame.getFileBat());
+			BotAutomata Skeleton = getAutFromFile(MenuFrame.getFileSkeleton());
 
 			// Mobs
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
 
 			insertAt(m_auts, Model.COWBOY_ID, moveSquare);
-			insertAt(m_auts, Model.J1_ID, moveKeys);
-			insertAt(m_auts, Model.J2_ID, moveKeysArrows);
-			insertAt(m_auts, Model.BLOON_ID, idle);
-			insertAt(m_auts, Model.SKELETON_ID, EntityTurnTest);
-			insertAt(m_auts, Model.BAT_ID, idle);
-			insertAt(m_auts, Model.DART_MONKEY_ID, moveSquare);
+			insertAt(m_auts, Model.J1_ID, J1);
+			insertAt(m_auts, Model.J2_ID, J2);
+			insertAt(m_auts, Model.BLOON_ID, Bloon);
+			insertAt(m_auts, Model.SKELETON_ID, Skeleton);
+			insertAt(m_auts, Model.BAT_ID, Bat);
+			insertAt(m_auts, Model.DART_MONKEY_ID, torch);
 			insertAt(m_auts, Model.TORCH_ID, torch);
 		}
 		catch (ParseException ex) {
