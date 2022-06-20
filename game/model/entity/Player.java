@@ -1,11 +1,16 @@
 package model.entity;
 
+import common.MyTimer;
+import common.TimerListener;
 import controller.RefAutomata;
 
 
 public abstract class Player extends Entity {
 
+	protected static final long POSSESSION_CD = 30;
+
 	final static double POSSESSION_RANGE = 10;
+	long m_possessionCD;
 	boolean m_possessing;
 
 
@@ -41,28 +46,37 @@ public abstract class Player extends Entity {
 
 	@Override
 	public void wizz () {
-		Mob closestEnnemy = (Mob) closest(EntityType.ENEMY);
-		Mob closestNeutral = (Mob) closest(EntityType.NEUTRAL);
 
-		Mob closestTarget = closestEnnemy;
+		if (m_possessionCD == 0) {
+			Mob closestEnnemy = (Mob) closest(EntityType.ENEMY);
+			Mob closestNeutral = (Mob) closest(EntityType.NEUTRAL);
 
-		if (closestTarget == null) {
-			closestTarget = closestNeutral;
-		} else {
+			Mob closestTarget = closestEnnemy;
 
-			if (closestNeutral != null) {
-				closestTarget = (distance(closestEnnemy) < distance(closestNeutral)) ? (closestEnnemy)
-						: (closestNeutral);
+			if (closestTarget == null) {
+				closestTarget = closestNeutral;
+			} else {
+
+				if (closestNeutral != null) {
+					closestTarget = (distance(closestEnnemy) < distance(closestNeutral)) ? (closestEnnemy)
+							: (closestNeutral);
+				}
+			}
+
+			if (closestTarget != null && distance(closestTarget) < POSSESSION_RANGE) {
+				closestTarget.devientGentil(m_entityProperties, m_vecDir.clone(), this);
+				m_automata = new RefAutomata(this, true);
+				m_possessing = true;
+				m_tangible = false;
+				hide();
+				setLight(closestTarget);
 			}
 		}
-
-		if (closestTarget != null && distance(closestTarget) < POSSESSION_RANGE) {
-			closestTarget.devientGentil(m_entityProperties, m_vecDir.clone(), this);
-			m_automata = new RefAutomata(this, true);
-			m_possessing = true;
-			m_tangible = false;
-		}
 	}
+
+	abstract void hide ();
+	abstract void show ();
+	abstract void setLight (Entity e);
 
 	public Player finPossession (int pv, Vector dir) {
 		m_pv = pv;
@@ -70,6 +84,40 @@ public abstract class Player extends Entity {
 		m_possessing = false;
 		m_automata = new RefAutomata(this);
 		m_tangible = true;
+		show();
+		new PossessionTimerCD(this);
+		setLight(this);
 		return null;
+	}
+
+
+	private class PossessionTimerCD implements TimerListener {
+
+		Player m_p;
+		long m_last;
+
+
+		PossessionTimerCD (Player p) {
+			m_p = p;
+			m_p.m_possessionCD = POSSESSION_CD * 1000;
+			MyTimer mt = MyTimer.getTimer();
+			m_last = System.currentTimeMillis();
+			mt.setTimer(100, this);
+		}
+
+		@Override
+		public void expired () {
+			long time = System.currentTimeMillis();
+			m_p.m_possessionCD -= time - m_last;
+
+			if (m_p.m_possessionCD <= 0) {
+				m_p.m_possessionCD = 0;
+			} else {
+				MyTimer mt = MyTimer.getTimer();
+				mt.setTimer(100, this);
+				m_last = time;
+			}
+		}
+
 	}
 }

@@ -20,4 +20,13 @@ public class Cowboy extends Player {
 	public void pop () {
 		m_cv.spin();
 	}
+
+	@Override
+	void hide () {}
+
+	@Override
+	void show () {}
+
+	@Override
+	void setLight (Entity e) {}
 }

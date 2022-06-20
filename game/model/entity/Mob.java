@@ -7,6 +7,8 @@ import controller.RefAutomata;
 
 public class Mob extends Entity {
 
+	protected static final long POSSESSION_DURATION = 10;
+
 	int m_PVMob;
 	EntityProperties m_OriginalEP;
 	Player m_p;
@@ -81,7 +83,7 @@ public class Mob extends Entity {
 			long time = System.currentTimeMillis();
 			m_mob.m_PossessionTime += time - m_last;
 
-			if (m_mob.m_PossessionTime > 60000 && m_mob.m_p != null) {
+			if (m_mob.m_PossessionTime > POSSESSION_DURATION * 1000 && m_mob.m_p != null) {
 				redevientMechant();
 			} else {
 				MyTimer mt = MyTimer.getTimer();
