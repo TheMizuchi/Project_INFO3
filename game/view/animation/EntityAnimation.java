@@ -1,12 +1,8 @@
 package view.animation;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import model.Model;
-import view.animation.Animation.AnimationListener;
-import view.animation.bank.AnimationBank;
 import view.animation.bank.EntityAnimationBank;
 
 

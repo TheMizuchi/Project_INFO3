@@ -1,8 +1,7 @@
 package view.animation;
 
-import model.Model;
+import model.entity.EntityProperties;
 import view.animation.bank.AnimationBank;
-import view.animation.bank.CowboyBank;
 import view.animation.bank.DogeBank;
 
 
@@ -12,7 +11,7 @@ public class DogeAnimation extends EntityAnimation {
 
 
 	public DogeAnimation () {
-		super(AnimationBank.getAnimationBank(Model.DOGE_ID));
-		this.db = (DogeBank) AnimationBank.getAnimationBank(Model.DOGE_ID);
+		super(AnimationBank.getAnimationBank(EntityProperties.DOGE.getID()));
+		this.db = (DogeBank) AnimationBank.getAnimationBank(EntityProperties.DOGE.getID());
 	}
 }

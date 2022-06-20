@@ -1,5 +1,6 @@
 package model.map.generator;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -20,11 +21,26 @@ public class JsonDecode {
 	Model model;
 
 
-	public JsonDecode (Model m, String jsonPath) throws ParseException, IOException {
+	public JsonDecode (Model m, String jsonPath) {
 		model = m;
-		fr = new FileReader(jsonPath);
+
+		try {
+			fr = new FileReader(jsonPath);
+		}
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		JSONParser parser = new JSONParser();
-		Object o = parser.parse(fr);
+		Object o = null;
+
+		try {
+			o = parser.parse(fr);
+		}
+		catch (IOException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		rooms = (JSONArray) o;
 		nbRooms = rooms.size();
 	}

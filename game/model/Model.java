@@ -1,15 +1,12 @@
 package model;
 
-import java.io.IOException;
-
-import org.json.simple.parser.ParseException;
-
 import controller.Controller;
 import edu.polytech.oop.collections.ArrayList;
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 import edu.polytech.oop.collections.LinkedList.Iterator;
 import model.entity.Entity;
+import model.entity.EntityProperties;
 import model.map.Map;
 import model.map.generator.JsonDecode;
 import model.map.generator.Room;
@@ -17,19 +14,6 @@ import view.MyCanvas;
 
 
 public class Model {
-
-	// Constante pour définir les ID des entités
-	public static final int COWBOY_ID = 0;
-	public static final int J1_ID = 1;
-	public static final int J2_ID = 2;
-	public static final int TORCH_ID = 3;
-	public static final int SKELETON_ID = 4;
-	public static final int BAT_ID = 5;
-	public static final int DART_MONKEY_ID = 6;
-	public static final int BLOON_ID = 7;
-	public static final int DOGE_ID = 8;
-
-	public static final int ENTITY_NUMBER = 9;
 
 	// Référence MVC
 	private static Model m_instance = null;
@@ -46,7 +30,7 @@ public class Model {
 	private JsonDecode jd;
 
 
-	private Model () throws ParseException, IOException {
+	public Model () {
 		String jsonPath = "resources/rooms.json";
 		jd = new JsonDecode(this, jsonPath);
 		rooms = new ArrayList();
@@ -70,7 +54,7 @@ public class Model {
 
 	}
 
-	public static Model getInstance () throws ParseException, IOException {
+	public static Model getInstance () {
 		if (m_instance == null)
 			m_instance = new Model();
 		return m_instance;
@@ -99,13 +83,13 @@ public class Model {
 		m_cam.update();
 	}
 
-	public Entity createEntity (int x, int y, int ID) {
-		Entity e = Entity.createEntity(x, y, ID);
+	public Entity createEntity (double x, double y, EntityProperties entityProperties) {
+		Entity e = Entity.createEntity(x, y, entityProperties);
 		m_listeEntity.insertAt(m_listeEntity.length(), e);
 
-		if (ID == J1_ID) {
+		if (entityProperties == EntityProperties.J1) {
 			m_cam.setj1(e);
-		} else if (ID == J2_ID) {
+		} else if (entityProperties == EntityProperties.J2) {
 			m_cam.setj2(e);
 		}
 		return e;

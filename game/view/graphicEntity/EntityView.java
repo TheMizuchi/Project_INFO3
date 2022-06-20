@@ -6,7 +6,6 @@ import model.entity.EntityInterface;
 import view.ViewElement;
 import view.Viewport;
 import view.animation.Animation;
-import view.animation.J1Animation;
 import view.animation.Animation.AnimationListener;
 import view.animation.EntityAnimation;
 

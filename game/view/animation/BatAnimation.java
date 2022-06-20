@@ -1,6 +1,7 @@
 package view.animation;
 
 import model.Model;
+import model.entity.EntityProperties;
 import view.animation.bank.AnimationBank;
 import view.animation.bank.BatBank;
 
@@ -11,8 +12,8 @@ public class BatAnimation extends EntityAnimation {
 
 
 	public BatAnimation () {
-		super(AnimationBank.getAnimationBank(Model.BAT_ID));
-		this.bb = (BatBank) AnimationBank.getAnimationBank(Model.BAT_ID);
+		super(AnimationBank.getAnimationBank(EntityProperties.BAT.getID()));
+		this.bb = (BatBank) AnimationBank.getAnimationBank(EntityProperties.BAT.getID());
 	}
 
 	public void walk () {

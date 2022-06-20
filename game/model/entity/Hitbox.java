@@ -27,8 +27,11 @@ public class Hitbox {
 
 	public void move (double dx, double dy) {
 
-		if (deplacementValide(m_x + dx, m_y + dy)) {
+		if (deplacementValide(m_x + dx, m_y)) {
 			m_x += dx;
+		}
+
+		if (deplacementValide(m_x, m_y + dy)) {
 			m_y += dy;
 		}
 	}
@@ -133,13 +136,7 @@ public class Hitbox {
 	}
 
 	public boolean pointInHitbox (double x, double y) {
-		boolean bool = ((x > m_x) && (m_x + m_largeur > x)) && ((y > m_y) && (m_y + m_hauteur > y));
-
-		if (bool) {
-			double alpha = m_x + m_largeur;
-			double beta = m_y + m_hauteur;
-		}
-		return bool;
+		return ((x > m_x) && (m_x + m_largeur > x)) && ((y > m_y) && (m_y + m_hauteur > y));
 	}
 
 }
