@@ -17,6 +17,7 @@ public class J2Animation extends EntityAnimation {
 	public J2Animation () {
 		super(AnimationBank.getAnimationBank(EntityProperties.J2.getID()));
 		this.j2b = (J2Bank) AnimationBank.getAnimationBank(EntityProperties.J2.getID());
+		this.show = true;
 	}
 
 	public void show () {

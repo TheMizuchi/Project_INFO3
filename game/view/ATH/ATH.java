@@ -17,8 +17,8 @@ public class ATH extends ViewElement {
 		super(0, 0, 1);
 		this.j1 = j1;
 		this.j2 = j2;
-		this.hpj1 = new HealthBar(260, 10, Color.red);
-		this.hpj2 = new HealthBar(1160, 10, Color.blue);
+		this.hpj1 = new HealthBar(50, 10, Color.red);
+		this.hpj2 = new HealthBar(1370, 10, Color.blue);
 	}
 
 
