@@ -64,8 +64,7 @@ public class Controller {
 			BotAutomata Bat = getAutFromFile(MenuFrame.getFileBat());
 			BotAutomata Skeleton = getAutFromFile(MenuFrame.getFileSkeleton());
 			BotAutomata doge = getAutFromFile(MenuFrame.getFileDoge());
-
-			BotAutomata mystery = getAutFromFile("resources/Automata/Mystery.gal");
+			BotAutomata mystery = getAutFromFile(MenuFrame.getFileMystery());
 
 			// Mobs
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
