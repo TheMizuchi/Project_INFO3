@@ -57,19 +57,18 @@ public class Controller {
 			BotAutomata moveOuestThenLeft = getAutFromFile("resources/Automata/MoveOuestThenLeft.gal");
 			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
 			BotAutomata idle = getAutFromFile("resources/Automata/Idle.gal");
-			
+
 			BotAutomata J1 = getAutFromFile(MenuFrame.getFileJ1());
 			BotAutomata J2 = getAutFromFile(MenuFrame.getFileJ2());
 			BotAutomata Bloon = getAutFromFile(MenuFrame.getFileBloon());
 			BotAutomata Bat = getAutFromFile(MenuFrame.getFileBat());
 			BotAutomata Skeleton = getAutFromFile(MenuFrame.getFileSkeleton());
-			
-			BotAutomata doge = getAutFromFile("resources/Automata/Doge.gal");
+			BotAutomata doge = getAutFromFile(MenuFrame.getFileDoge());
+
 			BotAutomata mystery = getAutFromFile("resources/Automata/Mystery.gal");
 
 			// Mobs
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
-
 
 			insertAt(m_auts, EntityProperties.COWBOY.getID(), moveSquare);
 			insertAt(m_auts, EntityProperties.J1.getID(), J1);
