@@ -17,6 +17,7 @@ public class J1Animation extends EntityAnimation {
 	public J1Animation () {
 		super(AnimationBank.getAnimationBank(EntityProperties.J1.getID()));
 		this.j1b = (J1Bank) AnimationBank.getAnimationBank(EntityProperties.J1.getID());
+		this.show = true;
 	}
 
 	public void show () {
