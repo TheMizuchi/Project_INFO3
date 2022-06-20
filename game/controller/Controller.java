@@ -65,8 +65,8 @@ public class Controller {
 			insertAt(m_auts, Model.J2_ID, moveKeysArrows);
 			insertAt(m_auts, Model.BLOON_ID, idle);
 			insertAt(m_auts, Model.SKELETON_ID, EntityTurnTest);
-			insertAt(m_auts, Model.BAT_ID, idle);
-			insertAt(m_auts, Model.DART_MONKEY_ID, moveSquare);
+			insertAt(m_auts, Model.BAT_ID, EntityTurnTest);
+			insertAt(m_auts, Model.DART_MONKEY_ID, EntityTurnTest);
 			insertAt(m_auts, Model.TORCH_ID, torch);
 		}
 		catch (ParseException ex) {
