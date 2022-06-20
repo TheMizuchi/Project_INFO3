@@ -3,6 +3,7 @@ package view.graphicEntity;
 import model.entity.EntityInterface;
 import view.animation.SkeletonAnimation;
 
+
 public class SkeletonView extends EntityView {
 
 	SkeletonAnimation a;

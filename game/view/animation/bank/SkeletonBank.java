@@ -2,10 +2,12 @@ package view.animation.bank;
 
 import view.animation.Sprite;
 
+
 public class SkeletonBank extends EntityAnimationBank {
-	
+
 	public Sprite attack;
-	
+
+
 	private SkeletonBank () {
 		loadBasicAnimation(null);
 		loadSpecificAnimation(null);
@@ -29,14 +31,14 @@ public class SkeletonBank extends EntityAnimationBank {
 		Sprite spriteFileWalk = Sprite.loadSprite("resources/Skeleton Walk.png", 1, 13);
 		this.idle = spriteFileIdle;
 		this.walk = spriteFileWalk;
-		
+
 	}
 
 	@Override
 	protected void loadSpecificAnimation (Sprite spriteFile) {
 		Sprite spriteFileAttack = Sprite.loadSprite("resources/Skeleton Attack.png", 1, 18);
 		this.attack = spriteFileAttack;
-		
+
 	}
 
 }

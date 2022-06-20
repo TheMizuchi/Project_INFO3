@@ -1,12 +1,12 @@
 package model.entity;
 
 import view.MyCanvas;
-import view.graphicEntity.SkeletonView;
+import view.graphicEntity.DogeView;
 
 
 public class Doge extends Mob {
 
-	DogeView m_sv;
+	DogeView m_dv;
 
 
 	public Doge (double x, double y) {

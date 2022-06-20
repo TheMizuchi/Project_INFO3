@@ -1,6 +1,5 @@
 package view.animation.bank;
 
-import model.Model;
 import model.entity.EntityProperties;
 
 /* Singleton définissant les banques d'animations pour chacune des entités */
@@ -21,6 +20,7 @@ public class AnimationBank {
 		EAB[EntityProperties.BAT.getID()] = BatBank.getInstance();
 		//		EAB[DARTMONKEYID] = new DartMonkeyBank();
 		EAB[EntityProperties.TORCH.getID()] = TorchBank.getInstance();
+		EAB[EntityProperties.DOGE.getID()] = DogeBank.getInstance();
 
 	}
 
