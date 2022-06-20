@@ -89,7 +89,7 @@ public class Game {
 		m_elapsedUpdate = 0;
 		m_m = Model.getInstance();
 		m_listener.m_cont.setModel();
-
+		my_canvas.initATH(null, null);//Model.getj1(), Model.getj2()); // à remplacer quand les méthodes seront créées
 		System.out.println("  - creating frame...");
 		m_frame = m_canvas.createFrame(d);
 		System.out.println("  - setting up the frame...");
