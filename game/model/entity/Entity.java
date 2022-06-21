@@ -30,7 +30,7 @@ public abstract class Entity implements EntityInterface {
 		m_entityProperties = ep;
 		m_ID = ep.getID();
 		m_pv = ep.getInitialPv();
-		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this);
+		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this , false);
 		m_automata = new RefAutomata(this);
 		m_blockInterdit = new LinkedList();
 		m_blockInterdit.insertAt(0, TileType.WALL);
@@ -271,8 +271,8 @@ public abstract class Entity implements EntityInterface {
 	public double distance (Entity e) {
 		Hitbox h1 = this.m_hitbox;
 		Hitbox h2 = e.m_hitbox;
-		double x = h1.getX() - h2.getX();
-		double y = h1.getY() - h2.getY();
+		double x = h1.getCenterX() - h2.getCenterX();
+		double y = h1.getCenterY() - h2.getCenterY();
 		return Math.sqrt(x * x + y * y);
 	}
 

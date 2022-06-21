@@ -10,77 +10,111 @@ import model.map.TileType;
 
 public class Hitbox {
 
-	private double m_x1;
-	private double m_y1;
-	private double m_x2;
-	private double m_y2;
+	private Point m_p1;
+	private Point m_p2;
+	private Point m_p3;
+	private Point m_p4;
 	private Entity m_e;
-	
-	private boolean m_hit ; 
+
+	private boolean m_hit;
 
 
-	public Hitbox (double x, double y, double x2, double y2, Entity e) {
-		m_x1 = x;
-		m_y1 = y;
-		m_x2 = x2;
-		m_y2 = y2;
+	public Hitbox (double x, double y, double lar, double haut, Entity e, boolean hit) {
+		m_p1 = new Point(x, y);
+		m_p2 = new Point(x + lar, y);
+		m_p3 = new Point(x + lar, y + haut);
+		m_p4 = new Point(x, y + haut);
+
 		m_e = e;
-		m_hit =false;
+		m_hit = hit;
+	}
+
+	public Hitbox (Point p1, Point p2, Point p3, Point p4, Entity e, boolean hit) {
+		m_p1 = p1;
+		m_p2 = p2;
+		m_p3 = p3;
+		m_p4 = p4;
+		m_e = e;
+		m_hit = hit;
 	}
 
 	public void move (double dx, double dy) {
+		Point new_p1_x = new Point(m_p1.getX() + dx, m_p1.getY());
+		Point new_p2_x = new Point(m_p2.getX() + dx, m_p2.getY());
+		Point new_p3_x = new Point(m_p3.getX() + dx, m_p3.getY());
+		Point new_p4_x = new Point(m_p4.getX() + dx, m_p4.getY());
 
-		if (deplacementValide(m_x + dx, m_y)) {
-			m_x += dx;
+		if (deplacementValide(new_p1_x, new_p2_x, new_p3_x, new_p3_x)) {
+			m_p1 = new_p1_x;
+			m_p2 = new_p2_x;
+			m_p3 = new_p3_x;
+			m_p4 = new_p4_x;
 		}
 
-		if (deplacementValide(m_x, m_y + dy)) {
-			m_y += dy;
+		Point new_p1_y = new Point(m_p1.getX(), m_p1.getY() + dy);
+		Point new_p2_y = new Point(m_p2.getX(), m_p2.getY() + dy);
+		Point new_p3_y = new Point(m_p3.getX(), m_p3.getY() + dy);
+		Point new_p4_y = new Point(m_p4.getX(), m_p4.getY() + dy);
+
+		if (deplacementValide(new_p1_y, new_p2_y, new_p3_y, new_p3_y)) {
+			m_p1 = new_p1_y;
+			m_p2 = new_p2_y;
+			m_p3 = new_p3_y;
+			m_p4 = new_p4_y;
 		}
 	}
 
-	public boolean colisionWithType (double x, double y, TileType type) {
-		Case[][] grid = Model.getInstance().getMap().getCases();
-
-		if (grid[(int) x][(int) y].getType() == type) {
-			return true;
-		}
-
-		if (grid[(int) (x + m_largeur)][(int) y].getType() == type) {
-			return true;
-		}
-
-		if (grid[(int) x][(int) (y + m_hauteur)].getType() == type) {
-			return true;
-		}
-
-		if (grid[(int) (x + m_largeur)][(int) (y + m_hauteur)].getType() == type) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean deplacementValide (double x, double y) {
+	private boolean deplacementValide (Point new_p1, Point new_p2, Point new_p3, Point new_p4) {
 		LinkedList tuileInterdit = m_e.getTuileInterdite();
 		Iterator it = tuileInterdit.iterator();
 
 		while (it.hasNext()) {
+			TileType tile = (TileType) it.next();
 
-			if (colisionWithType(x, y, (TileType) it.next())) {
+			if (isInsideType(new_p1, tile)) {
+				return false;
+			}
+
+			if (isInsideType(new_p2, tile)) {
+				return false;
+			}
+
+			if (isInsideType(new_p3, tile)) {
+				return false;
+			}
+
+			if (isInsideType(new_p4, tile)) {
 				return false;
 			}
 		}
 
 		if (m_e.isTanguible()) {
 
-			if (contactEntity(x, y)) {
+			if (contactEntity(new_p1)) {
+				return false;
+			}
+
+			if (contactEntity(new_p2)) {
+				return false;
+			}
+
+			if (contactEntity(new_p3)) {
+				return false;
+			}
+
+			if (contactEntity(new_p4)) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	public boolean contactEntity (double x, double y) {
+	static public boolean isInsideType (Point p, TileType type) {
+		Case[][] grid = Model.getInstance().getMap().getCases();
+		return grid[(int) p.getX()][(int) p.getY()].getType() == type;
+	}
+
+	public boolean contactEntity (Point p) { // le point est dans la hit box d'une entité
 		IList list = Model.getlistEntity();
 		IList.Iterator it = list.iterator();
 
@@ -89,7 +123,7 @@ public class Hitbox {
 
 			if (!e.equals(m_e) && e.isTanguible()) {
 
-				if (this.conflitHitbox(x, y, (e).getHibox())) {
+				if (e.getHibox().pointInHitbox(p.getX(), p.getY())) {
 					return true;
 				}
 			}
@@ -97,57 +131,38 @@ public class Hitbox {
 		return false;
 	}
 
-	public void move (EntityInterface e) {
-		m_x = e.getPosX();
-		m_y = e.getPosY();
-	}
-
-	public double getX () {
-		return m_x;
-	}
-
-	public void setX (double x) {
-		m_x = x;
+	public void move (Entity e) {
+		m_p1 = e.m_hitbox.m_p1;
+		m_p2 = e.m_hitbox.m_p2;
+		m_p3 = e.m_hitbox.m_p3;
+		m_p4 = e.m_hitbox.m_p4;
 	}
 
 	public double getCenterX () {
-		return m_x + (m_largeur / 2);
-	}
-
-	public double getY () {
-		return m_y;
-	}
-
-	public void setY (double y) {
-		m_y = y;
+		return (m_p1.getX() - m_p2.getX()) / 2;
 	}
 
 	public double getCenterY () {
-		return m_y + (m_hauteur / 2);
-	}
-
-	public double getLargeur () {
-		return m_largeur;
-	}
-
-	public double getHauteur () {
-		return m_hauteur;
-	}
-
-	public boolean conflitHitbox (double x, double y, Hitbox hitb) {
-		double dx = (m_x - x) * 1;
-		double dy = (m_y - y) * 1;
-
-		double hitx = hitb.getX();
-		double hity = hitb.getY();
-		double hitxl = hitx + hitb.getLargeur();
-		double hityh = hity + hitb.getHauteur();
-
-		return (this.pointInHitbox(hitx + dx, hity + dy) || this.pointInHitbox(hitxl + dx, hity + dy) || this.pointInHitbox(hitx + dx, hityh + dy) || this.pointInHitbox(hitxl + dx, hityh + dy) || hitb.pointInHitbox(m_x - dx, m_y - dy) || hitb.pointInHitbox(m_x - dx + m_largeur, m_y - dy) || hitb.pointInHitbox(m_x - dx, m_y + m_hauteur - dy) || hitb.pointInHitbox(m_x + m_largeur - dx, m_y + m_hauteur - dy));
+		return (m_p1.getY() - m_p3.getY()) / 2;
 	}
 
 	public boolean pointInHitbox (double x, double y) {
-		return ((x >= m_x) && (m_x + m_largeur >= x)) && ((y >= m_y) && (m_y + m_hauteur >= y));
+		Point p = new Point(x, y);
+		return (dansLeTriangle(p, m_p1, m_p2, m_p4) || dansLeTriangle(p, m_p2, m_p3, m_p4));
+	}
+
+	boolean dansLeTriangle (Point pt, Point v1, Point v2, Point v3) {
+		boolean b1, b2, b3;
+
+		b1 = barycentre(pt, v1, v2) < 0;
+		b2 = barycentre(pt, v2, v3) < 0;
+		b3 = barycentre(pt, v3, v1) < 0;
+
+		return ((b1 == b2) && (b2 == b3));
+	}
+
+	double barycentre (Point p1, Point p2, Point p3) {
+		return (p1.getX() - p3.getX()) * (p2.getY() - p3.getY()) - (p2.getX() - p3.getX()) * (p1.getY() - p3.getY());
 	}
 
 }

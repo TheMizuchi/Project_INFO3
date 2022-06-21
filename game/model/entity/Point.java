@@ -10,5 +10,13 @@ public class Point {
 		m_x = x; 
 		m_y = y;	
 	}
+	
+	public double getX() {
+		return m_x ; 
+	}
+	
+	public double getY() {
+		return m_y;
+	}
 
 }
