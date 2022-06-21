@@ -10,6 +10,7 @@ public class CowboyBank extends EntityAnimationBank {
 	// Liste des animations spécifique au cowboy
 	public Sprite spin;
 
+
 	private CowboyBank () {
 		Sprite spriteFile = Sprite.loadSprite("resources/winchester-4x6.png", 4, 6);
 		loadBasicAnimation(spriteFile);

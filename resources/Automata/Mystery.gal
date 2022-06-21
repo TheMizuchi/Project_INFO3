@@ -1,0 +1,5 @@
+MoveFoward (Init) {
+	* (Init):
+		| Cell ? Move(F) : (Init)
+		| True ? Turn : (Init)
+}

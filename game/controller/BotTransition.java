@@ -21,7 +21,7 @@ public class BotTransition {
 	public BotState eval (Entity e) {
 		double proba = 100 * Math.random();
 
-		if (m_cond.eval()) {
+		if (m_cond.eval(e)) {
 			ICollection.Iterator iter = m_actions.iterator();
 			BotAction act;
 

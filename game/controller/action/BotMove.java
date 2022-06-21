@@ -50,7 +50,6 @@ public class BotMove extends BotAction {
 			case "NE":
 				m_angle += ang;
 			case "E":
-
 				break;
 		}
 	}

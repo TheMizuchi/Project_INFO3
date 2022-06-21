@@ -16,8 +16,9 @@ public class BloonBank extends EntityAnimationBank {
 
 	private BloonBank () {
 		BufferedImage[] images = new BufferedImage[6];
-		for(int i = 0; i<6; i++) {
-			images[i] = loadImages("resources/green-balloon/"+((int)(i+1))+".png");
+
+		for (int i = 0; i < 6; i++) {
+			images[i] = loadImages("resources/green-balloon/" + ((int) (i + 1)) + ".png");
 		}
 
 		Sprite spriteFile = new Sprite(images);
