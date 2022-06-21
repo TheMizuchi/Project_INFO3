@@ -16,7 +16,6 @@ public abstract class Player extends Entity {
 		double speedX = super.m_vecDir.getX() * ENTITY_MAX_SPEED;
 		double speedY = super.m_vecDir.getY() * ENTITY_MAX_SPEED;
 		
-		
 		if (Camera.getBlock()) {
 			Entity autreJ = autreJ();
 			double m_angle = m_vecDir.getAngle();

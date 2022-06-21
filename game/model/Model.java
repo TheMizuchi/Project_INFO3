@@ -122,7 +122,7 @@ public class Model {
 		boolean correctG = false;
 		Graph MST = null;
 		Graph g = null;
-		int nb_gen =0;
+		int nb_gen = 0;
 
 		while (!correctG) {
 			m_map = new Map(this, 1, 15);
@@ -139,14 +139,16 @@ public class Model {
 				if (n.getListArc().length() < 2) {
 					correctG = false;
 					IList.Iterator iterRoom = rooms.iterator();
-					while(iterRoom.hasNext()) {
+
+					while (iterRoom.hasNext()) {
 						Room r = (Room) iterRoom.next();
 						r.setUpperLeft(-1, -1);
 					}
 					break;
 				}
 			}
-			if(correctG) {
+
+			if (correctG) {
 				MST = g.min_spanning_tree();
 				MST.add_random_arc(g);
 				iterNode = MST.ListNode.iterator();
@@ -157,7 +159,8 @@ public class Model {
 					if (n.getListArc().length() < 1) {
 						correctG = false;
 						IList.Iterator iterRoom = rooms.iterator();
-						while(iterRoom.hasNext()) {
+
+						while (iterRoom.hasNext()) {
 							Room r = (Room) iterRoom.next();
 							r.setUpperLeft(-1, -1);
 						}
@@ -166,7 +169,7 @@ public class Model {
 				}
 			}
 		}
-		System.out.println("nb generate = "+nb_gen);
+		System.out.println("nb generate = " + nb_gen);
 		m_map.corridors(MST);
 
 		m_canvas.createMapView(m_map.getCases());
