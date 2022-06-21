@@ -56,13 +56,13 @@ public class Controller {
 			m_IdleAutomata = getAutFromFile("resources/Automata/Idle.gal");
 
 			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
-			BotAutomata doge = getAutFromFile("resources/Automata/Doge.gal");
-			BotAutomata mystery = getAutFromFile("resources/Automata/Mystery.gal");
+			BotAutomata doge = getAutFromFile(MenuFrame.getFileDoge());
+			BotAutomata mystery = getAutFromFile(MenuFrame.getFileMystery());
 
 			// Mobs
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
-
 			insertAt(m_auts, EntityProperties.COWBOY.getID(), m_IdleAutomata);
+
 			insertAt(m_auts, EntityProperties.J1.getID(), J1);
 			insertAt(m_auts, EntityProperties.J2.getID(), J2);
 			insertAt(m_auts, EntityProperties.BLOON.getID(), Bloon);

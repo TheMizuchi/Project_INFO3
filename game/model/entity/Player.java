@@ -71,6 +71,7 @@ public abstract class Player extends Entity {
 				hide();
 				setCam(closestTarget);
 
+				// On arrete l'animation de déplacement s'il y en a une
 				if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
 					m_ev.walk();
 				}
@@ -91,8 +92,10 @@ public abstract class Player extends Entity {
 		new PossessionTimerCD(this);
 		setCam(this);
 		new IntangibleTimer(this);
-		m_hitbox.move(m.getPosX() - getPosX(), m.getPosY() - getPosY());
+		m_hitbox.setX(m.m_hitbox.getX());
+		m_hitbox.setY(m.m_hitbox.getY());
 
+		// Si besoin on lance l'animation de déplacement
 		if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
 			m_ev.walk();
 		}

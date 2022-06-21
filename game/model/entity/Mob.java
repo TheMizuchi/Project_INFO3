@@ -44,6 +44,7 @@ public class Mob extends Entity {
 
 	public void devientGentil (EntityProperties ep, Vector PlayerDir, Player p) {
 
+		// On arrete l'animation de déplacement s'il y en a une
 		if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
 			m_ev.walk();
 		}
@@ -55,6 +56,7 @@ public class Mob extends Entity {
 		m_vecDir = PlayerDir;
 		m_p = p;
 
+		// Si besoin on lance l'animation de déplacement
 		if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
 			m_ev.walk();
 		}
