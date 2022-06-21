@@ -2,6 +2,7 @@ package controller.condition;
 
 import controller.Controller;
 import controller.ICondition;
+import model.entity.Entity;
 
 
 public class BotKey implements ICondition {
@@ -31,7 +32,7 @@ public class BotKey implements ICondition {
 	}
 
 	@Override
-	public boolean eval () {
+	public boolean eval (Entity e) {
 		Controller surveillant = Controller.getInstance();
 
 		if (surveillant.isdir(m_c) && (surveillant.getKey(m_c) ^ surveillant.getKeyPrev(m_c))) {

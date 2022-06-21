@@ -1,6 +1,7 @@
 package controller.condition;
 
 import controller.ICondition;
+import model.entity.Entity;
 
 
 public class BotMyDir implements ICondition {
@@ -13,7 +14,7 @@ public class BotMyDir implements ICondition {
 	}
 
 	@Override
-	public boolean eval () {
+	public boolean eval (Entity e) {
 		throw new RuntimeException("NYI");
 	}
 
