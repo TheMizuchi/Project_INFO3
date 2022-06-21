@@ -35,8 +35,8 @@ public class MenuFrame extends JFrame implements ActionListener {
 	JFileChooser file_Doge;
 	JFileChooser file_Mystery;
 
-	static String fileJ1 = "resources/Automata/Idle.gal";
-	static String fileJ2 = "resources/Automata/Idle.gal";
+	static String fileJ1 = "resources/Automata/MoveKeys.gal";
+	static String fileJ2 = "resources/Automata/MoveKeysArrows.gal";
 	static String fileBloon = "resources/Automata/Idle.gal";
 	static String fileBat = "resources/Automata/Idle.gal";
 	static String fileSkeleton = "resources/Automata/Idle.gal";
