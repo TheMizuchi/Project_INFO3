@@ -57,7 +57,7 @@ public class Mob extends Entity {
 		if (m_PossessionTime > 500 && m_p != null) {
 			m_entityProperties = m_OriginalEP;
 			m_automata = new RefAutomata(this);
-			m_p = m_p.finPossession(m_pv, m_vecDir);
+			m_p = m_p.finPossession(this, m_pv, m_vecDir);
 			m_vecDir = new Vector();
 			m_pv = m_PVMob;
 		}

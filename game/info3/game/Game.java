@@ -42,10 +42,11 @@ public class Game {
 
 
 	public static void main (String args[]) throws Exception {
-		
+
 		new MenuFrame();
-		while(MenuFrame.getBoolFen() == true) {
-			
+
+		while (MenuFrame.getBoolFen() == true) {
+
 		}
 
 		try {

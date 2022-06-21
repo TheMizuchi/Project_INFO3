@@ -7,7 +7,7 @@ import controller.RefAutomata;
 
 public abstract class Player extends Entity {
 
-	protected static final long POSSESSION_CD = 30;
+	protected static final long POSSESSION_CD = 3;
 
 	final static double POSSESSION_RANGE = 10;
 	long m_possessionCD;
@@ -78,7 +78,7 @@ public abstract class Player extends Entity {
 	abstract void show ();
 	abstract void setLight (Entity e);
 
-	public Player finPossession (int pv, Vector dir) {
+	public Player finPossession (Mob m, int pv, Vector dir) {
 		m_pv = pv;
 		m_vecDir = dir;
 		m_possessing = false;
@@ -87,9 +87,40 @@ public abstract class Player extends Entity {
 		show();
 		new PossessionTimerCD(this);
 		setLight(this);
+		new IntangibleTimer(this);
+		m_hitbox.move(m.getPosX() - getPosX(), m.getPosY() - getPosY());
 		return null;
 	}
 
+
+	private class IntangibleTimer implements TimerListener {
+
+		Player m_p;
+		long m_init;
+
+
+		IntangibleTimer (Player p) {
+			m_p = p;
+			m_p.m_possessionCD = POSSESSION_CD * 1000;
+			m_p.m_tangible = false;
+			m_init = System.currentTimeMillis();
+			MyTimer mt = MyTimer.getTimer();
+			mt.setTimer(100, this);
+		}
+
+		@Override
+		public void expired () {
+
+			if (!m_p.m_hitbox.contactEntity(m_p.m_hitbox.getX(), m_p.m_hitbox.getY())) {
+				m_p.m_tangible = true;
+			} else {
+				MyTimer mt = MyTimer.getTimer();
+				mt.setTimer(100, this);
+			}
+
+		}
+
+	}
 
 	private class PossessionTimerCD implements TimerListener {
 
