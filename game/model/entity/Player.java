@@ -21,7 +21,7 @@ public abstract class Player extends Entity {
 			double m_angle = m_vecDir.getAngle();
 			if (m_angle < Math.PI && autreJ.m_hitbox.getY() < m_hitbox.getY())
 				return;
-			if (m_angle > Math.PI && autreJ.m_hitbox.getY() < m_hitbox.getY())
+			if (m_angle > Math.PI && autreJ.m_hitbox.getY() > m_hitbox.getY())
 				return;
 			if (m_angle > Math.PI/2 && m_angle < 3*Math.PI/2  && autreJ.m_hitbox.getX() > m_hitbox.getX())
 				return;
