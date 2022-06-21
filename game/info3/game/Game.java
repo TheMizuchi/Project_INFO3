@@ -32,6 +32,7 @@ import common.MyTimer;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 import model.Model;
+import view.MenuFrame;
 import view.MyCanvas;
 
 
@@ -41,6 +42,11 @@ public class Game {
 
 
 	public static void main (String args[]) throws Exception {
+		
+		new MenuFrame();
+		while(MenuFrame.getBoolFen() == true) {
+			
+		}
 
 		try {
 			System.out.println("Game starting...");

@@ -70,24 +70,32 @@ public class Triangle {
 	}
 
 	boolean containsPoint (Node n) {
-		return distance(centerX, centerY, n.mid_x, n.mid_y) < radius;
+		return ((A.mid_x * (B.mid_y - C.mid_y) + B.mid_x * (C.mid_y - A.mid_y) + C.mid_x * (A.mid_y - B.mid_y)) != 0) && (distance(centerX, centerY, n.mid_x, n.mid_y) < radius);
 	}
 
-	boolean edgeShared (Arc seg, IList triangles) {
+	boolean edgeShared (Arc seg, IList triangles, Triangle current) {
+		Node n1 = seg.first();
+		Node n2 = seg.second();
+		boolean sameA = false;
+		boolean sameB = false;
+		boolean sameC = false;
 
 		for (int i = 0; i < triangles.length(); i++) {
 			Triangle tri = (Triangle) triangles.elementAt(i);
 
-			if (seg.dest1 == tri.AB.dest1 && seg.dest2 == tri.AB.dest2 || seg.dest1 == tri.AB.dest2 && seg.dest2 == tri.AB.dest1) {
-				return true;
-			}
+			if (tri != current) {
 
-			if (seg.dest1 == tri.AC.dest1 && seg.dest2 == tri.AC.dest2 || seg.dest1 == tri.AC.dest2 && seg.dest2 == tri.AC.dest1) {
-				return true;
-			}
+				Node A = tri.A;
+				Node B = tri.B;
+				Node C = tri.C;
 
-			if (seg.dest1 == tri.BC.dest1 && seg.dest2 == tri.BC.dest2 || seg.dest1 == tri.BC.dest2 && seg.dest2 == tri.BC.dest1) {
-				return true;
+				sameA = (A.mid_x == n1.mid_x && A.mid_y == n1.mid_y) || (A.mid_x == n2.mid_x && A.mid_y == n2.mid_y);
+				sameB = (B.mid_x == n1.mid_x && B.mid_y == n1.mid_y) || (B.mid_x == n2.mid_x && B.mid_y == n2.mid_y);
+				sameC = (C.mid_x == n1.mid_x && C.mid_y == n1.mid_y) || (C.mid_x == n2.mid_x && C.mid_y == n2.mid_y);
+
+				if (sameA && sameB || sameA && sameC || sameB && sameC) {
+					return true;
+				}
 			}
 		}
 		return false;

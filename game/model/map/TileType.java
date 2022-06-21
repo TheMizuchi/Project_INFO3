@@ -5,7 +5,7 @@ import model.entity.EntityProperties;
 
 public enum TileType {
 
-	WALL(0, 0, null), FLOOR(1, 1, null), COWBOY(EntityProperties.COWBOY.spawnerID(), 1, EntityProperties.COWBOY),
+	VOID(-1, 0, null), WALL(0, 0, null), FLOOR(1, 1, null), COWBOY(EntityProperties.COWBOY.spawnerID(), 1, EntityProperties.COWBOY),
 	J1(EntityProperties.J1.spawnerID(), 1, EntityProperties.J1),
 	J2(EntityProperties.J2.spawnerID(), 1, EntityProperties.J2),
 	TORCH(EntityProperties.TORCH.spawnerID(), 1, EntityProperties.TORCH),

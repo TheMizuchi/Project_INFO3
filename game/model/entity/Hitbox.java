@@ -37,7 +37,7 @@ public class Hitbox {
 	}
 
 	public boolean colisionWithType (double x, double y, TileType type) {
-		Case[][] grid = Model.getMap().getCases();
+		Case[][] grid = Model.getInstance().getMap().getCases();
 
 		if (grid[(int) x][(int) y].getType() == type) {
 			return true;
