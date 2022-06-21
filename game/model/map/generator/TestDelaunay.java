@@ -102,6 +102,19 @@ public class TestDelaunay {
 			}
 		}
 		System.out.println("Test MST Algorithm OK.");
+		System.out.println("Testing Random arc add...");
+
+		MST.add_random_arc(g);
+
+		for (int i = 0; i < 12; i++) {
+			Node n = (Node) MST.ListNode.elementAt(i);
+			System.out.println("From node (" + n.mid_x + ", " + n.mid_y + ")");
+
+			for (int j = 0; j < n.numberArcs(); j++) {
+				Arc a = (Arc) n.ListArc.elementAt(j);
+				System.out.println("( " + a.dest1.mid_x + ", " + a.dest1.mid_y + ") to (" + a.dest2.mid_x + ", " + a.dest2.mid_y + ")");
+			}
+		}
 
 	}
 }

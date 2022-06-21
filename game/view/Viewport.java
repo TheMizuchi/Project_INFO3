@@ -41,12 +41,10 @@ public class Viewport {
 		int local_w = (int) (w / 2 * this.scale) - 1;
 		int local_h = (int) (h / 2 * this.scale) - 1;
 		return x + local_w >= 0 && x - local_w < this.w && y + local_h >= 0 && y - local_h < this.h;
-
 	}
 
 	public int toLocalX (double x) {
 		//TODO Retourne la coordonnée X locale au Viewport depuis la coordonné x venant du model
-
 		return this.w / 2 + (int) ((x - this.x) * this.scale * MyCanvas.METRIC_BASE);
 	}
 

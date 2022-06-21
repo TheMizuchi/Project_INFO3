@@ -13,7 +13,7 @@ public class MapView extends ViewElement {
 	//ICI je pars du principe que la map est affiché par un tableau a deux dimensions de cases. Dans le cas ou "carte[][]" est pour une salle seulement alors ont fait une liste de ces salles là.
 	private Case[][] carte;
 	private Texture tex = Texture.loadTexture("resources/textures.png", 1, 4);
-	private int t_case;
+	private double t_case;
 
 
 	public MapView (Case[][] cases) {
@@ -45,7 +45,7 @@ public class MapView extends ViewElement {
 
 	@Override
 	protected void paint (Graphics g) {
-		this.t_case = (int) (MyCanvas.METRIC_BASE * this.scale);
+		this.t_case = (MyCanvas.METRIC_BASE * this.scale);
 		int h = 0;
 		int l = 0;
 		BufferedImage img;
@@ -68,7 +68,7 @@ public class MapView extends ViewElement {
 						img = tex.m_images[0];
 				}
 				g.setColor(Color.black);
-				g.drawImage(img, (int) (x + this.t_case * (double) h), (int) (y + this.t_case * (double) l), this.t_case, this.t_case, null);
+				g.drawImage(img, (int) (x + this.t_case * (double) h), (int) (y + this.t_case * (double) l), (int) this.t_case, (int) this.t_case, null);
 			}
 		}
 	}

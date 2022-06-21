@@ -10,7 +10,6 @@ import view.graphicEntity.EntityView;
 
 public abstract class Entity implements EntityInterface {
 
-	Model m_model;
 	public int m_ID;
 	private int m_pv;
 	protected Hitbox m_hitbox;
@@ -38,7 +37,7 @@ public abstract class Entity implements EntityInterface {
 		m_tangible = true;
 	}
 
-	public static Entity createEntity (Model m, int x, int y, EntityProperties entityProperties) {
+	public static Entity createEntity (double x, double y, EntityProperties entityProperties) {
 		Entity e = null;
 
 		switch (entityProperties) {
@@ -60,8 +59,8 @@ public abstract class Entity implements EntityInterface {
 			case BAT:
 				e = new Bat(x, y);
 				break;
-			case DART_MONKEY:
-				e = new DartMonkey(x, y);
+			case ARCHER:
+				e = new Archer(x, y);
 				break;
 			case TORCH:
 				e = Torch.getInstance(x, y);
@@ -264,7 +263,9 @@ public abstract class Entity implements EntityInterface {
 
 	@Override
 	public void egg (Direction orientation) {
-		// TODO Auto-generated method stub
+		Model m;
+		m = Model.getInstance();
+		Entity e = m.createEntity(m_vecDir.getX(), m_vecDir.getY(), this.m_entityProperties);
 
 	}
 

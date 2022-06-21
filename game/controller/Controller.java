@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 
 import edu.polytech.oop.collections.ArrayList;
 import edu.polytech.oop.collections.IList;
@@ -15,6 +14,7 @@ import info3.game.automata.parser.AutomataParser;
 import info3.game.automata.parser.ParseException;
 import model.Model;
 import model.entity.EntityProperties;
+import view.MenuFrame;
 
 
 public class Controller {
@@ -57,6 +57,13 @@ public class Controller {
 			BotAutomata moveOuestThenLeft = getAutFromFile("resources/Automata/MoveOuestThenLeft.gal");
 			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
 			BotAutomata idle = getAutFromFile("resources/Automata/Idle.gal");
+
+			BotAutomata J1 = getAutFromFile(MenuFrame.getFileJ1());
+			BotAutomata J2 = getAutFromFile(MenuFrame.getFileJ2());
+			BotAutomata Bloon = getAutFromFile(MenuFrame.getFileBloon());
+			BotAutomata Bat = getAutFromFile(MenuFrame.getFileBat());
+			BotAutomata Skeleton = getAutFromFile(MenuFrame.getFileSkeleton());
+
 			BotAutomata doge = getAutFromFile("resources/Automata/Doge.gal");
 			BotAutomata mystery = getAutFromFile("resources/Automata/Mystery.gal");
 
@@ -64,12 +71,12 @@ public class Controller {
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
 
 			insertAt(m_auts, EntityProperties.COWBOY.getID(), moveSquare);
-			insertAt(m_auts, EntityProperties.J1.getID(), moveKeys);
-			insertAt(m_auts, EntityProperties.J2.getID(), moveKeysArrows);
-			insertAt(m_auts, EntityProperties.BLOON.getID(), torch);
-			insertAt(m_auts, EntityProperties.SKELETON.getID(), torch);
-			insertAt(m_auts, EntityProperties.BAT.getID(), torch);
-			insertAt(m_auts, EntityProperties.DART_MONKEY.getID(), moveSquare);
+			insertAt(m_auts, EntityProperties.J1.getID(), J1);
+			insertAt(m_auts, EntityProperties.J2.getID(), J2);
+			insertAt(m_auts, EntityProperties.BLOON.getID(), Bloon);
+			insertAt(m_auts, EntityProperties.SKELETON.getID(), Skeleton);
+			insertAt(m_auts, EntityProperties.BAT.getID(), Bat);
+			insertAt(m_auts, EntityProperties.ARCHER.getID(), J1);
 			insertAt(m_auts, EntityProperties.TORCH.getID(), torch);
 			insertAt(m_auts, EntityProperties.DOGE.getID(), doge);
 			insertAt(m_auts, EntityProperties.MYSTERY.getID(), mystery);
@@ -97,7 +104,7 @@ public class Controller {
 		m_dirKeys[40] = true;
 	}
 
-	public void setModel () throws IOException, org.json.simple.parser.ParseException {
+	public void setModel () {
 		m_model = Model.getInstance();
 	}
 
