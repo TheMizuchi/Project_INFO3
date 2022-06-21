@@ -203,7 +203,7 @@ public class Game {
 		int height = m_canvas.getHeight();
 
 		// erase background
-		g.setColor(Color.pink);
+		g.setColor(Color.gray);
 		g.fillRect(0, 0, width, height);
 
 		// paint

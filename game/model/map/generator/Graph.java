@@ -1,28 +1,79 @@
 package model.map.generator;
 
+import java.util.Random;
+
 import edu.polytech.oop.collections.ArrayList;
+import edu.polytech.oop.collections.ICollection.Iterator;
 import edu.polytech.oop.collections.IList;
+import edu.polytech.oop.collections.LinkedList;
 
 
 public class Graph {
 
-	IList ListNode;
+	public IList ListNode;
 
 
-	Graph (IList rooms) {
-		int l = rooms.length();
+	public Graph (IList rooms) {
 		ListNode = new ArrayList();
 		Room r;
 
-		for (int i = 0; i < l; i++) {
-			r = (Room) rooms.removeAt(0);
-			Node n = new Node(r);
-			ListNode.insertAt(0, n);
+		Iterator iterRoom = rooms.iterator();
+
+		while (iterRoom.hasNext()) {
+
+			r = (Room) iterRoom.next();
+
+			if (r.getUpperLeftX() != -1 && r.getUpperLeftY() != -1) {
+				Node n = new Node(r);
+				ListNode.insertAt(0, n);
+			}
 		}
 	}
 
 	Graph (IList nodes, int nbn) {
 		this.ListNode = nodes;
+	}
+
+	boolean containsArc (int d1x, int d1y, int d2x, int d2y) {
+
+		for (int i = 0; i < ListNode.length(); i++) {
+			Node n = (Node) ListNode.elementAt(i);
+
+			for (int j = 0; j < n.ListArc.length(); j++) {
+				Arc a = (Arc) n.ListArc.elementAt(j);
+
+				if (a.dest1.mid_x == d1x && a.dest1.mid_y == d1y && a.dest2.mid_x == d2x && a.dest2.mid_y == d2y) {
+					return true;
+				}
+
+				if (a.dest2.mid_x == d1x && a.dest2.mid_y == d1y && a.dest1.mid_x == d2x && a.dest1.mid_y == d2y) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	Node findNode (int x, int y) {
+
+		for (int i = 0; i < ListNode.length(); i++) {
+			Node n = (Node) ListNode.elementAt(i);
+
+			if (n.mid_x == x && n.mid_y == y) {
+				return n;
+			}
+		}
+		return null;
+	}
+
+	int numberArc () {
+		int nba = 0;
+
+		for (int i = 0; i < ListNode.length(); i++) {
+			Node n = (Node) ListNode.elementAt(i);
+			nba += n.numberArcs();
+		}
+		return nba;
 	}
 
 	int getPosXMax () {
@@ -63,78 +114,95 @@ public class Graph {
 		return new Triangle(A, B, C);
 	}
 
-	void delaunay () {
+	public void delaunay () {
 
 		Triangle supertriangle = supertri(getPosXMax(), getPosYMax(), 1);
 
-		IList triangles = new ArrayList();
+		IList triangles = new LinkedList();
 		triangles.insertAt(0, supertriangle);
+		Iterator iterNode = ListNode.iterator();
 
-		for (int i = 0; i < ListNode.length(); i++) {
+		while (iterNode.hasNext()) {
 
-			Node n = (Node) ListNode.elementAt(i);
+			Node n = (Node) iterNode.next();
 
-			IList englobant = new ArrayList();
-			IList suppress = new ArrayList();
+			IList englobant = new LinkedList();
+			IList suppress = new LinkedList();
 
 			Triangle tri;
 
-			for (int t = 0; t < triangles.length(); t++) {
-				tri = (Triangle) triangles.elementAt(t);
+			Iterator iterTri = triangles.iterator();
+
+			while (iterTri.hasNext()) {
+				tri = (Triangle) iterTri.next();
 
 				if (tri.containsPoint(n)) {
 					suppress.insertAt(0, tri);
 				}
 			}
 
-			for (int ts = 0; ts < suppress.length(); ts++) {
-				tri = (Triangle) suppress.elementAt(ts);
+			Iterator iterSup = suppress.iterator();
 
-				if (tri.edgeShared(tri.AB, suppress)) {
+			while (iterSup.hasNext()) {
+				tri = (Triangle) iterSup.next();
+
+				if (!tri.edgeShared(tri.AB, suppress, tri)) {
 					englobant.insertAt(0, tri.AB);
 				}
 
-				if (tri.edgeShared(tri.AC, suppress)) {
+				if (!tri.edgeShared(tri.AC, suppress, tri)) {
 					englobant.insertAt(0, tri.AC);
 				}
 
-				if (tri.edgeShared(tri.BC, suppress)) {
+				if (!tri.edgeShared(tri.BC, suppress, tri)) {
 					englobant.insertAt(0, tri.BC);
 				}
 			}
 
-			for (int ts = 0; ts < suppress.length(); ts++) {
-				triangles.remove(suppress.elementAt(ts));
+			iterSup = suppress.iterator();
+
+			while (iterSup.hasNext()) {
+				triangles.remove(iterSup.next());
 			}
 
-			for (int ar = 0; ar < englobant.length(); ar++) {
-				Node Pt1 = ((Arc) englobant.elementAt(ar)).dest1;
-				Node Pt2 = ((Arc) englobant.elementAt(ar)).dest2;
+			Iterator iterEngl = englobant.iterator();
+
+			while (iterEngl.hasNext()) {
+				Arc a = (Arc) iterEngl.next();
+				Node Pt1 = a.dest1;
+				Node Pt2 = a.dest2;
 
 				Triangle newTri = new Triangle(Pt1, Pt2, n);
 				triangles.insertAt(0, newTri);
 			}
 		}
-		ArrayList suppress = new ArrayList();
+		LinkedList suppress = new LinkedList();
 
-		for (int t = 0; t < triangles.length(); t++) {
-			Triangle tri = (Triangle) triangles.elementAt(t);
+		for (int i = 0; i < triangles.length(); i++) {
+			Triangle tri = (Triangle) triangles.elementAt(i);
 
-			for (int i = 0; i < ListNode.length(); i++) {
-				Node n = (Node) ListNode.elementAt(i);
+			iterNode = ListNode.iterator();
 
-				if (tri.containsPoint(n) && !suppress.contains(tri)) {
+			while (iterNode.hasNext()) {
+				Node n = (Node) iterNode.next();
+
+				if (tri.containsPoint(n)) {
 					suppress.insertAt(0, tri);
 				}
 			}
 		}
 
-		for (int s = 0; s < suppress.length(); s++) {
-			triangles.remove(suppress.elementAt(s));
+		Iterator iterSup = suppress.iterator();
+
+		while (iterSup.hasNext()) {
+			Triangle sup = (Triangle) iterSup.next();
+			triangles.remove(sup);
 		}
 
-		for (int t = 0; t < triangles.length(); t++) {
-			Triangle tri = (Triangle) triangles.elementAt(t);
+		Iterator iterTri = triangles.iterator();
+
+		while (iterTri.hasNext()) {
+			Triangle tri = (Triangle) iterTri.next();
 
 			if (!(tri.AB.dest1.equals(supertriangle.A) || tri.AB.dest2.equals(supertriangle.A) || tri.AB.dest1.equals(supertriangle.B) || tri.AB.dest2.equals(supertriangle.B) || tri.AB.dest1.equals(supertriangle.C) || tri.AB.dest2.equals(supertriangle.C))) {
 				tri.AB.dest1.addArc(tri.AB);
@@ -166,8 +234,11 @@ public class Graph {
 	Graph dijkstra (Node n) {
 		ArrayList vis = new ArrayList();
 
-		for (int i = 0; i < ListNode.length(); i++) {
-			vis.insertAt(i, ListNode.elementAt(i));
+		Iterator iterNode = ListNode.iterator();
+
+		while (iterNode.hasNext()) {
+			Node init = (Node) iterNode.next();
+			vis.insertAt(0, init);
 		}
 
 		ArrayList file = new ArrayList();
@@ -188,11 +259,12 @@ public class Graph {
 				}
 
 				IList ListArc = current.ListArc;
+				Iterator iterArc = ListArc.iterator();
 
-				for (int i = 0; i < ListArc.length(); i++) {
-					Arc a = (Arc) ListArc.elementAt(i);
+				while (iterArc.hasNext()) {
+					Arc a = (Arc) iterArc.next();
 
-					if (a.dest1 == current) {
+					if (a.dest1.mid_x == current.mid_x && a.dest1.mid_y == current.mid_y) {
 
 						if (vis.contains(a.dest2)) {
 							file.insertAt(ind, a.dest2);
@@ -201,14 +273,14 @@ public class Graph {
 
 						double dist = current.distance(a.dest2);
 
-						if (a.dest2 != n && a.dest2.dijk_proch == null) {
+						if (!(a.dest2.mid_x == n.mid_x && a.dest2.mid_y == n.mid_y) && a.dest2.dijk_proch == null) {
 							a.dest2.dijk_proch = current;
 							a.dest2.dijk_pds = current.dijk_pds + dist;
-						} else if (a.dest2 != n && a.dest2.dijk_pds > current.dijk_pds + dist) {
+						} else if (!(a.dest2.mid_x == n.mid_x && a.dest2.mid_y == n.mid_y) && a.dest2.dijk_pds > current.dijk_pds + dist) {
 							a.dest2.dijk_proch = current;
 							a.dest2.dijk_pds = current.dijk_pds + dist;
 						}
-					} else if (a.dest2 == current) {
+					} else if (a.dest2.mid_x == current.mid_x && a.dest2.mid_y == current.mid_y) {
 
 						if (vis.contains(a.dest1)) {
 							file.insertAt(ind, a.dest1);
@@ -216,14 +288,17 @@ public class Graph {
 						}
 						double dist = current.distance(a.dest1);
 
-						if (a.dest1 != n && a.dest1.dijk_proch == null) {
+						if (!(a.dest1.mid_x == n.mid_x && a.dest1.mid_y == n.mid_y) && a.dest1.dijk_proch == null) {
 							a.dest1.dijk_proch = current;
 							a.dest1.dijk_pds = current.dijk_pds + dist;
-						} else if (a.dest1 != n && a.dest1.dijk_pds > current.dijk_pds + dist) {
+						} else if (!(a.dest1.mid_x == n.mid_x && a.dest1.mid_y == n.mid_y) && a.dest1.dijk_pds > current.dijk_pds + dist) {
 							a.dest1.dijk_proch = current;
 							a.dest1.dijk_pds = current.dijk_pds + dist;
 						}
+					} else {
+						System.out.println("WTF?");
 					}
+
 				}
 			}
 		}
@@ -253,7 +328,7 @@ public class Graph {
 		return newG;
 	}
 
-	Graph min_spanning_tree () {
+	public Graph min_spanning_tree () {
 		double min = Double.MAX_VALUE;
 		Graph MST = null;
 
@@ -262,11 +337,44 @@ public class Graph {
 			Graph dijk = dijkstra(current);
 			double weight = dijk.weight_of_tree();
 
-			if (min > weight) {
+			if (min > weight && dijk.ListNode.length() == this.ListNode.length()) {
 				min = weight;
 				MST = dijk;
 			}
+
+			for (int j = 0; j < ListNode.length(); j++) {
+				Node reset = (Node) ListNode.elementAt(j);
+				reset.dijk_pds = 0;
+				reset.dijk_proch = null;
+			}
 		}
 		return MST;
+	}
+
+	public void add_random_arc (Graph g) {
+		int nb_add = (int) Math.round((0.15 * numberArc()));
+
+		for (int i = 0; i < nb_add; i++) {
+			Arc arc = null;
+
+			while (arc == null) {
+				int elem_node = (int) Math.floor(Math.random() * (ListNode.length()));
+				Node node = (Node) g.ListNode.elementAt(elem_node);
+				int elem_arc = (int) Math.floor(Math.random() * (node.ListArc.length()));
+				arc = (Arc) node.ListArc.elementAt(elem_arc);
+
+				if (containsArc(arc.dest1.mid_x, arc.dest1.mid_y, arc.dest2.mid_x, arc.dest2.mid_y)) {
+					arc = null;
+				}
+			}
+
+			Node n1 = findNode(arc.dest1.mid_x, arc.dest1.mid_y);
+			Node n2 = findNode(arc.dest2.mid_x, arc.dest2.mid_y);
+			Arc na = new Arc(n1, n2);
+			n1.addArc(na);
+			n2.addArc(na);
+
+		}
+
 	}
 }
