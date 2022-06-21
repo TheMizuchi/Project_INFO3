@@ -5,7 +5,7 @@ public interface EntityInterface {
 	abstract boolean myDir (Direction orientation);
 	// retourn si la direciton est la bonne
 
-	abstract boolean cell (Direction orientation, EntityType type);
+	abstract boolean cell (Vector vect, EntityType type);
 	// l'entité cible se situe devant (orientation) à une étapde de déplacement
 
 	abstract boolean closest (Direction orientation, EntityType type);

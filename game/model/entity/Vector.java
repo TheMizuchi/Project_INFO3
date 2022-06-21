@@ -151,6 +151,8 @@ public class Vector {
 	}
 
 	public void setAngle (double angle) {
+		if (angle > 2 * Math.PI)
+			angle -= Math.PI;
 		m_angle = angle;
 	}
 

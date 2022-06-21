@@ -1,6 +1,7 @@
 package controller.condition.tree;
 
 import controller.ICondition;
+import model.entity.Entity;
 
 
 public class BotNotOp extends BotUnaryOp {
@@ -10,8 +11,8 @@ public class BotNotOp extends BotUnaryOp {
 	}
 
 	@Override
-	public boolean eval () {
-		return m_cond.eval();
+	public boolean eval (Entity e) {
+		return m_cond.eval(e);
 	}
 
 }

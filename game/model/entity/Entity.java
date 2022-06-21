@@ -45,10 +45,10 @@ public abstract class Entity implements EntityInterface {
 				e = new Cowboy(x, y);
 				break;
 			case J1:
-				e = new J1(x, y);
+				e = J1.getInstance(x, y);
 				break;
 			case J2:
-				e = new J2(x, y);
+				e = J2.getInstance(x, y);
 				break;
 			case BLOON:
 				e = new Bloon(x, y);
@@ -121,8 +121,39 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	@Override
-	public boolean cell (Direction orientation, EntityType type) {
-		// TODO Auto-generated method stub
+	public boolean cell (Vector vect, EntityType type) {
+
+		float x = 0, y = 0;
+		double ang = vect.getAngle();
+
+		if (ang >= 7 * Math.PI / 4) {
+			x = 1;
+			y = 0;
+		}
+
+		if (ang < 7 * Math.PI / 4) {
+			x = 0;
+			y = 1;
+		}
+
+		if (ang < 5 * Math.PI / 4) {
+			x = -1;
+			y = 0;
+		}
+
+		if (ang < 3 * Math.PI / 4) {
+			x = 0;
+			y = -1;
+		}
+
+		if (ang < Math.PI / 4) {
+			x = 1;
+			y = 0;
+		}
+
+		if (m_hitbox.deplacementValide(getPosX() + x, getPosY() + y))
+			return true;
+
 		return false;
 	}
 
@@ -270,8 +301,8 @@ public abstract class Entity implements EntityInterface {
 	public double distance (Entity e) {
 		Hitbox h1 = this.m_hitbox;
 		Hitbox h2 = e.m_hitbox;
-		double x = h1.getX() - h2.getX();
-		double y = h1.getY() - h2.getY();
+		double x = h1.getCenterX() - h2.getCenterX();
+		double y = h1.getCenterY() - h2.getCenterY();
 		return Math.sqrt(x * x + y * y);
 	}
 
@@ -293,5 +324,39 @@ public abstract class Entity implements EntityInterface {
 
 	Hitbox getHibox () {
 		return m_hitbox;
+	}
+
+	public double angleVers (Entity e) {
+		double dist = distance(e);
+		double truc = m_hitbox.getCenterX() - e.m_hitbox.getCenterX();
+		double bidule = m_hitbox.getCenterY() - e.m_hitbox.getCenterY();
+
+		// bas droite
+		if (m_hitbox.getCenterX() <= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() >= e.m_hitbox.getCenterY()) {
+			return Math.acos(Math.abs(truc) / dist);
+		}
+		// bas gauche
+		else if (m_hitbox.getCenterX() >= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() >= e.m_hitbox.getCenterY()) {
+			return Math.acos(Math.abs(bidule) / dist) + Math.PI / 2;
+		}
+
+		// haut gauche
+		else if (m_hitbox.getCenterX() >= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() <= e.m_hitbox.getCenterY()) {
+			return Math.acos(Math.abs(truc) / dist) + Math.PI ;
+		}
+
+		// haut droite
+		else if (m_hitbox.getCenterX() <= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() <= e.m_hitbox.getCenterY()) {
+			return Math.acos(Math.abs(bidule) / dist) + Math.PI / 2 * 3;
+		}
+
+		/*
+		 * System.out.println(e.m_hitbox.getCenterX());
+		 * System.out.println(m_hitbox.getCenterX()); System.out.println(truc);
+		 * 
+		 * System.out.println(dist);
+		 */
+
+		throw new RuntimeException("erreur lors du calcul d'angle de ciblage");
 	}
 }

@@ -1,6 +1,8 @@
 package controller.condition;
 
 import controller.ICondition;
+import model.entity.Entity;
+import model.entity.EntityType;
 
 
 public class BotCell implements ICondition {
@@ -15,8 +17,8 @@ public class BotCell implements ICondition {
 	}
 
 	@Override
-	public boolean eval () {
-		throw new RuntimeException("NYI");
+	public boolean eval (Entity e) {
+		return e.cell(e.getDirVector(), EntityType.OBSTACLE);
 	}
 
 }
