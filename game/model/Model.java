@@ -1,9 +1,5 @@
 package model;
 
-import java.io.IOException;
-
-import org.json.simple.parser.ParseException;
-
 import controller.Controller;
 import edu.polytech.oop.collections.ArrayList;
 import edu.polytech.oop.collections.IList;
@@ -33,7 +29,7 @@ public class Model {
 	private JsonDecode jd;
 
 
-	public Model () throws ParseException, IOException {
+	public Model () {
 		String jsonPath = "resources/rooms.json";
 		jd = new JsonDecode(this, jsonPath);
 		rooms = new ArrayList();
@@ -57,7 +53,7 @@ public class Model {
 
 	}
 
-	public static Model getInstance () throws ParseException, IOException {
+	public static Model getInstance () {
 		if (m_instance == null)
 			m_instance = new Model();
 		return m_instance;
@@ -86,8 +82,8 @@ public class Model {
 		m_cam.update();
 	}
 
-	public Entity createEntity (int x, int y, EntityProperties entityProperties) {
-		Entity e = Entity.createEntity(this, x, y, entityProperties);
+	public Entity createEntity (double x, double y, EntityProperties entityProperties) {
+		Entity e = Entity.createEntity(x, y, entityProperties);
 		m_listeEntity.insertAt(m_listeEntity.length(), e);
 
 		if (entityProperties == EntityProperties.J1) {
