@@ -110,7 +110,8 @@ public abstract class Entity implements EntityInterface {
 		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 	}
 
-	void attack () {}
+	void attack (Entity cible) {
+	}
 
 	void interact () {}
 

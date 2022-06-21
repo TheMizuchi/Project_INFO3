@@ -10,19 +10,22 @@ import model.map.TileType;
 
 public class Hitbox {
 
-	private double m_x;
-	private double m_y;
-	private double m_largeur;
-	private double m_hauteur;
+	private double m_x1;
+	private double m_y1;
+	private double m_x2;
+	private double m_y2;
 	private Entity m_e;
+	
+	private boolean m_hit ; 
 
 
-	public Hitbox (double x, double y, double lar, double haut, Entity e) {
-		m_x = x;
-		m_y = y;
-		m_largeur = lar;
-		m_hauteur = haut;
+	public Hitbox (double x, double y, double x2, double y2, Entity e) {
+		m_x1 = x;
+		m_y1 = y;
+		m_x2 = x2;
+		m_y2 = y2;
 		m_e = e;
+		m_hit =false;
 	}
 
 	public void move (double dx, double dy) {
