@@ -65,7 +65,7 @@ public class Model {
 
 	//méthode tmp pour les tests
 	public void loadEnv (Room spawnRoom) {
-		m_cam = new Camera(m_canvas.getViewport(), m_map.getWidth() / 2, m_map.getHeight() / 2);
+		m_cam = Camera.getInstance(m_canvas.getViewport(), m_map.getWidth() / 2, m_map.getHeight() / 2);
 		spawnRoom.spawnEntities(m_map, 4);
 
 	}
@@ -109,6 +109,10 @@ public class Model {
 			m_cam.setj2(e);
 		}
 		return e;
+	}
+
+	public void deleteEntity (Entity e) {
+		// TODO
 	}
 
 	public void createLightSource (Entity e) {

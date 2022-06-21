@@ -7,20 +7,40 @@ import view.Viewport;
 
 public class Camera {
 
+	private static Camera m_instance = null;
+
 	private Viewport vp;
 	private EntityInterface j1;
 	private EntityInterface j2;
 
 
-	public Camera (Viewport vp, Entity j1, Entity j2, double x, double y) {
+	private Camera (Viewport vp, Entity j1, Entity j2, double x, double y) {
 		this(vp, x, y);
 		this.j1 = j1;
 		this.j2 = j2;
 	}
 
-	public Camera (Viewport vp, double x, double y) {
+	private Camera (Viewport vp, double x, double y) {
 		this.vp = vp;
 		this.setPosition(x, y, 1);
+	}
+
+	static Camera getInstance (Viewport vp, Entity j1, Entity j2, double x, double y) {
+		if (m_instance == null)
+			m_instance = new Camera(vp, j1, j2, x, y);
+		return m_instance;
+	}
+
+	static Camera getInstance (Viewport vp, double x, double y) {
+		if (m_instance == null)
+			m_instance = new Camera(vp, x, y);
+		return m_instance;
+	}
+
+	public static Camera getInstance () {
+		if (m_instance == null)
+			throw new RuntimeException("Tentative d'initialisation d'une deuxième caméra");
+		return m_instance;
 	}
 
 	public void update () {
@@ -28,7 +48,6 @@ public class Camera {
 		double dy = Math.abs(j1.getPosY() - j2.getPosY());
 		double scale = Math.min(Math.min(13 / Math.max(dx, 13), 5 / Math.max(dy, 5)), 1);
 		scale = Math.max(scale, 0.75);
-		System.out.println(scale);
 		this.setPosition((double) (j1.getPosX() + j2.getPosX()) / 2, (double) (j1.getPosY() + j2.getPosY()) / 2, scale);
 	}
 

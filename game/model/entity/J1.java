@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.Camera;
 import view.MyCanvas;
 import view.graphicEntity.J1View;
 
@@ -18,6 +19,21 @@ public class J1 extends Player {
 
 	public J1 (double x, double y, Object object) {
 		super(x, y, EntityProperties.J1);
+	}
+
+	@Override
+	void hide () {
+		m_jv.hide();
+	}
+
+	@Override
+	void show () {
+		m_jv.show();
+	}
+
+	@Override
+	void setCam (Entity e) {
+		Camera.getInstance().setj1(e);
 	}
 
 }

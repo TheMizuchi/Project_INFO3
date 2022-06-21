@@ -88,7 +88,6 @@ public abstract class EntityView extends ViewElement {
 
 	public void paint (Graphics g) {
 		a.paint(g);
-
 	}
 
 }

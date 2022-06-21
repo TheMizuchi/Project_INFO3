@@ -2,6 +2,7 @@ package controller;
 
 import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.IList;
+import model.Model;
 import model.entity.Entity;
 
 
@@ -34,6 +35,10 @@ public class BotTransition {
 				} else {
 					proba -= act.m_percent;
 				}
+			}
+
+			if (m_target != null && m_target.m_name.equals("")) {
+				Model.getInstance().deleteEntity(e);
 			}
 			return m_target;
 		}

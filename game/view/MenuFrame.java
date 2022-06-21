@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -37,9 +36,9 @@ public class MenuFrame extends JFrame implements ActionListener {
 
 	static String fileJ1 = "resources/Automata/MoveKeys.gal";
 	static String fileJ2 = "resources/Automata/MoveKeysArrows.gal";
-	static String fileBloon = "resources/Automata/Idle.gal";
+	static String fileBloon = "resources/Automata/EntityTurnTest.gal";
 	static String fileBat = "resources/Automata/Idle.gal";
-	static String fileSkeleton = "resources/Automata/Idle.gal";
+	static String fileSkeleton = "resources/Automata/EntityTurnTest.gal";
 	static String fileDoge = "resources/Automata/Idle.gal";
 	static String fileMystery = "resources/Automata/Idle.gal";
 

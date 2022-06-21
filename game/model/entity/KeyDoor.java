@@ -14,8 +14,9 @@ public class KeyDoor extends Door {
 
 	//Clef à proximité
 	public boolean gotPower () {
-		boolean keyCondition = distance(m_key) < 3;
-
+		int proximity = 3
+		boolean keyCondition = distance(m_key) < proximity;
+		
 	}
 
 }

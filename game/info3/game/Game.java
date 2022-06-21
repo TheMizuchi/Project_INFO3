@@ -93,7 +93,7 @@ public class Game {
 		Room spawnRoom = m_m.createMap();
 		m_m.loadEnv(spawnRoom);
 		m_listener.m_cont.setModel();
-
+		my_canvas.initATH(null, null);//Model.getj1(), Model.getj2()); // à remplacer quand les méthodes seront créées
 		System.out.println("  - creating frame...");
 		m_frame = m_canvas.createFrame(d);
 		System.out.println("  - setting up the frame...");
