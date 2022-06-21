@@ -16,6 +16,24 @@ public class J2 extends Player {
 		m_ev = m_jv;
 		MyCanvas.getInstance().createEntityView(m_jv);
 	}
+	
+private static J2 INSTANCE = null;
+	
+	public static J2 getInstance (double x, double y) {
+
+		if (INSTANCE == null) {
+			INSTANCE = new J2(x, y);
+		}
+		return INSTANCE;
+	}
+
+	public static J2 getInstance () {
+
+		if (INSTANCE == null) {
+			throw new RuntimeException("J2 isn't instance yet what are you doing bro ?");
+		}
+		return INSTANCE;
+	}
 
 	public J2 (double x, double y, Object object) {
 		super(x, y, EntityProperties.J2);

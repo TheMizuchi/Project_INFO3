@@ -2,21 +2,22 @@ package model.entity;
 
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
+import model.Model;
 import model.map.generator.Room;
 
 
-public class KeyDoor extends Door {
+public class ClassicDoor extends Door {
 
-	Key m_key;
-
-
-	public KeyDoor (double x, double y, EntityProperties ep, Room room) {
+	public ClassicDoor (double x, double y, EntityProperties ep, Room room) {
 		super(x, y, ep, room);
 	}
 
+	//Clef à proximité
+	@Override
 	public boolean gotPower () {
 		int proximity = 3;
-		if (distance(m_key) > proximity)
+		Model model = Model.getInstance();
+		if (distance(J1.getInstance()) > proximity && distance(J2.getInstance()) > proximity)
 			return false;
 
 		LinkedList entities = m_room.getListeEntity();
@@ -27,7 +28,6 @@ public class KeyDoor extends Door {
 			if (e.getType() == EntityType.ENEMY)
 				return false;
 		}
-		//Si ça marche pas, c'est sûrement parce qu'on a supposé que [clef proche => J proche]
 		return true;
 	}
 

@@ -14,6 +14,7 @@ public class MysteryMachine extends Mob {
 		m_mv = new MysteryView(this);
 		m_ev = m_mv;
 		MyCanvas.getInstance().createEntityView(m_mv);
+		m_tangible = false;
 	}
 
 	public MysteryMachine (double x, double y, Object object) {

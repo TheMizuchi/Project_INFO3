@@ -1,24 +1,5 @@
 Mystery (Init) {
 	* (Init):
-		| True ? Turn() : (Move1)
-	* (Move1):
-		| True ? Move(F) : (Move2)
-	* (Move2):
-		| True ? Move(F) : (Move3)
-	* (Move3):
-		| True ? Move(F) : (Move4)
-	* (Move4):
-		| True ? Move(F) : (Move5)
-	* (Move5):
-		| True ? Move(F) : (Move6)
-	* (Move6):
-		| True ? Move(F) : (Move7)
-	* (Move7):
-		| True ? Move(F) : (Move8)
-	* (Move8):
-		| True ? Move(F) : (Move9)
-	* (Move9):
-		| True ? Move(F) : (Move10)
-	* (Move10):
-		| True ? Move(F) : (Init)
+		| Cell ? Move(F) : (Init)
+		| True ? Turn : (Init)
 }

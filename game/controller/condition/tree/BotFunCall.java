@@ -1,6 +1,7 @@
 package controller.condition.tree;
 
 import controller.ICondition;
+import model.entity.Entity;
 
 
 public class BotFunCall implements ICondition {
@@ -18,7 +19,7 @@ public class BotFunCall implements ICondition {
 		m_percent = percent;
 	}
 
-	public boolean eval () {
+	public boolean eval (Entity e) {
 		throw new RuntimeException("You shouldn't eval a BotFunCall");
 	}
 }

@@ -2,9 +2,12 @@ package model.map.generator;
 
 import java.util.Random;
 
+import edu.polytech.oop.collections.LinkedList;
 import model.Model;
 import model.entity.Entity;
 import model.entity.EntityProperties;
+import model.entity.J1;
+import model.entity.J2;
 import model.map.Case;
 import model.map.Map;
 
@@ -18,6 +21,7 @@ public class Room {
 
 	private Case comp[][];
 	private RoomType type;
+	private LinkedList listeEntity;
 
 
 	public Room (Model m, int w, int h, Case[][] composition, int typeID) {
@@ -27,6 +31,8 @@ public class Room {
 		upperLeftY = -1;
 		width = w;
 		height = h;
+
+		listeEntity = new LinkedList();
 
 		comp = new Case[w][h];
 
@@ -69,7 +75,7 @@ public class Room {
 					int x = i + upperLeftX;
 					int y = j + upperLeftY;
 					Entity e = model.createEntity(x, y, entityProperties);
-					//à enelever plus tard 
+					//à enelever plus tard
 					model.createLightSource(e);
 				}
 			}
@@ -81,8 +87,8 @@ public class Room {
 		int weightSum = 0;
 		EntityProperties[] eps = EntityProperties.values();
 		Random random = new Random();
-		Entity j1 = model.getJ(1);
-		Entity j2 = model.getJ(2);
+		Entity j1 = J1.getInstance();
+		Entity j2 = J2.getInstance();
 		double minDistance = 1.5;
 
 		for (int i = 0; i < eps.length; i++) {
@@ -158,6 +164,10 @@ public class Room {
 
 	public boolean containsPoint (int x, int y) {
 		return (x >= upperLeftX && x <= upperLeftX + width - 1 && y >= upperLeftY && y <= upperLeftY + height - 1);
+	}
+
+	public LinkedList getListeEntity () {
+		return listeEntity;
 	}
 
 }

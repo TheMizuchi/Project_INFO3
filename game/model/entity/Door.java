@@ -13,18 +13,20 @@ public class Door extends Entity {
 		super(x, y, ep);
 		m_isOpen = false;
 		m_room = room;
+		m_tangible = true;
 	}
 
 	//Ouvrir porte
 	@Override
 	public void pop () {
 		m_isOpen = true;
+		m_tangible = false;
 	}
 
 	//Fermer porte
 	@Override
 	public void wizz () {
 		m_isOpen = false;
+		m_tangible = true;
 	}
-
 }

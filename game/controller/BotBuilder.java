@@ -217,6 +217,10 @@ public class BotBuilder implements IVisitor {
 						act = new BotJump(call.m_p1);
 						break;
 					case "Turn":
+						if (call.m_p1 == "") {
+							act = new BotTurn();
+							break;
+						}
 						act = new BotTurn(call.m_p1);
 						break;
 					case "Protect":
