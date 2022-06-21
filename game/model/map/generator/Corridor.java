@@ -1,8 +1,8 @@
 package model.map.generator;
 
-import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.ArrayList;
 import edu.polytech.oop.collections.ICollection.Iterator;
+import edu.polytech.oop.collections.IList;
 
 
 public class Corridor {
@@ -95,10 +95,10 @@ public class Corridor {
 			n1 = (Node) pile.removeAt(0);
 			indP--;
 			n2 = (Node) pile.removeAt(0);
+
 			indP--;
 			n3 = (Node) pile.removeAt(0);
 			indP--;
-
 			boolean valid12 = validPath(n1, n2, rooms, begin, end);
 			boolean valid23 = validPath(n2, n3, rooms, begin, end);
 
@@ -128,8 +128,11 @@ public class Corridor {
 				indP++;
 				pile.insertAt(0, E);
 				indP++;
-				pile.insertAt(0, F);
-				indP++;
+
+				if (distX == distY) {
+					pile.insertAt(0, F);
+					indP++;
+				}
 				pile.insertAt(0, D);
 				indP++;
 				pile.insertAt(0, n1);

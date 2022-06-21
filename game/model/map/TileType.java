@@ -5,11 +5,12 @@ import model.entity.EntityProperties;
 
 public enum TileType {
 
-	VOID(-1, 0, null), WALL(0, 0, null), FLOOR(1, 1, null),
+	VOID(-1, 0, null), WALL(0, 0, null), FLOOR(1, 1, null), PLANKS(2, 2, null), OTHER(3, 3, null),
 	COWBOY(EntityProperties.COWBOY.spawnerID(), 1, EntityProperties.COWBOY),
 	J1(EntityProperties.J1.spawnerID(), 1, EntityProperties.J1),
 	J2(EntityProperties.J2.spawnerID(), 1, EntityProperties.J2),
 	TORCH(EntityProperties.TORCH.spawnerID(), 1, EntityProperties.TORCH),
+	KEY(EntityProperties.KEY.spawnerID(), 1, EntityProperties.KEY),
 	SKELETON(EntityProperties.SKELETON.spawnerID(), 1, EntityProperties.SKELETON),
 	BAT(EntityProperties.BAT.spawnerID(), 1, EntityProperties.BAT),
 	DART_MONKEY(EntityProperties.DART_MONKEY.spawnerID(), 1, EntityProperties.DART_MONKEY),

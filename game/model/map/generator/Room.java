@@ -97,7 +97,7 @@ public class Room {
 
 			if (e.getHibox().deplacementValide(x, y)) {
 
-				if (distance(e, j1) > minDistance && distance(e, j2) > minDistance) {
+				if (e.distance(j1) > minDistance && e.distance(j2) > minDistance) {
 					model.createEntity(x, y, ep);
 					iterationsSinceLastSuccess = 0;
 					placed++;
@@ -108,10 +108,6 @@ public class Room {
 
 		}
 
-	}
-
-	private double distance (Entity e1, Entity e2) {
-		return Math.sqrt(Math.pow(e1.getPosX() - e2.getPosX(), 2) + Math.pow(e1.getPosY() - e2.getPosY(), 2));
 	}
 
 	private EntityProperties getWeightedRandom (int weightSum) {
