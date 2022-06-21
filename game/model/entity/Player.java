@@ -1,9 +1,9 @@
 package model.entity;
 
-import model.Camera;
 import common.MyTimer;
 import common.TimerListener;
 import controller.RefAutomata;
+import model.Camera;
 
 
 public abstract class Player extends Entity {
@@ -12,7 +12,7 @@ public abstract class Player extends Entity {
 
 	final static double POSSESSION_RANGE = 10;
 	long m_possessionCD;
-	boolean m_possessing;
+	Mob m_possessing;
 
 
 	public Player (double x, double y, EntityProperties ep) {
@@ -22,7 +22,7 @@ public abstract class Player extends Entity {
 	@Override
 	public void update (long elapsed) {
 
-		if (!m_possessing) {
+		if (m_possessing == null) {
 			Torch torch = Torch.getInstance();
 			// déplacement
 			m_automata.step();
@@ -33,19 +33,19 @@ public abstract class Player extends Entity {
 				Entity autreJ = autreJ();
 				double m_angle = m_vecDir.getAngle();
 
-				//haut
+				// haut
 				if (m_angle < Math.PI && m_angle > 0 && autreJ.m_hitbox.getY() > m_hitbox.getY())
 					return;
 
-				//bas
+				// bas
 				if (m_angle > Math.PI && autreJ.m_hitbox.getY() < m_hitbox.getY())
 					return;
 
-				//gauche
+				// gauche
 				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && autreJ.m_hitbox.getX() > m_hitbox.getX())
 					return;
 
-				//droite
+				// droite
 				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && autreJ.m_hitbox.getX() < m_hitbox.getX())
 					return;
 
@@ -96,7 +96,7 @@ public abstract class Player extends Entity {
 			if (closestTarget != null && distance(closestTarget) < POSSESSION_RANGE) {
 				closestTarget.devientGentil(m_entityProperties, m_vecDir.clone(), this);
 				m_automata = new RefAutomata(this, true);
-				m_possessing = true;
+				m_possessing = closestTarget;
 				m_tangible = false;
 				hide();
 				setCam(closestTarget);
@@ -116,7 +116,7 @@ public abstract class Player extends Entity {
 	public Player finPossession (Mob m, int pv, Vector dir) {
 		m_pv = pv;
 		m_vecDir = dir;
-		m_possessing = false;
+		m_possessing = null;
 		m_automata = new RefAutomata(this);
 		show();
 		new PossessionTimerCD(this);
@@ -136,14 +136,12 @@ public abstract class Player extends Entity {
 	private class IntangibleTimer implements TimerListener {
 
 		Player m_p;
-		long m_init;
 
 
 		IntangibleTimer (Player p) {
 			m_p = p;
 			m_p.m_possessionCD = POSSESSION_CD * 1000;
 			m_p.m_tangible = false;
-			m_init = System.currentTimeMillis();
 			MyTimer mt = MyTimer.getTimer();
 			mt.setTimer(20, this);
 		}
