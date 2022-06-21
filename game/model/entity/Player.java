@@ -92,8 +92,8 @@ public abstract class Player extends Entity {
 		new PossessionTimerCD(this);
 		setCam(this);
 		new IntangibleTimer(this);
-		m_hitbox.setX(m.m_hitbox.getX());
-		m_hitbox.setY(m.m_hitbox.getY());
+		Hitbox hit = new Hitbox(m.m_hitbox.getP1(), m.m_hitbox.getP2(), m.m_hitbox.getP3(), m.m_hitbox.getP4(), m, false);
+		m_hitbox = hit; 
 
 		// Si besoin on lance l'animation de déplacement
 		if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
@@ -121,7 +121,7 @@ public abstract class Player extends Entity {
 		@Override
 		public void expired () {
 
-			if (!m_p.m_hitbox.contactEntity(m_p.m_hitbox.getX(), m_p.m_hitbox.getY())) {
+			if (!m_p.m_hitbox.contactEntity(m_p.m_hitbox.getP1() , m_p.m_hitbox.getP2() , m_p.m_hitbox.getP3() ,m_p.m_hitbox.getP4())) {
 				m_p.m_tangible = true;
 			} else {
 				MyTimer mt = MyTimer.getTimer();

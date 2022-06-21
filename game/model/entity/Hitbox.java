@@ -90,19 +90,7 @@ public class Hitbox {
 
 		if (m_e.isTanguible()) {
 
-			if (contactEntity(new_p1)) {
-				return false;
-			}
-
-			if (contactEntity(new_p2)) {
-				return false;
-			}
-
-			if (contactEntity(new_p3)) {
-				return false;
-			}
-
-			if (contactEntity(new_p4)) {
+			if (contactEntity(new_p1, new_p2, new_p3, new_p4)) {
 				return false;
 			}
 		}
@@ -114,16 +102,19 @@ public class Hitbox {
 		return grid[(int) p.getX()][(int) p.getY()].getType() == type;
 	}
 
-	public boolean contactEntity (Point p) { // le point est dans la hit box d'une entité
+	public boolean contactEntity (Point new_p1, Point new_p2, Point new_p3, Point new_p4) {
 		IList list = Model.getlistEntity();
 		IList.Iterator it = list.iterator();
+		if(!m_e.isTanguible()) {
+			return false ;
+		}
 
 		while (it.hasNext()) {
 			Entity e = (Entity) it.next();
 
 			if (!e.equals(m_e) && e.isTanguible()) {
 
-				if (e.getHibox().pointInHitbox(p.getX(), p.getY())) {
+				if (e.m_hitbox.pointInHitbox(new_p1) || e.m_hitbox.pointInHitbox(new_p2) || e.m_hitbox.pointInHitbox(new_p3) || e.m_hitbox.pointInHitbox(new_p4)) {
 					return true;
 				}
 			}
@@ -139,16 +130,20 @@ public class Hitbox {
 	}
 
 	public double getCenterX () {
-		return (m_p1.getX() - m_p2.getX()) / 2;
+		double dx = (m_p1.getX() + m_p2.getX()) / 2 ; 
+		System.out.println("centre dx : "+dx);
+		return dx;
 	}
 
 	public double getCenterY () {
-		return (m_p1.getY() - m_p3.getY()) / 2;
+		double dy = (m_p1.getY() + m_p3.getY()) / 2;
+		System.out.println("centre dy : "+dy);
+		return dy;
+
 	}
 
-	public boolean pointInHitbox (double x, double y) {
-		Point p = new Point(x, y);
-		return (dansLeTriangle(p, m_p1, m_p2, m_p4) || dansLeTriangle(p, m_p2, m_p3, m_p4));
+	public boolean pointInHitbox (Point p) {
+		return (dansLeTriangle(p, m_p1, m_p2, m_p4) || dansLeTriangle(p, m_p1, m_p3, m_p4));
 	}
 
 	boolean dansLeTriangle (Point pt, Point v1, Point v2, Point v3) {
@@ -163,6 +158,22 @@ public class Hitbox {
 
 	double barycentre (Point p1, Point p2, Point p3) {
 		return (p1.getX() - p3.getX()) * (p2.getY() - p3.getY()) - (p2.getX() - p3.getX()) * (p1.getY() - p3.getY());
+	}
+
+	public Point getP1 () {
+		return m_p1;
+	}
+
+	public Point getP2 () {
+		return m_p1;
+	}
+
+	public Point getP3 () {
+		return m_p1;
+	}
+
+	public Point getP4 () {
+		return m_p1;
 	}
 
 }
