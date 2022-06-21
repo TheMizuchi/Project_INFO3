@@ -13,8 +13,8 @@ import info3.game.automata.ast.AST;
 import info3.game.automata.parser.AutomataParser;
 import info3.game.automata.parser.ParseException;
 import model.Model;
-import view.MenuFrame;
 import model.entity.EntityProperties;
+import view.MenuFrame;
 
 
 public class Controller {
@@ -76,7 +76,7 @@ public class Controller {
 			insertAt(m_auts, EntityProperties.BLOON.getID(), Bloon);
 			insertAt(m_auts, EntityProperties.SKELETON.getID(), Skeleton);
 			insertAt(m_auts, EntityProperties.BAT.getID(), Bat);
-			insertAt(m_auts, EntityProperties.DART_MONKEY.getID(), moveSquare);
+			insertAt(m_auts, EntityProperties.ARCHER.getID(), J1);
 			insertAt(m_auts, EntityProperties.TORCH.getID(), torch);
 			insertAt(m_auts, EntityProperties.DOGE.getID(), doge);
 			insertAt(m_auts, EntityProperties.MYSTERY.getID(), mystery);

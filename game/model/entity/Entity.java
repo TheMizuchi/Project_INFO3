@@ -1,9 +1,5 @@
 package model.entity;
 
-import java.io.IOException;
-
-import org.json.simple.parser.ParseException;
-
 import controller.RefAutomata;
 import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.LinkedList;
@@ -63,8 +59,8 @@ public abstract class Entity implements EntityInterface {
 			case BAT:
 				e = new Bat(x, y);
 				break;
-			case DART_MONKEY:
-				e = new DartMonkey(x, y);
+			case ARCHER:
+				e = new Archer(x, y);
 				break;
 			case TORCH:
 				e = Torch.getInstance(x, y);
