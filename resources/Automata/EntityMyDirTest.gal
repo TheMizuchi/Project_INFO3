@@ -1,0 +1,66 @@
+EntityMyDirTest (Init) {
+	* (Init):
+		| Key(e) ? Move(NE) / Move(NW) / Move(SW) / Move(SE) / Move(N) / Move(W) / Move(S) / Move(E) : (Droit)
+
+	* (Droit) :
+		| True ? Move(F) : (Droit1)
+	* (Droit1) :
+		| True ? Move(F) : (Droit2)
+	* (Droit2) :
+		| True ? Move(F) : (Droit3)
+	* (Droit3) :
+		| True ? Move() : (Droit4)
+	* (Droit4) :
+		| True ? Move(F) : (Droit5)
+	* (Droit5) :
+		| True ? Move() : (Droit6)
+	* (Droit6) :
+		| True ? Move(F) : (Droit7)
+	* (Droit7) :
+		| True ? Move() : (Droit8)
+	* (Droit8) :
+		| True ? Move(F) : (Droit9)
+	* (Droit9) :
+		| True ? Move(F) : (Droit10)
+	* (Droit10) :
+		| True ? Move(F) : (Droit11)
+	* (Droit11) :
+		| True ? Move(F) : (Droit12)
+	* (Droit12) :
+		| True ? Move(F) : (Droit13)
+	* (Droit13) :
+		| True ? Move(F) : (Droit14)
+	* (Droit14) :
+		| True ? Move(F) : (Droit15)
+	* (Droit15) :
+		| True ? Move(F) : (Droit16)
+	* (Droit16) :
+		| True ? Move(F) : (Droit17)
+	* (Droit17) :
+		| True ? Move(F) : (Droit18)
+	* (Droit18) :
+		| True ? Move(F) : (Droit19)
+	* (Droit19) :
+		| True ? Move(F) : (Droit20)
+	* (Droit20) :
+		| True ? Move(F) : (Tourner)
+
+	* (Tourner) :
+		| Key(e) ? : (Init)
+		| Key(u) ? Move(F) : (Tourner)
+
+		| Key(t) & MyDir(F) ? Turn() : (Droit)
+		| Key(f) & MyDir(L) ? Turn(L) : (Droit)
+		| Key(g) & MyDir(B) ? Turn(B) : (Droit)
+		| Key(h) & MyDir(R) ? Turn(R) : (Droit)
+
+		| Key(o) & MyDir(N) ? Turn(N) : (Droit)
+		| Key(k) & MyDir(W) ? Turn(W) : (Droit)
+		| Key(l) & MyDir(S) ? Turn(S) : (Droit)
+		| Key(m) & MyDir(E) ? Turn(E) : (Droit)
+
+		| Key(i) & MyDir(NW) ? Turn(NW) : (Droit)
+		| Key(p) & MyDir(NE) ? Turn(NE) : (Droit)
+		| Key(w) & MyDir(SW) ? Turn(SW) : (Droit)
+		| Key(x) & MyDir(SE) ? Turn(SE) : (Droit)
+}
