@@ -36,22 +36,31 @@ public class Hitbox {
 		}
 	}
 
-	public boolean colisionWithType (double x, double y, TileType type) {
+	static public boolean isInsideType (double x, double y, TileType type) {
 		Case[][] grid = Model.getMap().getCases();
 
 		if (grid[(int) x][(int) y].getType() == type) {
 			return true;
+		} else {
+			return false;
 		}
+	}
 
-		if (grid[(int) (x + m_largeur)][(int) y].getType() == type) {
+	public boolean colisionWithType (double x, double y, TileType type) {
+
+		if (isInsideType(x, y, type)) {
 			return true;
 		}
 
-		if (grid[(int) x][(int) (y + m_hauteur)].getType() == type) {
+		if (isInsideType(x + m_largeur, y, type)) {
 			return true;
 		}
 
-		if (grid[(int) (x + m_largeur)][(int) (y + m_hauteur)].getType() == type) {
+		if (isInsideType(x, y + m_hauteur, type)) {
+			return true;
+		}
+
+		if (isInsideType(x + m_largeur, y + m_hauteur, type)) {
 			return true;
 		}
 		return false;
