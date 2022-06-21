@@ -24,6 +24,9 @@ public abstract class Entity implements EntityInterface {
 	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
 	protected Vector m_vecDir = new Vector();
 
+	private static int m_count = 0;
+	public int m_c;
+
 	protected LinkedList m_blockInterdit;
 	protected boolean m_tangible;
 
@@ -39,6 +42,8 @@ public abstract class Entity implements EntityInterface {
 		m_blockInterdit = new LinkedList();
 		m_blockInterdit.insertAt(0, TileType.WALL);
 		m_tangible = true;
+		m_c = m_count;
+		m_count++;
 	}
 
 	public static Entity createEntity (double x, double y, EntityProperties entityProperties) {
@@ -181,7 +186,7 @@ public abstract class Entity implements EntityInterface {
 		}
 		// TODO
 		// à implémenter lorsque les directions de dova et diego sont stables
-		//if (e_min.position in range of orientation)
+		//if (e_min.position in range of orientation)^
 		//	return true;
 		return false;
 	}
@@ -297,11 +302,14 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void egg (Direction orientation) {
+	public void egg (double orientationx, double orientationy) {
 		Model m;
 		m = Model.getInstance();
-		Entity e = m.createEntity(m_vecDir.getX(), m_vecDir.getY(), this.m_entityProperties);
 
+		if (m_hitbox.deplacementValide(getPosX() + orientationx, getPosY() + orientationy)) {
+			Entity e = m.createEntity(getPosX() + orientationx, getPosY() + orientationy, this.m_entityProperties);
+			m.createLightSource(e);
+		}
 	}
 
 	public double distance (Entity e) {
@@ -344,7 +352,7 @@ public abstract class Entity implements EntityInterface {
 
 		// haut gauche
 		else if (m_hitbox.getCenterX() > e.m_hitbox.getCenterX() && m_hitbox.getCenterY() < e.m_hitbox.getCenterY()) {
-			return Math.acos(Math.abs(truc) / dist) + Math.PI ;
+			return Math.acos(Math.abs(truc) / dist) + Math.PI;
 		}
 
 		// haut droite
@@ -360,5 +368,14 @@ public abstract class Entity implements EntityInterface {
 		 */
 
 		throw new RuntimeException("erreur lors du calcul d'angle de ciblage");
+	}
+
+	public boolean equal (Entity e) {
+
+		if (e != null) {
+			boolean bool = e.m_c == m_c;
+			return bool;
+		}
+		return false;
 	}
 }

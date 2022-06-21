@@ -58,6 +58,7 @@ public class Controller {
 			BotAutomata idle = getAutFromFile("resources/Automata/Idle.gal");
 			BotAutomata doge = getAutFromFile("resources/Automata/Doge.gal");
 			BotAutomata mystery = getAutFromFile("resources/Automata/pouet.gal"); // remettre Mystery
+			BotAutomata egg = getAutFromFile("resources/Automata/Egg.gal");
 
 			// Mobs
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
@@ -66,7 +67,7 @@ public class Controller {
 			insertAt(m_auts, EntityProperties.J1.getID(), moveKeys);
 			insertAt(m_auts, EntityProperties.J2.getID(), moveKeysArrows);
 			insertAt(m_auts, EntityProperties.BLOON.getID(), torch);
-			insertAt(m_auts, EntityProperties.SKELETON.getID(), torch);
+			insertAt(m_auts, EntityProperties.SKELETON.getID(), egg);
 			insertAt(m_auts, EntityProperties.BAT.getID(), torch);
 			insertAt(m_auts, EntityProperties.DART_MONKEY.getID(), moveSquare);
 			insertAt(m_auts, EntityProperties.TORCH.getID(), torch);

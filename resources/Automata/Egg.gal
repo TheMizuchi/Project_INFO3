@@ -1,0 +1,12 @@
+Torch (Init) {
+	* (Init):
+		| True ? Move(S) : (Nord)
+	* (Nord):
+		| True ? Move(S) : (Est)
+	* (Est):
+		| True ? Move(S) : (Sud)
+	* (Sud):
+		| True ? Move(S) : (Oeuf)
+	* (Oeuf):
+		| Cell ? Egg(S) : (Init)
+}

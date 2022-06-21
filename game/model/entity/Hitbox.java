@@ -84,7 +84,7 @@ public class Hitbox {
 		while (it.hasNext()) {
 			Entity e = (Entity) it.next();
 
-			if (!e.equals(m_e) && e.isTanguible()) {
+			if (!e.equal(m_e) && e.isTanguible()) {
 
 				if (this.conflitHitbox(x, y, (e).getHibox())) {
 					return true;
@@ -136,7 +136,7 @@ public class Hitbox {
 	}
 
 	public boolean pointInHitbox (double x, double y) {
-		return ((x > m_x) && (m_x + m_largeur > x)) && ((y > m_y) && (m_y + m_hauteur > y));
+		return ((x >= m_x) && (m_x + m_largeur >= x)) && ((y >= m_y) && (m_y + m_hauteur >= y));
 	}
 
 }

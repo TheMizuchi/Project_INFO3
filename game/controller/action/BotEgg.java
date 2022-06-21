@@ -17,20 +17,19 @@ public class BotEgg extends BotAction {
 	public boolean apply (Entity e) {
 
 		switch (m_s) {
-			case "F":
-
+			case "S":
+				e.egg(0, 1);
 				break;
-			case "B":
-
+			case "W":
+				e.egg(-1, 0);
 				break;
-			case "L":
-
+			case "N":
+				e.egg(0, -1);
 				break;
-			case "R":
-
+			case "E":
+				e.egg(1, 0);
 				break;
 		}
 		return true;
 	}
-
 }
