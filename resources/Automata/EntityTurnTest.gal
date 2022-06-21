@@ -9,15 +9,15 @@ EntityTurnTest (Init) {
 	* (Droit2) :
 		| True ? Move(F) : (Droit3)
 	* (Droit3) :
-		| True ? Move() : (Droit4)
+		| True ? Move(F) : (Droit4)
 	* (Droit4) :
 		| True ? Move(F) : (Droit5)
 	* (Droit5) :
-		| True ? Move() : (Droit6)
+		| True ? Move(F) : (Droit6)
 	* (Droit6) :
 		| True ? Move(F) : (Droit7)
 	* (Droit7) :
-		| True ? Move() : (Droit8)
+		| True ? Move(F) : (Droit8)
 	* (Droit8) :
 		| True ? Move(F) : (Droit9)
 	* (Droit9) :
@@ -48,7 +48,7 @@ EntityTurnTest (Init) {
 	* (Tourner) :
 		| Key(e) ? : (Init)
 
-		| Key(t) ? Turn() : (Droit)
+		| Key(t) ? Turn(F) : (Droit)
 		| Key(f) ? Turn(L) : (Droit)
 		| Key(g) ? Turn(B) : (Droit)
 		| Key(h) ? Turn(R) : (Droit)

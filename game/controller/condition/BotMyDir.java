@@ -1,57 +1,22 @@
 package controller.condition;
 
+import controller.BotDirection;
 import controller.ICondition;
 import model.entity.Entity;
 
 
 public class BotMyDir implements ICondition {
 
-	double m_angle;
-	boolean m_absolute;
+	BotDirection m_dir;
 
 
-	public BotMyDir (String dir) {
-		m_angle = 0;
-		m_absolute = true;
-
-		double ang = Math.PI / 4;
-
-		switch (dir) {
-			// Rotation relative
-			case "R":
-				m_angle += 2 * ang;
-			case "B":
-				m_angle += 2 * ang;
-			case "L":
-				m_angle += 2 * ang;
-			case "F":
-			case "":
-				m_absolute = false;
-				break;
-
-			// Rotation absolue
-			case "SE":
-				m_angle += ang;
-			case "S":
-				m_angle += ang;
-			case "SW":
-				m_angle += ang;
-			case "W":
-				m_angle += ang;
-			case "NW":
-				m_angle += ang;
-			case "N":
-				m_angle += ang;
-			case "NE":
-				m_angle += ang;
-			case "E":
-				break;
-		}
+	public BotMyDir (BotDirection dir) {
+		m_dir = dir;
 	}
 
 	@Override
 	public boolean eval (Entity e) {
-		return e.myDir(m_angle, m_absolute);
+		return e.myDir(m_dir.getAngle(), m_dir.getAbs());
 	}
 
 }
