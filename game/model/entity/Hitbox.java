@@ -143,7 +143,7 @@ public class Hitbox {
 	}
 
 	public boolean pointInHitbox (Point p) {
-		return (dansLeTriangle(p, m_p1, m_p2, m_p4) || dansLeTriangle(p, m_p1, m_p3, m_p4));
+		return (dansLeTriangle(p, m_p1, m_p2, m_p4) || dansLeTriangle(p, m_p2, m_p3, m_p4) );
 	}
 
 	boolean dansLeTriangle (Point pt, Point v1, Point v2, Point v3) {
