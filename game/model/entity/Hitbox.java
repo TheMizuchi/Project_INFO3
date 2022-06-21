@@ -136,7 +136,7 @@ public class Hitbox {
 	}
 
 	public boolean pointInHitbox (double x, double y) {
-		return ((x > m_x) && (m_x + m_largeur > x)) && ((y > m_y) && (m_y + m_hauteur > y));
+		return ((x >= m_x) && (m_x + m_largeur >= x)) && ((y >= m_y) && (m_y + m_hauteur >= y));
 	}
 
 }
