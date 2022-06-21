@@ -28,7 +28,7 @@ public class J1 extends Player {
 	}
 
 	@Override
-	void setLight (Entity e) {
+	void setCam (Entity e) {
 		Camera.getInstance().setj1(e);
 	}
 

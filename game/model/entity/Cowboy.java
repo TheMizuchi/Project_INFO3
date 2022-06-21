@@ -28,5 +28,5 @@ public class Cowboy extends Player {
 	void show () {}
 
 	@Override
-	void setLight (Entity e) {}
+	void setCam (Entity e) {}
 }

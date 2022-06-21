@@ -69,7 +69,7 @@ public abstract class Player extends Entity {
 				m_possessing = true;
 				m_tangible = false;
 				hide();
-				setLight(closestTarget);
+				setCam(closestTarget);
 
 				if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
 					m_ev.walk();
@@ -80,17 +80,16 @@ public abstract class Player extends Entity {
 
 	abstract void hide ();
 	abstract void show ();
-	abstract void setLight (Entity e);
+	abstract void setCam (Entity e);
 
 	public Player finPossession (Mob m, int pv, Vector dir) {
 		m_pv = pv;
 		m_vecDir = dir;
 		m_possessing = false;
 		m_automata = new RefAutomata(this);
-		m_tangible = true;
 		show();
 		new PossessionTimerCD(this);
-		setLight(this);
+		setCam(this);
 		new IntangibleTimer(this);
 		m_hitbox.move(m.getPosX() - getPosX(), m.getPosY() - getPosY());
 
@@ -113,7 +112,7 @@ public abstract class Player extends Entity {
 			m_p.m_tangible = false;
 			m_init = System.currentTimeMillis();
 			MyTimer mt = MyTimer.getTimer();
-			mt.setTimer(100, this);
+			mt.setTimer(20, this);
 		}
 
 		@Override
@@ -123,7 +122,7 @@ public abstract class Player extends Entity {
 				m_p.m_tangible = true;
 			} else {
 				MyTimer mt = MyTimer.getTimer();
-				mt.setTimer(100, this);
+				mt.setTimer(20, this);
 			}
 
 		}

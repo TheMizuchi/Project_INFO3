@@ -68,6 +68,7 @@ public class Mob extends Entity {
 			if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
 				m_ev.walk();
 			}
+
 			m_entityProperties = m_OriginalEP;
 			m_automata = new RefAutomata(this);
 			m_p = m_p.finPossession(this, m_pv, m_vecDir);
