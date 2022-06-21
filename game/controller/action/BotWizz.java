@@ -17,7 +17,8 @@ public class BotWizz extends BotAction {
 
 	@Override
 	public boolean apply (Entity e) {
-		throw new RuntimeException("NYI");
+		e.wizz();
+		return true;
 	}
 
 }

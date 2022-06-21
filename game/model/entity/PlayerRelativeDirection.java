@@ -14,6 +14,7 @@ public class PlayerRelativeDirection extends PlayerAbsoluteDirection {
 		boolean yWasMoving = dirEntity.getN() ^ dirEntity.getS();
 		boolean wasMoving = xWasMoving || yWasMoving;
 
+		dirEntity.setApply(true);
 		compute();
 
 		// On récupére le vecteur envoyé par la nouvelle destination

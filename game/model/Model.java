@@ -8,7 +8,6 @@ import edu.polytech.oop.collections.LinkedList.Iterator;
 import model.entity.Entity;
 import model.entity.EntityProperties;
 import model.map.Map;
-import model.map.generator.Arc;
 import model.map.generator.Graph;
 import model.map.generator.JsonDecode;
 import model.map.generator.Node;
@@ -27,7 +26,7 @@ public class Model {
 	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
 	private Camera m_cam;
-	private Map m_map;
+	static private Map m_map;
 	private ArrayList rooms; //Totalité des salles pour pouvoir piocher dedans
 	private JsonDecode jd;
 
@@ -68,7 +67,7 @@ public class Model {
 
 	//méthode tmp pour les tests
 	private void loadEnv (Room spawnRoom) {
-		m_cam = new Camera(m_canvas.getViewport(), m_map.getWidth() / 2, m_map.getHeight() / 2);
+		m_cam = Camera.getInstance(m_canvas.getViewport(), m_map.getWidth() / 2, m_map.getHeight() / 2);
 		spawnRoom.spawnEntities(m_map);
 
 	}
@@ -112,6 +111,10 @@ public class Model {
 			m_cam.setj2(e);
 		}
 		return e;
+	}
+
+	public void deleteEntity (Entity e) {
+		// TODO
 	}
 
 	public void createLightSource (Entity e) {
@@ -184,7 +187,7 @@ public class Model {
 		return m_listeEntity;
 	}
 
-	public Map getMap () {
+	public static Map getMap () {
 		return m_map;
 	}
 

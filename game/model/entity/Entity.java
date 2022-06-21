@@ -11,7 +11,7 @@ import view.graphicEntity.EntityView;
 public abstract class Entity implements EntityInterface {
 
 	public int m_ID;
-	private int m_pv;
+	protected int m_pv;
 	protected Hitbox m_hitbox;
 	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
@@ -210,7 +210,6 @@ public abstract class Entity implements EntityInterface {
 	@Override
 	public void turn (double orientation, boolean absolute) {
 		m_vecDir.setAngle((absolute) ? (orientation) : (m_vecDir.getAngle() + orientation));
-
 	}
 
 	@Override
@@ -266,7 +265,6 @@ public abstract class Entity implements EntityInterface {
 		Model m;
 		m = Model.getInstance();
 		Entity e = m.createEntity(m_vecDir.getX(), m_vecDir.getY(), this.m_entityProperties);
-
 	}
 
 	public double distance (Entity e) {
@@ -279,6 +277,10 @@ public abstract class Entity implements EntityInterface {
 
 	public EntityType getType () {
 		return m_entityProperties.getEntityType();
+	}
+
+	public int getID () {
+		return m_entityProperties.getID();
 	}
 
 	public LinkedList getTuileInterdite () {

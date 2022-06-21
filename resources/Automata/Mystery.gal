@@ -1,4 +1,4 @@
-MoveFoward (Init) {
+Mystery (Init) {
 	* (Init):
 		| True ? Turn() : (Move1)
 	* (Move1):

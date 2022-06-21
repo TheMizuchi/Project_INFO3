@@ -112,12 +112,20 @@ public class Hitbox {
 		return m_x;
 	}
 
+	public void setX (double x) {
+		m_x = x;
+	}
+
 	public double getCenterX () {
 		return m_x + (m_largeur / 2);
 	}
 
 	public double getY () {
 		return m_y;
+	}
+
+	public void setY (double y) {
+		m_y = y;
 	}
 
 	public double getCenterY () {
@@ -145,7 +153,7 @@ public class Hitbox {
 	}
 
 	public boolean pointInHitbox (double x, double y) {
-		return ((x > m_x) && (m_x + m_largeur > x)) && ((y > m_y) && (m_y + m_hauteur > y));
+		return ((x >= m_x) && (m_x + m_largeur >= x)) && ((y >= m_y) && (m_y + m_hauteur >= y));
 	}
 
 }
