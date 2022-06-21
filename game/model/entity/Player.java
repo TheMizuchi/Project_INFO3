@@ -7,7 +7,7 @@ import controller.RefAutomata;
 
 public abstract class Player extends Entity {
 
-	protected static final long POSSESSION_CD = 3;
+	protected static final long POSSESSION_CD = 30;
 
 	final static double POSSESSION_RANGE = 10;
 	long m_possessionCD;
@@ -70,6 +70,10 @@ public abstract class Player extends Entity {
 				m_tangible = false;
 				hide();
 				setLight(closestTarget);
+
+				if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
+					m_ev.walk();
+				}
 			}
 		}
 	}
@@ -89,6 +93,10 @@ public abstract class Player extends Entity {
 		setLight(this);
 		new IntangibleTimer(this);
 		m_hitbox.move(m.getPosX() - getPosX(), m.getPosY() - getPosY());
+
+		if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
+			m_ev.walk();
+		}
 		return null;
 	}
 

@@ -1,9 +1,5 @@
 package model.entity;
 
-import java.io.IOException;
-
-import org.json.simple.parser.ParseException;
-
 import controller.RefAutomata;
 import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.LinkedList;
@@ -214,7 +210,6 @@ public abstract class Entity implements EntityInterface {
 	@Override
 	public void turn (double orientation, boolean absolute) {
 		m_vecDir.setAngle((absolute) ? (orientation) : (m_vecDir.getAngle() + orientation));
-
 	}
 
 	@Override
@@ -270,7 +265,6 @@ public abstract class Entity implements EntityInterface {
 		Model m;
 		m = Model.getInstance();
 		Entity e = m.createEntity(m_vecDir.getX(), m_vecDir.getY(), this.m_entityProperties);
-
 	}
 
 	public double distance (Entity e) {

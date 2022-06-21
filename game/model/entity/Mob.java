@@ -43,23 +43,40 @@ public class Mob extends Entity {
 	}
 
 	public void devientGentil (EntityProperties ep, Vector PlayerDir, Player p) {
+
+		if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
+			m_ev.walk();
+		}
+
 		m_PVMob = m_pv;
 		m_pv = p.m_pv;
 		m_entityProperties = ep;
 		m_automata = new RefAutomata(this);
 		m_vecDir = PlayerDir;
 		m_p = p;
+
+		if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
+			m_ev.walk();
+		}
 		new PossessionTimer(this);
 	}
 
 	public void redevientMechant () {
 
 		if (m_PossessionTime > 500 && m_p != null) {
+
+			if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
+				m_ev.walk();
+			}
 			m_entityProperties = m_OriginalEP;
 			m_automata = new RefAutomata(this);
 			m_p = m_p.finPossession(this, m_pv, m_vecDir);
 			m_vecDir = new Vector();
 			m_pv = m_PVMob;
+
+			if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
+				m_ev.walk();
+			}
 		}
 	}
 
