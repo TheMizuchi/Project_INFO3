@@ -13,9 +13,21 @@ public class Vector {
 
 	private double m_angle;
 
-	// Use only by entity (that are not players)
 	private boolean m_apply;
 
+
+	public Vector clone () {
+		Vector vec = new Vector();
+		vec.m_x = m_x;
+		vec.m_y = m_y;
+		vec.m_N = m_N;
+		vec.m_W = m_W;
+		vec.m_S = m_S;
+		vec.m_E = m_E;
+		vec.m_angle = m_angle;
+		vec.m_apply = m_apply;
+		return vec;
+	}
 
 	public boolean isApplied () {
 		return m_apply;

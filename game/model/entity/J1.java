@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.Camera;
 import view.MyCanvas;
 import view.graphicEntity.J1View;
 
@@ -32,6 +33,21 @@ public class J1 extends Player {
 			throw new RuntimeException("J1 isn't instance yet what are you doing bro ?");
 		}
 		return INSTANCE;
+	}
+
+	@Override
+	void hide () {
+		m_jv.hide();
+	}
+
+	@Override
+	void show () {
+		m_jv.show();
+	}
+
+	@Override
+	void setCam (Entity e) {
+		Camera.getInstance().setj1(e);
 	}
 
 }
