@@ -16,4 +16,8 @@ public class J2 extends Player {
 		MyCanvas.getInstance().createEntityView(m_jv);
 	}
 
+	public J2 (double x, double y, Object object) {
+		super(x, y, EntityProperties.J2);
+	}
+
 }

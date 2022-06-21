@@ -9,4 +9,9 @@ public class DartMonkey extends Mob {
 		//m_ev = m_dmv;
 		//MyCanvas.getInstance().createEntityView(m_dmv);
 	}
+
+	//Constructeur pour créer entité sans view
+	public DartMonkey (double x, double y, Object o) {
+		super(x, y, EntityProperties.DART_MONKEY);
+	}
 }

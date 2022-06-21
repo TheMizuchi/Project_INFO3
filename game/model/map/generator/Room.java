@@ -1,5 +1,7 @@
 package model.map.generator;
 
+import java.util.Random;
+
 import model.Model;
 import model.entity.Entity;
 import model.entity.EntityProperties;
@@ -49,8 +51,9 @@ public class Room {
 
 	public Room () {}
 
-	public void spawnEntities (Map m) {
+	public void spawnEntities (Map m, int nbMobsRandomlyPlaced) {
 
+		//Spawn des entités placées dans le JSON
 		for (int i = 0; i < width; i++) {
 
 			for (int j = 0; j < height; j++) {
@@ -66,6 +69,61 @@ public class Room {
 				}
 			}
 		}
+
+		//Spawn random
+		int iterationsSinceLastSuccess = 0;
+		int placed = 0;
+		int weightSum = 0;
+		EntityProperties[] eps = EntityProperties.values();
+		Random random = new Random();
+		Entity j1 = model.getJ(1);
+		Entity j2 = model.getJ(2);
+		double minDistance = 1.5;
+
+		for (int i = 0; i < eps.length; i++) {
+			weightSum += eps[i].getSpawnWeight();
+		}
+
+		while (iterationsSinceLastSuccess < 50 && placed < nbMobsRandomlyPlaced) {
+			EntityProperties ep = getWeightedRandom(weightSum);
+			double x = random.nextDouble() * width + upperLeftX;
+			double y = random.nextDouble() * height + upperLeftY;
+			Entity e = Entity.createEntityWithoutView(x, y, ep);
+
+			if (e.getHibox().deplacementValide(x, y)) {
+
+				if (distance(e, j1) > minDistance && distance(e, j2) > minDistance) {
+					model.createEntity(x, y, ep);
+					iterationsSinceLastSuccess = 0;
+					placed++;
+				}
+			} else {
+				iterationsSinceLastSuccess++;
+			}
+
+		}
+
+	}
+
+	private double distance (Entity e1, Entity e2) {
+		return Math.sqrt(Math.pow(e1.getPosX() - e2.getPosX(), 2) + Math.pow(e1.getPosY() - e2.getPosY(), 2));
+	}
+
+	private EntityProperties getWeightedRandom (int weightSum) {
+		EntityProperties[] eps = EntityProperties.values();
+		Random random = new Random();
+		double r = random.nextDouble();
+		double progress = 0;
+
+		for (int i = 0; i < eps.length; i++) {
+			progress += ((double) eps[i].getSpawnWeight()) / weightSum;
+
+			if (r < progress) {
+				return eps[i];
+			}
+		}
+		throw new RuntimeException("Revoir code de cette fonction");
+
 	}
 
 	public int getUpperLeftX () {

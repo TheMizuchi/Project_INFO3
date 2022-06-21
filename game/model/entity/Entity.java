@@ -1,9 +1,5 @@
 package model.entity;
 
-import java.io.IOException;
-
-import org.json.simple.parser.ParseException;
-
 import controller.RefAutomata;
 import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.LinkedList;
@@ -82,6 +78,44 @@ public abstract class Entity implements EntityInterface {
 		return e;
 	}
 
+	public static Entity createEntityWithoutView (double x, double y, EntityProperties entityProperties) {
+		Entity e = null;
+
+		switch (entityProperties) {
+			case COWBOY:
+				e = new Cowboy(x, y, null);
+				break;
+			case J1:
+				e = new J1(x, y, null);
+				break;
+			case J2:
+				e = new J2(x, y, null);
+				break;
+			case BLOON:
+				e = new Bloon(x, y, null);
+				break;
+			case SKELETON:
+				e = new Skeleton(x, y, null);
+				break;
+			case BAT:
+				e = new Bat(x, y, null);
+				break;
+			case DART_MONKEY:
+				e = new DartMonkey(x, y, null);
+				break;
+			case DOGE:
+				e = new Doge(x, y, null);
+				break;
+			case MYSTERY:
+				e = new MysteryMachine(x, y, null);
+				break;
+			default:
+				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
+
+		}
+		return e;
+	}
+
 	public int getOrientation () {
 
 		// T si gauche / north
@@ -132,7 +166,8 @@ public abstract class Entity implements EntityInterface {
 
 	@Override
 	public boolean closest (Direction orientation, EntityType type) {
-		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Model model = Model.getInstance();
+		ICollection.Iterator iter = model.getlistEntity().iterator();
 		Entity e, e_min;
 		double distMin = Float.MAX_VALUE;
 
@@ -156,7 +191,8 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	public Entity closest (EntityType type) {
-		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Model model = Model.getInstance();
+		ICollection.Iterator iter = model.getlistEntity().iterator();
 		Entity e, e_min = null;
 		double distMin = Double.MAX_VALUE;
 
@@ -281,6 +317,10 @@ public abstract class Entity implements EntityInterface {
 		return Math.sqrt(x * x + y * y);
 	}
 
+	public EntityProperties getProperties () {
+		return m_entityProperties;
+	}
+
 	public EntityType getType () {
 		return m_entityProperties.getEntityType();
 	}
@@ -293,7 +333,7 @@ public abstract class Entity implements EntityInterface {
 		return m_tangible;
 	}
 
-	Hitbox getHibox () {
+	public Hitbox getHibox () {
 		return m_hitbox;
 	}
 }

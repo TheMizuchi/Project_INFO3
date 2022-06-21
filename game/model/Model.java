@@ -41,15 +41,13 @@ public class Model {
 		m_listeLight = new LinkedList();
 		m_cont = Controller.getInstance();
 		m_canvas = MyCanvas.getInstance();
-		Room spawnRoom = createMap();
-		loadEnv(spawnRoom);
 
 	}
 
 	//méthode tmp pour les tests
-	private void loadEnv (Room spawnRoom) {
+	public void loadEnv (Room spawnRoom) {
 		m_cam = new Camera(m_canvas.getViewport(), m_map.getWidth() / 2, m_map.getHeight() / 2);
-		spawnRoom.spawnEntities(m_map);
+		spawnRoom.spawnEntities(m_map, 100);
 
 	}
 
@@ -114,6 +112,29 @@ public class Model {
 
 	public static Map getMap () {
 		return m_map;
+	}
+
+	public Entity getJ (int i) {
+		IList.Iterator iter = m_listeEntity.iterator();
+		EntityProperties ep;
+
+		switch (i) {
+			case 1:
+				ep = EntityProperties.J1;
+				break;
+			case 2:
+				ep = EntityProperties.J2;
+				break;
+			default:
+				throw new RuntimeException("Unknown player");
+		}
+
+		while (iter.hasNext()) {
+			Entity e = (Entity) iter.next();
+			if (e.getProperties() == ep)
+				return e;
+		}
+		return null;
 	}
 
 }

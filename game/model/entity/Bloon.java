@@ -16,6 +16,11 @@ public class Bloon extends Mob {
 		MyCanvas.getInstance().createEntityView(m_bv);
 	}
 
+	//Constructeur pour créer entité sans view
+	public Bloon (double x, double y, Object o) {
+		super(x, y, EntityProperties.BLOON);
+	}
+
 	@Override
 	public void pop () {
 		m_bv.explode();

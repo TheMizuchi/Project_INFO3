@@ -16,4 +16,9 @@ public class Bat extends Mob {
 		MyCanvas.getInstance().createEntityView(m_bv);
 	}
 
+	//Constructeur pour créer entité sans view
+	public Bat (double x, double y, Object o) {
+		super(x, y, EntityProperties.BAT);
+	}
+
 }
