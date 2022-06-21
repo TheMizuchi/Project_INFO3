@@ -16,7 +16,7 @@ public class J1 extends Player {
 		MyCanvas.getInstance().createEntityView(m_jv);
 	}
 	
-	private static J1 INSTANCE = null;
+	private static J1 INSTANCE = this;
 	
 	public static J1 getInstance (double x, double y) {
 
