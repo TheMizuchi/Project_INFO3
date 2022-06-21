@@ -334,21 +334,21 @@ public abstract class Entity implements EntityInterface {
 		double bidule = m_hitbox.getCenterY() - e.m_hitbox.getCenterY();
 
 		// bas droite
-		if (m_hitbox.getCenterX() < e.m_hitbox.getCenterX() && m_hitbox.getCenterY() > e.m_hitbox.getCenterY()) {
+		if (m_hitbox.getCenterX() <= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() >= e.m_hitbox.getCenterY()) {
 			return Math.acos(Math.abs(truc) / dist);
 		}
 		// bas gauche
-		else if (m_hitbox.getCenterX() > e.m_hitbox.getCenterX() && m_hitbox.getCenterY() > e.m_hitbox.getCenterY()) {
+		else if (m_hitbox.getCenterX() >= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() >= e.m_hitbox.getCenterY()) {
 			return Math.acos(Math.abs(bidule) / dist) + Math.PI / 2;
 		}
 
 		// haut gauche
-		else if (m_hitbox.getCenterX() > e.m_hitbox.getCenterX() && m_hitbox.getCenterY() < e.m_hitbox.getCenterY()) {
+		else if (m_hitbox.getCenterX() >= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() <= e.m_hitbox.getCenterY()) {
 			return Math.acos(Math.abs(truc) / dist) + Math.PI ;
 		}
 
 		// haut droite
-		else if (m_hitbox.getCenterX() < e.m_hitbox.getCenterX() && m_hitbox.getCenterY() < e.m_hitbox.getCenterY()) {
+		else if (m_hitbox.getCenterX() <= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() <= e.m_hitbox.getCenterY()) {
 			return Math.acos(Math.abs(bidule) / dist) + Math.PI / 2 * 3;
 		}
 
