@@ -49,10 +49,10 @@ public abstract class Entity implements EntityInterface {
 				e = new Cowboy(x, y);
 				break;
 			case J1:
-				e = new J1(x, y);
+				e = J1.getInstance(x, y);
 				break;
 			case J2:
-				e = new J2(x, y);
+				e = J2.getInstance(x, y);
 				break;
 			case BLOON:
 				e = new Bloon(x, y);
