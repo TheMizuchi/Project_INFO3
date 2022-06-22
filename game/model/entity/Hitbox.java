@@ -136,12 +136,19 @@ public class Hitbox {
 		System.out.println("centre dx : "+dx);
 		return dx;
 	}
+	
+	public double getCenterRealX() {
+		return (m_p1.getX() + m_p2.getX()) / 2 ;
+	}
 
 	public double getCenterY () {
 		double dy = (m_p1.getY() + m_p3.getY()) / 2;
 		System.out.println("centre dy : "+dy);
 		return dy;
-
+	}
+	
+	public double getCenterRealY() {
+		return (m_p1.getY() + m_p2.getY()) / 2 ;
 	}
 
 	public boolean pointInHitbox (Point p) {

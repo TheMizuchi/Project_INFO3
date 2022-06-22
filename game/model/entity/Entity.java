@@ -214,9 +214,22 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void hit (Direction orientation) {
-		// TODO Auto-generated method stub
-
+	public void hit (Vector vec) {
+		double a1 = Math.cos(22.5 * Math.PI *2 /360); 
+		double a2 = Math.cos(67.5 * Math.PI *2 /360);
+		
+		double longeur ;
+		double dx_div_2 = (m_hitbox.getP1().getX() - m_hitbox.getP2().getX() )/2; 
+		double dy_div_2 = (m_hitbox.getP1().getY() - m_hitbox.getP3().getY() )/2; 
+		double diagonal = Math.sqrt(dx_div_2 * dx_div_2 + dy_div_2 * dy_div_2);
+		
+		if( (vec.getX()>= -1 && vec.getX() <-a1 ) || vec.getX() >=a1 && vec.getX() < 1) {
+			longeur = dx_div_2;
+		}else if ( (vec.getX()>= -a1 && vec.getX() <-a2 ) || (vec.getX()>=a2 && vec.getX() < a1)) {
+			longeur = diagonal ; 
+		}else if (vec.getX()>= -a2 && vec.getX() < a2) {
+			longeur = dy_div_2;
+		}
 	}
 
 	@Override
