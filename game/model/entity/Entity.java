@@ -231,12 +231,6 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void waitt () {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void move (Direction dir) {
 		boolean sw = dir.move(m_vecDir);
 		if (sw)

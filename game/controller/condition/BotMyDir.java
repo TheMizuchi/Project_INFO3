@@ -10,8 +10,8 @@ public class BotMyDir implements ICondition {
 	BotDirection m_dir;
 
 
-	public BotMyDir (BotDirection dir) {
-		m_dir = dir;
+	public BotMyDir (String dir) {
+		m_dir = new BotDirection(dir);
 	}
 
 	@Override
