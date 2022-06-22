@@ -30,7 +30,6 @@ public class Door extends Entity {
 	public void pop () {
 		nb_frame_open = 0;
 		m_dv.opening();
-		System.out.println("J'ouvre");
 		m_tangible = false;
 	}
 
@@ -38,7 +37,6 @@ public class Door extends Entity {
 	@Override
 	public void wizz () {
 		m_tangible = true;
-		System.out.println("Je Ferme");
 		m_dv.closing();
 	}
 
@@ -70,13 +68,11 @@ public class Door extends Entity {
 
 			if (distance(J1.getInstance()) > proximity && distance(J2.getInstance()) > proximity) {
 
-				System.out.println("Je peux fermer");
 				return false;
 			}
 		} else {
 
 			if (distance(m_key) > proximity) {
-				System.out.println("Je peux fermer");
 				return false;
 			}
 		}
@@ -88,12 +84,10 @@ public class Door extends Entity {
 			Entity e = (Entity) iter.next();
 
 			if (e.getType() == EntityType.ENEMY) {
-				System.out.println("Je peux fermer");
 				return false;
 			}
 		}
 
-		System.out.println("Je peux ouvrir");
 		return true;
 	}
 

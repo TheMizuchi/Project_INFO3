@@ -18,7 +18,7 @@ public abstract class Entity implements EntityInterface {
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 	static final double rangeDetection = 10;
-	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
+	protected static double ENTITY_MAX_SPEED = 10; // vitesse par seconde
 	protected Vector m_vecDir = new Vector();
 
 	protected LinkedList m_blockInterdit;
