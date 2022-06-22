@@ -133,13 +133,13 @@ public class Hitbox {
 
 	public double getCenterX () {
 		double dx = (m_p1.getX() + m_p2.getX()) / 2 ; 
-		System.out.println("centre dx : "+dx);
+		//System.out.println("centre dx : "+dx);
 		return dx;
 	}
 
 	public double getCenterY () {
 		double dy = (m_p1.getY() + m_p3.getY()) / 2;
-		System.out.println("centre dy : "+dy);
+		//System.out.println("centre dy : "+dy);
 		return dy;
 
 	}

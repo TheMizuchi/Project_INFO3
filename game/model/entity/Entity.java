@@ -254,7 +254,7 @@ public abstract class Entity implements EntityInterface {
 
 	@Override
 	public void hit (Vector vec) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
