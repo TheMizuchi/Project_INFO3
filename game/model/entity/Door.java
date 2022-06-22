@@ -12,6 +12,7 @@ public class Door extends Entity {
 	Room m_room;
 	Key m_key;
 	DoorView m_dv;
+	int nb_frame_open;
 
 
 	public Door (double x, double y) {
@@ -27,14 +28,27 @@ public class Door extends Entity {
 	//Ouvrir porte
 	@Override
 	public void pop () {
-		m_tangible = false;
+		nb_frame_open = 0;
 		m_dv.opening();
+		m_tangible = false;
 	}
 
 	//Fermer porte
 	@Override
 	public void wizz () {
 		m_tangible = true;
+		m_dv.closing();
+	}
+
+	@Override
+	public void store () {
+
+		if (nb_frame_open >= 7) {
+
+			m_dv.opened();
+		} else {
+			nb_frame_open++;
+		}
 	}
 
 	public void setRoom (Room r) {
@@ -51,11 +65,16 @@ public class Door extends Entity {
 		int proximity = 2;
 
 		if (m_key == null) {
-			if (distance(J1.getInstance()) > proximity && distance(J2.getInstance()) > proximity)
+
+			if (distance(J1.getInstance()) > proximity && distance(J2.getInstance()) > proximity) {
+
 				return false;
+			}
 		} else {
-			if (distance(m_key) > proximity)
+
+			if (distance(m_key) > proximity) {
 				return false;
+			}
 		}
 
 		LinkedList entities = m_room.getListeEntity();
@@ -63,8 +82,10 @@ public class Door extends Entity {
 
 		while (iter.hasNext()) {
 			Entity e = (Entity) iter.next();
-			if (e.getType() == EntityType.ENEMY)
+
+			if (e.getType() == EntityType.ENEMY) {
 				return false;
+			}
 		}
 
 		return true;

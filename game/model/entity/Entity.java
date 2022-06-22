@@ -5,6 +5,7 @@ import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.LinkedList;
 import model.Model;
 import model.map.TileType;
+import view.MyCanvas;
 import view.graphicEntity.EntityView;
 
 
@@ -17,7 +18,7 @@ public abstract class Entity implements EntityInterface {
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 	static final double rangeDetection = 10;
-	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
+	protected static double ENTITY_MAX_SPEED = 10; // vitesse par seconde
 	protected Vector m_vecDir = new Vector();
 
 	protected LinkedList m_blockInterdit;
@@ -362,6 +363,11 @@ public abstract class Entity implements EntityInterface {
 		double x = h1.getCenterX() - h2.getCenterX();
 		double y = h1.getCenterY() - h2.getCenterY();
 		return Math.sqrt(x * x + y * y);
+	}
+
+	public void deleteEntity () {
+		Model.getInstance().deleteEntity(this);
+		MyCanvas.getInstance().deleteEntityView(m_ev);
 	}
 
 	public EntityProperties getProperties () {

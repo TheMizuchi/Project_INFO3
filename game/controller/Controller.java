@@ -64,6 +64,7 @@ public class Controller {
 			// Automates de Tests
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
 			BotAutomata EntityMyDirTest = getAutFromFile("resources/Automata/EntityMyDirTest.gal");
+			BotAutomata SuicideTestDeleteEntity = getAutFromFile("resources/Automata/SuicideTestDeleteEntity.gal");
 
 			insertAt(m_auts, EntityProperties.COWBOY.getID(), m_IdleAutomata);
 

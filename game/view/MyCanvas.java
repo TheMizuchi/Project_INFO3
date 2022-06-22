@@ -74,6 +74,11 @@ public class MyCanvas extends Component {
 		m_entityViews.insertAt(0, entity);
 	}
 
+	// Je m'en fou si t'es pas content Killian <3
+	public void deleteEntityView (EntityView entity) {
+		m_entityViews.remove(entity);
+	}
+
 	public void createLightSourceView (ILightSource s) {
 		m_light.addLightSource(s);
 	}

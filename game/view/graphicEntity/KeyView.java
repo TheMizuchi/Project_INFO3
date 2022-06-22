@@ -15,4 +15,8 @@ public class KeyView extends EntityView {
 		this.a.setDelay(150);
 	}
 
+	public void hide () {
+		this.a.hide();
+	}
+
 }

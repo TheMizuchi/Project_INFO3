@@ -98,8 +98,8 @@ public class Room {
 
 		while (iterationsSinceLastSuccess < 50 && placed < nbMobsRandomlyPlaced) {
 			EntityProperties ep = getWeightedRandom(weightSum);
-			double x = random.nextDouble() * width + upperLeftX;
-			double y = random.nextDouble() * height + upperLeftY;
+			double x = random.nextDouble() * (width - 2) + upperLeftX + 1;
+			double y = random.nextDouble() * (height - 2) + upperLeftY + 1;
 			Entity e = Entity.createEntityWithoutView(x, y, ep);
 
 			if (e.getHibox().deplacementValide(x, y)) {

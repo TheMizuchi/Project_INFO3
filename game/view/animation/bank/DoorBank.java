@@ -38,9 +38,9 @@ public class DoorBank extends EntityAnimationBank {
 		idle_img[0] = spriteFile.m_images[6];
 		this.idle = new Sprite(idle_img);
 
-		BufferedImage[] idle_walk = new BufferedImage[1];
-		idle_walk[0] = spriteFile.m_images[14];
-		this.idle = new Sprite(idle_img);
+		BufferedImage[] walk_img = new BufferedImage[1];
+		walk_img[0] = spriteFile.m_images[14];
+		this.walk = new Sprite(walk_img);
 
 	}
 
@@ -53,11 +53,11 @@ public class DoorBank extends EntityAnimationBank {
 		}
 		this.opening = new Sprite(opening_img);
 
-		BufferedImage[] closing_img = new BufferedImage[1];
+		BufferedImage[] closing_img = new BufferedImage[7];
 		int i = 0;
 
 		for (int j = 14; j > 7; j--) {
-			opening_img[i] = spriteFile.m_images[j];
+			closing_img[i] = spriteFile.m_images[j];
 			i++;
 		}
 		this.closing = new Sprite(closing_img);

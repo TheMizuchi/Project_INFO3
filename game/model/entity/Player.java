@@ -1,9 +1,9 @@
 package model.entity;
 
-import model.Camera;
 import common.MyTimer;
 import common.TimerListener;
 import controller.RefAutomata;
+import model.Camera;
 
 
 public abstract class Player extends Entity {
@@ -24,6 +24,7 @@ public abstract class Player extends Entity {
 
 		if (!m_possessing) {
 			Torch torch = Torch.getInstance();
+			Key key = Key.getInstance();
 			// déplacement
 			m_automata.step();
 			double speedX = super.m_vecDir.getX() * ENTITY_MAX_SPEED;
@@ -54,6 +55,8 @@ public abstract class Player extends Entity {
 			m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 			if (this.equals(torch.porteur))
 				torch.update(this);
+			if (this.equals(key.porteur))
+				key.update(this);
 		}
 	}
 
@@ -66,8 +69,16 @@ public abstract class Player extends Entity {
 	@Override
 	public void pick () {
 		Torch torch = Torch.getInstance();
+		Key key = Key.getInstance();
 
-		if (this.equals(torch.porteur)) {
+		System.out.println("j'essaie de pick");
+
+		if (distance(key) <= 2 && key.porteur == null) {
+			key.porteur = this;
+			key.hide();
+		}
+
+		else if (this.equals(torch.porteur)) {
 			torch.porteur = null;
 		} else if (distance(torch) <= 2) {
 			torch.porteur = this;

@@ -21,4 +21,14 @@ public class DoorView extends EntityView {
 		this.a.opening();
 	}
 
+	public void closing () {
+		this.a.setListener(this.al);
+		this.a.closing();
+	}
+
+	public void opened () {
+		this.a.setListener(this.al);
+		this.a.walk();
+	}
+
 }
