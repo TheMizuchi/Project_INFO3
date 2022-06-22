@@ -373,6 +373,14 @@ public abstract class Entity implements EntityInterface {
 		return m_hitbox;
 	}
 
+	public int getPv () {
+		return m_pv;
+	}
+
+	public void setPv (int pv) {
+		m_pv = pv;
+	}
+
 	public double angleVers (Entity e) {
 		double dist = distance(e);
 		double truc = m_hitbox.getCenterX() - e.m_hitbox.getCenterX();

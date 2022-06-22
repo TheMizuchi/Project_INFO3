@@ -89,8 +89,9 @@ public class Game {
 		new MyTimer();
 		m_elapsedUpdate = 0;
 		m_m = Model.getInstance();
-		m_m.createMap();
-		m_m.loadEnv();
+
+		m_m.newLevel();
+
 		m_listener.m_cont.setModel();
 		my_canvas.initATH(null, null);//Model.getj1(), Model.getj2()); // à remplacer quand les méthodes seront créées
 		System.out.println("  - creating frame...");
