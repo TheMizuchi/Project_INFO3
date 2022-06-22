@@ -6,7 +6,7 @@ public enum EntityProperties {
 	TORCH(3, 1, EntityType.ITEM, 0), SKELETON(4, 1, EntityType.ENEMY, 7), BAT(5, 1, EntityType.NEUTRAL, 1),
 	DART_MONKEY(6, 1, EntityType.ENEMY, 0), BLOON(7, 1, EntityType.ENEMY, 0), DOGE(8, 1, EntityType.ENEMY, 0),
 	MYSTERY(9, 1, EntityType.ENEMY, 0), KEY(10, 1, EntityType.ITEM, 0), DOOR(11, 1, EntityType.ITEM, 0),
-	ENTITY(12, 1, EntityType.NEUTRAL, 0);
+	STAIRS(12, 1, EntityType.ITEM, 0), ENTITY(13, 1, EntityType.NEUTRAL, 0);
 
 
 	private final int id;

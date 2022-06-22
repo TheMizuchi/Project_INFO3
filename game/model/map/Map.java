@@ -407,4 +407,16 @@ public class Map {
 		return null;
 	}
 
+	public Room getBoss () {
+		IList.Iterator iter = rooms.iterator();
+
+		while (iter.hasNext()) {
+			Room r = (Room) iter.next();
+			RoomType t = r.getType();
+			if (t == RoomType.BOSS1 || t == RoomType.BOSS2 || t == RoomType.BOSS3)
+				return r;
+		}
+		return null;
+	}
+
 }
