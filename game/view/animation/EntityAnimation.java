@@ -30,7 +30,7 @@ public abstract class EntityAnimation extends Animation {
 			}
 
 		};
-		this.idle();
+		idle();
 	}
 
 	public void setPosition (int x, int y, double scale) {

@@ -88,19 +88,24 @@ public class BloonBank extends EntityAnimationBank {
 		this.pink = new Sprite(pink);
 		this.purple = new Sprite(purple);
 
-		BufferedImage[] idlecolor = new BufferedImage[1];
-		idlecolor[0] = red[0];
-		this.Ired = new Sprite(idlecolor);
-		idlecolor[0] = blue[0];
-		this.Iblue = new Sprite(idlecolor);
-		idlecolor[0] = green[0];
-		this.Igreen = new Sprite(idlecolor);
-		idlecolor[0] = yellow[0];
-		this.Iyellow = new Sprite(idlecolor);
-		idlecolor[0] = pink[0];
-		this.Ipink = new Sprite(idlecolor);
-		idlecolor[0] = purple[0];
-		this.Ipurple = new Sprite(idlecolor);
+		BufferedImage[] redidle = new BufferedImage[1];
+		redidle[0] = red[0];
+		this.Ired = new Sprite(redidle);
+		BufferedImage[] blueidle = new BufferedImage[1];
+		blueidle[0] = blue[0];
+		this.Iblue = new Sprite(blueidle);
+		BufferedImage[] greenidle = new BufferedImage[1];
+		greenidle[0] = green[0];
+		this.Igreen = new Sprite(greenidle);
+		BufferedImage[] yellowidle = new BufferedImage[1];
+		yellowidle[0] = yellow[0];
+		this.Iyellow = new Sprite(yellowidle);
+		BufferedImage[] pinkidle = new BufferedImage[1];
+		pinkidle[0] = pink[0];
+		this.Ipink = new Sprite(pinkidle);
+		BufferedImage[] purpleidle = new BufferedImage[1];
+		purpleidle[0] = purple[0];
+		this.Ipurple = new Sprite(purpleidle);
 
 	}
 

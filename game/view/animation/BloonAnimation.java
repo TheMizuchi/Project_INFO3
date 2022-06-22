@@ -16,6 +16,7 @@ public class BloonAnimation extends EntityAnimation {
 	public BloonAnimation () {
 		super(AnimationBank.getAnimationBank(EntityProperties.BLOON.getID()));
 		this.bb = (BloonBank) AnimationBank.getAnimationBank(EntityProperties.BLOON.getID());
+		setLevel(2);
 	}
 
 	public void explode () {
@@ -50,8 +51,23 @@ public class BloonAnimation extends EntityAnimation {
 				this.idle = this.bb.Ipurple;
 				this.explode = this.bb.purple;
 				break;
+			default:
+				throw new RuntimeException("le niveau du ballon a rencontré un problème");
 		}
 		this.walk = this.idle;
+		m_sprite = this.idle;
+	}
+
+	@Override
+	public void idle () {
+		m_sprite = this.idle;
+		this.start();
+	}
+
+	@Override
+	public void walk () {
+		m_sprite = this.walk;
+		this.start();
 	}
 
 	@Override

@@ -15,7 +15,8 @@ public enum TileType {
 	DART_MONKEY(EntityProperties.ARCHER.spawnerID(), 1, EntityProperties.ARCHER),
 	BLOON(EntityProperties.BLOON.spawnerID(), 1, EntityProperties.BLOON),
 	DOGE(EntityProperties.DOGE.spawnerID(), 1, EntityProperties.DOGE),
-	MYSTERY(EntityProperties.MYSTERY.spawnerID(), 1, EntityProperties.MYSTERY);
+	MYSTERY(EntityProperties.MYSTERY.spawnerID(), 1, EntityProperties.MYSTERY),
+	BLOON_BOSS(EntityProperties.BLOON_BOSS.spawnerID(), 1, EntityProperties.BLOON_BOSS);
 
 
 	private int id;
