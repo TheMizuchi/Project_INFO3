@@ -1,5 +1,7 @@
 package model.entity;
 
+import java.awt.Graphics;
+
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 import edu.polytech.oop.collections.LinkedList.Iterator;
@@ -44,7 +46,7 @@ public class Hitbox {
 		Point new_p3_x = new Point(m_p3.getX() + dx, m_p3.getY());
 		Point new_p4_x = new Point(m_p4.getX() + dx, m_p4.getY());
 
-		if (deplacementValide(new_p1_x, new_p2_x, new_p3_x, new_p3_x)) {
+		if (deplacementValide(new_p1_x, new_p2_x, new_p3_x, new_p4_x)) {
 			m_p1 = new_p1_x;
 			m_p2 = new_p2_x;
 			m_p3 = new_p3_x;
@@ -56,7 +58,7 @@ public class Hitbox {
 		Point new_p3_y = new Point(m_p3.getX(), m_p3.getY() + dy);
 		Point new_p4_y = new Point(m_p4.getX(), m_p4.getY() + dy);
 
-		if (deplacementValide(new_p1_y, new_p2_y, new_p3_y, new_p3_y)) {
+		if (deplacementValide(new_p1_y, new_p2_y, new_p3_y, new_p4_y)) {
 			m_p1 = new_p1_y;
 			m_p2 = new_p2_y;
 			m_p3 = new_p3_y;
@@ -174,6 +176,13 @@ public class Hitbox {
 
 	public Point getP4 () {
 		return m_p1;
+	}
+	
+	public void paint(Graphics g) {
+		m_p1.paint(g);
+		m_p2.paint(g);
+		m_p3.paint(g);
+		m_p4.paint(g);
 	}
 
 }

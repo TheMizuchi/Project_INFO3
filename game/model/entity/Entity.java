@@ -12,7 +12,7 @@ public abstract class Entity implements EntityInterface {
 
 	public int m_ID;
 	protected int m_pv;
-	protected Hitbox m_hitbox;
+	public Hitbox m_hitbox;
 	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
@@ -30,7 +30,7 @@ public abstract class Entity implements EntityInterface {
 		m_entityProperties = ep;
 		m_ID = ep.getID();
 		m_pv = ep.getInitialPv();
-		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this , false);
+		m_hitbox = new Hitbox(x, y, 0.5, 1, this , false);
 		m_automata = new RefAutomata(this);
 		m_blockInterdit = new LinkedList();
 		m_blockInterdit.insertAt(0, TileType.WALL);

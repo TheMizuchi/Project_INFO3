@@ -2,6 +2,7 @@ package model.entity;
 
 import model.Camera;
 import view.MyCanvas;
+import view.Viewport;
 import view.graphicEntity.J1View;
 
 

@@ -26,7 +26,7 @@ public class Model {
 	// Variables locales
 	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
-	private Camera m_cam;
+	static public Camera m_cam;
 	private Map m_map;
 	private ArrayList rooms; //Totalité des salles pour pouvoir piocher dedans
 	private JsonDecode jd;

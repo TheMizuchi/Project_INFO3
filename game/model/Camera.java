@@ -9,7 +9,7 @@ public class Camera {
 
 	private static Camera m_instance = null;
 
-	private Viewport vp;
+	public Viewport vp;
 	private EntityInterface j1;
 	private EntityInterface j2;
 

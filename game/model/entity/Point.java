@@ -1,5 +1,10 @@
 package model.entity;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
+import model.Camera;
+import model.Model;
 
 public class Point {
 	private double m_x;
@@ -18,5 +23,13 @@ public class Point {
 	public double getY() {
 		return m_y;
 	}
+	
+	public void paint (Graphics g) {
+		Camera c = Model.m_cam;
+		g.setColor(Color.white);
+		int x = c.vp.toLocalX(m_x);
+		int y = c.vp.toLocalY(m_y);
+		g.drawRect(x, y, 1, 1);
+	}//bidouille ultra temporaire
 
 }
