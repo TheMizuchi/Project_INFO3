@@ -16,9 +16,11 @@ public class J2 extends Player {
 		m_ev = m_jv;
 		MyCanvas.getInstance().createEntityView(m_jv);
 	}
-	
-private static J2 INSTANCE = null;
-	
+
+
+	private static J2 INSTANCE = null;
+
+
 	public static J2 getInstance (double x, double y) {
 
 		if (INSTANCE == null) {
@@ -47,6 +49,6 @@ private static J2 INSTANCE = null;
 
 	@Override
 	void setCam (Entity e) {
-		Camera.getInstance().setj1(e);
+		Camera.getInstance().setj2(e);
 	}
 }

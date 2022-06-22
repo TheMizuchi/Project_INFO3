@@ -58,7 +58,7 @@ public class Controller {
 			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
 			BotAutomata idle = getAutFromFile("resources/Automata/Idle.gal");
 			BotAutomata doge = getAutFromFile("resources/Automata/Doge.gal");
-			BotAutomata mystery = getAutFromFile("resources/Automata/pouet.gal"); // remettre Mystery
+			BotAutomata mystery = getAutFromFile("resources/Automata/Mystery.gal"); // remettre Mystery
 			BotAutomata egg = getAutFromFile("resources/Automata/Egg.gal");
 
 			// Automates de Tests

@@ -46,7 +46,7 @@ public class Game {
 		new MenuFrame();
 
 		while (MenuFrame.getBoolFen() == true) {
-
+			System.out.println("bouh");
 		}
 
 		try {

@@ -74,11 +74,6 @@ public class BotBuilder implements IVisitor {
 
 		if (expression instanceof BotFunCall) {
 			BotFunCall fc = (BotFunCall) expression;
-			Object p1 = fc.m_p1;
-
-			if (p1 == null) {
-				p1 = new BotDirection("");
-			}
 			ICondition cond = null;
 
 			switch (fc.m_name) {
@@ -86,16 +81,16 @@ public class BotBuilder implements IVisitor {
 					cond = new BotTrue();
 					break;
 				case "Key":
-					cond = new BotKey((String) p1);
+					cond = new BotKey(fc.m_p1);
 					break;
 				case "Cell":
-					cond = new BotCell((BotDirection) p1, fc.m_p2);
+					cond = new BotCell(fc.m_p1, fc.m_p2);
 					break;
 				case "MyDir":
-					cond = new BotMyDir((BotDirection) p1);
+					cond = new BotMyDir(fc.m_p1);
 					break;
 				case "Closest":
-					cond = new BotClosest((String) p1, fc.m_p2);
+					cond = new BotClosest(fc.m_p1, fc.m_p2);
 					break;
 				case "GotPower":
 					cond = new BotGotPower();
@@ -121,7 +116,7 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object visit (Direction dir) {
-		return new BotDirection(dir.toString());
+		return dir.toString();
 	}
 
 	@Override
@@ -144,14 +139,14 @@ public class BotBuilder implements IVisitor {
 
 	@Override
 	public Object exit (FunCall funcall, List<Object> parameters) {
-		Object p1 = null;
+		String p1 = "";
 		String p2 = "";
 
 		switch (parameters.size()) {
 			case 2:
 				p2 = (String) parameters.get(1);
 			case 1:
-				p1 = (Object) parameters.get(0);
+				p1 = (String) parameters.get(0);
 			default:
 				break;
 		}
@@ -239,18 +234,12 @@ public class BotBuilder implements IVisitor {
 			float sum = 0; 							// Somme des probas différentes de -1
 			IList toSetProba = new LinkedList(); 	// Stocke les action d'une proba de -1 (à affecter)
 
-			Object p1 = null;
-
 			for (Object obj : funcalls) {
 				BotFunCall call = (BotFunCall) obj;
-				p1 = call.m_p1;
 
 				switch (call.m_name) {
 					case "Move":
-						if (p1 == null) {
-							p1 = new BotDirection("");
-						}
-						act = new BotMove((BotDirection) p1);
+						act = new BotMove(call.m_p1);
 						break;
 					case "Pop":
 						act = new BotPop();
@@ -259,10 +248,7 @@ public class BotBuilder implements IVisitor {
 						act = new BotWizz();
 						break;
 					case "Hit":
-						if (p1 == null) {
-							p1 = new BotDirection("");
-						}
-						act = new BotHit((BotDirection) p1);
+						act = new BotHit(call.m_p1);
 						break;
 					case "Power":
 						act = new BotPower();
@@ -271,10 +257,7 @@ public class BotBuilder implements IVisitor {
 						act = new BotJump();
 						break;
 					case "Turn":
-						if (p1 == null) {
-							p1 = new BotDirection("");
-						}
-						act = new BotTurn((BotDirection) p1);
+						act = new BotTurn(call.m_p1);
 						break;
 					case "Protect":
 						act = new BotProtect();
@@ -283,10 +266,7 @@ public class BotBuilder implements IVisitor {
 						act = new BotPick();
 						break;
 					case "Throw":
-						if (p1 == null) {
-							p1 = new BotDirection("");
-						}
-						act = new BotThrow((BotDirection) p1);
+						act = new BotThrow(call.m_p1);
 						break;
 					case "Store":
 						act = new BotStore();
@@ -298,10 +278,10 @@ public class BotBuilder implements IVisitor {
 						act = new BotExplode();
 						break;
 					case "Egg":
-						act = new BotEgg((String) p1);
+						act = new BotEgg(call.m_p1);
 						break;
 					case "Wait":
-						act = new BotWait((long) p1);
+						act = new BotWait(call.m_p1);
 						break;
 					case "None":
 						act = new BotNone();

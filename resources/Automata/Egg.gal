@@ -6,7 +6,8 @@ Torch (Init) {
 	* (Est):
 		| True ? Move(S) : (Sud)
 	* (Sud):
-		| True ? Move(S) : (Oeuf)
+		| Key(h) ? Move(S) : (Oeuf)
 	* (Oeuf):
-		| Cell ? Egg(S) : (Init)
+		| Cell(F) ? Egg(S) : (Init)
+		| True ? : (Init)
 }
