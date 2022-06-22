@@ -2,7 +2,6 @@ package controller.action;
 
 import controller.BotAction;
 import controller.RefAutomata;
-import controller.WaitTimer;
 import model.entity.Entity;
 
 
@@ -17,7 +16,7 @@ public class BotWait extends BotAction {
 
 	@Override
 	public boolean apply (Entity e, RefAutomata aut) {
-		new WaitTimer(aut, m_time);
+		aut.waitt(m_time);
 		return true;
 	}
 
