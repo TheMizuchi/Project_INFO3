@@ -33,7 +33,7 @@ public abstract class Entity implements EntityInterface {
 		m_entityProperties = ep;
 		m_ID = ep.getID();
 		m_pv = ep.getInitialPv();
-		m_hitbox = new Hitbox(x, y, 0.5, 1, this , false);
+		m_hitbox = new Hitbox(x, y, 0.5, 1, this, false);
 		m_automata = new RefAutomata(this);
 		m_blockInterdit = new LinkedList();
 		m_blockInterdit.insertAt(0, TileType.WALL);
@@ -115,8 +115,7 @@ public abstract class Entity implements EntityInterface {
 		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 	}
 
-	void attack (Entity cible) {
-	}
+	void attack (Entity cible) {}
 
 	void interact () {}
 
@@ -161,13 +160,13 @@ public abstract class Entity implements EntityInterface {
 			x = 1;
 			y = 0;
 		}
-		
-		Point p1 = new Point(m_hitbox.getP1().getX() +x,m_hitbox.getP1().getY()+y);
-		Point p2 = new Point(m_hitbox.getP2().getX() +x,m_hitbox.getP2().getY()+y);
-		Point p3 = new Point(m_hitbox.getP3().getX() +x,m_hitbox.getP3().getY()+y);
-		Point p4 = new Point(m_hitbox.getP4().getX() +x,m_hitbox.getP4().getY()+y);
 
-		if (m_hitbox.deplacementValide(p1,p2,p3,p4))
+		Point p1 = new Point(m_hitbox.getP1().getX() + x, m_hitbox.getP1().getY() + y);
+		Point p2 = new Point(m_hitbox.getP2().getX() + x, m_hitbox.getP2().getY() + y);
+		Point p3 = new Point(m_hitbox.getP3().getX() + x, m_hitbox.getP3().getY() + y);
+		Point p4 = new Point(m_hitbox.getP4().getX() + x, m_hitbox.getP4().getY() + y);
+
+		if (m_hitbox.deplacementValide(p1, p2, p3, p4))
 			return true;
 
 		return false;
@@ -254,7 +253,7 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void hit (Direction orientation) {
+	public void hit (Vector vec) {
 		// TODO Auto-generated method stub
 
 	}
@@ -306,12 +305,12 @@ public abstract class Entity implements EntityInterface {
 		Model m;
 		m = Model.getInstance();
 
-		Point p1 = new Point(m_hitbox.getP1().getX() +orientationx,m_hitbox.getP1().getY()+orientationy);
-		Point p2 = new Point(m_hitbox.getP2().getX() +orientationx,m_hitbox.getP2().getY()+orientationy);
-		Point p3 = new Point(m_hitbox.getP3().getX() +orientationx,m_hitbox.getP3().getY()+orientationy);
-		Point p4 = new Point(m_hitbox.getP4().getX() +orientationx,m_hitbox.getP4().getY()+orientationy);
+		Point p1 = new Point(m_hitbox.getP1().getX() + orientationx, m_hitbox.getP1().getY() + orientationy);
+		Point p2 = new Point(m_hitbox.getP2().getX() + orientationx, m_hitbox.getP2().getY() + orientationy);
+		Point p3 = new Point(m_hitbox.getP3().getX() + orientationx, m_hitbox.getP3().getY() + orientationy);
+		Point p4 = new Point(m_hitbox.getP4().getX() + orientationx, m_hitbox.getP4().getY() + orientationy);
 
-		if (m_hitbox.deplacementValide(p1,p2,p3,p4)) {
+		if (m_hitbox.deplacementValide(p1, p2, p3, p4)) {
 			Entity e = m.createEntity(getPosX() + orientationx, getPosY() - orientationy, this.m_entityProperties);
 			m.createLightSource(e);
 		}
