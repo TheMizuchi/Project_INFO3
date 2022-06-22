@@ -58,7 +58,8 @@ public class Controller {
 			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
 			BotAutomata doge = getAutFromFile(MenuFrame.getFileDoge());
 			BotAutomata mystery = getAutFromFile(MenuFrame.getFileMystery());
-			BotAutomata doorc = getAutFromFile("resources/Automata/Door.gal");
+			BotAutomata door = getAutFromFile("resources/Automata/Door.gal");
+			BotAutomata key = getAutFromFile("resources/Automata/Torch.gal");
 
 			// Automates de Tests
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
@@ -75,7 +76,8 @@ public class Controller {
 			insertAt(m_auts, EntityProperties.TORCH.getID(), torch);
 			insertAt(m_auts, EntityProperties.DOGE.getID(), doge);
 			insertAt(m_auts, EntityProperties.MYSTERY.getID(), mystery);
-			insertAt(m_auts, EntityProperties.DOOR.getID(), doorc);
+			insertAt(m_auts, EntityProperties.DOOR.getID(), door);
+			insertAt(m_auts, EntityProperties.KEY.getID(), key);
 		}
 		catch (ParseException ex) {
 			throw new RuntimeException("Erreur de parsing");
