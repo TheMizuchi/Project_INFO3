@@ -217,6 +217,27 @@ public abstract class Entity implements EntityInterface {
 		return e_min;
 	}
 
+	public Entity closest (boolean possessable) {
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e, e_min = null;
+		double distMin = Double.MAX_VALUE;
+
+		while (iter.hasNext()) {
+			e = (Entity) iter.next();
+
+			if (e.getPossessable() == possessable) {
+				double dist = distance(e);
+
+				if (distMin > dist) {
+					e_min = e;
+					distMin = dist;
+				}
+
+			}
+		}
+		return e_min;
+	}
+
 	@Override
 	public boolean gotPower () {
 		return m_pv > 0;
@@ -324,6 +345,10 @@ public abstract class Entity implements EntityInterface {
 
 	public int getID () {
 		return m_entityProperties.getID();
+	}
+
+	public boolean getPossessable () {
+		return m_entityProperties.getPossessable();
 	}
 
 	public LinkedList getTuileInterdite () {

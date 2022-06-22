@@ -10,6 +10,7 @@ public abstract class Player extends Entity {
 
 	protected static final long POSSESSION_CD = 30;
 
+	final static double SLOW_TORCHE = 0.20;
 	final static double POSSESSION_RANGE = 10;
 	long m_possessionCD;
 	Mob m_possessing;
@@ -26,8 +27,17 @@ public abstract class Player extends Entity {
 			Torch torch = Torch.getInstance();
 			// déplacement
 			m_automata.step();
-			double speedX = super.m_vecDir.getX() * ENTITY_MAX_SPEED;
-			double speedY = super.m_vecDir.getY() * ENTITY_MAX_SPEED;
+
+			double speedX;
+			double speedY;
+
+			if (this.equals(torch.porteur)) {
+				speedX = super.m_vecDir.getX() * ENTITY_MAX_SPEED * (1 - SLOW_TORCHE);
+				speedY = super.m_vecDir.getY() * ENTITY_MAX_SPEED * (1 - SLOW_TORCHE);
+			} else {
+				speedX = super.m_vecDir.getX() * ENTITY_MAX_SPEED;
+				speedY = super.m_vecDir.getY() * ENTITY_MAX_SPEED;
+			}
 
 			if (Camera.getBlock()) {
 				Entity autreJ = autreJ();
@@ -86,20 +96,8 @@ public abstract class Player extends Entity {
 	public void wizz () {
 
 		if (m_possessionCD == 0) {
-			Mob closestEnnemy = (Mob) closest(EntityType.ENEMY);
-			Mob closestNeutral = (Mob) closest(EntityType.NEUTRAL);
 
-			Mob closestTarget = closestEnnemy;
-
-			if (closestTarget == null) {
-				closestTarget = closestNeutral;
-			} else {
-
-				if (closestNeutral != null) {
-					closestTarget = (distance(closestEnnemy) < distance(closestNeutral)) ? (closestEnnemy)
-							: (closestNeutral);
-				}
-			}
+			Mob closestTarget = (Mob) closest(true);
 
 			if (closestTarget != null && distance(closestTarget) < POSSESSION_RANGE) {
 				closestTarget.devientGentil(m_entityProperties, m_vecDir.clone(), this);
