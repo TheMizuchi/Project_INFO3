@@ -10,14 +10,13 @@ import view.animation.Sprite;
 
 public class DoorBank extends EntityAnimationBank {
 	
+	public Sprite opening;
+
+
 	private DoorBank () {
-		BufferedImage[] images = new BufferedImage[6];
-
-		for (int i = 0; i < 6; i++) {
-			images[i] = loadImages("resources/green-balloon/" + ((int) (i + 1)) + ".png");
-		}
-
-		Sprite spriteFile = new Sprite(images);
+		
+		Sprite spriteFile = Sprite.loadSprite("door.png", 2, 15);
+		
 		loadSpecificAnimation(spriteFile);
 		loadBasicAnimation(spriteFile);
 	}
@@ -32,25 +31,6 @@ public class DoorBank extends EntityAnimationBank {
 		}
 		return INSTANCE;
 	}
-	
-	private BufferedImage loadImages (String filename) {
-		File imageFile = new File(filename);
-
-		if (imageFile.exists()) {
-			BufferedImage image = null;
-
-			try {
-				image = ImageIO.read(imageFile);
-			}
-			catch (IOException e) {
-				System.out.println("Impossible d'ouvrir le fichier " + filename);
-				e.printStackTrace();
-			}
-			return image;
-		}
-		return null;
-
-	}
 
 	@Override
 	protected void loadBasicAnimation (Sprite spriteFile) {
@@ -63,7 +43,13 @@ public class DoorBank extends EntityAnimationBank {
 
 	@Override
 	protected void loadSpecificAnimation (Sprite spriteFile) {
-		// TODO Auto-generated method stub
+		BufferedImage[] opening_img = new BufferedImage[4];
+
+		for (int i = 0; i < 7; i++) {
+			opening_img[i] = spriteFile.m_images[i + 6];
+		}
+		this.opening = new Sprite(opening_img);
+
 		
 	}
 
