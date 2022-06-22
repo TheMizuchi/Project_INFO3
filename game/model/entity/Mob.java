@@ -3,6 +3,7 @@ package model.entity;
 import common.MyTimer;
 import common.TimerListener;
 import controller.RefAutomata;
+import model.Camera;
 
 
 public class Mob extends Entity {
@@ -29,6 +30,35 @@ public class Mob extends Entity {
 		if (m_vecDir.isApplied()) {
 			double speedX = m_vecDir.getX() * ENTITY_MAX_SPEED;
 			double speedY = m_vecDir.getY() * ENTITY_MAX_SPEED;
+
+			//Dans le cas où le monstre est possédé
+			///////////////////////////////////////
+			if (m_p != null) {
+
+				if (Camera.getBlock()) {
+					Entity autreJ = autreJ();
+					Entity moi = getEntity();
+					double m_angle = m_vecDir.getAngle();
+
+					// haut
+					if (m_angle < Math.PI && m_angle > 0 && autreJ.m_hitbox.getY() > moi.m_hitbox.getY())
+						return;
+
+					// bas
+					if (m_angle > Math.PI && autreJ.m_hitbox.getY() < moi.m_hitbox.getY())
+						return;
+
+					// gauche
+					if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && autreJ.m_hitbox.getX() > moi.m_hitbox.getX())
+						return;
+
+					// droite
+					if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && autreJ.m_hitbox.getX() < moi.m_hitbox.getX())
+						return;
+
+				}
+			}
+			//Fin cas de possession
 			m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 
 			if (m_entityProperties.getEntityType() == EntityType.ENEMY || m_entityProperties.getEntityType() == EntityType.NEUTRAL) {
@@ -40,6 +70,19 @@ public class Mob extends Entity {
 	@Override
 	public void wizz () {
 		redevientMechant();
+	}
+	
+	private Entity autreJ () {
+
+		if (this.m_p == J1.getInstance())
+			return J2.getInstance().getEntity();
+		return J1.getInstance().getEntity();
+	}
+
+	public Entity getEntity () {
+		if (m_p != null)
+			return m_p;
+		return this;
 	}
 
 	public void devientGentil (EntityProperties ep, Vector PlayerDir, Player p) {

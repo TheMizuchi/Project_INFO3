@@ -1,36 +1,17 @@
 package controller.action;
 
 import controller.BotAction;
+import controller.RefAutomata;
 import model.entity.Entity;
 
 
 public class BotPick extends BotAction {
 
-	String m_s;
-
-
-	public BotPick (String s) {
-		m_s = s;
-	}
+	public BotPick () {}
 
 	@Override
-	public boolean apply (Entity e) {
+	public boolean apply (Entity e, RefAutomata aut) {
 		e.pick();
-
-		switch (m_s) {
-			case "F":
-
-				break;
-			case "B":
-
-				break;
-			case "L":
-
-				break;
-			case "R":
-
-				break;
-		}
 		return true;
 	}
 

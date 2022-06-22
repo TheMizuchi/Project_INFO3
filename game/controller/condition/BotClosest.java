@@ -1,6 +1,7 @@
 package controller.condition;
 
 import controller.ICondition;
+import model.entity.Entity;
 
 
 public class BotClosest implements ICondition {
@@ -15,7 +16,7 @@ public class BotClosest implements ICondition {
 	}
 
 	@Override
-	public boolean eval () {
+	public boolean eval (Entity e) {
 		throw new RuntimeException("NYI");
 	}
 

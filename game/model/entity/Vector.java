@@ -147,6 +147,10 @@ public class Vector {
 	}
 
 	public double getAngle () {
+
+		while (m_angle >= 2 * Math.PI) {
+			m_angle -= 2 * Math.PI;
+		}
 		return m_angle;
 	}
 

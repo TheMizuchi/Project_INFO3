@@ -1,35 +1,22 @@
 package controller.action;
 
 import controller.BotAction;
+import controller.BotDirection;
+import controller.RefAutomata;
 import model.entity.Entity;
 
 
 public class BotThrow extends BotAction {
 
-	String m_s;
+	BotDirection m_dir;
 
 
-	public BotThrow (String s) {
-		m_s = s;
+	public BotThrow (String dir) {
+		m_dir = new BotDirection(dir);
 	}
 
 	@Override
-	public boolean apply (Entity e) {
-
-		switch (m_s) {
-			case "F":
-
-				break;
-			case "B":
-
-				break;
-			case "L":
-
-				break;
-			case "R":
-
-				break;
-		}
+	public boolean apply (Entity e, RefAutomata aut) {
 		return true;
 	}
 

@@ -114,7 +114,7 @@ public class Hitbox {
 		while (it.hasNext()) {
 			Entity e = (Entity) it.next();
 
-			if (!e.equals(m_e) && e.isTanguible()) {
+			if (!e.equal(m_e) && e.isTanguible()) {
 
 				if (e.m_hitbox.pointInHitbox(new_p1) || e.m_hitbox.pointInHitbox(new_p2) || e.m_hitbox.pointInHitbox(new_p3) || e.m_hitbox.pointInHitbox(new_p4)) {
 					return true;

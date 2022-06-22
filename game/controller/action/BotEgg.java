@@ -1,36 +1,24 @@
 package controller.action;
 
 import controller.BotAction;
+import controller.RefAutomata;
 import model.entity.Entity;
+import controller.BotDirection;
 
 
 public class BotEgg extends BotAction {
 
-	String m_s;
+	double m_angle;
 
 
 	public BotEgg (String s) {
-		m_s = s;
+		BotDirection dir = new BotDirection(s);
+		m_angle = dir.getAngle();
 	}
 
 	@Override
-	public boolean apply (Entity e) {
-
-		switch (m_s) {
-			case "F":
-
-				break;
-			case "B":
-
-				break;
-			case "L":
-
-				break;
-			case "R":
-
-				break;
-		}
+	public boolean apply (Entity e, RefAutomata aut) {
+		e.egg(Math.cos(m_angle), Math.sin(m_angle));
 		return true;
 	}
-
 }

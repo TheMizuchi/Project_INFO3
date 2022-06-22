@@ -20,6 +20,9 @@ public abstract class Entity implements EntityInterface {
 	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
 	protected Vector m_vecDir = new Vector();
 
+	private static int m_count = 0;
+	public int m_c;
+
 	protected LinkedList m_blockInterdit;
 	protected boolean m_tangible;
 
@@ -35,6 +38,8 @@ public abstract class Entity implements EntityInterface {
 		m_blockInterdit = new LinkedList();
 		m_blockInterdit.insertAt(0, TileType.WALL);
 		m_tangible = true;
+		m_c = m_count;
+		m_count++;
 	}
 
 	public static Entity createEntity (double x, double y, EntityProperties entityProperties) {
@@ -45,10 +50,10 @@ public abstract class Entity implements EntityInterface {
 				e = new Cowboy(x, y);
 				break;
 			case J1:
-				e = new J1(x, y);
+				e = J1.getInstance(x, y);
 				break;
 			case J2:
-				e = new J2(x, y);
+				e = J2.getInstance(x, y);
 				break;
 			case BLOON:
 				e = new Bloon(x, y);
@@ -115,15 +120,51 @@ public abstract class Entity implements EntityInterface {
 
 	void interact () {}
 
+
+	// Permet de choisir la précision que vous voulez sur l'angle de MyDir
+	static final double MYDIR_SENSI = 15 * 180 / Math.PI;
+
+
 	@Override
-	public boolean myDir (Direction orientation) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean myDir (double orientation, boolean absolute) {
+		double angle = (absolute) ? (orientation) : (m_vecDir.getAngle() + orientation);
+		return (angle - MYDIR_SENSI <= m_vecDir.getAngle()) && (m_vecDir.getAngle() <= angle + MYDIR_SENSI);
 	}
 
 	@Override
-	public boolean cell (Direction orientation, EntityType type) {
-		// TODO Auto-generated method stub
+	public boolean cell (Vector vect, EntityType type) {
+
+		float x = 0, y = 0;
+		double ang = vect.getAngle();
+
+		if (ang >= 7 * Math.PI / 4) {
+			x = 1;
+			y = 0;
+		}
+
+		if (ang < 7 * Math.PI / 4) {
+			x = 0;
+			y = 1;
+		}
+
+		if (ang < 5 * Math.PI / 4) {
+			x = -1;
+			y = 0;
+		}
+
+		if (ang < 3 * Math.PI / 4) {
+			x = 0;
+			y = -1;
+		}
+
+		if (ang < Math.PI / 4) {
+			x = 1;
+			y = 0;
+		}
+
+		if (m_hitbox.deplacementValide(getPosX() + x, getPosY() + y))
+			return true;
+
 		return false;
 	}
 
@@ -147,7 +188,7 @@ public abstract class Entity implements EntityInterface {
 		}
 		// TODO
 		// à implémenter lorsque les directions de dova et diego sont stables
-		//if (e_min.position in range of orientation)
+		//if (e_min.position in range of orientation)^
 		//	return true;
 		return false;
 	}
@@ -191,12 +232,6 @@ public abstract class Entity implements EntityInterface {
 
 	@Override
 	public void wizz () {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void waitt () {
 		// TODO Auto-generated method stub
 
 	}
@@ -262,10 +297,14 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void egg (Direction orientation) {
+	public void egg (double orientationx, double orientationy) {
 		Model m;
 		m = Model.getInstance();
-		Entity e = m.createEntity(m_vecDir.getX(), m_vecDir.getY(), this.m_entityProperties);
+
+		if (m_hitbox.deplacementValide(getPosX() + orientationx, getPosY() - orientationy)) {
+			Entity e = m.createEntity(getPosX() + orientationx, getPosY() - orientationy, this.m_entityProperties);
+			m.createLightSource(e);
+		}
 	}
 
 	public double distance (Entity e) {
@@ -294,5 +333,48 @@ public abstract class Entity implements EntityInterface {
 
 	Hitbox getHibox () {
 		return m_hitbox;
+	}
+
+	public double angleVers (Entity e) {
+		double dist = distance(e);
+		double truc = m_hitbox.getCenterX() - e.m_hitbox.getCenterX();
+		double bidule = m_hitbox.getCenterY() - e.m_hitbox.getCenterY();
+
+		// bas droite
+		if (m_hitbox.getCenterX() <= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() >= e.m_hitbox.getCenterY()) {
+			return Math.acos(Math.abs(truc) / dist);
+		}
+		// bas gauche
+		else if (m_hitbox.getCenterX() >= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() >= e.m_hitbox.getCenterY()) {
+			return Math.acos(Math.abs(bidule) / dist) + Math.PI / 2;
+		}
+
+		// haut gauche
+		else if (m_hitbox.getCenterX() >= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() <= e.m_hitbox.getCenterY()) {
+			return Math.acos(Math.abs(truc) / dist) + Math.PI;
+		}
+
+		// haut droite
+		else if (m_hitbox.getCenterX() <= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() <= e.m_hitbox.getCenterY()) {
+			return Math.acos(Math.abs(bidule) / dist) + Math.PI / 2 * 3;
+		}
+
+		/*
+		 * System.out.println(e.m_hitbox.getCenterX());
+		 * System.out.println(m_hitbox.getCenterX()); System.out.println(truc);
+		 * 
+		 * System.out.println(dist);
+		 */
+
+		throw new RuntimeException("erreur lors du calcul d'angle de ciblage");
+	}
+
+	public boolean equal (Entity e) {
+
+		if (e != null) {
+			boolean bool = e.m_c == m_c;
+			return bool;
+		}
+		return false;
 	}
 }

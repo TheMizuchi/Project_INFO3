@@ -3,6 +3,7 @@ package model.entity;
 import common.MyTimer;
 import common.TimerListener;
 import controller.RefAutomata;
+import model.Camera;
 
 
 public abstract class Player extends Entity {
@@ -11,7 +12,7 @@ public abstract class Player extends Entity {
 
 	final static double POSSESSION_RANGE = 10;
 	long m_possessionCD;
-	boolean m_possessing;
+	Mob m_possessing;
 
 
 	public Player (double x, double y, EntityProperties ep) {
@@ -21,16 +22,53 @@ public abstract class Player extends Entity {
 	@Override
 	public void update (long elapsed) {
 
-		if (!m_possessing) {
+		if (m_possessing == null) {
 			Torch torch = Torch.getInstance();
 			// déplacement
 			m_automata.step();
 			double speedX = super.m_vecDir.getX() * ENTITY_MAX_SPEED;
 			double speedY = super.m_vecDir.getY() * ENTITY_MAX_SPEED;
+
+			if (Camera.getBlock()) {
+				Entity autreJ = autreJ();
+				Entity moi = getEntity();
+				double m_angle = m_vecDir.getAngle();
+
+				// haut
+				if (m_angle < Math.PI && m_angle > 0 && autreJ.m_hitbox.getY() > moi.m_hitbox.getY())
+					return;
+
+				// bas
+				if (m_angle > Math.PI && autreJ.m_hitbox.getY() < moi.m_hitbox.getY())
+					return;
+
+				// gauche
+				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && autreJ.m_hitbox.getX() > moi.m_hitbox.getX())
+					return;
+
+				// droite
+				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && autreJ.m_hitbox.getX() < moi.m_hitbox.getX())
+					return;
+
+			}
+
 			m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 			if (this.equals(torch.porteur))
 				torch.update(this);
 		}
+	}
+
+	private Entity autreJ () {
+
+		if (this == J1.getInstance())
+			return J2.getInstance().getEntity();
+		return J1.getInstance().getEntity();
+	}
+
+	public Entity getEntity () {
+		if (m_possessing != null)
+			return m_possessing;
+		return this;
 	}
 
 	@Override
@@ -66,7 +104,7 @@ public abstract class Player extends Entity {
 			if (closestTarget != null && distance(closestTarget) < POSSESSION_RANGE) {
 				closestTarget.devientGentil(m_entityProperties, m_vecDir.clone(), this);
 				m_automata = new RefAutomata(this, true);
-				m_possessing = true;
+				m_possessing = closestTarget;
 				m_tangible = false;
 				hide();
 				setCam(closestTarget);
@@ -86,7 +124,7 @@ public abstract class Player extends Entity {
 	public Player finPossession (Mob m, int pv, Vector dir) {
 		m_pv = pv;
 		m_vecDir = dir;
-		m_possessing = false;
+		m_possessing = null;
 		m_automata = new RefAutomata(this);
 		show();
 		new PossessionTimerCD(this);
@@ -106,14 +144,12 @@ public abstract class Player extends Entity {
 	private class IntangibleTimer implements TimerListener {
 
 		Player m_p;
-		long m_init;
 
 
 		IntangibleTimer (Player p) {
 			m_p = p;
 			m_p.m_possessionCD = POSSESSION_CD * 1000;
 			m_p.m_tangible = false;
-			m_init = System.currentTimeMillis();
 			MyTimer mt = MyTimer.getTimer();
 			mt.setTimer(20, this);
 		}
