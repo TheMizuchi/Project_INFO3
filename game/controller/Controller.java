@@ -60,8 +60,10 @@ public class Controller {
 			BotAutomata mystery = getAutFromFile(MenuFrame.getFileMystery());
 			BotAutomata doorc = getAutFromFile("resources/Automata/Door.gal");
 
-			// Mobs
+			// Automates de Tests
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
+			BotAutomata EntityMyDirTest = getAutFromFile("resources/Automata/EntityMyDirTest.gal");
+
 			insertAt(m_auts, EntityProperties.COWBOY.getID(), m_IdleAutomata);
 
 			insertAt(m_auts, EntityProperties.J1.getID(), J1);
@@ -85,7 +87,6 @@ public class Controller {
 			throw new RuntimeException("Erreur inconnue dans l'initialisation des automates du controller");
 		}
 
-		m_keysToUpdate = new LinkedList();
 		m_dirKeys['Z'] = true;
 		m_dirKeys['Q'] = true;
 		m_dirKeys['S'] = true;
@@ -95,6 +96,8 @@ public class Controller {
 		m_dirKeys[38] = true;
 		m_dirKeys[39] = true;
 		m_dirKeys[40] = true;
+
+		m_keysToUpdate = new LinkedList();
 	}
 
 	public BotAutomata getIdleAutomata () {
