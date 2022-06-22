@@ -93,7 +93,7 @@ public class Hitbox {
 		while (it.hasNext()) {
 			Entity e = (Entity) it.next();
 
-			if (!e.equals(m_e) && e.isTanguible()) {
+			if (!e.equal(m_e) && e.isTanguible()) {
 
 				if (this.conflitHitbox(x, y, (e).getHibox())) {
 					return true;

@@ -56,8 +56,10 @@ public class Controller {
 			m_IdleAutomata = getAutFromFile("resources/Automata/Idle.gal");
 
 			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
-			BotAutomata doge = getAutFromFile(MenuFrame.getFileDoge());
-			BotAutomata mystery = getAutFromFile(MenuFrame.getFileMystery());
+			BotAutomata idle = getAutFromFile("resources/Automata/Idle.gal");
+			BotAutomata doge = getAutFromFile("resources/Automata/Doge.gal");
+			BotAutomata mystery = getAutFromFile("resources/Automata/Mystery.gal"); // remettre Mystery
+			BotAutomata egg = getAutFromFile("resources/Automata/Egg.gal");
 
 			// Automates de Tests
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");

@@ -53,7 +53,7 @@ public interface EntityInterface {
 	abstract void explode ();
 	// MORT
 
-	abstract void egg (Direction orientation);
+	abstract void egg (double orientationx, double orientationy);
 
 	double getPosX ();
 
