@@ -36,7 +36,10 @@ public class DoorBank extends EntityAnimationBank {
 		BufferedImage[] idle_img = new BufferedImage[1];
 		idle_img[0] = spriteFile.m_images[0];
 		this.idle = new Sprite(idle_img);
-		this.walk = this.idle;
+
+		BufferedImage[] idle_walk = new BufferedImage[1];
+		idle_walk[0] = spriteFile.m_images[14];
+		this.idle = new Sprite(idle_img);
 
 	}
 
