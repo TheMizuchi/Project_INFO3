@@ -6,7 +6,7 @@ public interface EntityInterface {
 	// retourn si la direciton est la bonne
 
 	abstract boolean cell (Vector vect, EntityType type);
-	// l'entité cible se situe devant (orientation) à une étapde de déplacement
+	// l'entité cible se situe devant (orientation) à une étapde de déplacemenet
 
 	abstract boolean closest (Direction orientation, EntityType type);
 	// l'entité la plus proche du type est dans cette direciton
@@ -21,9 +21,6 @@ public interface EntityInterface {
 	abstract void pop ();
 
 	abstract void wizz ();
-
-	abstract void waitt ();
-	// Skip son cout de clock
 
 	abstract void move (Direction orientation);
 	// déplacement, pas de retour

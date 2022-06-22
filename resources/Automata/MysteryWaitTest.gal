@@ -1,0 +1,7 @@
+Mystery (Init) {
+	* (Init):
+		| Cell ? Move(F) : (Init)
+		| True ? Wait(500) : (Wait)
+	* (Wait) :
+		| Turn : (Init)
+}
