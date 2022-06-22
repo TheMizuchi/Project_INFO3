@@ -1,9 +1,5 @@
 package model.entity;
 
-import java.io.IOException;
-
-import org.json.simple.parser.ParseException;
-
 import controller.RefAutomata;
 import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.LinkedList;
@@ -15,7 +11,7 @@ import view.graphicEntity.EntityView;
 public abstract class Entity implements EntityInterface {
 
 	public int m_ID;
-	private int m_pv;
+	protected int m_pv;
 	protected Hitbox m_hitbox;
 	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
@@ -54,10 +50,10 @@ public abstract class Entity implements EntityInterface {
 				e = new Cowboy(x, y);
 				break;
 			case J1:
-				e = new J1(x, y);
+				e = J1.getInstance(x, y);
 				break;
 			case J2:
-				e = new J2(x, y);
+				e = J2.getInstance(x, y);
 				break;
 			case BLOON:
 				e = new Bloon(x, y);
@@ -123,10 +119,15 @@ public abstract class Entity implements EntityInterface {
 
 	void interact () {}
 
+
+	// Permet de choisir la précision que vous voulez sur l'angle de MyDir
+	static final double MYDIR_SENSI = 15 * 180 / Math.PI;
+
+
 	@Override
-	public boolean myDir (Direction orientation) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean myDir (double orientation, boolean absolute) {
+		double angle = (absolute) ? (orientation) : (m_vecDir.getAngle() + orientation);
+		return (angle - MYDIR_SENSI <= m_vecDir.getAngle()) && (m_vecDir.getAngle() <= angle + MYDIR_SENSI);
 	}
 
 	@Override
@@ -250,7 +251,6 @@ public abstract class Entity implements EntityInterface {
 	@Override
 	public void turn (double orientation, boolean absolute) {
 		m_vecDir.setAngle((absolute) ? (orientation) : (m_vecDir.getAngle() + orientation));
-
 	}
 
 	@Override
@@ -324,6 +324,10 @@ public abstract class Entity implements EntityInterface {
 		return m_entityProperties.getEntityType();
 	}
 
+	public int getID () {
+		return m_entityProperties.getID();
+	}
+
 	public LinkedList getTuileInterdite () {
 		return m_blockInterdit;
 	}
@@ -342,21 +346,21 @@ public abstract class Entity implements EntityInterface {
 		double bidule = m_hitbox.getCenterY() - e.m_hitbox.getCenterY();
 
 		// bas droite
-		if (m_hitbox.getCenterX() < e.m_hitbox.getCenterX() && m_hitbox.getCenterY() > e.m_hitbox.getCenterY()) {
+		if (m_hitbox.getCenterX() <= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() >= e.m_hitbox.getCenterY()) {
 			return Math.acos(Math.abs(truc) / dist);
 		}
 		// bas gauche
-		else if (m_hitbox.getCenterX() > e.m_hitbox.getCenterX() && m_hitbox.getCenterY() > e.m_hitbox.getCenterY()) {
+		else if (m_hitbox.getCenterX() >= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() >= e.m_hitbox.getCenterY()) {
 			return Math.acos(Math.abs(bidule) / dist) + Math.PI / 2;
 		}
 
 		// haut gauche
-		else if (m_hitbox.getCenterX() > e.m_hitbox.getCenterX() && m_hitbox.getCenterY() < e.m_hitbox.getCenterY()) {
+		else if (m_hitbox.getCenterX() >= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() <= e.m_hitbox.getCenterY()) {
 			return Math.acos(Math.abs(truc) / dist) + Math.PI;
 		}
 
 		// haut droite
-		else if (m_hitbox.getCenterX() < e.m_hitbox.getCenterX() && m_hitbox.getCenterY() < e.m_hitbox.getCenterY()) {
+		else if (m_hitbox.getCenterX() <= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() <= e.m_hitbox.getCenterY()) {
 			return Math.acos(Math.abs(bidule) / dist) + Math.PI / 2 * 3;
 		}
 

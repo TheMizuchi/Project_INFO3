@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.Camera;
 import view.MyCanvas;
 import view.graphicEntity.J2View;
 
@@ -15,5 +16,37 @@ public class J2 extends Player {
 		m_ev = m_jv;
 		MyCanvas.getInstance().createEntityView(m_jv);
 	}
+	
+private static J2 INSTANCE = null;
+	
+	public static J2 getInstance (double x, double y) {
 
+		if (INSTANCE == null) {
+			INSTANCE = new J2(x, y);
+		}
+		return INSTANCE;
+	}
+
+	public static J2 getInstance () {
+
+		if (INSTANCE == null) {
+			throw new RuntimeException("J2 isn't instance yet what are you doing bro ?");
+		}
+		return INSTANCE;
+	}
+
+	@Override
+	void hide () {
+		m_jv.hide();
+	}
+
+	@Override
+	void show () {
+		m_jv.show();
+	}
+
+	@Override
+	void setCam (Entity e) {
+		Camera.getInstance().setj1(e);
+	}
 }

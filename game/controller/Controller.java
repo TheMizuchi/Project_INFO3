@@ -14,6 +14,7 @@ import info3.game.automata.parser.AutomataParser;
 import info3.game.automata.parser.ParseException;
 import model.Model;
 import model.entity.EntityProperties;
+import view.MenuFrame;
 
 
 public class Controller {
@@ -24,6 +25,7 @@ public class Controller {
 	boolean m_keys[] = new boolean[256];
 	boolean m_keysPrev[] = new boolean[256];
 	IList m_keysToUpdate;
+	BotAutomata m_IdleAutomata;
 
 
 	private BotAutomata getAutFromFile (String filePath) throws Exception {
@@ -45,35 +47,35 @@ public class Controller {
 		m_auts = new ArrayList();
 
 		try {
-			BotAutomata moveFoward = getAutFromFile("resources/Automata/MoveFoward.gal");
-			BotAutomata moveKeys = getAutFromFile("resources/Automata/MoveKeys.gal");
-			BotAutomata moveKeysArrows = getAutFromFile("resources/Automata/MoveKeysArrows.gal");
-			BotAutomata moveRandom = getAutFromFile("resources/Automata/MoveRandom.gal");
-			BotAutomata moveRandomUnderscoreState = getAutFromFile("resources/Automata/MoveRandomUnderscoreState.gal");
-			BotAutomata moveRelativeKeys = getAutFromFile("resources/Automata/MoveRelativeKeys.gal");
-			BotAutomata moveSquare = getAutFromFile("resources/Automata/MoveSquare.gal");
-			BotAutomata moveBigSquare = getAutFromFile("resources/Automata/MoveBigSquare.gal");
-			BotAutomata moveOuestThenLeft = getAutFromFile("resources/Automata/MoveOuestThenLeft.gal");
+			BotAutomata J1 = getAutFromFile(MenuFrame.getFileJ1());
+			BotAutomata J2 = getAutFromFile(MenuFrame.getFileJ2());
+			BotAutomata Bloon = getAutFromFile(MenuFrame.getFileBloon());
+			BotAutomata Bat = getAutFromFile(MenuFrame.getFileBat());
+			BotAutomata Skeleton = getAutFromFile(MenuFrame.getFileSkeleton());
+
+			m_IdleAutomata = getAutFromFile("resources/Automata/Idle.gal");
+
 			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
 			BotAutomata idle = getAutFromFile("resources/Automata/Idle.gal");
 			BotAutomata doge = getAutFromFile("resources/Automata/Doge.gal");
 			BotAutomata mystery = getAutFromFile("resources/Automata/pouet.gal"); // remettre Mystery
 			BotAutomata egg = getAutFromFile("resources/Automata/Egg.gal");
 
-			// Mobs
+			// Automates de Tests
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
+			BotAutomata EntityMyDirTest = getAutFromFile("resources/Automata/EntityMyDirTest.gal");
 
-			insertAt(m_auts, EntityProperties.COWBOY.getID(), moveSquare);
-			insertAt(m_auts, EntityProperties.J1.getID(), moveKeys);
-			insertAt(m_auts, EntityProperties.J2.getID(), moveKeysArrows);
-			insertAt(m_auts, EntityProperties.BLOON.getID(), torch);
-			insertAt(m_auts, EntityProperties.SKELETON.getID(), egg);
-			insertAt(m_auts, EntityProperties.BAT.getID(), torch);
-			insertAt(m_auts, EntityProperties.DART_MONKEY.getID(), moveSquare);
+			insertAt(m_auts, EntityProperties.COWBOY.getID(), m_IdleAutomata);
+
+			insertAt(m_auts, EntityProperties.J1.getID(), J1);
+			insertAt(m_auts, EntityProperties.J2.getID(), J2);
+			insertAt(m_auts, EntityProperties.BLOON.getID(), Bloon);
+			insertAt(m_auts, EntityProperties.SKELETON.getID(), Skeleton);
+			insertAt(m_auts, EntityProperties.BAT.getID(), Bat);
+			insertAt(m_auts, EntityProperties.DART_MONKEY.getID(), m_IdleAutomata);
 			insertAt(m_auts, EntityProperties.TORCH.getID(), torch);
 			insertAt(m_auts, EntityProperties.DOGE.getID(), doge);
 			insertAt(m_auts, EntityProperties.MYSTERY.getID(), mystery);
-
 		}
 		catch (ParseException ex) {
 			throw new RuntimeException("Erreur de parsing");
@@ -85,7 +87,6 @@ public class Controller {
 			throw new RuntimeException("Erreur inconnue dans l'initialisation des automates du controller");
 		}
 
-		m_keysToUpdate = new LinkedList();
 		m_dirKeys['Z'] = true;
 		m_dirKeys['Q'] = true;
 		m_dirKeys['S'] = true;
@@ -95,6 +96,12 @@ public class Controller {
 		m_dirKeys[38] = true;
 		m_dirKeys[39] = true;
 		m_dirKeys[40] = true;
+
+		m_keysToUpdate = new LinkedList();
+	}
+
+	public BotAutomata getIdleAutomata () {
+		return m_IdleAutomata;
 	}
 
 	public void setModel () {

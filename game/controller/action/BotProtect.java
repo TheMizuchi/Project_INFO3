@@ -6,30 +6,10 @@ import model.entity.Entity;
 
 public class BotProtect extends BotAction {
 
-	String m_s;
-
-
-	public BotProtect (String s) {
-		m_s = s;
-	}
+	public BotProtect () {}
 
 	@Override
 	public boolean apply (Entity e) {
-
-		switch (m_s) {
-			case "N":
-
-				break;
-			case "W":
-
-				break;
-			case "S":
-
-				break;
-			case "E":
-
-				break;
-		}
 		return true;
 	}
 

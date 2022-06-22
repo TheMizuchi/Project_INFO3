@@ -2,7 +2,7 @@ package model.entity;
 
 public interface EntityInterface {
 
-	abstract boolean myDir (Direction orientation);
+	abstract boolean myDir (double angle, boolean absolute);
 	// retourn si la direciton est la bonne
 
 	abstract boolean cell (Vector vect, EntityType type);

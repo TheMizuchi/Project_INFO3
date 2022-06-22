@@ -8,7 +8,10 @@ import edu.polytech.oop.collections.LinkedList.Iterator;
 import model.entity.Entity;
 import model.entity.EntityProperties;
 import model.map.Map;
+import model.map.generator.Arc;
+import model.map.generator.Graph;
 import model.map.generator.JsonDecode;
+import model.map.generator.Node;
 import model.map.generator.Room;
 import view.MyCanvas;
 
@@ -24,7 +27,7 @@ public class Model {
 	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
 	private Camera m_cam;
-	private static Map m_map;
+	private Map m_map;
 	private ArrayList rooms; //Totalité des salles pour pouvoir piocher dedans
 	private JsonDecode jd;
 
@@ -46,9 +49,26 @@ public class Model {
 
 	}
 
+	//Constructeur pour TestWorld
+	public Model (Object o) {
+		String jsonPath = "resources/rooms.json";
+		jd = new JsonDecode(this, jsonPath);
+		rooms = new ArrayList();
+
+		for (int i = 0; i < jd.getNbRooms(); i++) {
+			rooms.insertAt(rooms.length(), jd.newRoom(i));
+		}
+		m_listeEntity = new LinkedList();
+		m_listeLight = new LinkedList();
+		m_cont = Controller.getInstance();
+		m_canvas = MyCanvas.getInstance();
+		createMap();
+
+	}
+
 	//méthode tmp pour les tests
 	private void loadEnv (Room spawnRoom) {
-		m_cam = new Camera(m_canvas.getViewport(), m_map.getWidth() / 2, m_map.getHeight() / 2);
+		m_cam = Camera.getInstance(m_canvas.getViewport(), m_map.getWidth() / 2, m_map.getHeight() / 2);
 		spawnRoom.spawnEntities(m_map);
 
 	}
@@ -94,12 +114,68 @@ public class Model {
 		return e;
 	}
 
+	public void deleteEntity (Entity e) {
+		// TODO
+	}
+
 	public void createLightSource (Entity e) {
 		m_listeLight.insertAt(0, new LightSource(0, 0, 5, e));
 	}
 
 	public Room createMap () {
-		m_map = new Map(this, 1, 100);
+		boolean correctG = false;
+		Graph MST = null;
+		Graph g = null;
+		int nb_gen = 0;
+
+		while (!correctG) {
+			m_map = new Map(this, 1, 15);
+			nb_gen++;
+			g = new Graph(rooms);
+			g.delaunay();
+			correctG = true;
+
+			IList.Iterator iterNode = g.ListNode.iterator();
+
+			while (iterNode.hasNext()) {
+				Node n = (Node) iterNode.next();
+
+				if (n.getListArc().length() < 2) {
+					correctG = false;
+					IList.Iterator iterRoom = rooms.iterator();
+
+					while (iterRoom.hasNext()) {
+						Room r = (Room) iterRoom.next();
+						r.setUpperLeft(-1, -1);
+					}
+					break;
+				}
+			}
+
+			if (correctG) {
+				MST = g.min_spanning_tree();
+				MST.add_random_arc(g);
+				iterNode = MST.ListNode.iterator();
+
+				while (iterNode.hasNext()) {
+					Node n = (Node) iterNode.next();
+
+					if (n.getListArc().length() < 1) {
+						correctG = false;
+						IList.Iterator iterRoom = rooms.iterator();
+
+						while (iterRoom.hasNext()) {
+							Room r = (Room) iterRoom.next();
+							r.setUpperLeft(-1, -1);
+						}
+						break;
+					}
+				}
+			}
+		}
+		System.out.println("nb generate = " + nb_gen);
+		m_map.corridors(MST);
+
 		m_canvas.createMapView(m_map.getCases());
 		return m_map.getSpawn();
 	}
@@ -112,7 +188,7 @@ public class Model {
 		return m_listeEntity;
 	}
 
-	public static Map getMap () {
+	public Map getMap () {
 		return m_map;
 	}
 

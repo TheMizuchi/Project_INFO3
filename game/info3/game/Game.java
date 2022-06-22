@@ -32,6 +32,7 @@ import common.MyTimer;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 import model.Model;
+import view.MenuFrame;
 import view.MyCanvas;
 
 
@@ -41,6 +42,12 @@ public class Game {
 
 
 	public static void main (String args[]) throws Exception {
+
+		new MenuFrame();
+
+		while (MenuFrame.getBoolFen() == true) {
+
+		}
 
 		try {
 			System.out.println("Game starting...");
@@ -83,7 +90,7 @@ public class Game {
 		m_elapsedUpdate = 0;
 		m_m = Model.getInstance();
 		m_listener.m_cont.setModel();
-
+		my_canvas.initATH(null, null);//Model.getj1(), Model.getj2()); // à remplacer quand les méthodes seront créées
 		System.out.println("  - creating frame...");
 		m_frame = m_canvas.createFrame(d);
 		System.out.println("  - setting up the frame...");
@@ -193,7 +200,7 @@ public class Game {
 		int height = m_canvas.getHeight();
 
 		// erase background
-		g.setColor(Color.pink);
+		g.setColor(Color.gray);
 		g.fillRect(0, 0, width, height);
 
 		// paint

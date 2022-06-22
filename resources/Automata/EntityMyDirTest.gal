@@ -1,6 +1,6 @@
-EntityTurnTest (Init) {
+EntityMyDirTest (Init) {
 	* (Init):
-		| Key(e) ? Move(NE) / Move(NW) / Move(SW) / Move(SE) : (Droit)
+		| Key(e) ? Move(NE) / Move(NW) / Move(SW) / Move(SE) / Move(N) / Move(W) / Move(S) / Move(E) : (Droit)
 
 	* (Droit) :
 		| True ? Move(F) : (Droit1)
@@ -9,15 +9,15 @@ EntityTurnTest (Init) {
 	* (Droit2) :
 		| True ? Move(F) : (Droit3)
 	* (Droit3) :
-		| True ? Move(F) : (Droit4)
+		| True ? Move() : (Droit4)
 	* (Droit4) :
 		| True ? Move(F) : (Droit5)
 	* (Droit5) :
-		| True ? Move(F) : (Droit6)
+		| True ? Move() : (Droit6)
 	* (Droit6) :
 		| True ? Move(F) : (Droit7)
 	* (Droit7) :
-		| True ? Move(F) : (Droit8)
+		| True ? Move() : (Droit8)
 	* (Droit8) :
 		| True ? Move(F) : (Droit9)
 	* (Droit9) :
@@ -47,19 +47,20 @@ EntityTurnTest (Init) {
 
 	* (Tourner) :
 		| Key(e) ? : (Init)
+		| Key(u) ? Move(F) : (Tourner)
 
-		| Key(t) ? Turn(F) : (Droit)
-		| Key(f) ? Turn(L) : (Droit)
-		| Key(g) ? Turn(B) : (Droit)
-		| Key(h) ? Turn(R) : (Droit)
+		| Key(t) & MyDir(F) ? Turn() : (Droit)
+		| Key(f) & MyDir(L) ? Turn(L) : (Droit)
+		| Key(g) & MyDir(B) ? Turn(B) : (Droit)
+		| Key(h) & MyDir(R) ? Turn(R) : (Droit)
 
-		| Key(o) ? Turn(N) : (Droit)
-		| Key(k) ? Turn(W) : (Droit)
-		| Key(l) ? Turn(S) : (Droit)
-		| Key(m) ? Turn(E) : (Droit)
+		| Key(o) & MyDir(N) ? Turn(N) : (Droit)
+		| Key(k) & MyDir(W) ? Turn(W) : (Droit)
+		| Key(l) & MyDir(S) ? Turn(S) : (Droit)
+		| Key(m) & MyDir(E) ? Turn(E) : (Droit)
 
-		| Key(i) ? Turn(NW) : (Droit)
-		| Key(p) ? Turn(NE) : (Droit)
-		| Key(w) ? Turn(SW) : (Droit)
-		| Key(x) ? Turn(SE) : (Droit)
+		| Key(i) & MyDir(NW) ? Turn(NW) : (Droit)
+		| Key(p) & MyDir(NE) ? Turn(NE) : (Droit)
+		| Key(w) & MyDir(SW) ? Turn(SW) : (Droit)
+		| Key(x) & MyDir(SE) ? Turn(SE) : (Droit)
 }
