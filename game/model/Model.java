@@ -7,9 +7,7 @@ import edu.polytech.oop.collections.LinkedList;
 import edu.polytech.oop.collections.LinkedList.Iterator;
 import model.entity.Entity;
 import model.entity.EntityProperties;
-import model.map.Case;
 import model.map.Map;
-import model.map.TileType;
 import model.map.generator.Graph;
 import model.map.generator.JsonDecode;
 import model.map.generator.Node;
@@ -66,9 +64,13 @@ public class Model {
 	}
 
 	//méthode tmp pour les tests
-	public void loadEnv (Room spawnRoom) {
+	public void loadEnv () {
 		m_cam = Camera.getInstance(m_canvas.getViewport(), m_map.getWidth() / 2, m_map.getHeight() / 2);
-		spawnRoom.spawnEntities(m_map, 4);
+		Room spawnRoom = m_map.getSpawn();
+		Room keyRoom = m_map.getKey();
+		spawnRoom.spawnEntities(m_map, 0);
+		keyRoom.spawnEntities(m_map, 0);
+		m_map.doors();
 
 	}
 
@@ -174,38 +176,9 @@ public class Model {
 		}
 		System.out.println("nb generate = " + nb_gen);
 		m_map.corridors(MST);
-		doors();
 
 		m_canvas.createMapView(m_map.getCases());
 		return m_map.getSpawn();
-	}
-
-	private void doors () {
-		Case[][] grid = m_map.getCases();
-		IList.Iterator iterRoom = rooms.iterator();
-
-		while (iterRoom.hasNext()) {
-			Room current = (Room) iterRoom.next();
-
-			if (current.getUpperLeftX() != -1 && current.getUpperLeftY() != -1) {
-
-				if (grid[current.getUpperLeftX()][current.getUpperLeftY() + (current.getHeight() / 2)].getType() == TileType.FLOOR) {
-					createEntity(current.getUpperLeftX(),current.getUpperLeftY()+(current.getHeight()/2),EntityProperties.DOORC);
-				}
-
-				if (grid[current.getUpperLeftX() + (current.getWidth() / 2)][current.getUpperLeftY()].getType() == TileType.FLOOR) {
-					createEntity(current.getUpperLeftX() + (current.getWidth() / 2),current.getUpperLeftY(),EntityProperties.DOORC);
-				}
-
-				if (grid[current.getUpperLeftX() + (current.getWidth() / 2)][current.getUpperLeftY() + current.getHeight() - 1].getType() == TileType.FLOOR) {
-					createEntity(current.getUpperLeftX() + (current.getWidth() / 2),current.getUpperLeftY() + current.getHeight() - 1,EntityProperties.DOORC);
-				}
-
-				if (grid[current.getUpperLeftX() + current.getWidth() - 1][current.getUpperLeftY() + (current.getHeight() / 2)].getType() == TileType.FLOOR) {
-					createEntity(current.getUpperLeftX() + current.getWidth() - 1,current.getUpperLeftY() + (current.getHeight() / 2),EntityProperties.DOORC);
-				}
-			}
-		}
 	}
 
 	public ArrayList getRooms () {

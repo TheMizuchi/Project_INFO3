@@ -32,7 +32,6 @@ import common.MyTimer;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 import model.Model;
-import model.map.generator.Room;
 import view.MenuFrame;
 import view.MyCanvas;
 
@@ -90,8 +89,8 @@ public class Game {
 		new MyTimer();
 		m_elapsedUpdate = 0;
 		m_m = Model.getInstance();
-		Room spawnRoom = m_m.createMap();
-		m_m.loadEnv(spawnRoom);
+		m_m.createMap();
+		m_m.loadEnv();
 		m_listener.m_cont.setModel();
 		my_canvas.initATH(null, null);//Model.getj1(), Model.getj2()); // à remplacer quand les méthodes seront créées
 		System.out.println("  - creating frame...");

@@ -71,8 +71,8 @@ public abstract class Entity implements EntityInterface {
 			case MYSTERY:
 				e = new MysteryMachine(x, y);
 				break;
-			case DOORC:
-				e = new ClassicDoor(x,y);
+			case DOOR:
+				e = new Door(x, y);
 				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");

@@ -11,10 +11,12 @@ public class Door extends Entity {
 	Key m_key;
 
 
-	public Door (double x, double y, EntityProperties ep) {
-		super(x, y, ep);
-		m_room = null;
+	public Door (double x, double y) {
+		super(x, y, EntityProperties.DOOR);
 		m_tangible = true;
+		m_room = null;
+		m_key = null;
+
 	}
 
 	//Ouvrir porte
@@ -31,6 +33,10 @@ public class Door extends Entity {
 
 	public void setRoom (Room r) {
 		m_room = r;
+	}
+
+	public void setKey (Key k) {
+		m_key = k;
 	}
 
 	@Override

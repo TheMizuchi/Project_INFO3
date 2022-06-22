@@ -73,7 +73,7 @@ public class Controller {
 			insertAt(m_auts, EntityProperties.TORCH.getID(), torch);
 			insertAt(m_auts, EntityProperties.DOGE.getID(), doge);
 			insertAt(m_auts, EntityProperties.MYSTERY.getID(), mystery);
-			insertAt(m_auts, EntityProperties.DOORC.getID(), doorc);
+			insertAt(m_auts, EntityProperties.DOOR.getID(), doorc);
 		}
 		catch (ParseException ex) {
 			throw new RuntimeException("Erreur de parsing");
