@@ -55,7 +55,6 @@ public class Camera {
 		} else {
 			bloquer = false;
 		}
-		System.out.println("la scale "+scale);
 		this.setPosition((double) (j1.getPosX() + j2.getPosX()) / 2, (double) (j1.getPosY() + j2.getPosY()) / 2, scale);
 	}
 

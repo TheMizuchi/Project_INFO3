@@ -32,32 +32,23 @@ public abstract class Player extends Entity {
 			if (Camera.getBlock()) {
 				Entity autreJ = autreJ();
 				double m_angle = m_vecDir.getAngle();
-				System.out.println(m_angle);
-				System.out.println("autre joueur Y " + autreJ.m_hitbox.getY());
 
 				//haut
-				if (m_angle < Math.PI && autreJ.m_hitbox.getY() > m_hitbox.getY()) {
-					System.out.println("détecté comme error haut");
+				if (m_angle < Math.PI && m_angle > 0 && autreJ.m_hitbox.getY() > m_hitbox.getY())
 					return;
-				}
 
 				//bas
-				if (m_angle > Math.PI && autreJ.m_hitbox.getY() < m_hitbox.getY()) {
-					System.out.println("détecté comme error bas");
+				if (m_angle > Math.PI && autreJ.m_hitbox.getY() < m_hitbox.getY())
 					return;
-				}
 
 				//gauche
-				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && autreJ.m_hitbox.getX() > m_hitbox.getX()) {
-					System.out.println("détecté comme error gauche");
+				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && autreJ.m_hitbox.getX() > m_hitbox.getX())
 					return;
-				}
 
 				//droite
-				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && autreJ.m_hitbox.getX() < m_hitbox.getX()) {
-					System.out.println("détecté comme error droite");
+				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && autreJ.m_hitbox.getX() < m_hitbox.getX())
 					return;
-				}
+
 			}
 
 			m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
