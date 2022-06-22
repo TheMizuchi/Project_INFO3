@@ -10,6 +10,7 @@ public class BotStore extends BotAction {
 
 	@Override
 	public boolean apply (Entity e) {
-		throw new RuntimeException("NYI");
+		e.store();
+		return true;
 	}
 }

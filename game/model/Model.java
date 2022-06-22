@@ -70,7 +70,7 @@ public class Model {
 		m_cam = Camera.getInstance(m_canvas.getViewport(), m_map.getWidth() / 2, m_map.getHeight() / 2);
 		Room spawnRoom = m_map.getSpawn();
 		Room keyRoom = m_map.getKey();
-		spawnRoom.spawnEntities(m_map, 0);
+		spawnRoom.spawnEntities(m_map, 1);
 		keyRoom.spawnEntities(m_map, 0);
 		m_map.doors();
 	}

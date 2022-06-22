@@ -366,24 +366,28 @@ public class Map {
 				Door e = (Door) model.createEntity(current.getUpperLeftX(), current.getUpperLeftY() + (current.getHeight() / 2), EntityProperties.DOOR);
 				e.setKey(k);
 				e.setRoom(current);
+				return;
 			}
 
 			if (grid[current.getUpperLeftX() + (current.getWidth() / 2)][current.getUpperLeftY()].getType() == TileType.FLOOR) {
 				Door e = (Door) model.createEntity(current.getUpperLeftX() + (current.getWidth() / 2), current.getUpperLeftY(), EntityProperties.DOOR);
 				e.setKey(k);
 				e.setRoom(current);
+				return;
 			}
 
 			if (grid[current.getUpperLeftX() + (current.getWidth() / 2)][current.getUpperLeftY() + current.getHeight() - 1].getType() == TileType.FLOOR) {
 				Door e = (Door) model.createEntity(current.getUpperLeftX() + (current.getWidth() / 2), current.getUpperLeftY() + current.getHeight() - 1, EntityProperties.DOOR);
 				e.setKey(k);
 				e.setRoom(current);
+				return;
 			}
 
 			if (grid[current.getUpperLeftX() + current.getWidth() - 1][current.getUpperLeftY() + (current.getHeight() / 2)].getType() == TileType.FLOOR) {
 				Door e = (Door) model.createEntity(current.getUpperLeftX() + current.getWidth() - 1, current.getUpperLeftY() + (current.getHeight() / 2), EntityProperties.DOOR);
 				e.setKey(k);
 				e.setRoom(current);
+				return;
 			}
 		}
 	}
