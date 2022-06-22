@@ -96,20 +96,8 @@ public abstract class Player extends Entity {
 	public void wizz () {
 
 		if (m_possessionCD == 0) {
-			Mob closestEnnemy = (Mob) closest(EntityType.ENEMY);
-			Mob closestNeutral = (Mob) closest(EntityType.NEUTRAL);
 
-			Mob closestTarget = closestEnnemy;
-
-			if (closestTarget == null) {
-				closestTarget = closestNeutral;
-			} else {
-
-				if (closestNeutral != null) {
-					closestTarget = (distance(closestEnnemy) < distance(closestNeutral)) ? (closestEnnemy)
-							: (closestNeutral);
-				}
-			}
+			Mob closestTarget = (Mob) closest(true);
 
 			if (closestTarget != null && distance(closestTarget) < POSSESSION_RANGE) {
 				closestTarget.devientGentil(m_entityProperties, m_vecDir.clone(), this);
