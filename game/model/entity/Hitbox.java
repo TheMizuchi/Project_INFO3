@@ -66,7 +66,7 @@ public class Hitbox {
 		}
 	}
 
-	private boolean deplacementValide (Point new_p1, Point new_p2, Point new_p3, Point new_p4) {
+	public boolean deplacementValide (Point new_p1, Point new_p2, Point new_p3, Point new_p4) {
 		LinkedList tuileInterdit = m_e.getTuileInterdite();
 		Iterator it = tuileInterdit.iterator();
 
