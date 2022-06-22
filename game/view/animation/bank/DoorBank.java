@@ -8,6 +8,7 @@ import view.animation.Sprite;
 public class DoorBank extends EntityAnimationBank {
 
 	public Sprite opening;
+	public Sprite closing;
 
 
 	private DoorBank () {
@@ -34,7 +35,7 @@ public class DoorBank extends EntityAnimationBank {
 	protected void loadBasicAnimation (Sprite spriteFile) {
 		// TODO Auto-generated method stub
 		BufferedImage[] idle_img = new BufferedImage[1];
-		idle_img[0] = spriteFile.m_images[0];
+		idle_img[0] = spriteFile.m_images[6];
 		this.idle = new Sprite(idle_img);
 
 		BufferedImage[] idle_walk = new BufferedImage[1];
@@ -51,6 +52,15 @@ public class DoorBank extends EntityAnimationBank {
 			opening_img[i] = spriteFile.m_images[i + 6];
 		}
 		this.opening = new Sprite(opening_img);
+
+		BufferedImage[] closing_img = new BufferedImage[1];
+		int i = 0;
+
+		for (int j = 14; j > 7; j--) {
+			opening_img[i] = spriteFile.m_images[j];
+			i++;
+		}
+		this.closing = new Sprite(closing_img);
 
 	}
 
