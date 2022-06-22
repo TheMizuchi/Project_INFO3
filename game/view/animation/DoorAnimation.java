@@ -21,5 +21,12 @@ public class DoorAnimation extends EntityAnimation {
 		this.w = m_sprite.m_width;
 		this.start();
 	}
+	
+	public void closing () {
+		m_sprite = this.db.closing;
+		this.h = m_sprite.m_height;
+		this.w = m_sprite.m_width;
+		this.start();
+	}
 
 }

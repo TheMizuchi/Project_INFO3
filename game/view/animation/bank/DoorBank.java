@@ -8,7 +8,7 @@ import view.animation.Sprite;
 public class DoorBank extends EntityAnimationBank {
 
 	public Sprite opening;
-	private Sprite closing;
+	public Sprite closing;
 
 
 	private DoorBank () {
