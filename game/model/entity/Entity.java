@@ -301,11 +301,9 @@ public abstract class Entity implements EntityInterface {
 		m = Model.getInstance();
 
 		if (m_hitbox.deplacementValide(getPosX() + orientationx, getPosY() - orientationy)) {
-			System.out.println("entity");
 			Entity e = m.createEntity(getPosX() + orientationx, getPosY() - orientationy, this.m_entityProperties);
 			m.createLightSource(e);
-		}else 
-			System.out.println("non");
+		}
 	}
 
 	public double distance (Entity e) {
