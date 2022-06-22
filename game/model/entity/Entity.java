@@ -367,6 +367,10 @@ public abstract class Entity implements EntityInterface {
 
 		throw new RuntimeException("erreur lors du calcul d'angle de ciblage");
 	}
+	
+	public Hitbox getHitbox() {
+		return m_hitbox;
+	}
 
 	public boolean equal (Entity e) {
 

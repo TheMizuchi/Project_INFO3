@@ -19,7 +19,15 @@ public class BotCell implements ICondition {
 
 	@Override
 	public boolean eval (Entity e) {
-		return e.cell(e.getDirVector(), EntityType.OBSTACLE);
+
+		if (m_dir.getSel())
+			return e.cell(e.getDirVector(), EntityType.OBSTACLE);
+
+		double dx = Math.cos(m_dir.getAngle());
+		double dy = Math.sin(m_dir.getAngle());
+		if (e.getHitbox().deplacementValide(e.getPosX() + dx, e.getPosY() - dy))
+			return true;
+		return false;
 	}
 
 }
