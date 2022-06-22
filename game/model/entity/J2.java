@@ -38,6 +38,14 @@ private static J2 INSTANCE = null;
 	public J2 (double x, double y, Object object) {
 		super(x, y, EntityProperties.J2);
 	}
+	
+	public static boolean Death () {
+		if (m_pv<=0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	@Override
 	void hide () {

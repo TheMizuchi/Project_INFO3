@@ -32,6 +32,9 @@ import common.MyTimer;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 import model.Model;
+import model.entity.J1;
+import model.entity.J2;
+import view.GameOver;
 import view.MenuFrame;
 import view.MyCanvas;
 
@@ -209,6 +212,9 @@ public class Game {
 		// paint
 		//m_cowboy.paint(g, width, height);
 		my_canvas.paint(g);
+		if (J1.Death() || J2.Death()) {
+			new GameOver();
+		}
 	}
 
 }

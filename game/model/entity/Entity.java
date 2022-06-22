@@ -11,7 +11,7 @@ import view.graphicEntity.EntityView;
 public abstract class Entity implements EntityInterface {
 
 	public int m_ID;
-	protected int m_pv;
+	protected static int m_pv;
 	protected Hitbox m_hitbox;
 	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
@@ -157,6 +157,14 @@ public abstract class Entity implements EntityInterface {
 	void attack () {}
 
 	void interact () {}
+	
+	public static boolean Death () {
+		if (m_pv<=0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 
 	static final double MYDIR_SENSI = 15 * 180 / Math.PI;
