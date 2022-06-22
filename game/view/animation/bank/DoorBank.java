@@ -8,6 +8,7 @@ import view.animation.Sprite;
 public class DoorBank extends EntityAnimationBank {
 
 	public Sprite opening;
+	private Sprite closing;
 
 
 	private DoorBank () {
@@ -51,6 +52,15 @@ public class DoorBank extends EntityAnimationBank {
 			opening_img[i] = spriteFile.m_images[i + 6];
 		}
 		this.opening = new Sprite(opening_img);
+
+		BufferedImage[] closing_img = new BufferedImage[1];
+		int i = 0;
+
+		for (int j = 14; j > 7; j--) {
+			opening_img[i] = spriteFile.m_images[j];
+			i++;
+		}
+		this.closing = new Sprite(closing_img);
 
 	}
 
