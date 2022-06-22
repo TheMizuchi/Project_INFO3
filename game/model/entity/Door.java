@@ -9,10 +9,10 @@ public class Door extends Entity {
 	Room m_room;
 
 
-	public Door (double x, double y, EntityProperties ep, Room room) {
+	public Door (double x, double y, EntityProperties ep) {
 		super(x, y, ep);
 		m_isOpen = false;
-		m_room = room;
+		m_room = null;
 		m_tangible = true;
 	}
 
@@ -28,5 +28,9 @@ public class Door extends Entity {
 	public void wizz () {
 		m_isOpen = false;
 		m_tangible = true;
+	}
+	
+	public void setRoom(Room r) {
+		m_room = r;
 	}
 }

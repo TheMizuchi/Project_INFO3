@@ -8,15 +8,14 @@ import model.map.generator.Room;
 
 public class ClassicDoor extends Door {
 
-	public ClassicDoor (double x, double y, EntityProperties ep, Room room) {
-		super(x, y, ep, room);
+	public ClassicDoor (double x, double y) {
+		super(x, y, EntityProperties.DOORC);
 	}
 
 	//Clef à proximité
 	@Override
-	public boolean gotPower () {
+	public boolean gotStuff () {
 		int proximity = 3;
-		Model model = Model.getInstance();
 		if (distance(J1.getInstance()) > proximity && distance(J2.getInstance()) > proximity)
 			return false;
 

@@ -10,11 +10,11 @@ public class KeyDoor extends Door {
 	Key m_key;
 
 
-	public KeyDoor (double x, double y, EntityProperties ep, Room room) {
-		super(x, y, ep, room);
+	public KeyDoor (double x, double y) {
+		super(x, y, EntityProperties.DOORKEY);
 	}
 
-	public boolean gotPower () {
+	public boolean gotStuff () {
 		int proximity = 3;
 		if (distance(m_key) > proximity)
 			return false;
