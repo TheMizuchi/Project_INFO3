@@ -5,6 +5,7 @@ import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.LinkedList;
 import model.Model;
 import model.map.TileType;
+import view.MyCanvas;
 import view.graphicEntity.EntityView;
 
 
@@ -354,6 +355,11 @@ public abstract class Entity implements EntityInterface {
 		double x = h1.getCenterX() - h2.getCenterX();
 		double y = h1.getCenterY() - h2.getCenterY();
 		return Math.sqrt(x * x + y * y);
+	}
+
+	public void deleteEntity () {
+		Model.getInstance().deleteEntity(this);
+		MyCanvas.getInstance().deleteEntityView(m_ev);
 	}
 
 	public EntityProperties getProperties () {

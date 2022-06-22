@@ -145,7 +145,7 @@ public class Model {
 	}
 
 	public void deleteEntity (Entity e) {
-		// TODO
+		m_listeEntity.remove(e);
 	}
 
 	public void createLightSource (Entity e) {
