@@ -8,9 +8,11 @@ public class RefAutomata {
 	Entity m_e;
 	BotAutomata m_aut;
 	BotState m_current_state;
+	long m_wait; // égal 0 si on attend rien
 
 
 	public RefAutomata (Entity e) {
+		m_wait = 0;
 		m_e = e;
 		Controller cont = Controller.getInstance();
 		m_aut = cont.getAut(m_e.getID());
@@ -30,6 +32,9 @@ public class RefAutomata {
 	}
 
 	public void step () {
-		m_current_state = m_aut.step(m_e, m_current_state);
+
+		if (m_wait <= 0) {
+			m_current_state = m_aut.step(this);
+		}
 	}
 }

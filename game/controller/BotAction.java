@@ -20,6 +20,6 @@ public abstract class BotAction {
 		return m_percent;
 	}
 
-	public abstract boolean apply (Entity e);
+	public abstract boolean apply (Entity e, RefAutomata aut);
 
 }

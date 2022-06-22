@@ -12,8 +12,8 @@ public class BotCell implements ICondition {
 	String m_cat;
 
 
-	public BotCell (BotDirection dir, String cat) {
-		m_dir = dir;
+	public BotCell (String dir, String cat) {
+		m_dir = new BotDirection(dir);
 		m_cat = cat;
 	}
 

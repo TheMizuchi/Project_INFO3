@@ -8,7 +8,7 @@ public class BotDirection {
 	private boolean m_here;
 
 
-	BotDirection (String s) {
+	public BotDirection (String s) {
 		m_angle = 0;
 		m_absolute = true;
 		m_select_cible = false;
