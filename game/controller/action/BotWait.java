@@ -11,7 +11,12 @@ public class BotWait extends BotAction {
 
 
 	public BotWait (String time) {
-		m_time = Long.parseLong(time);
+
+		if (time.equals("")) {
+			m_time = 1000;
+		} else {
+			m_time = Long.parseLong(time);
+		}
 	}
 
 	@Override
