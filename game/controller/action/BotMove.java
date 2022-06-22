@@ -23,6 +23,12 @@ public class BotMove extends BotAction {
 	public boolean apply (Entity e) {
 		EntityType type = e.getType();
 
+		// ne cible que les joueurs, fonction réservée aux monstres (ou aux margoulin qui veulent voler des torches)
+		if (m_dir.getSel()) {
+			Entity mobTarget = e.closest(EntityType.ALLY);
+			m_dir.setAngle(e.angleVers(mobTarget));
+		}
+
 		if (type == EntityType.ALLY) {
 
 			if (m_dir.getAbs()) {

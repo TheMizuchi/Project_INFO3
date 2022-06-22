@@ -115,6 +115,7 @@ public abstract class Entity implements EntityInterface {
 	void interact () {}
 
 
+	// Permet de choisir la précision que vous voulez sur l'angle de MyDir
 	static final double MYDIR_SENSI = 15 * 180 / Math.PI;
 
 

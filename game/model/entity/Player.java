@@ -1,9 +1,9 @@
 package model.entity;
 
-import model.Camera;
 import common.MyTimer;
 import common.TimerListener;
 import controller.RefAutomata;
+import model.Camera;
 
 
 public abstract class Player extends Entity {
