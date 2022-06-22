@@ -5,10 +5,7 @@ public enum EntityProperties {
 	COWBOY(0, 1, EntityType.ALLY, 0), J1(1, 1, EntityType.ALLY, 0), J2(2, 1, EntityType.ALLY, 0),
 	TORCH(3, 1, EntityType.ITEM, 0), SKELETON(4, 1, EntityType.ENEMY, 7), BAT(5, 1, EntityType.NEUTRAL, 1),
 	DART_MONKEY(6, 1, EntityType.ENEMY, 0), BLOON(7, 1, EntityType.ENEMY, 0), DOGE(8, 1, EntityType.ENEMY, 0),
-	MYSTERY(9, 1, EntityType.ENEMY, 0), KEY(10, 1, EntityType.ITEM, 0),
-	DOORC(11, 1, EntityType.ITEM, 0), DOORKEY(12, 1, EntityType.ITEM, 0), 
-	
-	
+	MYSTERY(9, 1, EntityType.ENEMY, 0), KEY(10, 1, EntityType.ITEM, 0), DOOR(11, 1, EntityType.ITEM, 0),
 	ENTITY(13, 1, EntityType.NEUTRAL, 0);
 
 

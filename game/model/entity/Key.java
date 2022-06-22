@@ -2,8 +2,9 @@ package model.entity;
 
 import view.MyCanvas;
 
-public class Key extends Entity{
-	
+
+public class Key extends Entity {
+
 	KeyView m_tv;
 	EntityInterface porteur;
 
