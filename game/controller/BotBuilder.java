@@ -2,12 +2,52 @@ package controller;
 
 import java.util.List;
 
-import controller.action.*;
-import controller.condition.*;
-import controller.condition.tree.*;
+import controller.action.BotEgg;
+import controller.action.BotExplode;
+import controller.action.BotGet;
+import controller.action.BotHit;
+import controller.action.BotJump;
+import controller.action.BotMove;
+import controller.action.BotNone;
+import controller.action.BotPick;
+import controller.action.BotPop;
+import controller.action.BotPower;
+import controller.action.BotProtect;
+import controller.action.BotStore;
+import controller.action.BotThrow;
+import controller.action.BotTurn;
+import controller.action.BotWait;
+import controller.action.BotWizz;
+import controller.condition.BotCell;
+import controller.condition.BotClosest;
+import controller.condition.BotGotPower;
+import controller.condition.BotGotStuff;
+import controller.condition.BotKey;
+import controller.condition.BotMyDir;
+import controller.condition.BotTrue;
+import controller.condition.tree.BotAndOp;
+import controller.condition.tree.BotFunCall;
+import controller.condition.tree.BotNotOp;
+import controller.condition.tree.BotOrOp;
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
-import info3.game.automata.ast.*;
+import info3.game.automata.ast.AST;
+import info3.game.automata.ast.Action;
+import info3.game.automata.ast.Automaton;
+import info3.game.automata.ast.Behaviour;
+import info3.game.automata.ast.BinaryOp;
+import info3.game.automata.ast.Category;
+import info3.game.automata.ast.Condition;
+import info3.game.automata.ast.Direction;
+import info3.game.automata.ast.FunCall;
+import info3.game.automata.ast.IVisitor;
+import info3.game.automata.ast.Key;
+import info3.game.automata.ast.Mode;
+import info3.game.automata.ast.State;
+import info3.game.automata.ast.Transition;
+import info3.game.automata.ast.UnaryOp;
+import info3.game.automata.ast.Underscore;
+import info3.game.automata.ast.Value;
 
 
 public class BotBuilder implements IVisitor {
@@ -202,10 +242,10 @@ public class BotBuilder implements IVisitor {
 						act = new BotMove(call.m_p1);
 						break;
 					case "Pop":
-						act = new BotPop(call.m_p1, call.m_p2);
+						act = new BotPop();
 						break;
 					case "Wizz":
-						act = new BotWizz(call.m_p1, call.m_p2);
+						act = new BotWizz();
 						break;
 					case "Hit":
 						act = new BotHit(call.m_p1);
@@ -214,20 +254,16 @@ public class BotBuilder implements IVisitor {
 						act = new BotPower();
 						break;
 					case "Jump":
-						act = new BotJump(call.m_p1);
+						act = new BotJump();
 						break;
 					case "Turn":
-						if (call.m_p1 == "") {
-							act = new BotTurn();
-							break;
-						}
 						act = new BotTurn(call.m_p1);
 						break;
 					case "Protect":
-						act = new BotProtect(call.m_p1);
+						act = new BotProtect();
 						break;
 					case "Pick":
-						act = new BotPick(call.m_p1);
+						act = new BotPick();
 						break;
 					case "Throw":
 						act = new BotThrow(call.m_p1);
@@ -245,7 +281,7 @@ public class BotBuilder implements IVisitor {
 						act = new BotEgg(call.m_p1);
 						break;
 					case "Wait":
-						act = new BotWait();
+						act = new BotWait(call.m_p1);
 						break;
 					case "None":
 						act = new BotNone();
@@ -279,6 +315,7 @@ public class BotBuilder implements IVisitor {
 			}
 		}
 		return actions;
+
 	}
 
 	@Override

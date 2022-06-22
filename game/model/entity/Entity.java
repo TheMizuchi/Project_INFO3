@@ -118,10 +118,15 @@ public abstract class Entity implements EntityInterface {
 
 	void interact () {}
 
+
+	// Permet de choisir la précision que vous voulez sur l'angle de MyDir
+	static final double MYDIR_SENSI = 15 * 180 / Math.PI;
+
+
 	@Override
-	public boolean myDir (Direction orientation) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean myDir (double orientation, boolean absolute) {
+		double angle = (absolute) ? (orientation) : (m_vecDir.getAngle() + orientation);
+		return (angle - MYDIR_SENSI <= m_vecDir.getAngle()) && (m_vecDir.getAngle() <= angle + MYDIR_SENSI);
 	}
 
 	@Override
@@ -225,12 +230,6 @@ public abstract class Entity implements EntityInterface {
 
 	@Override
 	public void wizz () {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void waitt () {
 		// TODO Auto-generated method stub
 
 	}

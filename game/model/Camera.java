@@ -50,12 +50,12 @@ public class Camera {
 		double dy = Math.abs(j1.getPosY() - j2.getPosY());
 		scale = Math.min(Math.min(13 / Math.max(dx, 13), 5 / Math.max(dy, 5)), 1);
 		scale = Math.max(scale, 0.75);
-		if (scale <0.76) {
+
+		if (scale < 0.76) {
 			bloquer = true;
 		} else {
 			bloquer = false;
 		}
-		System.out.println("la scale "+scale);
 		this.setPosition((double) (j1.getPosX() + j2.getPosX()) / 2, (double) (j1.getPosY() + j2.getPosY()) / 2, scale);
 	}
 
@@ -70,12 +70,12 @@ public class Camera {
 	private void setPosition (double x, double y, double scale) {
 		this.vp.setPosition(x, y, scale);
 	}
-	
-	public static boolean getBlock() {
+
+	public static boolean getBlock () {
 		return bloquer;
 	}
-	
-	public static double getScale() {
+
+	public static double getScale () {
 		return scale;
 	}
 }

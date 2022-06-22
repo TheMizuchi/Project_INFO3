@@ -1,5 +1,6 @@
 package controller.condition;
 
+import controller.BotDirection;
 import controller.ICondition;
 import model.entity.Entity;
 import model.entity.EntityType;
@@ -7,12 +8,12 @@ import model.entity.EntityType;
 
 public class BotCell implements ICondition {
 
-	String m_dir;
+	BotDirection m_dir;
 	String m_cat;
 
 
 	public BotCell (String dir, String cat) {
-		m_dir = dir;
+		m_dir = new BotDirection(dir);
 		m_cat = cat;
 	}
 

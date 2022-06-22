@@ -1,35 +1,23 @@
 package controller.action;
 
 import controller.BotAction;
+import controller.BotDirection;
+import controller.RefAutomata;
 import model.entity.Entity;
 
 
 public class BotHit extends BotAction {
 
-	String m_s;
+	BotDirection m_dir;
 
 
-	public BotHit (String s) {
-		m_s = s;
+	public BotHit (String dir) {
+		m_dir = new BotDirection(dir);
 	}
 
 	@Override
-	public boolean apply (Entity e) {
-
-		switch (m_s) {
-			case "N":
-
-				break;
-			case "W":
-
-				break;
-			case "S":
-
-				break;
-			case "E":
-
-				break;
-		}
+	public boolean apply (Entity e, RefAutomata aut) {
+		// Si quelqu'un à un conflit (notamment Maxime) c'est Diego qui a modifié le constructeur, vient me voir voc
 		return true;
 	}
 
