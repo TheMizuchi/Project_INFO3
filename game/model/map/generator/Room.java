@@ -21,7 +21,7 @@ public class Room {
 
 	private Case comp[][];
 	private RoomType type;
-	private LinkedList listeEntity;
+	private LinkedList listeEntity; //Portes non incluses
 
 
 	public Room (Model m, int w, int h, Case[][] composition, int typeID) {
@@ -75,6 +75,7 @@ public class Room {
 					int x = i + upperLeftX;
 					int y = j + upperLeftY;
 					Entity e = model.createEntity(x, y, entityProperties);
+					listeEntity.insertAt(listeEntity.length(), e);
 					//à enelever plus tard
 					model.createLightSource(e);
 				}
@@ -105,6 +106,7 @@ public class Room {
 
 				if (e.distance(j1) > minDistance && e.distance(j2) > minDistance) {
 					model.createEntity(x, y, ep);
+					listeEntity.insertAt(listeEntity.length(), e);
 					iterationsSinceLastSuccess = 0;
 					placed++;
 				}

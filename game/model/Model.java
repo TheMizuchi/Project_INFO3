@@ -81,7 +81,7 @@ public class Model {
 
 		if (m_level >= 0 && m_level <= 2) {
 
-			if (m_listeEntity == null) {
+			if (m_listeEntity == null || m_listeEntity.length() == 0) {
 				m_listeEntity = new LinkedList();
 				m_level++;
 				int nbRooms = 10 + 3 * m_level;

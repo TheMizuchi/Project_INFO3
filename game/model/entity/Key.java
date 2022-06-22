@@ -1,49 +1,25 @@
 package model.entity;
 
-import view.MyCanvas;
-
-
 public class Key extends Entity {
 
-	KeyView m_tv;
-	EntityInterface porteur;
+	static Key m_instance;
 
 
 	public Key (double x, double y) {
-		super(x, y, EntityProperties.TORCH);
-		m_tv = new KeyView(this);
-		m_ev = m_tv;
-		MyCanvas.getInstance().createEntityView(m_tv);
-		m_tangible = false;
+		super(x, y, EntityProperties.KEY);
+		// TODO Auto-generated constructor stub
 	}
 
-
-	private static Key INSTANCE = null;
-
-
 	public static Key getInstance (double x, double y) {
-
-		if (INSTANCE == null) {
-			INSTANCE = new Key(x, y);
-		}
-		return INSTANCE;
+		if (m_instance == null)
+			m_instance = new Key(x, y);
+		return m_instance;
 	}
 
 	public static Key getInstance () {
-
-		if (INSTANCE == null) {
-			throw new RuntimeException("Torch isn't instance yet what are you doing bro ?");
-		}
-		return INSTANCE;
-	}
-
-	public void updatePorteur (EntityInterface e) {
-		porteur = e;
-	}
-
-	public void update (Entity e) {
-		// si automate, faire un step
-		m_hitbox.move(e);
+		if (m_instance == null)
+			throw new RuntimeException("Key not yet created");
+		return m_instance;
 	}
 
 }

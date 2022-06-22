@@ -74,6 +74,9 @@ public abstract class Entity implements EntityInterface {
 			case DOOR:
 				e = new Door(x, y);
 				break;
+			case KEY:
+				e = Key.getInstance(x, y);
+				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
 
