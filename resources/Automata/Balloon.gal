@@ -1,15 +1,12 @@
 Balloon (Init) {
-	* (Init) :
-		|Key(n) ? Pop : ()
-}
-
-Balloon2 (Init) {
-	* (Init) : 
-		| True ? Move(NE) / Move(NW) / Move(SE) / Move(SW) : (Moving)
-	* (Moving) :
-		| !(GotPower) ? Egg(F) : (Die)
-		| Cell(F,V) ? Move(F) : (Moving)
-		| Cell()? Turn(L) : (Moving)
-	*(Die)
-		| True ? Pop : ()
+    * (Init) :
+        | True ? Move(NE) / Move(NW) / Move(SE) / Move(SW) : (Moving)
+    * (Moving) :
+        | Key(n) ? Egg(F) : (Die)
+        | Cell(F) ? Move(F) : (Moving)
+        | Cell(L) ? Turn(L) : (Moving)
+        | Cell(R) ? Turn(R) : (Moving)
+        | True ? Turn(B) : (Moving)
+    * (Die) :
+        | True ? Pop : ()
 }

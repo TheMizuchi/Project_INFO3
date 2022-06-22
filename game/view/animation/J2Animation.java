@@ -34,6 +34,13 @@ public class J2Animation extends EntityAnimation {
 	}
 
 	@Override
+	public void setPosition (int x, int y, double scale) {
+		this.x = x;
+		this.y = y;
+		this.scale = scale / 1.2;
+	}
+
+	@Override
 	public void paint (Graphics g) {
 		if (!show)
 			return;

@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.Model;
 import view.MyCanvas;
 import view.graphicEntity.BloonView;
 
@@ -23,15 +24,23 @@ public class Bloon extends Mob {
 	}
 
 	@Override
-	public void pop () {
+	public void egg (double orientationx, double orientationy) {
+		Model m;
+		m = Model.getInstance();
 
-		if (level > 0) {
-			Bloon fils = (Bloon) Entity.createEntity(this.getPosX(), this.getPosY(), EntityProperties.BLOON);
-			fils.setLevel(level - 1);
-			fils = (Bloon) Entity.createEntity(this.getPosX(), this.getPosY(), EntityProperties.BLOON);
-			fils.setLevel(level - 1);
+		if (m_hitbox.deplacementValide(getPosX(), getPosY())) {
+			Entity e = m.createEntity(getPosX(), getPosY(), this.m_entityProperties);
+			m.createLightSource(e);
+			e = m.createEntity(getPosX(), getPosY(), this.m_entityProperties);
+			m.createLightSource(e);
 		}
+
+	}
+
+	@Override
+	public void pop () {
 		m_bv.explode();
+		//Die now
 	}
 
 }

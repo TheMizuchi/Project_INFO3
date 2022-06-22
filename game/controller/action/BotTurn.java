@@ -20,11 +20,12 @@ public class BotTurn extends BotAction {
 	public boolean apply (Entity e, RefAutomata aut) {
 
 		// ne cible que les joueurs, fonction réservée aux monstres (ou aux margoulin qui veulent voler des torches)
+
 		if (m_dir.getSel()) {
 			Entity cible = e.closest(EntityType.ALLY);
 			m_dir.setAngle(e.angleVers(cible));
 		}
-
+		System.out.println("ça tourne ça tourneee!");
 		e.turn(m_dir.getAngle(), m_dir.getAbs());
 		return true;
 
