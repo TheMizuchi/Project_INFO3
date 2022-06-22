@@ -124,8 +124,6 @@ public class MyCanvas extends Component {
 
 		while (it.hasNext()) {
 			EntityView e = (EntityView) it.next();
-			
-			
 
 			// Cette condition permet de ne pas peindre les entités qui ne sont pas dans le viewport.
 			// Si les entités sont dans le viewport on teste si elle apparaissent dans un champ lumineux.
@@ -134,11 +132,10 @@ public class MyCanvas extends Component {
 				//i++;
 				e.paint(g);
 			}
-			((Entity)e.entity).m_hitbox.paint(g);
+			((Entity) e.entity).m_hitbox.paint(g);
 			g.setColor(Color.red);
-			g.drawRect(e.x-(int)(e.getW()*e.scale/2), e.y-(int)(e.getH()*e.scale/2), (int)(e.getW()*e.scale), (int)(e.getH()*e.scale));
+			g.drawRect(e.x - (int) (e.getW() * e.scale / 2), e.y - (int) (e.getH() * e.scale / 2), (int) (e.getW() * e.scale), (int) (e.getH() * e.scale));
 		}
-		//System.out.println("Nb d'entité dessiné : " + i);
 
 		// Applique un masque pour couvrir les zones non éclairées.
 		//m_light.paint(g);

@@ -6,24 +6,26 @@ import java.awt.Graphics;
 import model.Camera;
 import model.Model;
 
+
 public class Point {
+
 	private double m_x;
 	private double m_y;
-	
-	
-	public Point (double x , double y) {
-		m_x = x; 
-		m_y = y;	
+
+
+	public Point (double x, double y) {
+		m_x = x;
+		m_y = y;
 	}
-	
-	public double getX() {
-		return m_x ; 
+
+	public double getX () {
+		return m_x;
 	}
-	
-	public double getY() {
+
+	public double getY () {
 		return m_y;
 	}
-	
+
 	public void paint (Graphics g) {
 		Camera c = Model.m_cam;
 		g.setColor(Color.white);

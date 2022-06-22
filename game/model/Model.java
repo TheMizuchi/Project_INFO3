@@ -8,7 +8,6 @@ import edu.polytech.oop.collections.LinkedList.Iterator;
 import model.entity.Entity;
 import model.entity.EntityProperties;
 import model.map.Map;
-import model.map.generator.Arc;
 import model.map.generator.Graph;
 import model.map.generator.JsonDecode;
 import model.map.generator.Node;
@@ -26,8 +25,13 @@ public class Model {
 	// Variables locales
 	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
+	//<<<<<<< HEAD
 	static public Camera m_cam;
-	private Map m_map;
+	//	private Map m_map;
+	//=======
+	//	private Camera m_cam;
+	static private Map m_map;
+	//>>>>>>> master
 	private ArrayList rooms; //Totalité des salles pour pouvoir piocher dedans
 	private JsonDecode jd;
 
@@ -173,7 +177,7 @@ public class Model {
 				}
 			}
 		}
-		System.out.println("nb generate = " + nb_gen);
+		//System.out.println("nb generate = " + nb_gen);
 		m_map.corridors(MST);
 
 		m_canvas.createMapView(m_map.getCases());
@@ -188,7 +192,7 @@ public class Model {
 		return m_listeEntity;
 	}
 
-	public Map getMap () {
+	public static Map getMap () {
 		return m_map;
 	}
 

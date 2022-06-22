@@ -71,7 +71,7 @@ public class Mob extends Entity {
 	public void wizz () {
 		redevientMechant();
 	}
-	
+
 	private Entity autreJ () {
 
 		if (this.m_p == J1.getInstance())

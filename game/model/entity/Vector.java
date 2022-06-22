@@ -140,7 +140,7 @@ public class Vector {
 			if (getN()) {
 				m_angle = Math.PI / 2;
 			} else {
-				m_angle = 3 * Math.PI;
+				m_angle = 3 * Math.PI / 2;
 			}
 		}
 		return m_angle;

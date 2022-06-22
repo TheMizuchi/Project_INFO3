@@ -21,7 +21,7 @@ public abstract class Entity implements EntityInterface {
 	protected Vector m_vecDir = new Vector();
 
 	private static int m_count = 0;
-	public int m_c;
+	private int m_c;
 
 	protected LinkedList m_blockInterdit;
 	protected boolean m_tangible;
@@ -33,7 +33,7 @@ public abstract class Entity implements EntityInterface {
 		m_entityProperties = ep;
 		m_ID = ep.getID();
 		m_pv = ep.getInitialPv();
-		m_hitbox = new Hitbox(x, y, 0.5, 1, this, false);
+		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this, false);
 		m_automata = new RefAutomata(this);
 		m_blockInterdit = new LinkedList();
 		m_blockInterdit.insertAt(0, TileType.WALL);
@@ -64,8 +64,8 @@ public abstract class Entity implements EntityInterface {
 			case BAT:
 				e = new Bat(x, y);
 				break;
-			case DART_MONKEY:
-				e = new DartMonkey(x, y);
+			case ARCHER:
+				e = new Archer(x, y);
 				break;
 			case TORCH:
 				e = Torch.getInstance(x, y);
@@ -75,6 +75,10 @@ public abstract class Entity implements EntityInterface {
 				break;
 			case MYSTERY:
 				e = new MysteryMachine(x, y);
+				break;
+			case BLOON_BOSS:
+				e = new Bloon(x, y);
+				((Bloon) e).setLevel(5);
 				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
@@ -218,6 +222,27 @@ public abstract class Entity implements EntityInterface {
 		return e_min;
 	}
 
+	public Entity closest (boolean possessable) {
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e, e_min = null;
+		double distMin = Double.MAX_VALUE;
+
+		while (iter.hasNext()) {
+			e = (Entity) iter.next();
+
+			if (e.getPossessable() == possessable) {
+				double dist = distance(e);
+
+				if (distMin > dist) {
+					e_min = e;
+					distMin = dist;
+				}
+
+			}
+		}
+		return e_min;
+	}
+
 	@Override
 	public boolean gotPower () {
 		return m_pv > 0;
@@ -254,7 +279,6 @@ public abstract class Entity implements EntityInterface {
 
 	@Override
 	public void hit (Vector vec) {
-		
 
 	}
 
@@ -332,6 +356,10 @@ public abstract class Entity implements EntityInterface {
 		return m_entityProperties.getID();
 	}
 
+	public boolean getPossessable () {
+		return m_entityProperties.getPossessable();
+	}
+
 	public LinkedList getTuileInterdite () {
 		return m_blockInterdit;
 	}
@@ -367,13 +395,6 @@ public abstract class Entity implements EntityInterface {
 		else if (m_hitbox.getCenterX() <= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() <= e.m_hitbox.getCenterY()) {
 			return Math.acos(Math.abs(bidule) / dist) + Math.PI / 2 * 3;
 		}
-
-		/*
-		 * System.out.println(e.m_hitbox.getCenterX());
-		 * System.out.println(m_hitbox.getCenterX()); System.out.println(truc);
-		 * 
-		 * System.out.println(dist);
-		 */
 
 		throw new RuntimeException("erreur lors du calcul d'angle de ciblage");
 	}

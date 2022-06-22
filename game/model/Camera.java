@@ -15,6 +15,12 @@ public class Camera {
 	static boolean bloquer = false;
 	static double scale;
 
+	public static final double SCALE_MIN = 0.75;
+	private static final double DISTANT_MAX_X_SCALE_1 = 13.0;
+	private static final double DISTANT_MAX_Y_SCALE_1 = 5.0;
+	public static final double DISTANCE_MAX_X = DISTANT_MAX_X_SCALE_1 / SCALE_MIN;
+	public static final double DISTANCE_MAX_Y = DISTANT_MAX_Y_SCALE_1 / SCALE_MIN;
+
 
 	private Camera (Viewport vp, Entity j1, Entity j2, double x, double y) {
 		this(vp, x, y);
@@ -48,10 +54,10 @@ public class Camera {
 	public void update () {
 		double dx = Math.abs(j1.getPosX() - j2.getPosX());
 		double dy = Math.abs(j1.getPosY() - j2.getPosY());
-		scale = Math.min(Math.min(13 / Math.max(dx, 13), 5 / Math.max(dy, 5)), 1);
-		scale = Math.max(scale, 0.75);
+		scale = Math.min(Math.min(DISTANT_MAX_X_SCALE_1 / Math.max(dx, DISTANT_MAX_X_SCALE_1), DISTANT_MAX_Y_SCALE_1 / Math.max(dy, DISTANT_MAX_Y_SCALE_1)), 1);
+		scale = Math.max(scale, SCALE_MIN);
 
-		if (scale < 0.76) {
+		if (scale <= SCALE_MIN) {
 			bloquer = true;
 		} else {
 			bloquer = false;

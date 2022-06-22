@@ -107,8 +107,9 @@ public class Hitbox {
 	public boolean contactEntity (Point new_p1, Point new_p2, Point new_p3, Point new_p4) {
 		IList list = Model.getlistEntity();
 		IList.Iterator it = list.iterator();
-		if(!m_e.isTanguible()) {
-			return false ;
+
+		if (!m_e.isTanguible()) {
+			return false;
 		}
 
 		while (it.hasNext()) {
@@ -132,20 +133,18 @@ public class Hitbox {
 	}
 
 	public double getCenterX () {
-		double dx = (m_p1.getX() + m_p2.getX()) / 2 ; 
-		//System.out.println("centre dx : "+dx);
+		double dx = (m_p1.getX() + m_p2.getX()) / 2;
 		return dx;
 	}
 
 	public double getCenterY () {
 		double dy = (m_p1.getY() + m_p3.getY()) / 2;
-		//System.out.println("centre dy : "+dy);
 		return dy;
 
 	}
 
 	public boolean pointInHitbox (Point p) {
-		return (dansLeTriangle(p, m_p1, m_p2, m_p4) || dansLeTriangle(p, m_p2, m_p3, m_p4) );
+		return (dansLeTriangle(p, m_p1, m_p2, m_p4) || dansLeTriangle(p, m_p2, m_p3, m_p4));
 	}
 
 	boolean dansLeTriangle (Point pt, Point v1, Point v2, Point v3) {
@@ -177,8 +176,8 @@ public class Hitbox {
 	public Point getP4 () {
 		return m_p1;
 	}
-	
-	public void paint(Graphics g) {
+
+	public void paint (Graphics g) {
 		m_p1.paint(g);
 		m_p2.paint(g);
 		m_p3.paint(g);
