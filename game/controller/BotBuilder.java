@@ -89,7 +89,7 @@ public class BotBuilder implements IVisitor {
 					cond = new BotKey((String) p1);
 					break;
 				case "Cell":
-					cond = new BotCell((String) p1, fc.m_p2);
+					cond = new BotCell((BotDirection) p1, fc.m_p2);
 					break;
 				case "MyDir":
 					cond = new BotMyDir((BotDirection) p1);
