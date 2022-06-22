@@ -61,3 +61,27 @@ Création de l'objet torche qui est fonctionnel
 ## 18 Juin
 
 Correction des EntityAbsoluteDir EntityRelativeDir + Amélioration implémentation BotMove et BotTurn
+
+## 20 Juin
+
+Début de l'implémentation de la possession
+
+## 21 Juin
+
+A faire finir la possession (Corriger le centrage de la cam + intangibilité)
+
+Finalisation de la possession
+
+## 22 Juin
+
+Ajout d'un champ `possessable` dans les propriétés des entitiés.
+
+Implémentation de MyDir
+
+Implémentation de Wait
+
+Débuggage de la caméra
+
+Début implémentation de la suppression des d'entités
+
+Refonte des directions dans les automates (Class BotDirection) + adaptation du BotBuilder
