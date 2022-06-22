@@ -34,7 +34,7 @@ public class DoorBank extends EntityAnimationBank {
 	protected void loadBasicAnimation (Sprite spriteFile) {
 		// TODO Auto-generated method stub
 		BufferedImage[] idle_img = new BufferedImage[1];
-		idle_img[0] = spriteFile.m_images[0];
+		idle_img[0] = spriteFile.m_images[6];
 		this.idle = new Sprite(idle_img);
 
 		BufferedImage[] idle_walk = new BufferedImage[1];
