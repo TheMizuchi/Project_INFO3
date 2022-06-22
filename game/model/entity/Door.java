@@ -64,7 +64,7 @@ public class Door extends Entity {
 	@Override
 	public boolean gotStuff () {
 
-		float proximity = (float) 2.5;
+		int proximity = 2;
 
 		if (m_key == null) {
 
