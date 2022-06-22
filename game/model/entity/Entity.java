@@ -71,6 +71,10 @@ public abstract class Entity implements EntityInterface {
 			case MYSTERY:
 				e = new MysteryMachine(x, y);
 				break;
+			case BLOON_BOSS:
+				e = new Bloon(x, y);
+				((Bloon) e).setLevel(5);
+				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
 
@@ -342,7 +346,7 @@ public abstract class Entity implements EntityInterface {
 
 		// haut gauche
 		else if (m_hitbox.getCenterX() >= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() <= e.m_hitbox.getCenterY()) {
-			return Math.acos(Math.abs(truc) / dist) + Math.PI ;
+			return Math.acos(Math.abs(truc) / dist) + Math.PI;
 		}
 
 		// haut droite

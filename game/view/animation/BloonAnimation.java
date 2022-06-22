@@ -1,6 +1,5 @@
 package view.animation;
 
-import model.Model;
 import model.entity.EntityProperties;
 import view.animation.bank.AnimationBank;
 import view.animation.bank.BloonBank;
@@ -9,6 +8,9 @@ import view.animation.bank.BloonBank;
 public class BloonAnimation extends EntityAnimation {
 
 	BloonBank bb;
+	Sprite idle;
+	Sprite walk;
+	Sprite explode;
 
 
 	public BloonAnimation () {
@@ -17,7 +19,45 @@ public class BloonAnimation extends EntityAnimation {
 	}
 
 	public void explode () {
-		m_sprite = this.bb.explode;
+		m_sprite = this.explode;
 		this.start();
+	}
+
+	public void setLevel (int n) {
+
+		switch (n) {
+			case 0:
+				this.idle = this.bb.Ired;
+				this.explode = this.bb.red;
+				break;
+			case 1:
+				this.idle = this.bb.Iblue;
+				this.explode = this.bb.blue;
+				break;
+			case 2:
+				this.idle = this.bb.Igreen;
+				this.explode = this.bb.green;
+				break;
+			case 3:
+				this.idle = this.bb.Iyellow;
+				this.explode = this.bb.yellow;
+				break;
+			case 4:
+				this.idle = this.bb.Ipink;
+				this.explode = this.bb.pink;
+				break;
+			case 5:
+				this.idle = this.bb.Ipurple;
+				this.explode = this.bb.purple;
+				break;
+		}
+		this.walk = this.idle;
+	}
+
+	@Override
+	public void setPosition (int x, int y, double scale) {
+		this.x = x;
+		this.y = y;
+		this.scale = scale / 20;
 	}
 }
