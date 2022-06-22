@@ -6,7 +6,12 @@ import model.entity.Entity;
 
 public class BotEgg extends BotAction {
 
-	public BotEgg () {}
+	String m_s;
+
+
+	public BotEgg (String s) {
+		m_s = s;
+	}
 
 	@Override
 	public boolean apply (Entity e) {

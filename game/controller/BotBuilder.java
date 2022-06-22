@@ -239,19 +239,18 @@ public class BotBuilder implements IVisitor {
 			float sum = 0; 							// Somme des probas différentes de -1
 			IList toSetProba = new LinkedList(); 	// Stocke les action d'une proba de -1 (à affecter)
 
-			BotDirection p1 = null;
+			Object p1 = null;
 
 			for (Object obj : funcalls) {
 				BotFunCall call = (BotFunCall) obj;
-				p1 = (BotDirection) call.m_p1;
-
-				if (p1 == null) {
-					p1 = new BotDirection("");
-				}
+				p1 = call.m_p1;
 
 				switch (call.m_name) {
 					case "Move":
-						act = new BotMove(p1);
+						if (p1 == null) {
+							p1 = new BotDirection("");
+						}
+						act = new BotMove((BotDirection) p1);
 						break;
 					case "Pop":
 						act = new BotPop();
@@ -260,7 +259,10 @@ public class BotBuilder implements IVisitor {
 						act = new BotWizz();
 						break;
 					case "Hit":
-						act = new BotHit(p1);
+						if (p1 == null) {
+							p1 = new BotDirection("");
+						}
+						act = new BotHit((BotDirection) p1);
 						break;
 					case "Power":
 						act = new BotPower();
@@ -269,7 +271,10 @@ public class BotBuilder implements IVisitor {
 						act = new BotJump();
 						break;
 					case "Turn":
-						act = new BotTurn(p1);
+						if (p1 == null) {
+							p1 = new BotDirection("");
+						}
+						act = new BotTurn((BotDirection) p1);
 						break;
 					case "Protect":
 						act = new BotProtect();
@@ -278,7 +283,10 @@ public class BotBuilder implements IVisitor {
 						act = new BotPick();
 						break;
 					case "Throw":
-						act = new BotThrow(p1);
+						if (p1 == null) {
+							p1 = new BotDirection("");
+						}
+						act = new BotThrow((BotDirection) p1);
 						break;
 					case "Store":
 						act = new BotStore();
@@ -290,10 +298,10 @@ public class BotBuilder implements IVisitor {
 						act = new BotExplode();
 						break;
 					case "Egg":
-						act = new BotEgg();
+						act = new BotEgg((String) p1);
 						break;
 					case "Wait":
-						act = new BotWait();
+						act = new BotWait((long) p1);
 						break;
 					case "None":
 						act = new BotNone();
@@ -327,6 +335,7 @@ public class BotBuilder implements IVisitor {
 			}
 		}
 		return actions;
+
 	}
 
 	@Override
