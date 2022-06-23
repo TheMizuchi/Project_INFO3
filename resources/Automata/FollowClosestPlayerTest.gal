@@ -1,0 +1,6 @@
+FollowClosestPlayerTest (Waiting) {
+	* (Waiting) :
+		| Key(e) ? Move : (Start)
+	* (Start):
+		| True ? Move : (Start)
+}

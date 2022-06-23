@@ -13,13 +13,16 @@ public abstract class Entity implements EntityInterface {
 
 	public int m_ID;
 	protected static int m_pv;
-	protected Hitbox m_hitbox;
+	public Hitbox m_hitbox;
 	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 	static final double rangeDetection = 10;
 	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
 	protected Vector m_vecDir = new Vector();
+
+	private static int m_count = 0;
+	private int m_c;
 
 	protected LinkedList m_blockInterdit;
 	protected boolean m_tangible;
@@ -31,11 +34,13 @@ public abstract class Entity implements EntityInterface {
 		m_entityProperties = ep;
 		m_ID = ep.getID();
 		m_pv = ep.getInitialPv();
-		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this);
+		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this, false);
 		m_automata = new RefAutomata(this);
 		m_blockInterdit = new LinkedList();
 		m_blockInterdit.insertAt(0, TileType.WALL);
 		m_tangible = true;
+		m_c = m_count;
+		m_count++;
 	}
 
 	public static Entity createEntity (double x, double y, EntityProperties entityProperties) {
@@ -60,8 +65,8 @@ public abstract class Entity implements EntityInterface {
 			case BAT:
 				e = new Bat(x, y);
 				break;
-			case DART_MONKEY:
-				e = new DartMonkey(x, y);
+			case ARCHER:
+				e = new Archer(x, y);
 				break;
 			case TORCH:
 				e = Torch.getInstance(x, y);
@@ -72,6 +77,9 @@ public abstract class Entity implements EntityInterface {
 			case MYSTERY:
 				e = new MysteryMachine(x, y);
 				break;
+			case BLOON_BOSS:
+				e = new Bloon(x, y);
+				((Bloon) e).setLevel(5);
 			case DOOR:
 				e = new Door(x, y);
 				break;
@@ -107,8 +115,8 @@ public abstract class Entity implements EntityInterface {
 			case BAT:
 				e = new Bat(x, y, null);
 				break;
-			case DART_MONKEY:
-				e = new DartMonkey(x, y, null);
+			case ARCHER:
+				e = new Archer(x, y, null);
 				break;
 			case DOGE:
 				e = new Doge(x, y, null);
@@ -155,7 +163,7 @@ public abstract class Entity implements EntityInterface {
 		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 	}
 
-	void attack () {}
+	void attack (Entity cible) {}
 
 	void interact () {}
 	
@@ -168,6 +176,7 @@ public abstract class Entity implements EntityInterface {
 	}
 
 
+	// Permet de choisir la précision que vous voulez sur l'angle de MyDir
 	static final double MYDIR_SENSI = 15 * 180 / Math.PI;
 
 
@@ -208,7 +217,12 @@ public abstract class Entity implements EntityInterface {
 			y = 0;
 		}
 
-		if (m_hitbox.deplacementValide(getPosX() + x, getPosY() + y))
+		Point p1 = new Point(m_hitbox.getP1().getX() + x, m_hitbox.getP1().getY() + y);
+		Point p2 = new Point(m_hitbox.getP2().getX() + x, m_hitbox.getP2().getY() + y);
+		Point p3 = new Point(m_hitbox.getP3().getX() + x, m_hitbox.getP3().getY() + y);
+		Point p4 = new Point(m_hitbox.getP4().getX() + x, m_hitbox.getP4().getY() + y);
+
+		if (m_hitbox.deplacementValide(p1, p2, p3, p4))
 			return true;
 
 		return false;
@@ -235,7 +249,7 @@ public abstract class Entity implements EntityInterface {
 		}
 		// TODO
 		// à implémenter lorsque les directions de dova et diego sont stables
-		//if (e_min.position in range of orientation)
+		//if (e_min.position in range of orientation)^
 		//	return true;
 		return false;
 	}
@@ -250,6 +264,27 @@ public abstract class Entity implements EntityInterface {
 			e = (Entity) iter.next();
 
 			if (e.getType() == type) {
+				double dist = distance(e);
+
+				if (distMin > dist) {
+					e_min = e;
+					distMin = dist;
+				}
+
+			}
+		}
+		return e_min;
+	}
+
+	public Entity closest (boolean possessable) {
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e, e_min = null;
+		double distMin = Double.MAX_VALUE;
+
+		while (iter.hasNext()) {
+			e = (Entity) iter.next();
+
+			if (e.getPossessable() == possessable) {
 				double dist = distance(e);
 
 				if (distMin > dist) {
@@ -285,12 +320,6 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void waitt () {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void move (Direction dir) {
 		boolean sw = dir.move(m_vecDir);
 		if (sw)
@@ -303,8 +332,7 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void hit (Direction orientation) {
-		// TODO Auto-generated method stub
+	public void hit (Vector vec) {
 
 	}
 
@@ -351,10 +379,19 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void egg (Direction orientation) {
+	public void egg (double orientationx, double orientationy) {
 		Model m;
 		m = Model.getInstance();
-		Entity e = m.createEntity(m_vecDir.getX(), m_vecDir.getY(), this.m_entityProperties);
+
+		Point p1 = new Point(m_hitbox.getP1().getX() + orientationx, m_hitbox.getP1().getY() + orientationy);
+		Point p2 = new Point(m_hitbox.getP2().getX() + orientationx, m_hitbox.getP2().getY() + orientationy);
+		Point p3 = new Point(m_hitbox.getP3().getX() + orientationx, m_hitbox.getP3().getY() + orientationy);
+		Point p4 = new Point(m_hitbox.getP4().getX() + orientationx, m_hitbox.getP4().getY() + orientationy);
+
+		if (m_hitbox.deplacementValide(p1, p2, p3, p4)) {
+			Entity e = m.createEntity(getPosX() + orientationx, getPosY() - orientationy, this.m_entityProperties);
+			m.createLightSource(e);
+		}
 	}
 
 	public double distance (Entity e) {
@@ -380,6 +417,10 @@ public abstract class Entity implements EntityInterface {
 
 	public int getID () {
 		return m_entityProperties.getID();
+	}
+
+	public boolean getPossessable () {
+		return m_entityProperties.getPossessable();
 	}
 
 	public LinkedList getTuileInterdite () {
@@ -426,13 +467,15 @@ public abstract class Entity implements EntityInterface {
 			return Math.acos(Math.abs(bidule) / dist) + Math.PI / 2 * 3;
 		}
 
-		/*
-		 * System.out.println(e.m_hitbox.getCenterX());
-		 * System.out.println(m_hitbox.getCenterX()); System.out.println(truc);
-		 * 
-		 * System.out.println(dist);
-		 */
-
 		throw new RuntimeException("erreur lors du calcul d'angle de ciblage");
+	}
+
+	public boolean equal (Entity e) {
+
+		if (e != null) {
+			boolean bool = e.m_c == m_c;
+			return bool;
+		}
+		return false;
 	}
 }

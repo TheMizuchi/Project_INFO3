@@ -27,8 +27,8 @@ public class Model {
 	// Variables locales
 	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
-	private Camera m_cam;
-	private Map m_map;
+	public static Camera m_cam;
+	private static Map m_map;
 	private ArrayList m_rooms; //Totalité des salles pour pouvoir piocher dedans
 	private JsonDecode m_jd;
 	private int m_level;
@@ -61,7 +61,7 @@ public class Model {
 		m_listeLight = new LinkedList();
 		m_cont = Controller.getInstance();
 		m_canvas = MyCanvas.getInstance();
-		createMap(1, 10);
+		createMap(1, 30);
 
 	}
 
@@ -85,7 +85,7 @@ public class Model {
 				m_listeEntity = new LinkedList();
 				m_level++;
 				int nbRooms = 10 + 3 * m_level;
-				createMap(m_level, 0);
+				createMap(m_level, nbRooms);
 				loadEnv();
 			} else {
 				int j1_pv = J1.getInstance().getPv();
@@ -203,7 +203,7 @@ public class Model {
 				}
 			}
 		}
-		System.out.println("nb generate = " + nb_gen);
+		//System.out.println("nb generate = " + nb_gen);
 		m_map.corridors(MST);
 
 		m_canvas.createMapView(m_map.getCases());
@@ -218,7 +218,7 @@ public class Model {
 		return m_listeEntity;
 	}
 
-	public Map getMap () {
+	public static Map getMap () {
 		return m_map;
 	}
 

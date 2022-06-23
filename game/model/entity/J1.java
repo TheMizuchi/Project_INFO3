@@ -2,6 +2,7 @@ package model.entity;
 
 import model.Camera;
 import view.MyCanvas;
+import view.Viewport;
 import view.graphicEntity.J1View;
 
 
@@ -16,9 +17,11 @@ public class J1 extends Player {
 		m_ev = m_jv;
 		MyCanvas.getInstance().createEntityView(m_jv);
 	}
-	
+
+
 	private static J1 INSTANCE = null;
-	
+
+
 	public static J1 getInstance (double x, double y) {
 
 		if (INSTANCE == null) {

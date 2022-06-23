@@ -9,11 +9,17 @@ public class Camera {
 
 	private static Camera m_instance = null;
 
-	private Viewport vp;
+	public Viewport vp;
 	private EntityInterface j1;
 	private EntityInterface j2;
 	static boolean bloquer = false;
 	static double scale;
+
+	public static final double SCALE_MIN = 0.75;
+	private static final double DISTANT_MAX_X_SCALE_1 = 13.0;
+	private static final double DISTANT_MAX_Y_SCALE_1 = 5.0;
+	public static final double DISTANCE_MAX_X = DISTANT_MAX_X_SCALE_1 / SCALE_MIN;
+	public static final double DISTANCE_MAX_Y = DISTANT_MAX_Y_SCALE_1 / SCALE_MIN;
 
 
 	private Camera (Viewport vp, Entity j1, Entity j2, double x, double y) {
@@ -48,9 +54,10 @@ public class Camera {
 	public void update () {
 		double dx = Math.abs(j1.getPosX() - j2.getPosX());
 		double dy = Math.abs(j1.getPosY() - j2.getPosY());
-		scale = Math.min(Math.min(13 / Math.max(dx, 13), 5 / Math.max(dy, 5)), 1);
-		scale = Math.max(scale, 0.75);
-		if (scale <0.76) {
+		scale = Math.min(Math.min(DISTANT_MAX_X_SCALE_1 / Math.max(dx, DISTANT_MAX_X_SCALE_1), DISTANT_MAX_Y_SCALE_1 / Math.max(dy, DISTANT_MAX_Y_SCALE_1)), 1);
+		scale = Math.max(scale, SCALE_MIN);
+
+		if (scale <= SCALE_MIN) {
 			bloquer = true;
 		} else {
 			bloquer = false;
@@ -69,12 +76,12 @@ public class Camera {
 	private void setPosition (double x, double y, double scale) {
 		this.vp.setPosition(x, y, scale);
 	}
-	
-	public static boolean getBlock() {
+
+	public static boolean getBlock () {
 		return bloquer;
 	}
-	
-	public static double getScale() {
+
+	public static double getScale () {
 		return scale;
 	}
 }

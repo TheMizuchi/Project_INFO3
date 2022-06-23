@@ -52,14 +52,17 @@ public class Controller {
 			BotAutomata Bloon = getAutFromFile(MenuFrame.getFileBloon());
 			BotAutomata Bat = getAutFromFile(MenuFrame.getFileBat());
 			BotAutomata Skeleton = getAutFromFile(MenuFrame.getFileSkeleton());
+			//BotAutomata Archer = getAutFromFile(MenuFrame.getFileArcher());
+			BotAutomata Doge = getAutFromFile(MenuFrame.getFileDoge());
+			BotAutomata Mystery = getAutFromFile(MenuFrame.getFileMystery());
 
 			m_IdleAutomata = getAutFromFile("resources/Automata/Idle.gal");
 
-			BotAutomata torch = getAutFromFile("resources/Automata/Torch.gal");
-			BotAutomata doge = getAutFromFile(MenuFrame.getFileDoge());
-			BotAutomata mystery = getAutFromFile(MenuFrame.getFileMystery());
-			BotAutomata door = getAutFromFile("resources/Automata/Door.gal");
-			BotAutomata key = getAutFromFile("resources/Automata/Torch.gal");
+			BotAutomata Torch = getAutFromFile("resources/Automata/Torch.gal");
+			BotAutomata Idle = getAutFromFile("resources/Automata/Idle.gal");
+			BotAutomata Egg = getAutFromFile("resources/Automata/Egg.gal");
+			BotAutomata Door = getAutFromFile("resources/Automata/Door.gal");
+			BotAutomata Key = getAutFromFile("resources/Automata/Torch.gal");
 
 			// Automates de Tests
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
@@ -73,12 +76,12 @@ public class Controller {
 			insertAt(m_auts, EntityProperties.BLOON.getID(), Bloon);
 			insertAt(m_auts, EntityProperties.SKELETON.getID(), Skeleton);
 			insertAt(m_auts, EntityProperties.BAT.getID(), Bat);
-			insertAt(m_auts, EntityProperties.DART_MONKEY.getID(), m_IdleAutomata);
-			insertAt(m_auts, EntityProperties.TORCH.getID(), torch);
-			insertAt(m_auts, EntityProperties.DOGE.getID(), doge);
-			insertAt(m_auts, EntityProperties.MYSTERY.getID(), mystery);
-			insertAt(m_auts, EntityProperties.DOOR.getID(), door);
-			insertAt(m_auts, EntityProperties.KEY.getID(), key);
+			//insertAt(m_auts, EntityProperties.ARCHER.getID(), Archer);
+			insertAt(m_auts, EntityProperties.TORCH.getID(), Torch);
+			insertAt(m_auts, EntityProperties.DOGE.getID(), Doge);
+			insertAt(m_auts, EntityProperties.MYSTERY.getID(), Mystery);
+			insertAt(m_auts, EntityProperties.DOOR.getID(), Door);
+			insertAt(m_auts, EntityProperties.KEY.getID(), Key);
 		}
 		catch (ParseException ex) {
 			throw new RuntimeException("Erreur de parsing");

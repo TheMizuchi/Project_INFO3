@@ -2,7 +2,6 @@ package controller;
 
 import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.IList;
-import model.entity.Entity;
 
 
 public class BotTransition {
@@ -18,10 +17,10 @@ public class BotTransition {
 		m_target = target;
 	}
 
-	public BotState eval (Entity e) {
+	public BotState eval (RefAutomata aut) {
 		double proba = 100 * Math.random();
 
-		if (m_cond.eval(e)) {
+		if (m_cond.eval(aut.m_e)) {
 			ICollection.Iterator iter = m_actions.iterator();
 			BotAction act;
 
@@ -29,7 +28,7 @@ public class BotTransition {
 				act = (BotAction) iter.next();
 
 				if (proba <= act.m_percent) {
-					act.apply(e);
+					act.apply(aut.m_e, aut);
 					break;
 				} else {
 					proba -= act.m_percent;
@@ -37,7 +36,7 @@ public class BotTransition {
 			}
 
 			if (m_target != null && m_target.m_name.equals("")) {
-				e.deleteEntity();
+				aut.m_e.deleteEntity();
 			}
 			return m_target;
 		}

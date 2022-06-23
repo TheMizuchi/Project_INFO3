@@ -10,9 +10,10 @@ public abstract class Player extends Entity {
 
 	protected static final long POSSESSION_CD = 30;
 
+	final static double SLOW_TORCHE = 0.20;
 	final static double POSSESSION_RANGE = 10;
 	long m_possessionCD;
-	boolean m_possessing;
+	Mob m_possessing;
 
 
 	public Player (double x, double y, EntityProperties ep) {
@@ -22,32 +23,45 @@ public abstract class Player extends Entity {
 	@Override
 	public void update (long elapsed) {
 
-		if (!m_possessing) {
+		if (m_possessing == null) {
 			Torch torch = Torch.getInstance();
 			Key key = Key.getInstance();
 			// déplacement
 			m_automata.step();
-			double speedX = super.m_vecDir.getX() * ENTITY_MAX_SPEED;
-			double speedY = super.m_vecDir.getY() * ENTITY_MAX_SPEED;
+
+			double speedX;
+			double speedY;
+
+			if (this.equals(torch.porteur)) {
+				speedX = super.m_vecDir.getX() * ENTITY_MAX_SPEED * (1 - SLOW_TORCHE);
+				speedY = super.m_vecDir.getY() * ENTITY_MAX_SPEED * (1 - SLOW_TORCHE);
+			} else {
+				speedX = super.m_vecDir.getX() * ENTITY_MAX_SPEED;
+				speedY = super.m_vecDir.getY() * ENTITY_MAX_SPEED;
+			}
 
 			if (Camera.getBlock()) {
 				Entity autreJ = autreJ();
+				Entity moi = getEntity();
 				double m_angle = m_vecDir.getAngle();
 
-				//haut
-				if (m_angle < Math.PI && m_angle > 0 && autreJ.m_hitbox.getY() > m_hitbox.getY())
+				double distY = Math.abs(autreJ.m_hitbox.getP1().getY() - (moi.m_hitbox.getP1().getY() + (speedY * elapsed / 1000))); // distance future entre les 2 joueurs
+				double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX() + (speedX * elapsed / 1000)));
+
+				// haut
+				if (m_angle < Math.PI && m_angle > 0 && distY > Camera.DISTANCE_MAX_Y) // si la distance sur cet axe est supérieur au max
 					return;
 
-				//bas
-				if (m_angle > Math.PI && autreJ.m_hitbox.getY() < m_hitbox.getY())
+				// bas
+				if (m_angle > Math.PI && distY > Camera.DISTANCE_MAX_Y)
 					return;
 
-				//gauche
-				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && autreJ.m_hitbox.getX() > m_hitbox.getX())
+				// gauche
+				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && distX > Camera.DISTANCE_MAX_X)
 					return;
 
-				//droite
-				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && autreJ.m_hitbox.getX() < m_hitbox.getX())
+				// droite
+				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && distX > Camera.DISTANCE_MAX_X)
 					return;
 
 			}
@@ -61,19 +75,22 @@ public abstract class Player extends Entity {
 	}
 
 	private Entity autreJ () {
+
 		if (this == J1.getInstance())
-			return J2.getInstance();
-		return J1.getInstance();
+			return J2.getInstance().getEntity();
+		return J1.getInstance().getEntity();
+	}
+
+	public Entity getEntity () {
+		if (m_possessing != null)
+			return m_possessing;
+		return this;
 	}
 
 	@Override
 	public void pick () {
 		Torch torch = Torch.getInstance();
 		Key key = Key.getInstance();
-		
-		m_pv = 0;
-
-		System.out.println("j'essaie de pick");
 
 		if (distance(key) <= 2 && key.porteur == null) {
 			key.porteur = this;
@@ -91,25 +108,13 @@ public abstract class Player extends Entity {
 	public void wizz () {
 
 		if (m_possessionCD == 0) {
-			Mob closestEnnemy = (Mob) closest(EntityType.ENEMY);
-			Mob closestNeutral = (Mob) closest(EntityType.NEUTRAL);
 
-			Mob closestTarget = closestEnnemy;
-
-			if (closestTarget == null) {
-				closestTarget = closestNeutral;
-			} else {
-
-				if (closestNeutral != null) {
-					closestTarget = (distance(closestEnnemy) < distance(closestNeutral)) ? (closestEnnemy)
-							: (closestNeutral);
-				}
-			}
+			Mob closestTarget = (Mob) closest(true);
 
 			if (closestTarget != null && distance(closestTarget) < POSSESSION_RANGE) {
 				closestTarget.devientGentil(m_entityProperties, m_vecDir.clone(), this);
 				m_automata = new RefAutomata(this, true);
-				m_possessing = true;
+				m_possessing = closestTarget;
 				m_tangible = false;
 				hide();
 				setCam(closestTarget);
@@ -129,14 +134,14 @@ public abstract class Player extends Entity {
 	public Player finPossession (Mob m, int pv, Vector dir) {
 		m_pv = pv;
 		m_vecDir = dir;
-		m_possessing = false;
+		m_possessing = null;
 		m_automata = new RefAutomata(this);
 		show();
 		new PossessionTimerCD(this);
 		setCam(this);
 		new IntangibleTimer(this);
-		m_hitbox.setX(m.m_hitbox.getX());
-		m_hitbox.setY(m.m_hitbox.getY());
+		Hitbox hit = new Hitbox(m.m_hitbox.getP1(), m.m_hitbox.getP2(), m.m_hitbox.getP3(), m.m_hitbox.getP4(), m, false);
+		m_hitbox = hit;
 
 		// Si besoin on lance l'animation de déplacement
 		if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
@@ -149,14 +154,12 @@ public abstract class Player extends Entity {
 	private class IntangibleTimer implements TimerListener {
 
 		Player m_p;
-		long m_init;
 
 
 		IntangibleTimer (Player p) {
 			m_p = p;
 			m_p.m_possessionCD = POSSESSION_CD * 1000;
 			m_p.m_tangible = false;
-			m_init = System.currentTimeMillis();
 			MyTimer mt = MyTimer.getTimer();
 			mt.setTimer(20, this);
 		}
@@ -164,7 +167,7 @@ public abstract class Player extends Entity {
 		@Override
 		public void expired () {
 
-			if (!m_p.m_hitbox.contactEntity(m_p.m_hitbox.getX(), m_p.m_hitbox.getY())) {
+			if (!m_p.m_hitbox.contactEntity(m_p.m_hitbox.getP1(), m_p.m_hitbox.getP2(), m_p.m_hitbox.getP3(), m_p.m_hitbox.getP4())) {
 				m_p.m_tangible = true;
 			} else {
 				MyTimer mt = MyTimer.getTimer();

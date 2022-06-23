@@ -92,9 +92,9 @@ public class Corridor {
 		int indP = 3;
 
 		while (indP > 2) {
-			n1 = (Node) pile.removeAt(0);
+	 		n1 = (Node) pile.removeAt(0);
 			indP--;
-		 	n2 = (Node) pile.removeAt(0);
+		  	n2 = (Node) pile.removeAt(0);
 	 		indP--;
 	 		n3 = (Node) pile.removeAt(0);
 		 	indP--;
@@ -108,11 +108,11 @@ public class Corridor {
 				pile.insertAt(0, n3);
 				indP++;
 			} else {
-				if(!valid23 && north && !(n3.mid_x == end.mid_x && n3.mid_y == end.mid_y) && PointInsideRoom(n3.mid_x, (n1.mid_y + n3.mid_y) / 2, rooms)) {
-					F = new Node(n3.mid_y+(n1.mid_x - n3.mid_x) / 2, n3.mid_y+(n3.mid_y - n1.mid_y)/2);
+				if(!valid23 && north && !(n3.mid_x == end.mid_x && n3.mid_y == end.mid_y) && !validPath(new Node(n3.mid_x, (n1.mid_y + n3.mid_y)/2),n3, rooms, begin, end)) {
+ 	 				F = new Node(n3.mid_x+(Math.abs(n1.mid_x - n3.mid_x) / 2), n3.mid_y+(n3.mid_y - n1.mid_y)/2);
 				}
-				else if (!north && !(n3.mid_x == end.mid_x && n3.mid_y == end.mid_y) && PointInsideRoom((n1.mid_x + n3.mid_x) / 2, n3.mid_y, rooms)) {
-					F = new Node(n3.mid_y+(n1.mid_x - n3.mid_x) / 2, n3.mid_y+(n3.mid_y - n1.mid_y)/2);
+				else if (!valid23 && !north && !(n3.mid_x == end.mid_x && n3.mid_y == end.mid_y) && !validPath(new Node((n1.mid_x + n3.mid_x) / 2, n3.mid_y),n3, rooms, begin, end)) {
+					F = new Node(n3.mid_x+(Math.abs(n1.mid_x - n3.mid_x)/2), n3.mid_y+(n3.mid_y - n1.mid_y)/2);
 				}
 				else{
 					F = new Node((n1.mid_x + n3.mid_x) / 2, (n1.mid_y + n3.mid_y) / 2);
