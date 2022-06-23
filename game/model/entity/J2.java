@@ -1,20 +1,23 @@
 package model.entity;
 
 import model.Camera;
+import model.entity.behavior.J2Behavior;
 import view.MyCanvas;
-import view.Viewport;
 import view.graphicEntity.J2View;
 
 
 public class J2 extends Player {
 
 	J2View m_jv;
+	J2Behavior m_jb;
 
 
 	public J2 (double x, double y) {
 		super(x, y, EntityProperties.J2);
 		m_jv = new J2View(this);
 		m_ev = m_jv;
+		m_jb = new J2Behavior(this, m_jv);
+		this.eb = m_jb;
 		MyCanvas.getInstance().createEntityView(m_jv);
 	}
 
