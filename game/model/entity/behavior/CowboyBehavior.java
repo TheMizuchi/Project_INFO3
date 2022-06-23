@@ -10,7 +10,7 @@ public class CowboyBehavior extends EntityBehavior {
 
 
 	public CowboyBehavior (Entity e, CowboyView ev) {
-		super(e);
+		super(e, ev);
 		m_cv = ev;
 	}
 }
