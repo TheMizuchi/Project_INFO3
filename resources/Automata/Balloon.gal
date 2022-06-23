@@ -3,12 +3,9 @@ Balloon3 (Init) {
 		| True ? Move(NE) / Move(NW) / Move(SE) / Move(SW) : (Moving)
 	* (Moving) :
 		| Cell(F,V) ? Move(F) : (Moving)
-		| Cell(F,V) ? Move(F) : (Moving)
-		| Cell(L,V) ? Turn(L) : (Atourne)
-		| Cell(R,V) ? Turn(R) : (Atourne)
-		| True ? Turn(B) : (Atourne)
-	* (Atourne) :
-		| True ? Move(F) : (Moving)
+		| Cell(L,V) ? Turn(L) : (Moving)
+		| Cell(R,V) ? Turn(R) : (Moving)
+		| True ? Turn(B) : (Moving)
 }
 
 Balloon2 (Init) {

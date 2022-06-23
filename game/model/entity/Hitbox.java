@@ -42,7 +42,6 @@ public class Hitbox {
 
 	public void move (double dx, double dy) {
 
-
 		Point new_p1_x = new Point(m_p1.getX() + dx, m_p1.getY());
 		Point new_p2_x = new Point(m_p2.getX() + dx, m_p2.getY());
 		Point new_p3_x = new Point(m_p3.getX() + dx, m_p3.getY());
@@ -175,15 +174,15 @@ public class Hitbox {
 	}
 
 	public Point getP2 () {
-		return m_p1;
+		return m_p2;
 	}
 
 	public Point getP3 () {
-		return m_p1;
+		return m_p3;
 	}
 
 	public Point getP4 () {
-		return m_p1;
+		return m_p4;
 	}
 
 	public void paint (Graphics g) {
