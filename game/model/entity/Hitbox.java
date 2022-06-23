@@ -91,7 +91,7 @@ public class Hitbox {
 			}
 		}
 
-		if (m_e.isTanguible()) {
+		if (m_e.isTanguible() || m_e.isBloon()) {
 
 			if (contactEntity(new_p1, new_p2, new_p3, new_p4)) {
 				return false;
@@ -109,14 +109,13 @@ public class Hitbox {
 		IList list = Model.getlistEntity();
 		IList.Iterator it = list.iterator();
 
-		if (!m_e.isTanguible()) {
+		if (!m_e.isTanguible() && !m_e.isBloon())
 			return false;
-		}
 
 		while (it.hasNext()) {
 			Entity e = (Entity) it.next();
 
-			if (!e.equal(m_e) && e.isTanguible()) {
+			if (!e.equal(m_e) && e.isTanguible() && !m_e.isBloon() || (m_e.isBloon() && e.isDoor())) {
 
 				if (e.m_hitbox.pointInHitbox(new_p1) || e.m_hitbox.pointInHitbox(new_p2) || e.m_hitbox.pointInHitbox(new_p3) || e.m_hitbox.pointInHitbox(new_p4)) {
 					return true;

@@ -46,4 +46,13 @@ public class Torch extends Entity {
 		// si automate, faire un step
 		m_hitbox.move(e);
 	}
+	
+	void hide () {
+		m_tv.hide();
+	}
+
+	void show () {
+		m_tv.show();
+	}
+	
 }

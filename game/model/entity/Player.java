@@ -99,8 +99,10 @@ public abstract class Player extends Entity {
 
 		else if (this.equals(torch.porteur)) {
 			torch.porteur = null;
+			torch.show();
 		} else if (distance(torch) <= 2) {
 			torch.porteur = this;
+			torch.hide();
 		}
 	}
 

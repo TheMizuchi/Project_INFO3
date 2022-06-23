@@ -19,7 +19,7 @@ public abstract class Entity implements EntityInterface {
 	protected EntityView m_ev;
 	static final double rangeDetection = 10;
 	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
-	protected static double MOB_MAX_SPEED = 1;
+	protected static double MOB_MAX_SPEED = 5;
 	protected Vector m_vecDir = new Vector();
 
 	private static int m_count = 0;
@@ -486,6 +486,18 @@ public abstract class Entity implements EntityInterface {
 			boolean bool = e.m_c == m_c;
 			return bool;
 		}
+		return false;
+	}
+	
+	public boolean isBloon() {
+		if (getProperties() == EntityProperties.BLOON || getProperties() == EntityProperties.BLOON_BOSS)
+			return true;
+		return false;
+	}
+	
+	public boolean isDoor() {
+		if (getProperties() == EntityProperties.DOOR)
+			return true;
 		return false;
 	}
 }

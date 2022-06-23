@@ -78,7 +78,8 @@ public class Room {
 					Entity e = model.createEntity(x, y, entityProperties);
 					listeEntity.insertAt(listeEntity.length(), e);
 					//à enelever plus tard
-					model.createLightSource(e);
+					if (e.getID() == EntityProperties.TORCH.getID())
+						model.createLightSource(e);
 				}
 			}
 		}
