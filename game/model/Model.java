@@ -26,6 +26,7 @@ public class Model {
 
 	// Variables locales
 	private static LinkedList m_listeEntity;
+	private static LinkedList m_toClearEntity;
 	private LinkedList m_listeLight;
 	public static Camera m_cam;
 	private static Map m_map;
@@ -47,6 +48,7 @@ public class Model {
 		m_cont = Controller.getInstance();
 		m_canvas = MyCanvas.getInstance();
 		m_level = 0;
+		m_toClearEntity = new LinkedList();
 	}
 
 	//Constructeur pour TestWorld
@@ -62,6 +64,7 @@ public class Model {
 		m_cont = Controller.getInstance();
 		m_canvas = MyCanvas.getInstance();
 		createMap(1, 30);
+		m_toClearEntity = new LinkedList();
 
 	}
 
@@ -109,6 +112,15 @@ public class Model {
 		return m_instance;
 	}
 
+	private void clearEntity () {
+		IList.Iterator ite = m_toClearEntity.iterator();
+
+		while (ite.hasNext()) {
+			m_listeEntity.remove(ite.next());
+		}
+		m_toClearEntity = new LinkedList();
+	}
+
 	public void update (long elapsed) {
 
 		m_cont.transfertTab();
@@ -130,6 +142,8 @@ public class Model {
 		}
 
 		m_cam.update();
+
+		clearEntity();
 	}
 
 	public Entity createEntity (double x, double y, EntityProperties entityProperties) {
@@ -145,7 +159,7 @@ public class Model {
 	}
 
 	public void deleteEntity (Entity e) {
-		m_listeEntity.remove(e);
+		m_toClearEntity.insertAt(0, e);
 	}
 
 	public void createLightSource (Entity e) {

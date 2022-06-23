@@ -83,6 +83,9 @@ public abstract class Entity implements EntityInterface {
 			case DOOR:
 				e = new Door(x, y);
 				break;
+			case BATSPAWNER:
+				e = new BatSpawner(x, y);
+				break;
 			case KEY:
 				e = Key.getInstance(x, y);
 				break;
@@ -166,9 +169,10 @@ public abstract class Entity implements EntityInterface {
 	void attack (Entity cible) {}
 
 	void interact () {}
-	
+
 	public static boolean isDeath () {
-		if (m_pv<=0) {
+
+		if (m_pv <= 0) {
 			return true;
 		} else {
 			return false;
