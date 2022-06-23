@@ -142,7 +142,7 @@ public abstract class Player extends Entity {
 		new PossessionTimerCD(this);
 		setCam(this);
 		new IntangibleTimer(this);
-		Hitbox hit = new Hitbox(m.m_hitbox.getP1(), m.m_hitbox.getP2(), m.m_hitbox.getP3(), m.m_hitbox.getP4(), m, false);
+		Hitbox hit = new Hitbox(m.m_hitbox.getP1(), m.m_hitbox.getP2(), m.m_hitbox.getP3(), m.m_hitbox.getP4(), m);
 		m_hitbox = hit;
 
 		// Si besoin on lance l'animation de déplacement

@@ -51,4 +51,13 @@ public class Point {
 		m_x -= p.getX();
 		m_y -= p.getY();
 	}
+
+	@Override
+	public String toString () {
+		return " point : x : " + m_x + " y : " + m_y + " ";
+	}
+
+	public boolean outMap () {
+		return !(m_x > 0 && m_y > 0 && Model.getMap().getHeight() > m_x && Model.getMap().getWidth() > m_y);
+	}
 }

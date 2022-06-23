@@ -12,32 +12,27 @@ import model.map.TileType;
 
 public class Hitbox {
 
-	private Point m_p1;
-	private Point m_p2;
-	private Point m_p3;
-	private Point m_p4;
-	private Entity m_e;
-
-	private boolean m_hit;
+	protected Point m_p1;
+	protected Point m_p2;
+	protected Point m_p3;
+	protected Point m_p4;
+	protected Entity m_e;
 
 
-	public Hitbox (double x, double y, double lar, double haut, Entity e, boolean hit) {
+	public Hitbox (double x, double y, double lar, double haut, Entity e) {
 		m_p1 = new Point(x, y);
 		m_p2 = new Point(x + lar, y);
 		m_p3 = new Point(x + lar, y + haut);
 		m_p4 = new Point(x, y + haut);
-
 		m_e = e;
-		m_hit = hit;
 	}
 
-	public Hitbox (Point p1, Point p2, Point p3, Point p4, Entity e, boolean hit) {
+	public Hitbox (Point p1, Point p2, Point p3, Point p4, Entity e) {
 		m_p1 = p1;
 		m_p2 = p2;
 		m_p3 = p3;
 		m_p4 = p4;
 		m_e = e;
-		m_hit = hit;
 	}
 
 	public void move (double dx, double dy) {
@@ -70,6 +65,10 @@ public class Hitbox {
 	public boolean deplacementValide (Point new_p1, Point new_p2, Point new_p3, Point new_p4) {
 		LinkedList tuileInterdit = m_e.getTuileInterdite();
 		Iterator it = tuileInterdit.iterator();
+
+		if (new_p1.outMap() || new_p2.outMap() || new_p3.outMap() || new_p4.outMap()) {
+			return false;
+		}
 
 		while (it.hasNext()) {
 			TileType tile = (TileType) it.next();

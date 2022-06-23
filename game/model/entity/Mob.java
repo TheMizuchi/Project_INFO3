@@ -6,7 +6,7 @@ import controller.RefAutomata;
 import model.Camera;
 
 
-public class Mob extends Entity {
+public abstract class Mob extends Entity {
 
 	protected static final long POSSESSION_DURATION = 10;
 
