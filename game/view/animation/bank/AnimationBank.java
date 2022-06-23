@@ -18,7 +18,7 @@ public class AnimationBank {
 		EAB[EntityProperties.BLOON.getID()] = BloonBank.getInstance();
 		EAB[EntityProperties.SKELETON.getID()] = SkeletonBank.getInstance();
 		EAB[EntityProperties.BAT.getID()] = BatBank.getInstance();
-		//		EAB[DARTMONKEYID] = new DartMonkeyBank();
+		EAB[EntityProperties.ARCHER.getID()] = ArcherBank.getInstance();
 		EAB[EntityProperties.TORCH.getID()] = TorchBank.getInstance();
 		EAB[EntityProperties.DOGE.getID()] = DogeBank.getInstance();
 		EAB[EntityProperties.MYSTERY.getID()] = MysteryBank.getInstance();

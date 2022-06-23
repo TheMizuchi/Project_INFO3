@@ -28,7 +28,7 @@ public interface EntityInterface {
 	abstract void turn (double orientation, boolean absolute);
 	// rotation absolue ou relative suivant la valeur du boolean
 
-	abstract void hit (Direction orientation);
+	abstract void hit (Vector vec);
 
 	abstract void protect (Direction orientation);
 

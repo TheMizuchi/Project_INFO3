@@ -2,7 +2,7 @@ package view;
 
 public class Viewport {
 
-	private static final double SCALE_BASE = 4;
+	public static final double SCALE_BASE = 4;
 	private double x, y, scale;
 	private int w, h;
 

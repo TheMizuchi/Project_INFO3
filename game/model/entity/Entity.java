@@ -12,7 +12,7 @@ public abstract class Entity implements EntityInterface {
 
 	public int m_ID;
 	protected int m_pv;
-	protected Hitbox m_hitbox;
+	public Hitbox m_hitbox;
 	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
@@ -21,7 +21,7 @@ public abstract class Entity implements EntityInterface {
 	protected Vector m_vecDir = new Vector();
 
 	private static int m_count = 0;
-	public int m_c;
+	private int m_c;
 
 	protected LinkedList m_blockInterdit;
 	protected boolean m_tangible;
@@ -33,7 +33,7 @@ public abstract class Entity implements EntityInterface {
 		m_entityProperties = ep;
 		m_ID = ep.getID();
 		m_pv = ep.getInitialPv();
-		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this);
+		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this, false);
 		m_automata = new RefAutomata(this);
 		m_blockInterdit = new LinkedList();
 		m_blockInterdit.insertAt(0, TileType.WALL);
@@ -64,8 +64,8 @@ public abstract class Entity implements EntityInterface {
 			case BAT:
 				e = new Bat(x, y);
 				break;
-			case DART_MONKEY:
-				e = new DartMonkey(x, y);
+			case ARCHER:
+				e = new Archer(x, y);
 				break;
 			case TORCH:
 				e = Torch.getInstance(x, y);
@@ -75,6 +75,10 @@ public abstract class Entity implements EntityInterface {
 				break;
 			case MYSTERY:
 				e = new MysteryMachine(x, y);
+				break;
+			case BLOON_BOSS:
+				e = new Bloon(x, y);
+				((Bloon) e).setLevel(5);
 				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
@@ -115,7 +119,7 @@ public abstract class Entity implements EntityInterface {
 		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 	}
 
-	void attack () {}
+	void attack (Entity cible) {}
 
 	void interact () {}
 
@@ -161,7 +165,12 @@ public abstract class Entity implements EntityInterface {
 			y = 0;
 		}
 
-		if (m_hitbox.deplacementValide(getPosX() + x, getPosY() + y))
+		Point p1 = new Point(m_hitbox.getP1().getX() + x, m_hitbox.getP1().getY() + y);
+		Point p2 = new Point(m_hitbox.getP2().getX() + x, m_hitbox.getP2().getY() + y);
+		Point p3 = new Point(m_hitbox.getP3().getX() + x, m_hitbox.getP3().getY() + y);
+		Point p4 = new Point(m_hitbox.getP4().getX() + x, m_hitbox.getP4().getY() + y);
+
+		if (m_hitbox.deplacementValide(p1, p2, p3, p4))
 			return true;
 
 		return false;
@@ -213,6 +222,27 @@ public abstract class Entity implements EntityInterface {
 		return e_min;
 	}
 
+	public Entity closest (boolean possessable) {
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e, e_min = null;
+		double distMin = Double.MAX_VALUE;
+
+		while (iter.hasNext()) {
+			e = (Entity) iter.next();
+
+			if (e.getPossessable() == possessable) {
+				double dist = distance(e);
+
+				if (distMin > dist) {
+					e_min = e;
+					distMin = dist;
+				}
+
+			}
+		}
+		return e_min;
+	}
+
 	@Override
 	public boolean gotPower () {
 		return m_pv > 0;
@@ -248,8 +278,7 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	@Override
-	public void hit (Direction orientation) {
-		// TODO Auto-generated method stub
+	public void hit (Vector vec) {
 
 	}
 
@@ -300,7 +329,12 @@ public abstract class Entity implements EntityInterface {
 		Model m;
 		m = Model.getInstance();
 
-		if (m_hitbox.deplacementValide(getPosX() + orientationx, getPosY() - orientationy)) {
+		Point p1 = new Point(m_hitbox.getP1().getX() + orientationx, m_hitbox.getP1().getY() + orientationy);
+		Point p2 = new Point(m_hitbox.getP2().getX() + orientationx, m_hitbox.getP2().getY() + orientationy);
+		Point p3 = new Point(m_hitbox.getP3().getX() + orientationx, m_hitbox.getP3().getY() + orientationy);
+		Point p4 = new Point(m_hitbox.getP4().getX() + orientationx, m_hitbox.getP4().getY() + orientationy);
+
+		if (m_hitbox.deplacementValide(p1, p2, p3, p4)) {
 			Entity e = m.createEntity(getPosX() + orientationx, getPosY() - orientationy, this.m_entityProperties);
 			m.createLightSource(e);
 		}
@@ -320,6 +354,10 @@ public abstract class Entity implements EntityInterface {
 
 	public int getID () {
 		return m_entityProperties.getID();
+	}
+
+	public boolean getPossessable () {
+		return m_entityProperties.getPossessable();
 	}
 
 	public LinkedList getTuileInterdite () {
@@ -357,13 +395,6 @@ public abstract class Entity implements EntityInterface {
 		else if (m_hitbox.getCenterX() <= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() <= e.m_hitbox.getCenterY()) {
 			return Math.acos(Math.abs(bidule) / dist) + Math.PI / 2 * 3;
 		}
-
-		/*
-		 * System.out.println(e.m_hitbox.getCenterX());
-		 * System.out.println(m_hitbox.getCenterX()); System.out.println(truc);
-		 * 
-		 * System.out.println(dist);
-		 */
 
 		throw new RuntimeException("erreur lors du calcul d'angle de ciblage");
 	}

@@ -4,6 +4,7 @@ import controller.BotDirection;
 import controller.ICondition;
 import model.entity.Entity;
 import model.entity.EntityType;
+import model.entity.Point;
 
 
 public class BotCell implements ICondition {
@@ -28,7 +29,13 @@ public class BotCell implements ICondition {
 		System.out.println("x puis y");
 		System.out.println(dx);
 		System.out.println(dy);
-		if (e.getHitbox().deplacementValide(e.getPosX() + dx, e.getPosY() - dy))
+		
+		Point p1 = new Point(e.m_hitbox.getP1().getX() + dx, e.m_hitbox.getP1().getY() + dy);
+		Point p2 = new Point(e.m_hitbox.getP2().getX() + dx, e.m_hitbox.getP2().getY() + dy);
+		Point p3 = new Point(e.m_hitbox.getP3().getX() + dx, e.m_hitbox.getP3().getY() + dy);
+		Point p4 = new Point(e.m_hitbox.getP4().getX() + dx, e.m_hitbox.getP4().getY() + dy);
+
+		if (e.getHitbox().deplacementValide(p1, p2, p3, p4))
 			return true;
 		return false;
 	}

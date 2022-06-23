@@ -4,6 +4,7 @@ import controller.BotAction;
 import controller.BotDirection;
 import controller.RefAutomata;
 import model.entity.Entity;
+import model.entity.Vector;
 
 
 public class BotHit extends BotAction {
@@ -17,7 +18,15 @@ public class BotHit extends BotAction {
 
 	@Override
 	public boolean apply (Entity e, RefAutomata aut) {
-		// Si quelqu'un à un conflit (notamment Maxime) c'est Diego qui a modifié le constructeur, vient me voir voc
+		Vector vec = new Vector();
+		vec.setAngle(m_dir.getAngle());
+		double x = Math.cos(m_dir.getAngle());
+		double y = Math.sin(m_dir.getAngle());
+		x = Math.round(x);
+		y = Math.round(y);
+		vec.setX(x);
+		vec.setY(-y);
+		e.hit(vec);
 		return true;
 	}
 

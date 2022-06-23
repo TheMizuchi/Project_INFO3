@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 
@@ -16,7 +17,7 @@ import view.graphicEntity.LightSourceView;
 public class MyCanvas extends Component {
 
 	// Pour le zoom de base, 1m = 25 pixels
-	public static final int METRIC_BASE = 25;
+	public static final int METRIC_BASE = 30;
 	private static final long serialVersionUID = 1L;
 
 	// Dimension de la fenêtre
@@ -131,11 +132,13 @@ public class MyCanvas extends Component {
 				//i++;
 				e.paint(g);
 			}
+			((Entity) e.entity).m_hitbox.paint(g);
+			g.setColor(Color.red);
+			g.drawRect(e.x - (int) (e.getW() * e.scale / 2), e.y - (int) (e.getH() * e.scale / 2), (int) (e.getW() * e.scale), (int) (e.getH() * e.scale));
 		}
-		//System.out.println("Nb d'entité dessiné : " + i);
 
 		// Applique un masque pour couvrir les zones non éclairées.
-		m_light.paint(g);
+		//m_light.paint(g);
 		m_ath.paint(g);
 	}
 

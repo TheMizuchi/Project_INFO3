@@ -22,19 +22,14 @@ Balloon2 (Init) {
 }
 
 Balloon (Init) {
-	* (Init) :
-		| True ? Move(NE) / Move(NW) / Move(SE) / Move(SW) : (Moving)
-	* (Moving) :		
-		| !(GotPower) ? Egg(F) : (Die)
-		| MyDir(SE) & Cell(E,O) ? Move(SW) : (Moving)
-		| MyDir(SE) & Cell(S,O) ? Move(NE) : (Moving)
-		| MyDir(SW) & Cell(W,O) ? Move(SE) : (Moving)
-		| MyDir(SW) & Cell(S,O) ? Move(NW) : (Moving)
-		| MyDir(NW) & Cell(W,O) ? Move(NE) : (Moving)
-		| MyDir(NW) & Cell(N,O) ? Move(SW) : (Moving)
-		| MyDir(NE) & Cell(E,O) ? Move(NW) : (Moving)
-		| MyDir(NE) & Cell(N,O) ? Move(SE) : (Moving)
-	* (Die) :
-		| True ? Explode : ()
-}		
-
+    * (Init) :
+        | True ? Move(NE) / Move(NW) / Move(SE) / Move(SW) : (Moving)
+    * (Moving) :
+        | Key(n) ? Egg(F) : (Die)
+        | Cell(F) ? Move(F) : (Moving)
+        | Cell(L) ? Turn(L) : (Moving)
+        | Cell(R) ? Turn(R) : (Moving)
+        | True ? Turn(B) : (Moving)
+    * (Die) :
+        | True ? Pop : ()
+}

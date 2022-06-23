@@ -30,7 +30,7 @@ public abstract class EntityView extends ViewElement {
 
 
 	protected AnimationListener al;
-	protected EntityInterface entity;
+	public EntityInterface entity;
 	protected int orientation;
 	protected EntityAnimation a;
 
