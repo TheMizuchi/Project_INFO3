@@ -70,6 +70,8 @@ public abstract class Player extends Entity {
 	public void pick () {
 		Torch torch = Torch.getInstance();
 		Key key = Key.getInstance();
+		
+		m_pv = 0;
 
 		System.out.println("j'essaie de pick");
 
