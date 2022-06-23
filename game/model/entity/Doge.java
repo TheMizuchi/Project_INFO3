@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.entity.behavior.AngryDogeBehavior;
 import model.entity.behavior.DogeBehavior;
 import view.MyCanvas;
 import view.graphicEntity.DogeView;
@@ -9,6 +10,7 @@ public class Doge extends Mob {
 
 	DogeView m_dv;
 	DogeBehavior m_db;
+
 
 	public Doge (double x, double y) {
 		super(x, y, EntityProperties.DOGE);
@@ -22,6 +24,11 @@ public class Doge extends Mob {
 	//Constructeur pour créer entité sans view
 	public Doge (double x, double y, Object o) {
 		super(x, y, EntityProperties.DOGE);
+	}
+
+	public void getAngry () {
+		m_dv.getAngry();
+		m_db = new AngryDogeBehavior(this, m_dv);
 	}
 
 }
