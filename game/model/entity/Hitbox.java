@@ -107,8 +107,9 @@ public class Hitbox {
 	public boolean contactEntity (Point new_p1, Point new_p2, Point new_p3, Point new_p4) {
 		IList list = Model.getlistEntity();
 		IList.Iterator it = list.iterator();
-		if(!m_e.isTanguible()) {
-			return false ;
+
+		if (!m_e.isTanguible()) {
+			return false;
 		}
 
 		while (it.hasNext()) {
@@ -132,27 +133,27 @@ public class Hitbox {
 	}
 
 	public double getCenterX () {
-		double dx = (m_p1.getX() + m_p2.getX()) / 2 ; 
-		System.out.println("centre dx : "+dx);
+		double dx = (m_p1.getX() + m_p3.getX()) / 2;
+		System.out.println("centre dx : " + dx);
 		return dx;
 	}
-	
-	public double getCenterRealX() {
-		return (m_p1.getX() + m_p2.getX()) / 2 ;
+
+	public double getCenterRealX () {
+		return (m_p1.getX() + m_p3.getX()) / 2;
 	}
 
 	public double getCenterY () {
 		double dy = (m_p1.getY() + m_p3.getY()) / 2;
-		System.out.println("centre dy : "+dy);
+		System.out.println("centre dy : " + dy);
 		return dy;
 	}
-	
-	public double getCenterRealY() {
-		return (m_p1.getY() + m_p2.getY()) / 2 ;
+
+	public double getCenterRealY () {
+		return (m_p1.getY() + m_p3.getY()) / 2;
 	}
 
 	public boolean pointInHitbox (Point p) {
-		return (dansLeTriangle(p, m_p1, m_p2, m_p4) || dansLeTriangle(p, m_p2, m_p3, m_p4) );
+		return (dansLeTriangle(p, m_p1, m_p2, m_p4) || dansLeTriangle(p, m_p2, m_p3, m_p4));
 	}
 
 	boolean dansLeTriangle (Point pt, Point v1, Point v2, Point v3) {
@@ -184,12 +185,49 @@ public class Hitbox {
 	public Point getP4 () {
 		return m_p1;
 	}
-	
-	public void paint(Graphics g) {
+
+	public void paint (Graphics g) {
 		m_p1.paint(g);
 		m_p2.paint(g);
 		m_p3.paint(g);
 		m_p4.paint(g);
+	}
+
+	public void rotate (double angle) {
+		Point center = new Point(getCenterRealX(), getCenterRealY());
+
+		m_p1.sub(center);
+		m_p2.sub(center);
+		m_p3.sub(center);
+		m_p4.sub(center);
+
+		double cos = Math.cos(angle);
+		double sin = Math.sin(angle);
+
+		double x = m_p1.getX();
+		double y = m_p1.getY();
+		m_p1.setX(x * cos - y * sin);
+		m_p1.setY(x * sin + y * cos);
+
+		x = m_p2.getX();
+		y = m_p2.getY();
+		m_p2.setX(x * cos - y * sin);
+		m_p2.setY(x * sin + y * cos);
+
+		x = m_p3.getX();
+		y = m_p3.getY();
+		m_p3.setX(x * cos - y * sin);
+		m_p3.setY(x * sin + y * cos);
+
+		x = m_p4.getX();
+		y = m_p4.getY();
+		m_p4.setX(x * cos - y * sin);
+		m_p4.setY(x * sin + y * cos);
+
+		m_p1.add(center);
+		m_p2.add(center);
+		m_p3.add(center);
+		m_p4.add(center);
 	}
 
 }
