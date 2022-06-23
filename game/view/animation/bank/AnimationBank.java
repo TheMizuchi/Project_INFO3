@@ -11,13 +11,14 @@ public class AnimationBank {
 
 
 	private AnimationBank () {
-		EAB = new EntityAnimationBank[EntityProperties.ENTITY.getID()];
+		EAB = new EntityAnimationBank[EntityProperties.ENTITY_NUMBER];
 		EAB[EntityProperties.COWBOY.getID()] = CowboyBank.getInstance();
 		EAB[EntityProperties.J1.getID()] = J1Bank.getInstance();
 		EAB[EntityProperties.J2.getID()] = J2Bank.getInstance();
 		EAB[EntityProperties.BLOON.getID()] = BloonBank.getInstance();
 		EAB[EntityProperties.SKELETON.getID()] = SkeletonBank.getInstance();
 		EAB[EntityProperties.BAT.getID()] = BatBank.getInstance();
+		EAB[EntityProperties.BATSPAWNER.getID()] = BatSpawnerBank.getInstance();
 		EAB[EntityProperties.ARCHER.getID()] = ArcherBank.getInstance();
 		EAB[EntityProperties.TORCH.getID()] = TorchBank.getInstance();
 		EAB[EntityProperties.DOGE.getID()] = DogeBank.getInstance();
@@ -39,7 +40,7 @@ public class AnimationBank {
 	}
 
 	public static EntityAnimationBank getAnimationBank (int ID) {
-		if (ID < 0 || ID >= EntityProperties.ENTITY.getID())
+		if (ID < 0 || ID >= EntityProperties.ENTITY_NUMBER)
 			return null;
 		return EAB[ID];
 

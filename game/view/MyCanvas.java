@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 
+import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 import model.ILightSource;
 import model.entity.Entity;
@@ -29,6 +30,7 @@ public class MyCanvas extends Component {
 
 	// Objets graphiques liées aux objets du Model
 	LinkedList m_entityViews;
+	LinkedList m_toClearEntity;
 	LightView m_light;
 	MapView m_map;
 	ATH m_ath;
@@ -39,6 +41,7 @@ public class MyCanvas extends Component {
 
 	private MyCanvas () {
 		m_entityViews = new LinkedList();
+		m_toClearEntity = new LinkedList();
 		AnimationBank.getInstance();
 	}
 
@@ -77,7 +80,16 @@ public class MyCanvas extends Component {
 
 	// Je m'en fou si t'es pas content Killian <3
 	public void deleteEntityView (EntityView entity) {
-		m_entityViews.remove(entity);
+		m_toClearEntity.insertAt(0, entity);
+	}
+
+	private void clearEntity () {
+		IList.Iterator ite = m_toClearEntity.iterator();
+
+		while (ite.hasNext()) {
+			m_entityViews.remove(ite.next());
+		}
+		m_toClearEntity = new LinkedList();
 	}
 
 	public void createLightSourceView (ILightSource s) {
@@ -112,6 +124,8 @@ public class MyCanvas extends Component {
 
 		// Mise à jour de la map
 		m_map.setPosition(vp.toLocalX(0), vp.toLocalY(0), vp.getScale());
+
+		clearEntity();
 	}
 
 	/*

@@ -36,6 +36,7 @@ public class Hitbox {
 	}
 
 	public void move (double dx, double dy) {
+
 		Point new_p1_x = new Point(m_p1.getX() + dx, m_p1.getY());
 		Point new_p2_x = new Point(m_p2.getX() + dx, m_p2.getY());
 		Point new_p3_x = new Point(m_p3.getX() + dx, m_p3.getY());
@@ -64,6 +65,10 @@ public class Hitbox {
 	public boolean deplacementValide (Point new_p1, Point new_p2, Point new_p3, Point new_p4) {
 		LinkedList tuileInterdit = m_e.getTuileInterdite();
 		Iterator it = tuileInterdit.iterator();
+
+		if (new_p1.outMap() || new_p2.outMap() || new_p3.outMap() || new_p4.outMap()) {
+			return false;
+		}
 
 		while (it.hasNext()) {
 			TileType tile = (TileType) it.next();

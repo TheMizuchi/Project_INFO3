@@ -2,6 +2,7 @@ package model.entity;
 
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
+import model.entity.behavior.DoorBehavior;
 import model.map.generator.Room;
 import view.MyCanvas;
 import view.graphicEntity.DoorView;
@@ -13,6 +14,7 @@ public class Door extends Entity {
 	Key m_key;
 	DoorView m_dv;
 	int nb_frame_open;
+	DoorBehavior m_db;
 
 
 	public Door (double x, double y) {
@@ -22,6 +24,8 @@ public class Door extends Entity {
 		m_key = null;
 		m_dv = new DoorView(this);
 		m_ev = m_dv;
+		m_db = new DoorBehavior(this, m_dv);
+		m_eb = m_db;
 		MyCanvas.getInstance().createEntityView(m_dv);
 	}
 
@@ -89,6 +93,11 @@ public class Door extends Entity {
 		}
 
 		return true;
+	}
+
+	@Override
+	void takeDamages (int damages) {
+		return;
 	}
 
 }

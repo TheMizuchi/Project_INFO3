@@ -24,7 +24,7 @@ public class HealthBar extends ViewElement {
 		g.setColor(Color.black);
 		g.drawRect(this.x, this.y, this.w, this.h);
 		g.setColor(this.c);
-		g.fillRect(this.x + 1, this.y + 1, this.w - 2, this.h - 2);
+		g.fillRect(this.x + 1, this.y + 1, this.w - 1, this.h - 1);
 		//quand les joueurs auront de la vie, il faudra faire afficher le barre en fonction de ratio vie/vieMax
 	}
 
