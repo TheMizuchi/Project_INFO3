@@ -41,6 +41,10 @@ public class J1 extends Player {
 		return INSTANCE;
 	}
 
+	public J1 (double x, double y, Object object) {
+		super(x, y, EntityProperties.J1);
+	}
+
 	@Override
 	void hide () {
 		m_jv.hide();

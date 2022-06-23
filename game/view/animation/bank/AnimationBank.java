@@ -22,6 +22,8 @@ public class AnimationBank {
 		EAB[EntityProperties.TORCH.getID()] = TorchBank.getInstance();
 		EAB[EntityProperties.DOGE.getID()] = DogeBank.getInstance();
 		EAB[EntityProperties.MYSTERY.getID()] = MysteryBank.getInstance();
+		EAB[EntityProperties.DOOR.getID()] = DoorBank.getInstance();
+		EAB[EntityProperties.KEY.getID()] = KeyBank.getInstance();
 	}
 
 

@@ -2,7 +2,6 @@ package controller;
 
 import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.IList;
-import model.Model;
 
 
 public class BotTransition {
@@ -37,7 +36,7 @@ public class BotTransition {
 			}
 
 			if (m_target != null && m_target.m_name.equals("")) {
-				Model.getInstance().deleteEntity(aut.m_e);
+				aut.m_e.deleteEntity();
 			}
 			return m_target;
 		}

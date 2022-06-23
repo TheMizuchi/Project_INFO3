@@ -2,15 +2,17 @@ package model.entity;
 
 import controller.RefAutomata;
 import edu.polytech.oop.collections.LinkedList;
+import model.Model;
 import model.entity.behavior.EntityBehavior;
 import model.map.TileType;
+import view.MyCanvas;
 import view.graphicEntity.EntityView;
 
 
 public abstract class Entity implements EntityInterface {
 
 	public int m_ID;
-	protected int m_pv;
+	protected static int m_pv;
 	public Hitbox m_hitbox;
 	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
@@ -79,6 +81,49 @@ public abstract class Entity implements EntityInterface {
 			case BLOON_BOSS:
 				e = new Bloon(x, y);
 				((Bloon) e).setLevel(5);
+			case DOOR:
+				e = new Door(x, y);
+				break;
+			case KEY:
+				e = Key.getInstance(x, y);
+				break;
+			default:
+				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
+
+		}
+		return e;
+	}
+
+	public static Entity createEntityWithoutView (double x, double y, EntityProperties entityProperties) {
+		Entity e = null;
+
+		switch (entityProperties) {
+			case COWBOY:
+				e = new Cowboy(x, y, null);
+				break;
+			case J1:
+				e = new J1(x, y, null);
+				break;
+			case J2:
+				e = new J2(x, y, null);
+				break;
+			case BLOON:
+				e = new Bloon(x, y, null);
+				break;
+			case SKELETON:
+				e = new Skeleton(x, y, null);
+				break;
+			case BAT:
+				e = new Bat(x, y, null);
+				break;
+			case ARCHER:
+				e = new Archer(x, y, null);
+				break;
+			case DOGE:
+				e = new Doge(x, y, null);
+				break;
+			case MYSTERY:
+				e = new MysteryMachine(x, y, null);
 				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
@@ -125,6 +170,7 @@ public abstract class Entity implements EntityInterface {
 		double x = h1.getCenterX() - h2.getCenterX();
 		double y = h1.getCenterY() - h2.getCenterY();
 		return Math.sqrt(x * x + y * y);
+
 	}
 
 	public EntityType getType () {
@@ -147,7 +193,7 @@ public abstract class Entity implements EntityInterface {
 		return m_tangible;
 	}
 
-	Hitbox getHibox () {
+	public Hitbox getHibox () {
 		return m_hitbox;
 	}
 
@@ -186,9 +232,6 @@ public abstract class Entity implements EntityInterface {
 		}
 		return false;
 	}
-	//miam miam
-
-	//Coucou petit développeur
 
 	void attack (Entity cible) {
 		this.eb.attack(cible);
@@ -298,5 +341,22 @@ public abstract class Entity implements EntityInterface {
 	@Override
 	public void egg (double orientationx, double orientationy) {
 		this.eb.egg(orientationx, orientationy, m_hitbox, m_entityProperties);
+	}
+
+	public void deleteEntity () {
+		Model.getInstance().deleteEntity(this);
+		MyCanvas.getInstance().deleteEntityView(m_ev);
+	}
+
+	public EntityProperties getProperties () {
+		return m_entityProperties;
+	}
+
+	public int getPv () {
+		return m_pv;
+	}
+
+	public void setPv (int pv) {
+		m_pv = pv;
 	}
 }

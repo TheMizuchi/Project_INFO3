@@ -22,6 +22,11 @@ public class Bloon extends Mob {
 		m_tangible = false;
 	}
 
+	//Constructeur pour créer entité sans view
+	public Bloon (double x, double y, Object o) {
+		super(x, y, EntityProperties.BLOON);
+	}
+
 	public void setLevel (int n) {
 		this.level = n;
 		m_bv.setLevel(n);
