@@ -42,11 +42,6 @@ public class Hitbox {
 
 	public void move (double dx, double dy) {
 
-		if (m_e.getType() == EntityType.ENEMY) {
-			System.out.println("les dx | dy de la hitbox");
-			System.out.println(dx);
-			System.out.println(dy);
-		}
 
 		Point new_p1_x = new Point(m_p1.getX() + dx, m_p1.getY());
 		Point new_p2_x = new Point(m_p2.getX() + dx, m_p2.getY());
@@ -173,15 +168,15 @@ public class Hitbox {
 	}
 
 	public Point getP2 () {
-		return m_p2;
+		return m_p1;
 	}
 
 	public Point getP3 () {
-		return m_p3;
+		return m_p1;
 	}
 
 	public Point getP4 () {
-		return m_p4;
+		return m_p1;
 	}
 
 	public void paint (Graphics g) {

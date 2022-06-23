@@ -18,6 +18,7 @@ public abstract class Entity implements EntityInterface {
 	protected EntityView m_ev;
 	static final double rangeDetection = 10;
 	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
+	protected static double MOB_MAX_SPEED = 1;
 	protected Vector m_vecDir = new Vector();
 
 	private static int m_count = 0;
@@ -179,7 +180,7 @@ public abstract class Entity implements EntityInterface {
 	@Override
 	public boolean closest (Direction orientation, EntityType type) {
 		ICollection.Iterator iter = Model.getlistEntity().iterator();
-		Entity e, e_min;
+		Entity e, e_min = null;
 		double distMin = Float.MAX_VALUE;
 
 		while (iter.hasNext()) {
@@ -194,10 +195,11 @@ public abstract class Entity implements EntityInterface {
 				}
 			}
 		}
-		// TODO
-		// à implémenter lorsque les directions de dova et diego sont stables
-		//if (e_min.position in range of orientation)^
-		//	return true;
+		if (e_min == null)
+			return false;
+		// Si y a une erreur dans closest, elle est dans cette détection d'angle
+		if (angleVers(e_min) < getDirVector().getAngle()+0.2 && angleVers(e_min) > getDirVector().getAngle()-0.2 )
+			return true;
 		return false;
 	}
 
@@ -398,9 +400,13 @@ public abstract class Entity implements EntityInterface {
 
 		throw new RuntimeException("erreur lors du calcul d'angle de ciblage");
 	}
-	
-	public Hitbox getHitbox() {
+
+	public Hitbox getHitbox () {
 		return m_hitbox;
+	}
+
+	public double getMobSpeed () {
+		return MOB_MAX_SPEED;
 	}
 
 	public boolean equal (Entity e) {
