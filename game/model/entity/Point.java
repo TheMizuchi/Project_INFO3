@@ -51,4 +51,8 @@ public class Point {
 		m_x -= p.getX();
 		m_y -= p.getY();
 	}
+
+	public boolean outMap () {
+		return !(m_x > 0 && m_y > 0 && Model.getMap().getHeight() > m_x && Model.getMap().getWidth() > m_y);
+	}
 }
