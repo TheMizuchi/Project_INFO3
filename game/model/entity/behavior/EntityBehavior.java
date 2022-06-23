@@ -9,15 +9,18 @@ import model.entity.EntityType;
 import model.entity.Hitbox;
 import model.entity.Point;
 import model.entity.Vector;
+import view.graphicEntity.EntityView;
 
 
 public class EntityBehavior {
 
 	Entity e;
+	EntityView ev;
 
 
-	public EntityBehavior (Entity e) {
+	public EntityBehavior (Entity e, EntityView ev) {
 		this.e = e;
+		this.ev = ev;
 	}
 
 	public void attack (Entity cible) {}

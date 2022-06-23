@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.entity.behavior.CowboyBehavior;
 import view.MyCanvas;
 import view.graphicEntity.CowboyView;
 
@@ -7,12 +8,14 @@ import view.graphicEntity.CowboyView;
 public class Cowboy extends Player {
 
 	CowboyView m_cv;
+	CowboyBehavior m_cb;
 
 
 	public Cowboy (double x, double y) {
 		super(x, y, EntityProperties.COWBOY);
 		m_cv = new CowboyView(this);
 		m_ev = m_cv;
+		m_cb = new CowboyBehavior(this, m_cv);
 		MyCanvas.getInstance().createEntityView(m_cv);
 	}
 
