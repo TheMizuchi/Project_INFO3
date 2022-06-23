@@ -173,15 +173,15 @@ public class Hitbox {
 	}
 
 	public Point getP2 () {
-		return m_p1;
+		return m_p2;
 	}
 
 	public Point getP3 () {
-		return m_p1;
+		return m_p3;
 	}
 
 	public Point getP4 () {
-		return m_p1;
+		return m_p4;
 	}
 
 	public void paint (Graphics g) {
