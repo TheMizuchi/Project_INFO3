@@ -12,7 +12,7 @@ import view.graphicEntity.EntityView;
 public abstract class Entity implements EntityInterface {
 
 	public int m_ID;
-	protected static int m_pv;
+	protected int m_pv;
 	public Hitbox m_hitbox;
 	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
@@ -167,19 +167,17 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	void attack (Entity cible) {
-		if (!isDeath())
+
+		if (!isDeath()) {
 			cible.takeDamages(m_nbDamages);
+		}
 	}
 
 	void interact () {}
 
-	public static boolean isDeath () {
+	public boolean isDeath () {
 
-		if (m_pv <= 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return m_pv <= 0;
 	}
 
 
@@ -372,7 +370,7 @@ public abstract class Entity implements EntityInterface {
 
 		HurtBox attaque = new HurtBox(p1, p2, p3, p4, this);
 
-		attaque.rotate(vec.getAngle());
+		attaque.rotate(vec.getAngle() - (Math.PI / 2));
 
 		double c_p1_p4_x = (attaque.getP1().getX() + attaque.getP4().getX()) / 2;
 		double c_p1_p4_y = (attaque.getP1().getY() + attaque.getP4().getY()) / 2;
@@ -526,8 +524,11 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	void takeDamages (int damages) {
-		m_pv = m_pv - damages < 0 ? 0 : m_pv - damages;
-		System.out.println("HP passez à " + m_pv);
+		m_pv -= damages;
+
+		if (m_pv < 0) {
+			m_pv = 0;
+		}
 
 		if (isDeath()) {
 			Model.getInstance().deleteEntity(this);

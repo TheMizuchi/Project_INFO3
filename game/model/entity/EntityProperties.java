@@ -2,8 +2,8 @@ package model.entity;
 
 public enum EntityProperties {
 
-	COWBOY(0, 1, 1, EntityType.ALLY, false, 0), J1(1, 1, 1, EntityType.ALLY, false, 0),
-	J2(2, 1, 1, EntityType.ALLY, false, 0), TORCH(3, 1, 1, EntityType.ITEM, false, 0),
+	COWBOY(0, 1, 1, EntityType.ALLY, false, 0), J1(1, 20, 1, EntityType.ALLY, false, 0),
+	J2(2, 20, 1, EntityType.ALLY, false, 0), TORCH(3, 1, 1, EntityType.ITEM, false, 0),
 	SKELETON(4, 1, 1, EntityType.ENEMY, true, 7), BAT(5, 1, 1, EntityType.NEUTRAL, true, 1),
 	ARCHER(6, 1, 1, EntityType.ENEMY, true, 1), BLOON(7, 1, 1, EntityType.ENEMY, true, 0),
 	DOGE(8, 1, 1, EntityType.ENEMY, false, 0), MYSTERY(9, 1, 1, EntityType.ENEMY, false, 0),
