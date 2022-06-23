@@ -35,8 +35,11 @@ public class BotCell implements ICondition {
 		Point p3 = new Point(e.m_hitbox.getP3().getX() + dx, e.m_hitbox.getP3().getY() + dy);
 		Point p4 = new Point(e.m_hitbox.getP4().getX() + dx, e.m_hitbox.getP4().getY() + dy);
 
-		if (e.getHitbox().deplacementValide(p1, p2, p3, p4))
+		if (e.getHitbox().deplacementValide(p1, p2, p3, p4)) {
+			System.out.println("circulez citoyen");
 			return true;
+		}
+		System.out.println("halte là !");
 		return false;
 	}
 

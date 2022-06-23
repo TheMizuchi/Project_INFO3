@@ -26,6 +26,7 @@ public class Mob extends Entity {
 	public void update (long elapsed) {
 		// déplacement
 		m_automata.step();
+		System.out.println("je suis un monstre et je souhaite me déplacer");
 
 		if (m_vecDir.isApplied()) {
 			double speedX = m_vecDir.getX() * ENTITY_MAX_SPEED;
@@ -59,6 +60,7 @@ public class Mob extends Entity {
 				}
 			}
 			//Fin cas de possession
+			System.out.println("je suis un monstre et je souhaite me déplacer");
 			m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 
 			if (m_entityProperties.getEntityType() == EntityType.ENEMY || m_entityProperties.getEntityType() == EntityType.NEUTRAL) {
