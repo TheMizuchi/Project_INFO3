@@ -39,7 +39,7 @@ public abstract class Entity implements EntityInterface {
 		m_ID = ep.getID();
 		m_pv = ep.getInitialPv();
 		m_nbDamages = ep.getDamages();
-		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this);
+		m_hitbox = new Hitbox(x, y, ep.getWidth(), ep.getHeight(), this);
 		m_automata = new RefAutomata(this);
 		m_blockInterdit = new LinkedList();
 		m_blockInterdit.insertAt(0, TileType.WALL);
@@ -164,11 +164,18 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	public void update (long elapsed) {
+
+		if (this.getProperties() == EntityProperties.DOOR) {
+			Door d = (Door) this;
+			d.stops();
+		}
+
 		// déplacement
 		m_automata.step();
 		double speedX = m_vecDir.getX() * ENTITY_MAX_SPEED;
 		double speedY = m_vecDir.getY() * ENTITY_MAX_SPEED;
 		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
+
 	}
 
 	void attack (Entity cible) {
