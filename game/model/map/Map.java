@@ -5,11 +5,14 @@ import java.util.Random;
 import edu.polytech.oop.collections.ArrayList;
 import edu.polytech.oop.collections.ICollection.Iterator;
 import edu.polytech.oop.collections.IList;
+import model.Model;
+import model.entity.Door;
+import model.entity.EntityProperties;
+import model.entity.Key;
 import model.map.generator.Arc;
 import model.map.generator.Corridor;
 import model.map.generator.Graph;
 import model.map.generator.Node;
-import model.Model;
 import model.map.generator.RectangleCollisionTEMPORAIRE;
 import model.map.generator.RectangleTEMPORAIRE;
 import model.map.generator.Room;
@@ -276,6 +279,10 @@ public class Map {
 		return grid;
 	}
 
+	public ArrayList getRoom () {
+		return rooms;
+	}
+
 	public int getWidth () {
 		return this.width;
 	}
@@ -344,12 +351,72 @@ public class Map {
 		}
 	}
 
+	public void doors () {
+		IList.Iterator iterRoom = rooms.iterator();
+
+		while (iterRoom.hasNext()) {
+			Room current = (Room) iterRoom.next();
+			Key k = null;
+
+			if (current.getType() == RoomType.BOSS1 || current.getType() == RoomType.BOSS2 || current.getType() == RoomType.BOSS3) {
+				k = Key.getInstance();
+			}
+
+			if (grid[current.getUpperLeftX()][current.getUpperLeftY() + (current.getHeight() / 2)].getType() == TileType.FLOOR) {
+				Door e = (Door) model.createEntity(current.getUpperLeftX(), current.getUpperLeftY() + (current.getHeight() / 2), EntityProperties.DOOR);
+				e.setKey(k);
+				e.setRoom(current);
+			}
+
+			if (grid[current.getUpperLeftX() + (current.getWidth() / 2)][current.getUpperLeftY()].getType() == TileType.FLOOR) {
+				Door e = (Door) model.createEntity(current.getUpperLeftX() + (current.getWidth() / 2), current.getUpperLeftY(), EntityProperties.DOOR);
+				e.setKey(k);
+				e.setRoom(current);
+			}
+
+			if (grid[current.getUpperLeftX() + (current.getWidth() / 2)][current.getUpperLeftY() + current.getHeight() - 1].getType() == TileType.FLOOR) {
+				Door e = (Door) model.createEntity(current.getUpperLeftX() + (current.getWidth() / 2), current.getUpperLeftY() + current.getHeight() - 1, EntityProperties.DOOR);
+				e.setKey(k);
+				e.setRoom(current);
+			}
+
+			if (grid[current.getUpperLeftX() + current.getWidth() - 1][current.getUpperLeftY() + (current.getHeight() / 2)].getType() == TileType.FLOOR) {
+				Door e = (Door) model.createEntity(current.getUpperLeftX() + current.getWidth() - 1, current.getUpperLeftY() + (current.getHeight() / 2), EntityProperties.DOOR);
+				e.setKey(k);
+				e.setRoom(current);
+			}
+		}
+	}
+
 	public Room getSpawn () {
 		IList.Iterator iter = rooms.iterator();
 
 		while (iter.hasNext()) {
 			Room r = (Room) iter.next();
 			if (r.getType() == RoomType.SPAWN)
+				return r;
+		}
+		return null;
+	}
+
+	public Room getKey () {
+		IList.Iterator iter = rooms.iterator();
+
+		while (iter.hasNext()) {
+			Room r = (Room) iter.next();
+			if (r.getType() == RoomType.KEY)
+				return r;
+		}
+		return null;
+	}
+
+	public Room getBoss () {
+		IList.Iterator iter = rooms.iterator();
+
+		while (iter.hasNext()) {
+			Room r = (Room) iter.next();
+			RoomType t = r.getType();
+			if (t == RoomType.BOSS1 || t == RoomType.BOSS2 || t == RoomType.BOSS3)
 				return r;
 		}
 		return null;

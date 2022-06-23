@@ -12,7 +12,7 @@ public class BotNotOp extends BotUnaryOp {
 
 	@Override
 	public boolean eval (Entity e) {
-		return m_cond.eval(e);
+		return !m_cond.eval(e);
 	}
 
 }

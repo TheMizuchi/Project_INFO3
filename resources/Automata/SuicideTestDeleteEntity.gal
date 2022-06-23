@@ -1,0 +1,4 @@
+Suicide (Init) {
+	* (Init) :
+		| Key(c) ? : ()
+}

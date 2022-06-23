@@ -26,6 +26,14 @@ public class Point {
 		return m_y;
 	}
 
+	public void setX (double x) {
+		m_x = x;
+	}
+
+	public void setY (double y) {
+		m_y = y;
+	}
+
 	public void paint (Graphics g) {
 		Camera c = Model.m_cam;
 		g.setColor(Color.white);
@@ -34,4 +42,13 @@ public class Point {
 		g.drawRect(x, y, 1, 1);
 	}//bidouille ultra temporaire
 
+	public void add (Point p) {
+		m_x += p.getX();
+		m_y += p.getY();
+	}
+
+	public void sub (Point p) {
+		m_x -= p.getX();
+		m_y -= p.getY();
+	}
 }

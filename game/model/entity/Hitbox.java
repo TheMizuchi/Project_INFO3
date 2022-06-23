@@ -102,7 +102,7 @@ public class Hitbox {
 	}
 
 	static public boolean isInsideType (Point p, TileType type) {
-		Case[][] grid = Model.getInstance().getMap().getCases();
+		Case[][] grid = Model.getMap().getCases();
 		return grid[(int) p.getX()][(int) p.getY()].getType() == type;
 	}
 
@@ -135,14 +135,21 @@ public class Hitbox {
 	}
 
 	public double getCenterX () {
-		double dx = (m_p1.getX() + m_p2.getX()) / 2;
+		double dx = (m_p1.getX() + m_p3.getX()) / 2;
 		return dx;
+	}
+
+	public double getCenterRealX () {
+		return (m_p1.getX() + m_p3.getX()) / 2;
 	}
 
 	public double getCenterY () {
 		double dy = (m_p1.getY() + m_p3.getY()) / 2;
 		return dy;
+	}
 
+	public double getCenterRealY () {
+		return (m_p1.getY() + m_p3.getY()) / 2;
 	}
 
 	public boolean pointInHitbox (Point p) {
@@ -184,6 +191,43 @@ public class Hitbox {
 		m_p2.paint(g);
 		m_p3.paint(g);
 		m_p4.paint(g);
+	}
+
+	public void rotate (double angle) {
+		Point center = new Point(getCenterRealX(), getCenterRealY());
+
+		m_p1.sub(center);
+		m_p2.sub(center);
+		m_p3.sub(center);
+		m_p4.sub(center);
+
+		double cos = Math.cos(angle);
+		double sin = Math.sin(angle);
+
+		double x = m_p1.getX();
+		double y = m_p1.getY();
+		m_p1.setX(x * cos - y * sin);
+		m_p1.setY(x * sin + y * cos);
+
+		x = m_p2.getX();
+		y = m_p2.getY();
+		m_p2.setX(x * cos - y * sin);
+		m_p2.setY(x * sin + y * cos);
+
+		x = m_p3.getX();
+		y = m_p3.getY();
+		m_p3.setX(x * cos - y * sin);
+		m_p3.setY(x * sin + y * cos);
+
+		x = m_p4.getX();
+		y = m_p4.getY();
+		m_p4.setX(x * cos - y * sin);
+		m_p4.setY(x * sin + y * cos);
+
+		m_p1.add(center);
+		m_p2.add(center);
+		m_p3.add(center);
+		m_p4.add(center);
 	}
 
 }
