@@ -89,8 +89,6 @@ public abstract class Player extends Entity {
 		Torch torch = Torch.getInstance();
 		Key key = Key.getInstance();
 
-		System.out.println("j'essaie de pick");
-
 		if (distance(key) <= 2 && key.porteur == null) {
 			key.porteur = this;
 			key.hide();
