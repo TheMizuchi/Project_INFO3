@@ -5,6 +5,7 @@ import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.LinkedList;
 import model.Model;
 import model.map.TileType;
+import view.MyCanvas;
 import view.graphicEntity.EntityView;
 
 
@@ -17,7 +18,7 @@ public abstract class Entity implements EntityInterface {
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 	static final double rangeDetection = 10;
-	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
+	protected static double ENTITY_MAX_SPEED = 10; // vitesse par seconde
 	protected Vector m_vecDir = new Vector();
 
 	private static int m_count = 0;
@@ -79,6 +80,49 @@ public abstract class Entity implements EntityInterface {
 			case BLOON_BOSS:
 				e = new Bloon(x, y);
 				((Bloon) e).setLevel(5);
+			case DOOR:
+				e = new Door(x, y);
+				break;
+			case KEY:
+				e = Key.getInstance(x, y);
+				break;
+			default:
+				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
+
+		}
+		return e;
+	}
+
+	public static Entity createEntityWithoutView (double x, double y, EntityProperties entityProperties) {
+		Entity e = null;
+
+		switch (entityProperties) {
+			case COWBOY:
+				e = new Cowboy(x, y, null);
+				break;
+			case J1:
+				e = new J1(x, y, null);
+				break;
+			case J2:
+				e = new J2(x, y, null);
+				break;
+			case BLOON:
+				e = new Bloon(x, y, null);
+				break;
+			case SKELETON:
+				e = new Skeleton(x, y, null);
+				break;
+			case BAT:
+				e = new Bat(x, y, null);
+				break;
+			case ARCHER:
+				e = new Archer(x, y, null);
+				break;
+			case DOGE:
+				e = new Doge(x, y, null);
+				break;
+			case MYSTERY:
+				e = new MysteryMachine(x, y, null);
 				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
@@ -173,7 +217,8 @@ public abstract class Entity implements EntityInterface {
 
 	@Override
 	public boolean closest (Direction orientation, EntityType type) {
-		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Model model = Model.getInstance();
+		ICollection.Iterator iter = model.getlistEntity().iterator();
 		Entity e, e_min;
 		double distMin = Float.MAX_VALUE;
 
@@ -197,7 +242,8 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	public Entity closest (EntityType type) {
-		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Model model = Model.getInstance();
+		ICollection.Iterator iter = model.getlistEntity().iterator();
 		Entity e, e_min = null;
 		double distMin = Double.MAX_VALUE;
 
@@ -339,6 +385,15 @@ public abstract class Entity implements EntityInterface {
 		return Math.sqrt(x * x + y * y);
 	}
 
+	public void deleteEntity () {
+		Model.getInstance().deleteEntity(this);
+		MyCanvas.getInstance().deleteEntityView(m_ev);
+	}
+
+	public EntityProperties getProperties () {
+		return m_entityProperties;
+	}
+
 	public EntityType getType () {
 		return m_entityProperties.getEntityType();
 	}
@@ -359,8 +414,16 @@ public abstract class Entity implements EntityInterface {
 		return m_tangible;
 	}
 
-	Hitbox getHibox () {
+	public Hitbox getHibox () {
 		return m_hitbox;
+	}
+
+	public int getPv () {
+		return m_pv;
+	}
+
+	public void setPv (int pv) {
+		m_pv = pv;
 	}
 
 	public double angleVers (Entity e) {

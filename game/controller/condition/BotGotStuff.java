@@ -10,7 +10,7 @@ public class BotGotStuff implements ICondition {
 
 	@Override
 	public boolean eval (Entity e) {
-		throw new RuntimeException("NYI");
+		return e.gotStuff();
 	}
 
 }

@@ -74,6 +74,11 @@ public class MyCanvas extends Component {
 		m_entityViews.insertAt(0, entity);
 	}
 
+	// Je m'en fou si t'es pas content Killian <3
+	public void deleteEntityView (EntityView entity) {
+		m_entityViews.remove(entity);
+	}
+
 	public void createLightSourceView (ILightSource s) {
 		m_light.addLightSource(s);
 	}
@@ -135,7 +140,7 @@ public class MyCanvas extends Component {
 		//System.out.println("Nb d'entité dessiné : " + i);
 
 		// Applique un masque pour couvrir les zones non éclairées.
-		m_light.paint(g);
+		//m_light.paint(g);
 		m_ath.paint(g);
 	}
 

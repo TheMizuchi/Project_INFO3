@@ -18,6 +18,11 @@ public class Bloon extends Mob {
 		MyCanvas.getInstance().createEntityView(m_bv);
 	}
 
+	//Constructeur pour créer entité sans view
+	public Bloon (double x, double y, Object o) {
+		super(x, y, EntityProperties.BLOON);
+	}
+
 	public void setLevel (int n) {
 		this.level = n;
 		m_bv.setLevel(n);
@@ -34,7 +39,6 @@ public class Bloon extends Mob {
 			e = m.createEntity(getPosX(), getPosY(), this.m_entityProperties);
 			m.createLightSource(e);
 		}
-
 	}
 
 	@Override
