@@ -3,22 +3,22 @@ package view.animation.bank;
 import view.animation.Sprite;
 
 
-public class StairBank extends EntityAnimationBank {
+public class StairsBank extends EntityAnimationBank {
 
-	private StairBank () {
-		Sprite spriteFile = Sprite.loadSprite("resources/stairs.png", 1, 6);
+	private StairsBank () {
+		Sprite spriteFile = Sprite.loadSprite("resources/stairs.png", 1, 1);
 		loadBasicAnimation(spriteFile);
 		loadSpecificAnimation(spriteFile);
 	}
 
 
-	private static StairBank INSTANCE = null;
+	private static StairsBank INSTANCE = null;
 
 
-	public static StairBank getInstance () {
+	public static StairsBank getInstance () {
 
 		if (INSTANCE == null) {
-			INSTANCE = new StairBank();
+			INSTANCE = new StairsBank();
 		}
 		return INSTANCE;
 	}

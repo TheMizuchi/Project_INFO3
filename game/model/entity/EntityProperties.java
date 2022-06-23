@@ -8,7 +8,7 @@ public enum EntityProperties {
 	BLOON(7, 1, EntityType.ENEMY, true, 0), DOGE(8, 1, EntityType.ENEMY, false, 0),
 	MYSTERY(9, 1, EntityType.ENEMY, false, 0), BLOON_BOSS(10, 1, EntityType.ENEMY, false, 0),
 	KEY(11, 1, EntityType.ITEM, false, 0), DOOR(12, 1, EntityType.ITEM, false, 0),
-	STAIRS(12, 1, EntityType.ITEM, false, 0), ENTITY(13, 1, EntityType.NEUTRAL, false, 0);
+	STAIRS(13, 1, EntityType.ITEM, false, 0), ENTITY(14, 1, EntityType.NEUTRAL, false, 0);
 
 
 	private final int id;

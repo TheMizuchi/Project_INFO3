@@ -45,6 +45,7 @@ public abstract class Entity implements EntityInterface {
 
 	public static Entity createEntity (double x, double y, EntityProperties entityProperties) {
 		Entity e = null;
+		
 
 		switch (entityProperties) {
 			case COWBOY:
@@ -85,6 +86,9 @@ public abstract class Entity implements EntityInterface {
 				break;
 			case KEY:
 				e = Key.getInstance(x, y);
+				break;
+			case STAIRS:
+				e = new Stairs(x, y);
 				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");

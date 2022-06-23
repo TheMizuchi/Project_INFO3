@@ -11,6 +11,7 @@ import model.entity.J2;
 import model.entity.Point;
 import model.map.Case;
 import model.map.Map;
+import model.entity.Hitbox;
 
 
 public class Room {
@@ -75,10 +76,34 @@ public class Room {
 				if (entityProperties != null) {
 					int x = i + upperLeftX;
 					int y = j + upperLeftY;
-					Entity e = model.createEntity(x, y, entityProperties);
-					listeEntity.insertAt(listeEntity.length(), e);
-					//à enelever plus tard
-					model.createLightSource(e);
+					if(entityProperties == EntityProperties.J1) {
+						try {
+							J1.getInstance().m_hitbox = new Hitbox(x,y,0.5,0.5, J1.getInstance(),false);
+						}
+						catch(Exception ex){
+							Entity e = model.createEntity(x, y, entityProperties);
+							listeEntity.insertAt(listeEntity.length(), e);
+							//à enelever plus tard
+							model.createLightSource(e);
+						}
+					}
+					else if(entityProperties == EntityProperties.J2){
+						try {
+							J2.getInstance().m_hitbox = new Hitbox(x,y,0.5,0.5, J2.getInstance(),false);
+						}
+						catch(Exception ex){
+							Entity e = model.createEntity(x, y, entityProperties);
+							listeEntity.insertAt(listeEntity.length(), e);
+							//à enelever plus tard
+							model.createLightSource(e);
+						}
+					}
+					else {
+						Entity e = model.createEntity(x, y, entityProperties);
+						listeEntity.insertAt(listeEntity.length(), e);
+						//à enelever plus tard
+						model.createLightSource(e);
+					}
 				}
 			}
 		}

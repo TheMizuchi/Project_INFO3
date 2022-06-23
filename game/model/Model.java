@@ -85,18 +85,23 @@ public class Model {
 				m_listeEntity = new LinkedList();
 				m_level++;
 				int nbRooms = 10 + 3 * m_level;
-				createMap(m_level, nbRooms);
+				createMap(m_level, 0);
 				loadEnv();
 			} else {
-				int j1_pv = J1.getInstance().getPv();
-				int j2_pv = J2.getInstance().getPv();
-				m_listeEntity = new LinkedList();
+				J1 player1 = J1.getInstance();
+				J2 player2 = J2.getInstance();
+				
+				Iterator iterEntity = m_listeEntity.iterator();
+				while(iterEntity.hasNext()) {
+					Entity e = (Entity) iterEntity.next();
+					if(!e.equal(player1) && !e.equal(player2)) {
+						e.deleteEntity();
+					}
+				}				
 				m_level++;
 				int nbRooms = 10 + 3 * m_level;
 				createMap(m_level, nbRooms);
 				loadEnv();
-				J1.getInstance().setPv(j1_pv);
-				J2.getInstance().setPv(j2_pv);
 			}
 
 		}
