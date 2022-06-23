@@ -13,4 +13,9 @@ public class CowboyBehavior extends EntityBehavior {
 		super(e, ev);
 		m_cv = ev;
 	}
+
+	@Override
+	public void pop () {
+		m_cv.spin();
+	}
 }

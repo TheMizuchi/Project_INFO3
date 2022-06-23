@@ -1,9 +1,9 @@
 package model.entity;
 
-import model.Model;
+import model.entity.behavior.BloonBehavior;
 import view.MyCanvas;
 import view.graphicEntity.BloonView;
-import model.entity.behavior.BloonBehavior;
+
 
 public class Bloon extends Mob {
 
@@ -27,30 +27,12 @@ public class Bloon extends Mob {
 		super(x, y, EntityProperties.BLOON);
 	}
 
+	public int getLevel () {
+		return this.level;
+	}
+
 	public void setLevel (int n) {
 		this.level = n;
 		m_bv.setLevel(n);
 	}
-
-	@Override
-	public void egg (double orientationx, double orientationy) {
-		Model m;
-		m = Model.getInstance();
-
-		if (level >= 0) {
-			Entity e = m.createEntity(getPosX(), getPosY(), this.m_entityProperties);
-			((Bloon) e).setLevel(level - 1);
-			m.createLightSource(e);
-			e = m.createEntity(getPosX(), getPosY(), this.m_entityProperties);
-			((Bloon) e).setLevel(level - 1);
-			m.createLightSource(e);
-		}
-	}
-
-	@Override
-	public void pop () {
-		m_bv.explode();
-		//Die now
-	}
-
 }

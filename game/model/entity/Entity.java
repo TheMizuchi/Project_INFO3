@@ -18,7 +18,7 @@ public abstract class Entity implements EntityInterface {
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 	static final double rangeDetection = 10;
-	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
+	protected static double ENTITY_MAX_SPEED = 10; // vitesse par seconde
 	protected Vector m_vecDir = new Vector();
 
 	private static int m_count = 0;
@@ -141,6 +141,15 @@ public abstract class Entity implements EntityInterface {
 			return 1;
 		} else {
 			return 0;
+		}
+	}
+
+	public static boolean isDeath () {
+
+		if (m_pv <= 0) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 

@@ -26,11 +26,6 @@ public class Cowboy extends Player {
 	}
 
 	@Override
-	public void pop () {
-		m_cv.spin();
-	}
-
-	@Override
 	void hide () {}
 
 	@Override
