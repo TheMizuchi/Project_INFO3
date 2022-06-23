@@ -1,3 +1,26 @@
+Balloon3 (Init) {
+	* (Init) : 
+		| True ? Move(NE) / Move(NW) / Move(SE) / Move(SW) : (Moving)
+	* (Moving) :
+		| Cell(F,V) ? Move(F) : (Moving)
+		| Cell(L,V) ? Turn(L) : (Moving)
+		| Cell(R,V) ? Turn(R) : (Moving)
+		| True ? Turn(B) : (Moving)
+}
+
+Balloon2 (Init) {
+	* (Init) : 
+		| True ? Move(NE) / Move(NW) / Move(SE) / Move(SW) : (Moving)
+	* (Moving) :
+		| !(GotPower) ? Egg(F) : (Die)
+		| Cell(F,V) ? Move(F) : (Moving)
+		| Cell(F,O) & Cell(L,V) ? Turn(L) : (Moving)
+		| Cell(F,O) & Cell(R,V) ? Turn(R) : (Moving)
+		| True ? Turn(B) : (Moving)
+	*(Die)
+		| True ? Explode : ()
+}
+
 Balloon (Init) {
 	* (Init) :
 		| True ? Move(NE) / Move(NW) / Move(SE) / Move(SW) : (Moving)
@@ -15,15 +38,3 @@ Balloon (Init) {
 		| True ? Explode : ()
 }		
 
-Balloon2 (Init) {
-	* (Init) : 
-		| True ? Move(NE) / Move(NW) / Move(SE) / Move(SW) : (Moving)
-	* (Moving) :
-		| !(GotPower) ? Egg(F) : (Die)
-		| Cell(F,V) ? Move(F) : (Moving)
-		| Cell(F,O) & Cell(L,V) ? Turn(L) : (Moving)
-		| Cell(F,O) & Cell(R,V) ? Turn(R) : (Moving)
-		| True ? Turn(B) : (Moving)
-	*(Die)
-		| True ? Explode : ()
-}

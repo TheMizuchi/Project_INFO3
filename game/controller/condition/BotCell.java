@@ -25,6 +25,9 @@ public class BotCell implements ICondition {
 
 		double dx = Math.cos(m_dir.getAngle());
 		double dy = Math.sin(m_dir.getAngle());
+		System.out.println("x puis y");
+		System.out.println(dx);
+		System.out.println(dy);
 		if (e.getHitbox().deplacementValide(e.getPosX() + dx, e.getPosY() - dy))
 			return true;
 		return false;
