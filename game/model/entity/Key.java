@@ -18,7 +18,7 @@ public class Key extends Entity {
 		m_kv = new KeyView(this);
 		m_ev = m_kv;
 		m_kb = new KeyBehavior(this, m_kv);
-		this.eb = m_kb;
+		m_eb = m_kb;
 		MyCanvas.getInstance().createEntityView(m_kv);
 		m_tangible = false;
 		porteur = null;

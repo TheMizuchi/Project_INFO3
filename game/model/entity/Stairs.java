@@ -18,7 +18,7 @@ public class Stairs extends Entity {
 		super(x, y, EntityProperties.STAIRS);
 		m_tangible = false;
 		m_sb = new StairsBehavior(this, m_sv);
-		this.eb = m_sb;
+		m_eb = m_sb;
 		Model model = Model.getInstance();
 		Map m = model.getMap();
 		m_room = m.getBoss();

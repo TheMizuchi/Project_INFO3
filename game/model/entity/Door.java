@@ -25,7 +25,7 @@ public class Door extends Entity {
 		m_dv = new DoorView(this);
 		m_ev = m_dv;
 		m_db = new DoorBehavior(this, m_dv);
-		this.eb = m_db;
+		m_eb = m_db;
 		MyCanvas.getInstance().createEntityView(m_dv);
 	}
 

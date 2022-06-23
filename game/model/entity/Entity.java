@@ -27,7 +27,7 @@ public abstract class Entity implements EntityInterface {
 
 	protected LinkedList m_blockInterdit;
 	protected boolean m_tangible;
-	protected EntityBehavior eb;
+	protected EntityBehavior m_eb;
 
 	// Liste d'items
 
@@ -84,6 +84,9 @@ public abstract class Entity implements EntityInterface {
 				((Bloon) e).setLevel(5);
 			case DOOR:
 				e = new Door(x, y);
+				break;
+			case BATSPAWNER:
+				e = new BatSpawner(x, y);
 				break;
 			case KEY:
 				e = Key.getInstance(x, y);
@@ -175,12 +178,11 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	public double distance (Entity e) {
-		Hitbox h1 = this.m_hitbox;
+		Hitbox h1 = m_hitbox;
 		Hitbox h2 = e.m_hitbox;
 		double x = h1.getCenterX() - h2.getCenterX();
 		double y = h1.getCenterY() - h2.getCenterY();
 		return Math.sqrt(x * x + y * y);
-
 	}
 
 	public EntityType getType () {
@@ -244,113 +246,113 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	void attack (Entity cible) {
-		this.eb.attack(cible);
+		m_eb.attack(cible);
 	}
 
 	void interact () {
-		this.eb.interact();
+		m_eb.interact();
 	}
 
 	@Override
 	public boolean myDir (double orientation, boolean absolute) {
-		return this.eb.myDir(orientation, absolute, m_vecDir);
+		return m_eb.myDir(orientation, absolute, m_vecDir);
 	}
 
 	@Override
 	public boolean cell (Vector vect, EntityType type) {
-		return this.eb.cell(vect, type, m_hitbox);
+		return m_eb.cell(vect, type, m_hitbox);
 	}
 
 	@Override
 	public boolean closest (Direction orientation, EntityType type) {
-		return this.eb.closest(orientation, type, rangeDetection);
+		return m_eb.closest(orientation, type, rangeDetection);
 	}
 
 	public Entity closest (EntityType type) {
-		return this.eb.closest(type);
+		return m_eb.closest(type);
 	}
 
 	public Entity closest (boolean possessable) {
-		return this.eb.closest(possessable);
+		return m_eb.closest(possessable);
 	}
 
 	@Override
 	public boolean gotPower () {
-		return this.eb.gotPower(m_pv);
+		return m_eb.gotPower(m_pv);
 	}
 
 	@Override
 	public boolean gotStuff () {
-		return this.eb.gotStuff();
+		return m_eb.gotStuff();
 	}
 
 	@Override
 	public void pop () {
-		this.eb.pop();
+		m_eb.pop();
 	}
 
 	@Override
 	public void wizz () {
-		this.eb.wizz();
+		m_eb.wizz();
 	}
 
 	@Override
 	public void move (Direction orientation) {
 
-		if (this.eb.move(orientation, m_vecDir)) {
+		if (m_eb.move(orientation, m_vecDir)) {
 			m_ev.walk();
 		}
 	}
 
 	@Override
 	public void turn (double orientation, boolean absolute) {
-		this.eb.turn(orientation, absolute, m_vecDir);
+		m_eb.turn(orientation, absolute, m_vecDir);
 	}
 
 	@Override
 	public void hit (Vector vec) {
-		this.eb.hit(vec);
+		m_eb.hit(vec);
 	}
 
 	@Override
 	public void protect (Direction orientation) {
-		this.eb.protect(orientation);
+		m_eb.protect(orientation);
 
 	}
 
 	@Override
 	public void pick () {
-		this.eb.pick();
+		m_eb.pick();
 	}
 
 	@Override
 	public void put (Direction orientation) {
-		this.eb.put(orientation);
+		m_eb.put(orientation);
 	}
 
 	@Override
 	public void store () {
-		this.eb.store();
+		m_eb.store();
 	}
 
 	@Override
 	public void get () {
-		this.eb.get();
+		m_eb.get();
 	}
 
 	@Override
 	public void power () {
-		this.eb.power();
+		m_eb.power();
 	}
 
 	@Override
 	public void explode () {
-		this.eb.explode();
+		m_eb.explode();
 	}
 
 	@Override
 	public void egg (double orientationx, double orientationy) {
-		this.eb.egg(orientationx, orientationy, m_hitbox, m_entityProperties);
+		m_eb.egg(orientationx, orientationy, m_hitbox, m_entityProperties);
 	}
 
 	public void deleteEntity () {

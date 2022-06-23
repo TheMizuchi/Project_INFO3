@@ -17,7 +17,7 @@ public class Doge extends Mob {
 		m_dv = new DogeView(this);
 		m_ev = m_dv;
 		m_db = new DogeBehavior(this, m_dv);
-		this.eb = m_db;
+		m_eb = m_db;
 		MyCanvas.getInstance().createEntityView(m_dv);
 	}
 

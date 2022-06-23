@@ -17,7 +17,7 @@ public class J1 extends Player {
 		m_jv = new J1View(this);
 		m_ev = m_jv;
 		m_jb = new J1Behavior(this, m_jv);
-		this.eb = m_jb;
+		m_eb = m_jb;
 		MyCanvas.getInstance().createEntityView(m_jv);
 	}
 

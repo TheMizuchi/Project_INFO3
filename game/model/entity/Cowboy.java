@@ -16,7 +16,7 @@ public class Cowboy extends Player {
 		m_cv = new CowboyView(this);
 		m_ev = m_cv;
 		m_cb = new CowboyBehavior(this, m_cv);
-		this.eb = m_cb;
+		m_eb = m_cb;
 		MyCanvas.getInstance().createEntityView(m_cv);
 	}
 

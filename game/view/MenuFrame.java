@@ -156,7 +156,7 @@ public class MenuFrame extends JFrame implements ActionListener {
 		but_Skeleton.setForeground(Color.BLACK);
 		but_Skeleton.setBackground(new Color(163, 76, 0));
 		but_Skeleton.setBorder(BorderFactory.createBevelBorder(ABORT));
-		
+
 		but_MonkeyDart.setFont(new Font("Comic sans", Font.BOLD, 13));
 		but_MonkeyDart.setForeground(Color.BLACK);
 		but_MonkeyDart.setBackground(new Color(163, 76, 0));
@@ -171,7 +171,7 @@ public class MenuFrame extends JFrame implements ActionListener {
 		but_Mystery.setForeground(Color.BLACK);
 		but_Mystery.setBackground(new Color(163, 76, 0));
 		but_Mystery.setBorder(BorderFactory.createBevelBorder(ABORT));
-		
+
 		but_BigBloon.setFont(new Font("Comic sans", Font.BOLD, 13));
 		but_BigBloon.setForeground(Color.BLACK);
 		but_BigBloon.setBackground(new Color(163, 76, 0));
@@ -259,7 +259,7 @@ public class MenuFrame extends JFrame implements ActionListener {
 				fileSkeleton = new String(file_Skeleton.getSelectedFile().getAbsolutePath());
 				System.out.println(fileSkeleton);
 			}
-		}  else if (e.getSource() == but_MonkeyDart) {
+		} else if (e.getSource() == but_MonkeyDart) {
 			file_MonkeyDart = new JFileChooser();
 			file_MonkeyDart.setCurrentDirectory(new File("resources/Automata"));
 			int response = (file_MonkeyDart.showOpenDialog(null)); //Select file to open.
@@ -324,7 +324,7 @@ public class MenuFrame extends JFrame implements ActionListener {
 	public static String getFileSkeleton () {
 		return fileSkeleton;
 	}
-	
+
 	public static String getFileMonkeyDart () {
 		return fileMonkeyDart;
 	}

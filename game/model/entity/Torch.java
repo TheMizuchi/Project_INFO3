@@ -17,7 +17,7 @@ public class Torch extends Entity {
 		m_tv = new TorchView(this);
 		m_ev = m_tv;
 		m_tb = new TorchBehavior(this, m_tv);
-		this.eb = m_tb;
+		m_eb = m_tb;
 		MyCanvas.getInstance().createEntityView(m_tv);
 		m_tangible = false;
 	}
