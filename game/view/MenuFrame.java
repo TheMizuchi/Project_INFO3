@@ -43,7 +43,7 @@ public class MenuFrame extends JFrame implements ActionListener {
 	static String fileBloon = "resources/Automata/Balloon.gal";
 	static String fileBat = "resources/Automata/Idle.gal";
 	static String fileSkeleton = "resources/Automata/EntityTurnTest.gal";
-	static String fileMonkeyDart = "";
+	static String fileMonkeyDart = "resources/Automata/Idle.gal";
 	static String fileDoge = "resources/Automata/Idle.gal";
 	static String fileMystery = "resources/Automata/Idle.gal";
 	static String fileBigBloon = "resources/Automata/Idle.gal";
@@ -94,7 +94,7 @@ public class MenuFrame extends JFrame implements ActionListener {
 		but_Bloon.setText("Le Ballon");
 		but_Bat.setText("La chauve-souris");
 		but_Skeleton.setText("Le squelette");
-		but_MonkeyDart.setText("Le singe");
+		but_MonkeyDart.setText("L'archer");
 		but_Doge.setText("Le Doge");
 		but_Mystery.setText("La Mystery Machine");
 		but_BigBloon.setText("Le Big Ballon");
@@ -323,6 +323,10 @@ public class MenuFrame extends JFrame implements ActionListener {
 
 	public static String getFileSkeleton () {
 		return fileSkeleton;
+	}
+	
+	public static String getFileMonkeyDart () {
+		return fileMonkeyDart;
 	}
 
 	public static String getFileDoge () {
