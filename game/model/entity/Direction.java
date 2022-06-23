@@ -22,6 +22,6 @@ public abstract class Direction {
 	protected abstract void compute ();
 
 	// Renvoit true si l'on passe de bouger à pas bouger et de pas bouger et bouger
-	abstract boolean move (Vector v);
+	public abstract boolean move (Vector v);
 
 }

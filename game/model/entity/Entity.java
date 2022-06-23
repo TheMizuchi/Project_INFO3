@@ -1,9 +1,8 @@
 package model.entity;
 
 import controller.RefAutomata;
-import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.LinkedList;
-import model.Model;
+import model.entity.behavior.EntityBehavior;
 import model.map.TileType;
 import view.graphicEntity.EntityView;
 
@@ -25,6 +24,7 @@ public abstract class Entity implements EntityInterface {
 
 	protected LinkedList m_blockInterdit;
 	protected boolean m_tangible;
+	protected EntityBehavior eb;
 
 	// Liste d'items
 
@@ -40,6 +40,7 @@ public abstract class Entity implements EntityInterface {
 		m_tangible = true;
 		m_c = m_count;
 		m_count++;
+		this.eb = new EntityBehavior(this);
 	}
 
 	public static Entity createEntity (double x, double y, EntityProperties entityProperties) {
@@ -119,227 +120,6 @@ public abstract class Entity implements EntityInterface {
 		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 	}
 
-	void attack (Entity cible) {}
-
-	void interact () {}
-
-
-	// Permet de choisir la précision que vous voulez sur l'angle de MyDir
-	static final double MYDIR_SENSI = 15 * 180 / Math.PI;
-
-
-	@Override
-	public boolean myDir (double orientation, boolean absolute) {
-		double angle = (absolute) ? (orientation) : (m_vecDir.getAngle() + orientation);
-		return (angle - MYDIR_SENSI <= m_vecDir.getAngle()) && (m_vecDir.getAngle() <= angle + MYDIR_SENSI);
-	}
-
-	@Override
-	public boolean cell (Vector vect, EntityType type) {
-
-		float x = 0, y = 0;
-		double ang = vect.getAngle();
-
-		if (ang >= 7 * Math.PI / 4) {
-			x = 1;
-			y = 0;
-		}
-
-		if (ang < 7 * Math.PI / 4) {
-			x = 0;
-			y = 1;
-		}
-
-		if (ang < 5 * Math.PI / 4) {
-			x = -1;
-			y = 0;
-		}
-
-		if (ang < 3 * Math.PI / 4) {
-			x = 0;
-			y = -1;
-		}
-
-		if (ang < Math.PI / 4) {
-			x = 1;
-			y = 0;
-		}
-
-		Point p1 = new Point(m_hitbox.getP1().getX() + x, m_hitbox.getP1().getY() + y);
-		Point p2 = new Point(m_hitbox.getP2().getX() + x, m_hitbox.getP2().getY() + y);
-		Point p3 = new Point(m_hitbox.getP3().getX() + x, m_hitbox.getP3().getY() + y);
-		Point p4 = new Point(m_hitbox.getP4().getX() + x, m_hitbox.getP4().getY() + y);
-
-		if (m_hitbox.deplacementValide(p1, p2, p3, p4))
-			return true;
-
-		return false;
-	}
-
-	@Override
-	public boolean closest (Direction orientation, EntityType type) {
-		ICollection.Iterator iter = Model.getlistEntity().iterator();
-		Entity e, e_min;
-		double distMin = Float.MAX_VALUE;
-
-		while (iter.hasNext()) {
-			e = (Entity) iter.next();
-
-			if (e.getType() == type) {
-				double dist = distance(e);
-
-				if (distMin > dist && distMin < rangeDetection) {
-					e_min = e;
-					distMin = dist;
-				}
-			}
-		}
-		// TODO
-		// à implémenter lorsque les directions de dova et diego sont stables
-		//if (e_min.position in range of orientation)^
-		//	return true;
-		return false;
-	}
-
-	public Entity closest (EntityType type) {
-		ICollection.Iterator iter = Model.getlistEntity().iterator();
-		Entity e, e_min = null;
-		double distMin = Double.MAX_VALUE;
-
-		while (iter.hasNext()) {
-			e = (Entity) iter.next();
-
-			if (e.getType() == type) {
-				double dist = distance(e);
-
-				if (distMin > dist) {
-					e_min = e;
-					distMin = dist;
-				}
-
-			}
-		}
-		return e_min;
-	}
-
-	public Entity closest (boolean possessable) {
-		ICollection.Iterator iter = Model.getlistEntity().iterator();
-		Entity e, e_min = null;
-		double distMin = Double.MAX_VALUE;
-
-		while (iter.hasNext()) {
-			e = (Entity) iter.next();
-
-			if (e.getPossessable() == possessable) {
-				double dist = distance(e);
-
-				if (distMin > dist) {
-					e_min = e;
-					distMin = dist;
-				}
-
-			}
-		}
-		return e_min;
-	}
-
-	@Override
-	public boolean gotPower () {
-		return m_pv > 0;
-	}
-
-	@Override
-	public boolean gotStuff () {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void pop () {
-		// TODO C'est un truc à faire ça 
-	}
-
-	@Override
-	public void wizz () {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void move (Direction dir) {
-		boolean sw = dir.move(m_vecDir);
-		if (sw)
-			m_ev.walk();
-	}
-
-	@Override
-	public void turn (double orientation, boolean absolute) {
-		m_vecDir.setAngle((absolute) ? (orientation) : (m_vecDir.getAngle() + orientation));
-	}
-
-	@Override
-	public void hit (Vector vec) {
-
-	}
-
-	@Override
-	public void protect (Direction orientation) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pick () {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void put (Direction orientation) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void store () {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void get () {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void power () {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void explode () {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void egg (double orientationx, double orientationy) {
-		Model m;
-		m = Model.getInstance();
-
-		Point p1 = new Point(m_hitbox.getP1().getX() + orientationx, m_hitbox.getP1().getY() + orientationy);
-		Point p2 = new Point(m_hitbox.getP2().getX() + orientationx, m_hitbox.getP2().getY() + orientationy);
-		Point p3 = new Point(m_hitbox.getP3().getX() + orientationx, m_hitbox.getP3().getY() + orientationy);
-		Point p4 = new Point(m_hitbox.getP4().getX() + orientationx, m_hitbox.getP4().getY() + orientationy);
-
-		if (m_hitbox.deplacementValide(p1, p2, p3, p4)) {
-			Entity e = m.createEntity(getPosX() + orientationx, getPosY() - orientationy, this.m_entityProperties);
-			m.createLightSource(e);
-		}
-	}
-
 	public double distance (Entity e) {
 		Hitbox h1 = this.m_hitbox;
 		Hitbox h2 = e.m_hitbox;
@@ -406,5 +186,118 @@ public abstract class Entity implements EntityInterface {
 			return bool;
 		}
 		return false;
+	}
+	//miam miam
+
+	//Coucou petit développeur
+
+	void attack (Entity cible) {
+		this.eb.attack(cible);
+	}
+
+	void interact () {
+		this.eb.interact();
+	}
+
+	@Override
+	public boolean myDir (double orientation, boolean absolute) {
+		return this.eb.myDir(orientation, absolute, m_vecDir);
+	}
+
+	@Override
+	public boolean cell (Vector vect, EntityType type) {
+		return this.eb.cell(vect, type, m_hitbox);
+	}
+
+	@Override
+	public boolean closest (Direction orientation, EntityType type) {
+		return this.eb.closest(orientation, type, rangeDetection);
+	}
+
+	public Entity closest (EntityType type) {
+		return this.eb.closest(type);
+	}
+
+	public Entity closest (boolean possessable) {
+		return this.eb.closest(possessable);
+	}
+
+	@Override
+	public boolean gotPower () {
+		return this.eb.gotPower(m_pv);
+	}
+
+	@Override
+	public boolean gotStuff () {
+		return this.eb.gotStuff();
+	}
+
+	@Override
+	public void pop () {
+		this.eb.pop();
+	}
+
+	@Override
+	public void wizz () {
+		this.eb.wizz();
+	}
+
+	@Override
+	public void move (Direction orientation) {
+
+		if (this.eb.move(orientation, m_vecDir)) {
+			m_ev.walk();
+		}
+	}
+
+	@Override
+	public void turn (double orientation, boolean absolute) {
+		this.eb.turn(orientation, absolute, m_vecDir);
+	}
+
+	@Override
+	public void hit (Vector vec) {
+		this.eb.hit(vec);
+	}
+
+	@Override
+	public void protect (Direction orientation) {
+		this.eb.protect(orientation);
+
+	}
+
+	@Override
+	public void pick () {
+		this.eb.pick();
+	}
+
+	@Override
+	public void put (Direction orientation) {
+		this.eb.put(orientation);
+	}
+
+	@Override
+	public void store () {
+		this.eb.store();
+	}
+
+	@Override
+	public void get () {
+		this.eb.get();
+	}
+
+	@Override
+	public void power () {
+		this.eb.power();
+	}
+
+	@Override
+	public void explode () {
+		this.eb.explode();
+	}
+
+	@Override
+	public void egg (double orientationx, double orientationy) {
+		this.eb.egg(orientationx, orientationy, m_hitbox, m_entityProperties);
 	}
 }
