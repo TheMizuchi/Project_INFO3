@@ -25,7 +25,6 @@ public class BotTurn extends BotAction {
 			Entity cible = e.closest(EntityType.ALLY);
 			m_dir.setAngle(e.angleVers(cible));
 		}
-		System.out.println("ça tourne ça tourneee!");
 		e.turn(m_dir.getAngle(), m_dir.getAbs());
 		return true;
 

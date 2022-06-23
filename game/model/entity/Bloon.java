@@ -16,6 +16,7 @@ public class Bloon extends Mob {
 		m_bv = new BloonView(this, 2);
 		m_ev = m_bv;
 		MyCanvas.getInstance().createEntityView(m_bv);
+		m_tangible = false;
 	}
 
 	//Constructeur pour créer entité sans view
@@ -33,10 +34,12 @@ public class Bloon extends Mob {
 		Model m;
 		m = Model.getInstance();
 
-		if (m_hitbox.deplacementValide(getPosX(), getPosY())) {
+		if (level >= 0) {
 			Entity e = m.createEntity(getPosX(), getPosY(), this.m_entityProperties);
+			((Bloon) e).setLevel(level - 1);
 			m.createLightSource(e);
 			e = m.createEntity(getPosX(), getPosY(), this.m_entityProperties);
+			((Bloon) e).setLevel(level - 1);
 			m.createLightSource(e);
 		}
 	}

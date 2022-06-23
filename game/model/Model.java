@@ -27,7 +27,7 @@ public class Model {
 	// Variables locales
 	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
-	private Camera m_cam;
+	public static Camera m_cam;
 	private static Map m_map;
 	private ArrayList m_rooms; //Totalité des salles pour pouvoir piocher dedans
 	private JsonDecode m_jd;
@@ -203,7 +203,7 @@ public class Model {
 				}
 			}
 		}
-		System.out.println("nb generate = " + nb_gen);
+		//System.out.println("nb generate = " + nb_gen);
 		m_map.corridors(MST);
 
 		m_canvas.createMapView(m_map.getCases());

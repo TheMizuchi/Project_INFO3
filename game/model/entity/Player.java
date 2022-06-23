@@ -45,20 +45,23 @@ public abstract class Player extends Entity {
 				Entity moi = getEntity();
 				double m_angle = m_vecDir.getAngle();
 
+				double distY = Math.abs(autreJ.m_hitbox.getP1().getY() - (moi.m_hitbox.getP1().getY() + (speedY * elapsed / 1000))); // distance future entre les 2 joueurs
+				double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX() + (speedX * elapsed / 1000)));
+
 				// haut
-				if (m_angle < Math.PI && m_angle > 0 && autreJ.m_hitbox.getY() > moi.m_hitbox.getY())
+				if (m_angle < Math.PI && m_angle > 0 && distY > Camera.DISTANCE_MAX_Y) // si la distance sur cet axe est supérieur au max
 					return;
 
 				// bas
-				if (m_angle > Math.PI && autreJ.m_hitbox.getY() < moi.m_hitbox.getY())
+				if (m_angle > Math.PI && distY > Camera.DISTANCE_MAX_Y)
 					return;
 
 				// gauche
-				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && autreJ.m_hitbox.getX() > moi.m_hitbox.getX())
+				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && distX > Camera.DISTANCE_MAX_X)
 					return;
 
 				// droite
-				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && autreJ.m_hitbox.getX() < moi.m_hitbox.getX())
+				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && distX > Camera.DISTANCE_MAX_X)
 					return;
 
 			}
@@ -137,8 +140,8 @@ public abstract class Player extends Entity {
 		new PossessionTimerCD(this);
 		setCam(this);
 		new IntangibleTimer(this);
-		m_hitbox.setX(m.m_hitbox.getX());
-		m_hitbox.setY(m.m_hitbox.getY());
+		Hitbox hit = new Hitbox(m.m_hitbox.getP1(), m.m_hitbox.getP2(), m.m_hitbox.getP3(), m.m_hitbox.getP4(), m, false);
+		m_hitbox = hit;
 
 		// Si besoin on lance l'animation de déplacement
 		if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
@@ -164,7 +167,7 @@ public abstract class Player extends Entity {
 		@Override
 		public void expired () {
 
-			if (!m_p.m_hitbox.contactEntity(m_p.m_hitbox.getX(), m_p.m_hitbox.getY())) {
+			if (!m_p.m_hitbox.contactEntity(m_p.m_hitbox.getP1(), m_p.m_hitbox.getP2(), m_p.m_hitbox.getP3(), m_p.m_hitbox.getP4())) {
 				m_p.m_tangible = true;
 			} else {
 				MyTimer mt = MyTimer.getTimer();

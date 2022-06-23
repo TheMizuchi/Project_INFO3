@@ -209,6 +209,7 @@ public class Game {
 		// paint
 		//m_cowboy.paint(g, width, height);
 		my_canvas.paint(g);
+
 	}
 
 }

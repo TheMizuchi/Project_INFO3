@@ -8,6 +8,7 @@ import model.entity.Entity;
 import model.entity.EntityProperties;
 import model.entity.J1;
 import model.entity.J2;
+import model.entity.Point;
 import model.map.Case;
 import model.map.Map;
 
@@ -102,7 +103,12 @@ public class Room {
 			double y = random.nextDouble() * (height - 2) + upperLeftY + 1;
 			Entity e = Entity.createEntityWithoutView(x, y, ep);
 
-			if (e.getHibox().deplacementValide(x, y)) {
+			Point p1 = e.getHibox().getP1();
+			Point p2 = e.getHibox().getP2();
+			Point p3 = e.getHibox().getP3();
+			Point p4 = e.getHibox().getP4();
+
+			if (e.getHibox().deplacementValide(p1, p2, p3, p4)) {
 
 				if (e.distance(j1) > minDistance && e.distance(j2) > minDistance) {
 					model.createEntity(x, y, ep);

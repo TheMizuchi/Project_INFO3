@@ -296,7 +296,7 @@ public class Graph {
 							a.dest1.dijk_pds = current.dijk_pds + dist;
 						}
 					} else {
-						System.out.println("WTF?");
+						//System.out.println("WTF?");
 					}
 
 				}
