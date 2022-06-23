@@ -38,6 +38,10 @@ public class J2 extends Player {
 		return INSTANCE;
 	}
 
+	public J2 (double x, double y, Object object) {
+		super(x, y, EntityProperties.J2);
+	}
+
 	@Override
 	void hide () {
 		m_jv.hide();

@@ -1,0 +1,7 @@
+DoorClassic (Init) {
+	* (Init) :
+		| GotStuff ? Pop : (Open)
+	* (Open) :
+		| !GotStuff ? Wizz : (Init)
+		| True ? Store : (Open)
+}

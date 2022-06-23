@@ -25,6 +25,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.RandomAccessFile;
 
+import javax.management.RuntimeErrorException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -32,6 +33,9 @@ import common.MyTimer;
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
 import model.Model;
+import model.entity.J1;
+import model.entity.J2;
+import view.GameOver;
 import view.MenuFrame;
 import view.MyCanvas;
 
@@ -89,6 +93,9 @@ public class Game {
 		new MyTimer();
 		m_elapsedUpdate = 0;
 		m_m = Model.getInstance();
+
+		m_m.newLevel();
+
 		m_listener.m_cont.setModel();
 		my_canvas.initATH(null, null);//Model.getj1(), Model.getj2()); // à remplacer quand les méthodes seront créées
 		System.out.println("  - creating frame...");
@@ -161,6 +168,7 @@ public class Game {
 	 * This method is invoked almost periodically, given the number of milli-seconds
 	 * that elapsed since the last time this method was invoked.
 	 */
+	long elapsedDeath = 0;
 	void tick (long elapsed) {
 
 		//m_cowboy.tick(elapsed);
@@ -185,6 +193,12 @@ public class Game {
 		if (m_elapsedUpdate >= 20) {
 			m_m.update(m_elapsedUpdate);
 			m_elapsedUpdate -= 20;
+		}
+		
+		if (J1.isDeath() || J2.isDeath()) {
+			GameOver.getInstance();
+			this.elapsedDeath += elapsed;
+			if(this.elapsedDeath > 3000 ) System.exit(0);
 		}
 
 	}

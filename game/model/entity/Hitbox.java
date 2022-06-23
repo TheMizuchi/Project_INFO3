@@ -100,7 +100,7 @@ public class Hitbox {
 	}
 
 	static public boolean isInsideType (Point p, TileType type) {
-		Case[][] grid = Model.getInstance().getMap().getCases();
+		Case[][] grid = Model.getMap().getCases();
 		return grid[(int) p.getX()][(int) p.getY()].getType() == type;
 	}
 
@@ -173,15 +173,15 @@ public class Hitbox {
 	}
 
 	public Point getP2 () {
-		return m_p1;
+		return m_p2;
 	}
 
 	public Point getP3 () {
-		return m_p1;
+		return m_p3;
 	}
 
 	public Point getP4 () {
-		return m_p1;
+		return m_p4;
 	}
 
 	public void paint (Graphics g) {

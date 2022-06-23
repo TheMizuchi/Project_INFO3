@@ -1,49 +1,94 @@
 package model.entity;
 
+import edu.polytech.oop.collections.IList;
+import edu.polytech.oop.collections.LinkedList;
+import model.map.generator.Room;
 import view.MyCanvas;
-import view.graphicEntity.TorchView;
+import view.graphicEntity.DoorView;
 
 
 public class Door extends Entity {
 
-	TorchView m_tv;
-	EntityInterface porteur;
+	Room m_room;
+	Key m_key;
+	DoorView m_dv;
+	int nb_frame_open;
 
 
 	public Door (double x, double y) {
-		super(x, y, EntityProperties.TORCH);
-		m_tv = new TorchView(this);
-		m_ev = m_tv;
-		MyCanvas.getInstance().createEntityView(m_tv);
+		super(x, y, EntityProperties.DOOR);
+		m_tangible = true;
+		m_room = null;
+		m_key = null;
+		m_dv = new DoorView(this);
+		m_ev = m_dv;
+		MyCanvas.getInstance().createEntityView(m_dv);
+	}
+
+	//Ouvrir porte
+	@Override
+	public void pop () {
+		nb_frame_open = 0;
+		m_dv.opening();
 		m_tangible = false;
 	}
 
+	//Fermer porte
+	@Override
+	public void wizz () {
+		m_tangible = true;
+		m_dv.closing();
+	}
 
-	private static Door INSTANCE = null;
+	@Override
+	public void store () {
 
+		if (nb_frame_open >= 7) {
 
-	public static Door getInstance (double x, double y) {
-
-		if (INSTANCE == null) {
-			INSTANCE = new Door(x, y);
+			m_dv.opened();
+		} else {
+			nb_frame_open++;
 		}
-		return INSTANCE;
 	}
 
-	public static Door getInstance () {
+	public void setRoom (Room r) {
+		m_room = r;
+	}
 
-		if (INSTANCE == null) {
-			throw new RuntimeException("Torch isn't instance yet what are you doing bro ?");
+	public void setKey (Key k) {
+		m_key = k;
+	}
+
+	@Override
+	public boolean gotStuff () {
+
+		int proximity = 2;
+
+		if (m_key == null) {
+
+			if (distance(J1.getInstance()) > proximity && distance(J2.getInstance()) > proximity) {
+
+				return false;
+			}
+		} else {
+
+			if (distance(m_key) > proximity) {
+				return false;
+			}
 		}
-		return INSTANCE;
+
+		LinkedList entities = m_room.getListeEntity();
+		IList.Iterator iter = entities.iterator();
+
+		while (iter.hasNext()) {
+			Entity e = (Entity) iter.next();
+
+			if (e.getType() == EntityType.ENEMY) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
-	public void updatePorteur (EntityInterface e) {
-		porteur = e;
-	}
-
-	public void update (Entity e) {
-		// si automate, faire un step
-		m_hitbox.move(e);
-	}
 }
