@@ -61,7 +61,7 @@ public class Model {
 		m_listeLight = new LinkedList();
 		m_cont = Controller.getInstance();
 		m_canvas = MyCanvas.getInstance();
-		createMap(1, 10);
+		createMap(1, 30);
 
 	}
 
@@ -85,7 +85,7 @@ public class Model {
 				m_listeEntity = new LinkedList();
 				m_level++;
 				int nbRooms = 10 + 3 * m_level;
-				createMap(m_level, 0);
+				createMap(m_level, nbRooms);
 				loadEnv();
 			} else {
 				int j1_pv = J1.getInstance().getPv();
