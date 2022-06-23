@@ -7,6 +7,7 @@ import edu.polytech.oop.collections.LinkedList;
 import edu.polytech.oop.collections.LinkedList.Iterator;
 import model.entity.Entity;
 import model.entity.EntityProperties;
+import model.entity.EntityType;
 import model.entity.J1;
 import model.entity.J2;
 import model.map.Map;
@@ -117,7 +118,10 @@ public class Model {
 
 		while (it.hasNext()) {
 			Entity entity = (Entity) it.next();
-			entity.update(elapsed);
+			if (entity.getType() == EntityType.ENEMY)
+				entity.update(elapsed);
+			else
+				entity.update(elapsed);
 			m_cam.update();
 
 		}

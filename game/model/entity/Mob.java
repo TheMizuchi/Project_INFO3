@@ -28,8 +28,8 @@ public abstract class Mob extends Entity {
 		m_automata.step();
 
 		if (m_vecDir.isApplied()) {
-			double speedX = m_vecDir.getX() * ENTITY_MAX_SPEED;
-			double speedY = m_vecDir.getY() * ENTITY_MAX_SPEED;
+			double speedX = m_vecDir.getX() * MOB_MAX_SPEED;
+			double speedY = m_vecDir.getY() * MOB_MAX_SPEED;
 
 			//Dans le cas où le monstre est possédé
 			///////////////////////////////////////

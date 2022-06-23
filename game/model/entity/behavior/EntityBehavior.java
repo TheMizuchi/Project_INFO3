@@ -80,7 +80,7 @@ public class EntityBehavior {
 
 	public boolean closest (Direction orientation, EntityType type, double rangeDetection) {
 		ICollection.Iterator iter = Model.getlistEntity().iterator();
-		Entity e, e_min;
+		Entity e, e_min = null;
 		double distMin = Float.MAX_VALUE;
 
 		while (iter.hasNext()) {
@@ -95,10 +95,11 @@ public class EntityBehavior {
 				}
 			}
 		}
-		// TODO
-		// à implémenter lorsque les directions de dova et diego sont stables
-		//if (e_min.position in range of orientation)^
-		//	return true;
+		if (e_min == null)
+			return false;
+		// Si y a une erreur dans closest, elle est dans cette détection d'angle
+		if (this.e.angleVers(e_min) < this.e.getDirVector().getAngle() + 0.2 && this.e.angleVers(e_min) > this.e.getDirVector().getAngle() - 0.2)
+			return true;
 		return false;
 	}
 

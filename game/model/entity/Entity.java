@@ -18,7 +18,8 @@ public abstract class Entity implements EntityInterface {
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 	static final double rangeDetection = 10;
-	protected static double ENTITY_MAX_SPEED = 10; // vitesse par seconde
+	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
+	protected static double MOB_MAX_SPEED = 1;
 	protected Vector m_vecDir = new Vector();
 
 	private static int m_count = 0;
@@ -367,5 +368,13 @@ public abstract class Entity implements EntityInterface {
 
 	public void setPv (int pv) {
 		m_pv = pv;
+	}
+
+	public Hitbox getHitbox () {
+		return m_hitbox;
+	}
+
+	public double getMobSpeed () {
+		return MOB_MAX_SPEED;
 	}
 }

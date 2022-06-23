@@ -155,6 +155,10 @@ public class Vector {
 	}
 
 	public void setAngle (double angle) {
+
+		while (angle >= 2 * Math.PI) {
+			angle -= 2 * Math.PI;
+		}
 		m_angle = angle;
 	}
 
