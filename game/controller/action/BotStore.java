@@ -11,6 +11,7 @@ public class BotStore extends BotAction {
 
 	@Override
 	public boolean apply (Entity e, RefAutomata aut) {
-		throw new RuntimeException("NYI");
+		e.store();
+		return true;
 	}
 }

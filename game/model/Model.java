@@ -7,6 +7,8 @@ import edu.polytech.oop.collections.LinkedList;
 import edu.polytech.oop.collections.LinkedList.Iterator;
 import model.entity.Entity;
 import model.entity.EntityProperties;
+import model.entity.J1;
+import model.entity.J2;
 import model.map.Map;
 import model.map.generator.Graph;
 import model.map.generator.JsonDecode;
@@ -25,55 +27,79 @@ public class Model {
 	// Variables locales
 	private static LinkedList m_listeEntity;
 	private LinkedList m_listeLight;
-	//<<<<<<< HEAD
-	static public Camera m_cam;
-	//	private Map m_map;
-	//=======
-	//	private Camera m_cam;
-	static private Map m_map;
-	//>>>>>>> master
-	private ArrayList rooms; //Totalité des salles pour pouvoir piocher dedans
-	private JsonDecode jd;
+	public static Camera m_cam;
+	private static Map m_map;
+	private ArrayList m_rooms; //Totalité des salles pour pouvoir piocher dedans
+	private JsonDecode m_jd;
+	private int m_level;
 
 
 	public Model () {
 		String jsonPath = "resources/rooms.json";
-		jd = new JsonDecode(this, jsonPath);
-		rooms = new ArrayList();
+		m_jd = new JsonDecode(this, jsonPath);
+		m_rooms = new ArrayList();
 
-		for (int i = 0; i < jd.getNbRooms(); i++) {
-			rooms.insertAt(rooms.length(), jd.newRoom(i));
+		for (int i = 0; i < m_jd.getNbRooms(); i++) {
+			m_rooms.insertAt(m_rooms.length(), m_jd.newRoom(i));
 		}
 		m_listeEntity = new LinkedList();
 		m_listeLight = new LinkedList();
 		m_cont = Controller.getInstance();
 		m_canvas = MyCanvas.getInstance();
-		Room spawnRoom = createMap();
-		loadEnv(spawnRoom);
-
+		m_level = 0;
 	}
 
 	//Constructeur pour TestWorld
 	public Model (Object o) {
 		String jsonPath = "resources/rooms.json";
-		jd = new JsonDecode(this, jsonPath);
-		rooms = new ArrayList();
+		m_jd = new JsonDecode(this, jsonPath);
+		m_rooms = new ArrayList();
 
-		for (int i = 0; i < jd.getNbRooms(); i++) {
-			rooms.insertAt(rooms.length(), jd.newRoom(i));
+		for (int i = 0; i < m_jd.getNbRooms(); i++) {
+			m_rooms.insertAt(m_rooms.length(), m_jd.newRoom(i));
 		}
-		m_listeEntity = new LinkedList();
 		m_listeLight = new LinkedList();
 		m_cont = Controller.getInstance();
 		m_canvas = MyCanvas.getInstance();
-		createMap();
+		createMap(1, 30);
 
 	}
 
 	//méthode tmp pour les tests
-	private void loadEnv (Room spawnRoom) {
+	public void loadEnv () {
 		m_cam = Camera.getInstance(m_canvas.getViewport(), m_map.getWidth() / 2, m_map.getHeight() / 2);
-		spawnRoom.spawnEntities(m_map);
+		Room spawnRoom = m_map.getSpawn();
+		Room keyRoom = m_map.getKey();
+		spawnRoom.spawnEntities(m_map, 0);
+		keyRoom.spawnEntities(m_map, 0);
+		m_map.doors();
+	}
+
+	public void newLevel () {
+		if (m_level < 0)
+			throw new RuntimeException("Invalid level");
+
+		if (m_level >= 0 && m_level <= 2) {
+
+			if (m_listeEntity == null || m_listeEntity.length() == 0) {
+				m_listeEntity = new LinkedList();
+				m_level++;
+				int nbRooms = 10 + 3 * m_level;
+				createMap(m_level, nbRooms);
+				loadEnv();
+			} else {
+				int j1_pv = J1.getInstance().getPv();
+				int j2_pv = J2.getInstance().getPv();
+				m_listeEntity = new LinkedList();
+				m_level++;
+				int nbRooms = 10 + 3 * m_level;
+				createMap(m_level, nbRooms);
+				loadEnv();
+				J1.getInstance().setPv(j1_pv);
+				J2.getInstance().setPv(j2_pv);
+			}
+
+		}
 
 	}
 
@@ -119,23 +145,23 @@ public class Model {
 	}
 
 	public void deleteEntity (Entity e) {
-		// TODO
+		m_listeEntity.remove(e);
 	}
 
 	public void createLightSource (Entity e) {
 		m_listeLight.insertAt(0, new LightSource(0, 0, 5, e));
 	}
 
-	public Room createMap () {
+	public Room createMap (int level, int nbRooms) {
 		boolean correctG = false;
 		Graph MST = null;
 		Graph g = null;
 		int nb_gen = 0;
 
 		while (!correctG) {
-			m_map = new Map(this, 1, 15);
+			m_map = new Map(this, level, nbRooms);
 			nb_gen++;
-			g = new Graph(rooms);
+			g = new Graph(m_rooms);
 			g.delaunay();
 			correctG = true;
 
@@ -146,7 +172,7 @@ public class Model {
 
 				if (n.getListArc().length() < 2) {
 					correctG = false;
-					IList.Iterator iterRoom = rooms.iterator();
+					IList.Iterator iterRoom = m_rooms.iterator();
 
 					while (iterRoom.hasNext()) {
 						Room r = (Room) iterRoom.next();
@@ -166,7 +192,7 @@ public class Model {
 
 					if (n.getListArc().length() < 1) {
 						correctG = false;
-						IList.Iterator iterRoom = rooms.iterator();
+						IList.Iterator iterRoom = m_rooms.iterator();
 
 						while (iterRoom.hasNext()) {
 							Room r = (Room) iterRoom.next();
@@ -185,7 +211,7 @@ public class Model {
 	}
 
 	public ArrayList getRooms () {
-		return this.rooms;
+		return this.m_rooms;
 	}
 
 	public static IList getlistEntity () {
@@ -194,6 +220,29 @@ public class Model {
 
 	public static Map getMap () {
 		return m_map;
+	}
+
+	public Entity getJ (int i) {
+		IList.Iterator iter = m_listeEntity.iterator();
+		EntityProperties ep;
+
+		switch (i) {
+			case 1:
+				ep = EntityProperties.J1;
+				break;
+			case 2:
+				ep = EntityProperties.J2;
+				break;
+			default:
+				throw new RuntimeException("Unknown player");
+		}
+
+		while (iter.hasNext()) {
+			Entity e = (Entity) iter.next();
+			if (e.getProperties() == ep)
+				return e;
+		}
+		return null;
 	}
 
 }
