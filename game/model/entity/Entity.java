@@ -341,8 +341,6 @@ public abstract class Entity implements EntityInterface {
 	@Override
 	public void hit (Vector vec) {
 
-		System.out.println("meow attaque éclaire");
-
 		final double RANGE_ATTAQUE_PROF = 0.5;
 		final double RANGE_ATTAQUE_LARG = 1;
 
@@ -378,7 +376,8 @@ public abstract class Entity implements EntityInterface {
 
 		double c_p1_p4_x = (attaque.getP1().getX() + attaque.getP4().getX()) / 2;
 		double c_p1_p4_y = (attaque.getP1().getY() + attaque.getP4().getY()) / 2;
-		attaque.translate(c_p1_p4_x, c_p1_p4_y);
+
+		attaque.translate(c_p1_p4_x - attaque.getCenterRealX(), c_p1_p4_y - attaque.getCenterRealY());
 
 		attaque.attaque();
 	}

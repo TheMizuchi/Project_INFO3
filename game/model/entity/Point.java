@@ -51,4 +51,9 @@ public class Point {
 		m_x -= p.getX();
 		m_y -= p.getY();
 	}
+
+	@Override
+	public String toString () {
+		return " point : x : " + m_x + " y : " + m_y + " ";
+	}
 }

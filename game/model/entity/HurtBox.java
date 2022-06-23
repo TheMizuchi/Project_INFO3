@@ -44,7 +44,6 @@ public class HurtBox extends Hitbox {
 	}
 
 	public void attaque () {
-		System.out.println("j'attaque");
 		IList list = Model.getlistEntity();
 		IList.Iterator it = list.iterator();
 
@@ -54,7 +53,6 @@ public class HurtBox extends Hitbox {
 			if (!e.equal(m_e)) {
 
 				if ((e.m_hitbox.pointInHitbox(m_p1) || e.m_hitbox.pointInHitbox(m_p2) || e.m_hitbox.pointInHitbox(m_p3) || e.m_hitbox.pointInHitbox(m_p4))) {
-					System.out.println("j'inflige des dégats");
 					m_e.attack(e);
 				}
 			}
