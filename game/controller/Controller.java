@@ -55,6 +55,8 @@ public class Controller {
 			//BotAutomata Archer = getAutFromFile(MenuFrame.getFileArcher());
 			BotAutomata Doge = getAutFromFile(MenuFrame.getFileDoge());
 			BotAutomata Mystery = getAutFromFile(MenuFrame.getFileMystery());
+			BotAutomata Archer = getAutFromFile(MenuFrame.getFileMonkeyDart());
+			
 
 			m_IdleAutomata = getAutFromFile("resources/Automata/Idle.gal");
 
@@ -76,7 +78,7 @@ public class Controller {
 			insertAt(m_auts, EntityProperties.BLOON.getID(), Bloon);
 			insertAt(m_auts, EntityProperties.SKELETON.getID(), Skeleton);
 			insertAt(m_auts, EntityProperties.BAT.getID(), Bat);
-			//insertAt(m_auts, EntityProperties.ARCHER.getID(), Archer);
+			insertAt(m_auts, EntityProperties.ARCHER.getID(), Archer);
 			insertAt(m_auts, EntityProperties.TORCH.getID(), Torch);
 			insertAt(m_auts, EntityProperties.DOGE.getID(), Doge);
 			insertAt(m_auts, EntityProperties.MYSTERY.getID(), Mystery);
