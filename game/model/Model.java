@@ -75,7 +75,7 @@ public class Model {
 		Room keyRoom = m_map.getKey();
 		spawnRoom.spawnEntities(m_map, 0);
 		keyRoom.spawnEntities(m_map, 0);
-		//m_map.doors();
+		m_map.doors();
 	}
 
 	public void newLevel () {
