@@ -27,6 +27,8 @@ public abstract class Entity implements EntityInterface {
 	protected LinkedList m_blockInterdit;
 	protected boolean m_tangible;
 
+	protected int m_nbDamages;
+
 	// Liste d'items
 
 
@@ -34,7 +36,8 @@ public abstract class Entity implements EntityInterface {
 		m_entityProperties = ep;
 		m_ID = ep.getID();
 		m_pv = ep.getInitialPv();
-		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this, false);
+		m_nbDamages = ep.getDamages();
+		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this);
 		m_automata = new RefAutomata(this);
 		m_blockInterdit = new LinkedList();
 		m_blockInterdit.insertAt(0, TileType.WALL);
@@ -163,12 +166,16 @@ public abstract class Entity implements EntityInterface {
 		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 	}
 
-	void attack (Entity cible) {}
+	void attack (Entity cible) {
+		if (!isDeath())
+			cible.takeDamages(m_nbDamages);
+	}
 
 	void interact () {}
-	
+
 	public static boolean isDeath () {
-		if (m_pv<=0) {
+
+		if (m_pv <= 0) {
 			return true;
 		} else {
 			return false;
@@ -334,6 +341,46 @@ public abstract class Entity implements EntityInterface {
 	@Override
 	public void hit (Vector vec) {
 
+		System.out.println("meow attaque éclaire");
+
+		final double RANGE_ATTAQUE_PROF = 0.5;
+		final double RANGE_ATTAQUE_LARG = 1;
+
+		double a1 = Math.cos(Math.PI * 22.5 / 180);
+		double a2 = Math.cos(Math.PI * 67.5 / 180);
+
+		double longeur;
+
+		double dist_x = Math.abs(m_hitbox.getP1().getX() - m_hitbox.getP3().getX()) / 2;
+		double dist_y = Math.abs(m_hitbox.getP1().getY() - m_hitbox.getP3().getY()) / 2;
+		double dist_diagonal = Math.sqrt(dist_x * dist_x + dist_y * dist_y);
+
+		if (vec.getX() < 1 && vec.getX() >= a1) {
+			longeur = dist_x;
+		} else if (vec.getX() < a1 && vec.getX() >= a2) {
+			longeur = dist_diagonal;
+		} else {
+			longeur = dist_y;
+		}
+
+		double centre_x = m_hitbox.getCenterRealX();
+		double centre_y = m_hitbox.getCenterRealY();
+
+		Point p1 = new Point(centre_x - (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y - RANGE_ATTAQUE_LARG / 2);
+		Point p4 = new Point(centre_x - (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y + RANGE_ATTAQUE_LARG / 2);
+
+		Point p2 = new Point(centre_x + (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y - RANGE_ATTAQUE_LARG / 2);
+		Point p3 = new Point(centre_x + (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y + RANGE_ATTAQUE_LARG / 2);
+
+		HurtBox attaque = new HurtBox(p1, p2, p3, p4, this);
+
+		attaque.rotate(vec.getAngle());
+
+		double c_p1_p4_x = (attaque.getP1().getX() + attaque.getP4().getX()) / 2;
+		double c_p1_p4_y = (attaque.getP1().getY() + attaque.getP4().getY()) / 2;
+		attaque.translate(c_p1_p4_x, c_p1_p4_y);
+
+		attaque.attaque();
 	}
 
 	@Override
@@ -477,5 +524,18 @@ public abstract class Entity implements EntityInterface {
 			return bool;
 		}
 		return false;
+	}
+
+	void takeDamages (int damages) {
+		m_pv = m_pv - damages < 0 ? 0 : m_pv - damages;
+		System.out.println("HP passez à " + m_pv);
+
+		if (isDeath()) {
+			Model.getInstance().deleteEntity(this);
+		}
+	}
+
+	int getDamages () {
+		return m_nbDamages;
 	}
 }
