@@ -1,20 +1,23 @@
 package model.entity;
 
 import model.Camera;
+import model.entity.behavior.J1Behavior;
 import view.MyCanvas;
-import view.Viewport;
 import view.graphicEntity.J1View;
 
 
 public class J1 extends Player {
 
 	J1View m_jv;
+	J1Behavior m_jb;
 
 
 	public J1 (double x, double y) {
 		super(x, y, EntityProperties.J1);
 		m_jv = new J1View(this);
 		m_ev = m_jv;
+		m_jb = new J1Behavior(this, m_jv);
+		this.eb = m_jb;
 		MyCanvas.getInstance().createEntityView(m_jv);
 	}
 
@@ -33,7 +36,7 @@ public class J1 extends Player {
 	public static J1 getInstance () {
 
 		if (INSTANCE == null) {
-			throw new RuntimeException("J1 isn't instance yet what are you doing bro ?");
+			throw new RuntimeException("J1 isn't instanced yet what are you doing bro ?");
 		}
 		return INSTANCE;
 	}
