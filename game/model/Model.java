@@ -77,6 +77,7 @@ public class Model {
 		Room spawnRoom = m_map.getSpawn();
 		Room keyRoom = m_map.getKey();
 		spawnRoom.spawnEntities(m_map, 0);
+		spawnRoom.setVisited(true);
 		keyRoom.spawnEntities(m_map, 0);
 		m_map.doors();
 	}
@@ -98,14 +99,16 @@ public class Model {
 				J2 player2 = J2.getInstance();
 				Key cle = Key.getInstance();
 				Torch tor = Torch.getInstance();
-				
+
 				Iterator iterEntity = m_listeEntity.iterator();
-				while(iterEntity.hasNext()) {
+
+				while (iterEntity.hasNext()) {
 					Entity e = (Entity) iterEntity.next();
-					if(!e.equal(player1) && !e.equal(player2) && !e.equal(cle) && !e.equal(tor)) {
+
+					if (!e.equal(player1) && !e.equal(player2) && !e.equal(cle) && !e.equal(tor)) {
 						e.deleteEntity();
 					}
-				}				
+				}
 				m_level++;
 				int nbRooms = 10 + 3 * m_level;
 				createMap(m_level, nbRooms);

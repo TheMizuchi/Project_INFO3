@@ -75,7 +75,6 @@ public class Controller {
 			BotAutomata MoveFoward = getAutFromFile("resources/Automata/MoveFoward.gal");
 
 			insertAt(m_auts, EntityProperties.COWBOY.getID(), m_IdleAutomata);
-
 			insertAt(m_auts, EntityProperties.J1.getID(), J1);
 			insertAt(m_auts, EntityProperties.J2.getID(), J2);
 			insertAt(m_auts, EntityProperties.BLOON.getID(), Bloon);

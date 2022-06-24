@@ -42,7 +42,7 @@ public abstract class Entity implements EntityInterface {
 		m_ID = ep.getID();
 		m_pv = ep.getInitialPv();
 		m_nbDamages = ep.getDamages();
-		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this);
+		m_hitbox = new Hitbox(x, y, ep.getWidth(), ep.getHeight(), this);
 		m_automata = new RefAutomata(this);
 		m_blockInterdit = new LinkedList();
 		m_blockInterdit.insertAt(0, TileType.WALL);
@@ -53,7 +53,6 @@ public abstract class Entity implements EntityInterface {
 
 	public static Entity createEntity (double x, double y, EntityProperties entityProperties) {
 		Entity e = null;
-		
 
 		switch (entityProperties) {
 			case COWBOY:
@@ -89,6 +88,7 @@ public abstract class Entity implements EntityInterface {
 			case BLOON_BOSS:
 				e = new Bloon(x, y);
 				((Bloon) e).setLevel(5);
+				break;
 			case DOOR:
 				e = new Door(x, y);
 				break;
@@ -100,44 +100,6 @@ public abstract class Entity implements EntityInterface {
 				break;
 			case STAIRS:
 				e = new Stairs(x, y);
-				break;
-			default:
-				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
-
-		}
-		return e;
-	}
-
-	public static Entity createEntityWithoutView (double x, double y, EntityProperties entityProperties) {
-		Entity e = null;
-
-		switch (entityProperties) {
-			case COWBOY:
-				e = new Cowboy(x, y, null);
-				break;
-			case J1:
-				e = new J1(x, y, null);
-				break;
-			case J2:
-				e = new J2(x, y, null);
-				break;
-			case BLOON:
-				e = new Bloon(x, y, null);
-				break;
-			case SKELETON:
-				e = new Skeleton(x, y, null);
-				break;
-			case BAT:
-				e = new Bat(x, y, null);
-				break;
-			case ARCHER:
-				e = new Archer(x, y, null);
-				break;
-			case DOGE:
-				e = new Doge(x, y, null);
-				break;
-			case MYSTERY:
-				e = new MysteryMachine(x, y, null);
 				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
@@ -175,11 +137,18 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	public void update (long elapsed) {
+
+		if (this.getProperties() == EntityProperties.DOOR) {
+			Door d = (Door) this;
+			d.stops();
+		}
+
 		// déplacement
 		m_automata.step();
-			double speedX = m_vecDir.getX() * EntityMaxSpeed;
-			double speedY = m_vecDir.getY() * EntityMaxSpeed;
-			m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
+		double speedX = m_vecDir.getX() * EntityMaxSpeed;
+		double speedY = m_vecDir.getY() * EntityMaxSpeed;
+		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
+
 	}
 
 	void attack (Entity cible) {
@@ -223,10 +192,6 @@ public abstract class Entity implements EntityInterface {
 
 	public Hitbox getHibox () {
 		return m_hitbox;
-	}
-
-	public double getAngle () {
-		return m_vecDir.getAngle();
 	}
 
 	public double angleVers (Entity e) {

@@ -22,8 +22,4 @@ public class MysteryMachine extends Mob {
 		m_tangible = false;
 	}
 
-	public MysteryMachine (double x, double y, Object object) {
-		super(x, y, EntityProperties.MYSTERY);
-	}
-
 }
