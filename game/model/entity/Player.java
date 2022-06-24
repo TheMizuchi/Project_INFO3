@@ -105,6 +105,11 @@ public abstract class Player extends Entity {
 			torch.hide();
 		}
 	}
+	
+	@Override
+	public void pop () {
+		pick();
+	}
 
 	@Override
 	public void wizz () {

@@ -20,6 +20,13 @@ public class KeyAnimation extends EntityAnimation {
 		this.show = true;
 	}
 
+	@Override
+	public void setPosition (int x, int y, double scale) {
+		this.x = x;
+		this.y = y;
+		this.scale = scale / 4;
+	}
+
 	public void show () {
 		this.show = true;
 	}

@@ -71,6 +71,11 @@ public abstract class Mob extends Entity {
 	public void wizz () {
 		redevientMechant();
 	}
+	
+	@Override
+	public void pop () {
+		m_eb.pop();
+	}
 
 	private Entity autreJ () {
 
