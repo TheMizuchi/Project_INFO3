@@ -67,8 +67,8 @@ public abstract class Player extends Entity {
 			}
 
 			m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
-			if (this.equals(torch.porteur))
-				torch.update(this);
+
+			torch.update();
 			if (this.equals(key.porteur))
 				key.update(this);
 		}
@@ -95,9 +95,7 @@ public abstract class Player extends Entity {
 		if (distance(key) <= 2 && key.porteur == null) {
 			key.porteur = this;
 			key.hide();
-		}
-
-		else if (this.equals(torch.porteur)) {
+		} else if (this.equals(torch.porteur)) {
 			torch.porteur = null;
 			torch.show();
 		} else if (distance(torch) <= 2) {

@@ -49,10 +49,10 @@ public class J1Bank extends EntityAnimationBank {
 
 	@Override
 	protected void loadSpecificAnimation (Sprite spriteFile) {
-		BufferedImage[] attack_img = new BufferedImage[4];
+		BufferedImage[] attack_img = new BufferedImage[5];
 
-		for (int i = 0; i < 4; i++) {
-			attack_img[i] = spriteFile.m_images[i + 56];
+		for (int i = 0; i < 5; i++) {
+			attack_img[i] = spriteFile.m_images[i + 55];
 		}
 		this.attack = new Sprite(attack_img);
 

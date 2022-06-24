@@ -19,7 +19,7 @@ public class BotHit extends BotAction {
 	@Override
 	public boolean apply (Entity e, RefAutomata aut) {
 		Vector vec = new Vector();
-		vec.setAngle(m_dir.getAngle());
+		vec.setAngle(e.getAngle());
 		double x = Math.cos(m_dir.getAngle());
 		double y = Math.sin(m_dir.getAngle());
 		x = Math.round(x);

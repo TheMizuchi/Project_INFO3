@@ -157,7 +157,7 @@ public class MyCanvas extends Component {
 		}
 
 		// Applique un masque pour couvrir les zones non éclairées.
-		//m_light.paint(g);
+		m_light.paint(g);
 		m_ath.paint(g);
 	}
 
