@@ -220,6 +220,10 @@ public abstract class Entity implements EntityInterface {
 		return m_hitbox;
 	}
 
+	public double getAngle () {
+		return m_vecDir.getAngle();
+	}
+
 	public double angleVers (Entity e) {
 		double dist = distance(e);
 		double truc = m_hitbox.getCenterX() - e.m_hitbox.getCenterX();
@@ -282,10 +286,6 @@ public abstract class Entity implements EntityInterface {
 	@Override
 	public boolean closest (Direction orientation, EntityType type) {
 		return m_eb.closest(orientation, type);
-	}
-
-	public double getAngle () {
-		return m_vecDir.getAngle();
 	}
 
 	public Entity closest (EntityType type) {

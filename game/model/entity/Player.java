@@ -171,9 +171,7 @@ public abstract class Player extends Entity {
 		if (distance(key) <= 2 && key.porteur == null) {
 			key.porteur = this;
 			key.hide();
-		}
-
-		else if (this.equals(torch.porteur)) {
+		} else if (this.equals(torch.porteur)) {
 			torch.porteur = null;
 		} else if (distance(torch) <= 2) {
 			torch.porteur = this;

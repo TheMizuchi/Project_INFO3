@@ -72,6 +72,7 @@ public class Room {
 					int x = i + upperLeftX;
 					int y = j + upperLeftY;
 					Entity e = model.createEntity(x, y, entityProperties);
+
 					//à décommenter plus tard
 					//if (e.getID() == EntityProperties.TORCH.getID())
 					model.createLightSource(e);

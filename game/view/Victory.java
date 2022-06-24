@@ -9,22 +9,22 @@ import javax.swing.JLabel;
 import javax.swing.border.Border;
 
 
-public class GameOver extends JFrame {
+public class Victory extends JFrame {
 
 	JLabel label;
 
 
-	public GameOver () {
+	public Victory () {
 
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 3);
+		Border border = BorderFactory.createLineBorder(Color.YELLOW, 3);
 
 		label = new JLabel();
 
 		label.setForeground(Color.RED);
-		label.setBackground(Color.black);
+		label.setBackground(Color.orange);
 		label.setVerticalAlignment(JLabel.CENTER);
 		label.setHorizontalAlignment(JLabel.CENTER);
-		label.setText("GAME OVER !");
+		label.setText("Victory !");
 		label.setFont(new Font("Comic sans", Font.BOLD, 27));
 		label.setBorder(border);
 
@@ -37,13 +37,13 @@ public class GameOver extends JFrame {
 	}
 
 
-	private static GameOver INSTANCE = null;
+	private static Victory INSTANCE = null;
 
 
-	public static GameOver getInstance () {
+	public static Victory getInstance () {
 
 		if (INSTANCE == null) {
-			INSTANCE = new GameOver();
+			INSTANCE = new Victory();
 		}
 		return INSTANCE;
 	}

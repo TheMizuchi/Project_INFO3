@@ -166,8 +166,10 @@ public class Model {
 		m_toClearEntity.insertAt(0, e);
 	}
 
-	public void createLightSource (Entity e) {
-		m_listeLight.insertAt(0, new LightSource(0, 0, 5, e));
+	public LightSource createLightSource (Entity e) {
+		LightSource s = new LightSource(0, 0, 5, e);
+		m_listeLight.insertAt(0, s);
+		return s;
 	}
 
 	public Room createMap (int level, int nbRooms) {

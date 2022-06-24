@@ -36,7 +36,7 @@ public class LightSource implements ILightSource {
 		this.y = y;
 	}
 
-	void setRadius (double radius) {
+	public void setRadius (double radius) {
 		this.radius = radius;
 	}
 
