@@ -55,6 +55,7 @@ public class Controller {
 			//BotAutomata Archer = getAutFromFile(MenuFrame.getFileArcher());
 			BotAutomata Doge = getAutFromFile(MenuFrame.getFileDoge());
 			BotAutomata Mystery = getAutFromFile(MenuFrame.getFileMystery());
+			BotAutomata Archer = getAutFromFile(MenuFrame.getFileMonkeyDart());
 
 			m_IdleAutomata = getAutFromFile("resources/Automata/Idle.gal");
 
@@ -64,11 +65,14 @@ public class Controller {
 			BotAutomata Door = getAutFromFile("resources/Automata/Door.gal");
 			BotAutomata Key = getAutFromFile("resources/Automata/Torch.gal");
 			BotAutomata Stairs = getAutFromFile("resources/Automata/NextLevel.gal");
+			BotAutomata Spawner = getAutFromFile("resources/Automata/Spawner.gal");
 
 			// Automates de Tests
 			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
 			BotAutomata EntityMyDirTest = getAutFromFile("resources/Automata/EntityMyDirTest.gal");
 			BotAutomata SuicideTestDeleteEntity = getAutFromFile("resources/Automata/SuicideTestDeleteEntity.gal");
+			BotAutomata MoveRandomSuicide = getAutFromFile("resources/Automata/MoveRandomSuicide.gal");
+			BotAutomata MoveFoward = getAutFromFile("resources/Automata/MoveFoward.gal");
 
 			insertAt(m_auts, EntityProperties.COWBOY.getID(), m_IdleAutomata);
 
@@ -76,10 +80,11 @@ public class Controller {
 			insertAt(m_auts, EntityProperties.J2.getID(), J2);
 			insertAt(m_auts, EntityProperties.BLOON.getID(), Bloon);
 			insertAt(m_auts, EntityProperties.SKELETON.getID(), Skeleton);
-			insertAt(m_auts, EntityProperties.BAT.getID(), Bat);
-			//insertAt(m_auts, EntityProperties.ARCHER.getID(), Archer);
+			insertAt(m_auts, EntityProperties.BAT.getID(), MoveRandomSuicide);
+			insertAt(m_auts, EntityProperties.ARCHER.getID(), Archer);
 			insertAt(m_auts, EntityProperties.TORCH.getID(), Torch);
 			insertAt(m_auts, EntityProperties.DOGE.getID(), Doge);
+			insertAt(m_auts, EntityProperties.BATSPAWNER.getID(), Spawner);
 			insertAt(m_auts, EntityProperties.MYSTERY.getID(), Mystery);
 			insertAt(m_auts, EntityProperties.DOOR.getID(), Door);
 			insertAt(m_auts, EntityProperties.KEY.getID(), Key);

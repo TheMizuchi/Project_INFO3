@@ -7,7 +7,7 @@ public class PlayerRelativeDirection extends PlayerAbsoluteDirection {
 	}
 
 	@Override
-	boolean move (Vector dirEntity) {
+	public boolean move (Vector dirEntity) {
 
 		// On teste s'il y avait un mouvement sur l'axe x et y
 		boolean xWasMoving = dirEntity.getW() ^ dirEntity.getE();

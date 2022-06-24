@@ -1,8 +1,9 @@
 package model.entity;
 
 import model.Camera;
+import model.entity.behavior.J1IceBehavior;
+import model.entity.behavior.J1NormalGroundBehavior;
 import view.MyCanvas;
-import view.Viewport;
 import view.graphicEntity.J1View;
 
 
@@ -16,6 +17,19 @@ public class J1 extends Player {
 		m_jv = new J1View(this);
 		m_ev = m_jv;
 		MyCanvas.getInstance().createEntityView(m_jv);
+		onGround();
+	}
+
+	@Override
+	public void onGround () {
+		m_pb = new J1NormalGroundBehavior(this, m_ev);
+		m_eb = m_pb;
+	}
+
+	@Override
+	public void onIce () {
+		m_pb = new J1IceBehavior(this, m_ev);
+		m_eb = m_pb;
 	}
 
 
@@ -33,7 +47,7 @@ public class J1 extends Player {
 	public static J1 getInstance () {
 
 		if (INSTANCE == null) {
-			throw new RuntimeException("J1 isn't instance yet what are you doing bro ?");
+			throw new RuntimeException("J1 isn't instanced yet what are you doing bro ?");
 		}
 		return INSTANCE;
 	}
@@ -43,17 +57,17 @@ public class J1 extends Player {
 	}
 
 	@Override
-	void hide () {
+	public void hide () {
 		m_jv.hide();
 	}
 
 	@Override
-	void show () {
+	public void show () {
 		m_jv.show();
 	}
 
 	@Override
-	void setCam (Entity e) {
+	public void setCam (Entity e) {
 		Camera.getInstance().setj1(e);
 	}
 

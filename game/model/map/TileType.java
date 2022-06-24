@@ -19,7 +19,8 @@ public enum TileType {
 	BLOON_BOSS(EntityProperties.BLOON_BOSS.spawnerID(), 1, EntityProperties.BLOON_BOSS),
 	DOOR(EntityProperties.DOOR.spawnerID(), 1, EntityProperties.DOOR),
 	MYSTERY(EntityProperties.MYSTERY.spawnerID(), 1, EntityProperties.MYSTERY),
-	STAIRS(EntityProperties.STAIRS.spawnerID(), 1, EntityProperties.STAIRS);
+	STAIRS(EntityProperties.STAIRS.spawnerID(), 1, EntityProperties.STAIRS),
+	BATSPAWNER(EntityProperties.BATSPAWNER.spawnerID(), 1, EntityProperties.BATSPAWNER);
 
 
 	private int id;

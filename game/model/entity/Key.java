@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.entity.behavior.KeyBehavior;
 import view.MyCanvas;
 import view.graphicEntity.KeyView;
 
@@ -8,13 +9,16 @@ public class Key extends Entity {
 
 	static Key m_instance;
 	KeyView m_kv;
-	EntityInterface porteur;
+	public EntityInterface porteur;
+	KeyBehavior m_kb;
 
 
 	public Key (double x, double y) {
 		super(x, y, EntityProperties.KEY);
 		m_kv = new KeyView(this);
 		m_ev = m_kv;
+		m_kb = new KeyBehavior(this, m_kv);
+		m_eb = m_kb;
 		MyCanvas.getInstance().createEntityView(m_kv);
 		m_tangible = false;
 		porteur = null;
@@ -41,7 +45,7 @@ public class Key extends Entity {
 		m_hitbox.move(e);
 	}
 
-	void hide () {
+	public void hide () {
 		m_kv.hide();
 	}
 }

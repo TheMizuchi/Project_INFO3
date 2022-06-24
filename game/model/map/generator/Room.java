@@ -2,7 +2,6 @@ package model.map.generator;
 
 import java.util.Random;
 
-import edu.polytech.oop.collections.LinkedList;
 import model.Model;
 import model.entity.Entity;
 import model.entity.EntityProperties;
@@ -25,7 +24,6 @@ public class Room {
 
 	private Case comp[][];
 	private RoomType type;
-	private LinkedList listeEntity; //Portes non incluses
 
 
 	public Room (Model m, int w, int h, Case[][] composition, int typeID) {
@@ -35,8 +33,6 @@ public class Room {
 		upperLeftY = -1;
 		width = w;
 		height = h;
-
-		listeEntity = new LinkedList();
 
 		comp = new Case[w][h];
 
@@ -80,51 +76,46 @@ public class Room {
 					int y = j + upperLeftY;
 					if(entityProperties == EntityProperties.J1) {
 						try {
-							J1.getInstance().m_hitbox = new Hitbox(x,y,0.5,0.5, J1.getInstance(),false);
+							J1.getInstance().m_hitbox = new Hitbox(x,y,0.5,0.5, J1.getInstance());
 						}
 						catch(Exception ex){
 							Entity e = model.createEntity(x, y, entityProperties);
-							listeEntity.insertAt(listeEntity.length(), e);
 							//à enelever plus tard
 							model.createLightSource(e);
 						}
 					}
 					else if(entityProperties == EntityProperties.J2){
 						try {
-							J2.getInstance().m_hitbox = new Hitbox(x,y,0.5,0.5, J2.getInstance(),false);
+							J2.getInstance().m_hitbox = new Hitbox(x,y,0.5,0.5, J2.getInstance());
 						}
 						catch(Exception ex){
 							Entity e = model.createEntity(x, y, entityProperties);
-							listeEntity.insertAt(listeEntity.length(), e);
 							//à enelever plus tard
 							model.createLightSource(e);
 						}
 					}
 					else if(entityProperties == EntityProperties.KEY){
 						try {
-							Key.getInstance().m_hitbox = new Hitbox(x,y,0.5,0.5, Key.getInstance(),false);
+							Key.getInstance().m_hitbox = new Hitbox(x,y,0.5,0.5, Key.getInstance());
 						}
 						catch(Exception ex){
 							Entity e = model.createEntity(x, y, entityProperties);
-							listeEntity.insertAt(listeEntity.length(), e);
 							//à enelever plus tard
 							model.createLightSource(e);
 						}
 					}
 					else if(entityProperties == EntityProperties.TORCH){
 						try {
-							Torch.getInstance().m_hitbox = new Hitbox(x,y,0.5,0.5, Torch.getInstance(),false);
+							Torch.getInstance().m_hitbox = new Hitbox(x,y,0.5,0.5, Torch.getInstance());
 						}
 						catch(Exception ex){
 							Entity e = model.createEntity(x, y, entityProperties);
-							listeEntity.insertAt(listeEntity.length(), e);
 							//à enelever plus tard
 							model.createLightSource(e);
 						}
 					}
 					else {
 						Entity e = model.createEntity(x, y, entityProperties);
-						listeEntity.insertAt(listeEntity.length(), e);
 						//à enelever plus tard
 						model.createLightSource(e);
 					}
@@ -161,7 +152,6 @@ public class Room {
 
 				if (e.distance(j1) > minDistance && e.distance(j2) > minDistance) {
 					model.createEntity(x, y, ep);
-					listeEntity.insertAt(listeEntity.length(), e);
 					iterationsSinceLastSuccess = 0;
 					placed++;
 				}
@@ -222,9 +212,4 @@ public class Room {
 	public boolean containsPoint (int x, int y) {
 		return (x >= upperLeftX && x <= upperLeftX + width - 1 && y >= upperLeftY && y <= upperLeftY + height - 1);
 	}
-
-	public LinkedList getListeEntity () {
-		return listeEntity;
-	}
-
 }

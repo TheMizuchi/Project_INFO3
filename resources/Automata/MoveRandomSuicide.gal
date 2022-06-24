@@ -1,0 +1,5 @@
+MoveRandomDelete (Init) {
+	* (Init):
+		| Key(c) ? : ()
+		| True ? Move(N) / Move(E) / Move(S) / Move(W) : (Init)
+}

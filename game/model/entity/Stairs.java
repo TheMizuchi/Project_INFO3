@@ -1,9 +1,7 @@
 package model.entity;
 
-import edu.polytech.oop.collections.IList;
-import edu.polytech.oop.collections.LinkedList;
 import model.Model;
-import model.map.Map;
+import model.entity.behavior.StairsBehavior;
 import model.map.generator.Room;
 import view.MyCanvas;
 import view.graphicEntity.StairsView;
@@ -12,51 +10,32 @@ import view.graphicEntity.StairsView;
 public class Stairs extends Entity {
 
 	Room m_room;
-	StairsView m_stv;
+	StairsView m_sv;
+	StairsBehavior m_sb;
 
 
 	public Stairs (double x, double y) {
 		super(x, y, EntityProperties.STAIRS);
 		m_tangible = false;
-		Model model = Model.getInstance();
-		Map m = model.getMap();
-		m_room = m.getBoss();
-		m_stv = new StairsView(this);
-		m_ev = m_stv;
-		MyCanvas.getInstance().createEntityView(m_stv);
+		m_room = Model.getMap().getBoss();
+		m_sv = new StairsView(this);
+		m_ev = m_sv;
+		MyCanvas.getInstance().createEntityView(m_sv);
+		m_sb = new StairsBehavior(this, m_sv);
+		m_eb = m_sb;
 	}
 
-	//Changer d'étage
-	public void wizz () {
-		Model.getInstance().newLevel();;
-		System.out.println("Next level");
+	public boolean shouldIEnterStairs () {
+		return m_sb.gotStuff();
 	}
 	
-	//Apparition de la porte
-	public void pop () {
-	}
-	
-	public boolean gotPower() {
-		LinkedList entities = m_room.getListeEntity();
-		IList.Iterator iter = entities.iterator();
-
-		while (iter.hasNext()) {
-			Entity e = (Entity) iter.next();
-			if (e.getType() == EntityType.ENEMY)
-				return false;
-		}
-
-		return true;
+	public boolean shouldIUnlock() {
+		return m_sb.gotPower();
 	}
 
-	public boolean gotStuff () {
-
-		int proximity = 1;
-
-		if (distance(J1.getInstance()) > proximity && distance(J2.getInstance()) > proximity)
-			return false;
-		
-		return true;
+	@Override
+	void takeDamages (int damages) {
+		return;
 	}
 
 }

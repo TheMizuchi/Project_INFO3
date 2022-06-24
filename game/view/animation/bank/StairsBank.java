@@ -21,8 +21,8 @@ public class StairsBank extends EntityAnimationBank {
 			INSTANCE = new StairsBank();
 		}
 		return INSTANCE;
+		
 	}
-
 	@Override
 	protected void loadBasicAnimation (Sprite spriteFile) {
 		this.idle = spriteFile;
@@ -30,6 +30,9 @@ public class StairsBank extends EntityAnimationBank {
 	}
 
 	@Override
-	protected void loadSpecificAnimation (Sprite spriteFile) {}
+	protected void loadSpecificAnimation (Sprite spriteFile) {
+		// TODO Auto-generated method stub
+
+	}
 
 }

@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 
+import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 import model.ILightSource;
 import model.entity.Entity;
+import model.entity.Player;
 import model.map.Case;
 import view.ATH.ATH;
 import view.animation.bank.AnimationBank;
@@ -29,6 +31,7 @@ public class MyCanvas extends Component {
 
 	// Objets graphiques liées aux objets du Model
 	LinkedList m_entityViews;
+	LinkedList m_toClearEntity;
 	LightView m_light;
 	MapView m_map;
 	ATH m_ath;
@@ -39,6 +42,7 @@ public class MyCanvas extends Component {
 
 	private MyCanvas () {
 		m_entityViews = new LinkedList();
+		m_toClearEntity = new LinkedList();
 		AnimationBank.getInstance();
 	}
 
@@ -63,7 +67,7 @@ public class MyCanvas extends Component {
 		m_light = new LightView(this.win_w, this.win_h, 1);
 	}
 
-	public void initATH (Entity j1, Entity j2) {
+	public void initATH (Player j1, Player j2) {
 		m_ath = ATH.getInstance(j1, j2);
 	}
 
@@ -77,7 +81,16 @@ public class MyCanvas extends Component {
 
 	// Je m'en fou si t'es pas content Killian <3
 	public void deleteEntityView (EntityView entity) {
-		m_entityViews.remove(entity);
+		m_toClearEntity.insertAt(0, entity);
+	}
+
+	private void clearEntity () {
+		IList.Iterator ite = m_toClearEntity.iterator();
+
+		while (ite.hasNext()) {
+			m_entityViews.remove(ite.next());
+		}
+		m_toClearEntity = new LinkedList();
 	}
 
 	public void createLightSourceView (ILightSource s) {
@@ -112,6 +125,8 @@ public class MyCanvas extends Component {
 
 		// Mise à jour de la map
 		m_map.setPosition(vp.toLocalX(0), vp.toLocalY(0), vp.getScale());
+
+		clearEntity();
 	}
 
 	/*
@@ -143,7 +158,7 @@ public class MyCanvas extends Component {
 		}
 
 		// Applique un masque pour couvrir les zones non éclairées.
-		//m_light.paint(g);
+		m_light.paint(g);
 		m_ath.paint(g);
 	}
 

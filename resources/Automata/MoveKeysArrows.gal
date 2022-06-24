@@ -6,4 +6,5 @@ MoveKeysArrows (Init) {
 		| Key(FR) ? Move(E) : (Init)
 		| Key(r) ? Pick : (Init)
 		| Key(ENTER) ? Wizz() : (Init)
+		| Key(x) ? Pop : (Init)
 }
