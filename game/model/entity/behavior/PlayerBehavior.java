@@ -43,7 +43,7 @@ public class PlayerBehavior extends EntityBehavior {
 
 		if (possCD == 0) {
 
-			Mob closestTarget = (Mob) closest(true);
+			Mob closestTarget = (Mob) this.e.closest(true);
 
 			if (closestTarget != null && this.e.distance(closestTarget) < Player.POSSESSION_RANGE) {
 				closestTarget.devientGentil(ep, v.clone(), (Player) this.e);

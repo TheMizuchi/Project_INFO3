@@ -1,6 +1,7 @@
 package model.entity;
 
 import controller.RefAutomata;
+import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.LinkedList;
 import model.Model;
 import model.entity.behavior.EntityBehavior;
@@ -254,37 +255,135 @@ public abstract class Entity implements EntityInterface {
 		m_eb.interact();
 	}
 
+
+	// Permet de choisir la précision que vous voulez sur l'angle de MyDir
+	static final double MYDIR_SENSI = 15 * 180 / Math.PI;
+
+
 	@Override
 	public boolean myDir (double orientation, boolean absolute) {
-		return m_eb.myDir(orientation, absolute, m_vecDir);
+		double angle = (absolute) ? (orientation) : (m_vecDir.getAngle() + orientation);
+		return (angle - MYDIR_SENSI <= m_vecDir.getAngle()) && (m_vecDir.getAngle() <= angle + MYDIR_SENSI);
 	}
 
 	@Override
 	public boolean cell (Vector vect, EntityType type) {
-		return m_eb.cell(vect, type, m_hitbox);
+		float x = 0, y = 0;
+		double ang = vect.getAngle();
+
+		if (ang >= 7 * Math.PI / 4) {
+			x = 1;
+			y = 0;
+		}
+
+		if (ang < 7 * Math.PI / 4) {
+			x = 0;
+			y = 1;
+		}
+
+		if (ang < 5 * Math.PI / 4) {
+			x = -1;
+			y = 0;
+		}
+
+		if (ang < 3 * Math.PI / 4) {
+			x = 0;
+			y = -1;
+		}
+
+		if (ang < Math.PI / 4) {
+			x = 1;
+			y = 0;
+		}
+
+		Point p1 = new Point(m_hitbox.getP1().getX() + x, m_hitbox.getP1().getY() + y);
+		Point p2 = new Point(m_hitbox.getP2().getX() + x, m_hitbox.getP2().getY() + y);
+		Point p3 = new Point(m_hitbox.getP3().getX() + x, m_hitbox.getP3().getY() + y);
+		Point p4 = new Point(m_hitbox.getP4().getX() + x, m_hitbox.getP4().getY() + y);
+
+		if (m_hitbox.deplacementValide(p1, p2, p3, p4))
+			return true;
+
+		return false;
 	}
 
 	@Override
 	public boolean closest (Direction orientation, EntityType type) {
-		return m_eb.closest(orientation, type, rangeDetection);
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e, e_min = null;
+		double distMin = Float.MAX_VALUE;
+
+		while (iter.hasNext()) {
+			e = (Entity) iter.next();
+
+			if (e.getType() == type) {
+				double dist = this.distance(e);
+
+				if (distMin > dist && distMin < rangeDetection) {
+					e_min = e;
+					distMin = dist;
+				}
+			}
+		}
+		if (e_min == null)
+			return false;
+		// Si y a une erreur dans closest, elle est dans cette détection d'angle
+		if (this.angleVers(e_min) < this.getDirVector().getAngle() + 0.2 && this.angleVers(e_min) > this.getDirVector().getAngle() - 0.2)
+			return true;
+		return false;
 	}
 
 	public Entity closest (EntityType type) {
-		return m_eb.closest(type);
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e, e_min = null;
+		double distMin = Double.MAX_VALUE;
+
+		while (iter.hasNext()) {
+			e = (Entity) iter.next();
+
+			if (e.getType() == type) {
+				double dist = this.distance(e);
+
+				if (distMin > dist) {
+					e_min = e;
+					distMin = dist;
+				}
+
+			}
+		}
+		return e_min;
 	}
 
 	public Entity closest (boolean possessable) {
-		return m_eb.closest(possessable);
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e, e_min = null;
+		double distMin = Double.MAX_VALUE;
+
+		while (iter.hasNext()) {
+			e = (Entity) iter.next();
+
+			if (e.getPossessable() == possessable) {
+				double dist = this.distance(e);
+
+				if (distMin > dist) {
+					e_min = e;
+					distMin = dist;
+				}
+
+			}
+		}
+		return e_min;
 	}
 
 	@Override
 	public boolean gotPower () {
-		return m_eb.gotPower(m_pv);
+		return m_pv > 0;
 	}
 
 	@Override
 	public boolean gotStuff () {
-		return m_eb.gotStuff();
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
