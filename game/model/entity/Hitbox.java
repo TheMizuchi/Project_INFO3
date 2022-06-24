@@ -70,7 +70,7 @@ public class Hitbox {
 		LinkedList tuileInterdit = m_e.getTuileInterdite();
 		Iterator it = tuileInterdit.iterator();
 
-		if (new_p1.outMap() || new_p2.outMap() || new_p3.outMap() || new_p4.outMap()) {
+	 	if (new_p1.outMap() || new_p2.outMap() || new_p3.outMap() || new_p4.outMap()) {
 			return false;
 		}
 

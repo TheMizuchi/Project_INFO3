@@ -87,7 +87,7 @@ public class Model {
 				m_listeEntity = new LinkedList();
 				m_level++;
 				int nbRooms = 10 + 3 * m_level;
-				createMap(m_level, 0);
+				createMap(m_level, nbRooms);
 				loadEnv();
 			} else {
 				J1 player1 = J1.getInstance();
@@ -104,7 +104,7 @@ public class Model {
 				}				
 				m_level++;
 				int nbRooms = 10 + 3 * m_level;
-				createMap(m_level, 0);
+				createMap(m_level, nbRooms);
 				loadEnv();
 			}
 
