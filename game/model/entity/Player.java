@@ -12,6 +12,8 @@ public abstract class Player extends Entity {
 	public static final long POSSESSION_CD = 30;
 	public final static double SLOW_TORCHE = 0.20;
 	public final static double POSSESSION_RANGE = 10;
+	public final static double CD_ATTAQUE = 40;
+	public final static double SLOW_TORCHE_ATTAQUE = 1.3;
 	long m_possessionCD;
 	Mob m_possessing;
 	PlayerBehavior m_pb;
@@ -175,10 +177,12 @@ public abstract class Player extends Entity {
 			key.porteur = this;
 			key.hide();
 		} else if (this.equals(torch.porteur)) {
+			System.out.println("je pose la torche");
 			torch.m_ls.setRadius(Torch.GROUND_RADIUS);
 			torch.porteur = null;
 			torch.show();
 		} else if (distance(torch) <= 2) {
+			System.out.println("je porte la torche");
 			torch.m_ls.setRadius(Torch.HOLDED_RADIUS);
 			torch.porteur = this;
 			torch.hide();
@@ -193,6 +197,17 @@ public abstract class Player extends Entity {
 	@Override
 	public void wizz () {
 		possession();
+	}
+
+	@Override
+	public void hit (Vector vec) {
+		if (cdAction != 0)
+			return;
+		if (Torch.getInstance().porteur == this)
+			cdAction = CD_ATTAQUE * SLOW_TORCHE_ATTAQUE;
+		else
+			cdAction = CD_ATTAQUE;
+		m_eb.hit(vec);
 	}
 
 	public void possession () {
@@ -213,8 +228,19 @@ public abstract class Player extends Entity {
 				if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
 					m_ev.walk();
 				}
+
+				// On coupe la torche
+				System.out.println("je coupe la torche");
+				if (Torch.getInstance().porteur == this) 
+					Torch.getInstance().m_ls.setRadius(Torch.POSSESSED_RADIUS);
 			}
 		}
+	}
+
+	public boolean isPossessing () {
+		if (m_possessing != null)
+			return true;
+		return false;
 	}
 
 	abstract void hide ();
@@ -237,6 +263,11 @@ public abstract class Player extends Entity {
 		if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
 			m_ev.walk();
 		}
+
+		// On rallume la torche
+		if (Torch.getInstance().porteur == this)
+			Torch.getInstance().m_ls.setRadius(Torch.HOLDED_RADIUS);
+
 		return null;
 	}
 

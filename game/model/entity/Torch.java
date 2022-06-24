@@ -11,6 +11,7 @@ public class Torch extends Entity {
 
 	static final double HOLDED_RADIUS = 8;
 	static final double GROUND_RADIUS = 6;
+	static final double POSSESSED_RADIUS = 0;
 
 	TorchView m_tv;
 	public EntityInterface porteur;
@@ -56,12 +57,8 @@ public class Torch extends Entity {
 	public void update (Player p) {
 		// si automate, faire un step
 
-		if (this.porteur != null) {
-			m_ls.setRadius(HOLDED_RADIUS);
+		if (this.porteur != null)
 			m_hitbox.move((Entity) this.porteur);
-		} else {
-			m_ls.setRadius(GROUND_RADIUS);
-		}
 	}
 
 	void hide () {

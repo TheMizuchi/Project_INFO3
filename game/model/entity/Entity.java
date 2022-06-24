@@ -32,7 +32,7 @@ public abstract class Entity implements EntityInterface {
 	protected EntityBehavior m_eb;
 
 	protected int m_nbDamages;
-	protected int cdAction;
+	protected double cdAction;
 
 	// Liste d'items
 
@@ -364,6 +364,7 @@ public abstract class Entity implements EntityInterface {
 		m_eb.turn(orientation, absolute, m_vecDir);
 	}
 
+	// les hits des joueurs sont override dans la classe player
 	@Override
 	public void hit (Vector vec) {
 		if (cdAction != 0)
