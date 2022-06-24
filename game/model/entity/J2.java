@@ -70,4 +70,10 @@ public class J2 extends Player {
 	public void setCam (Entity e) {
 		Camera.getInstance().setj2(e);
 	}
+	
+	@Override
+	public void hit (Vector v) {
+		super.hit(v);
+		m_jv.attack();
+	}
 }

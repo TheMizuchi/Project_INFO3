@@ -74,6 +74,7 @@ public class Room {
 				if (entityProperties != null) {
 					int x = i + upperLeftX;
 					int y = j + upperLeftY;
+					
 					if(entityProperties == EntityProperties.J1) {
 						try {
 							J1.getInstance().m_hitbox = new Hitbox(x,y,0.5,0.5, J1.getInstance());
@@ -110,7 +111,6 @@ public class Room {
 						}
 						catch(Exception ex){
 							Entity e = model.createEntity(x, y, entityProperties);
-							//à enelever plus tard
 							model.createLightSource(e);
 						}
 					}

@@ -30,8 +30,8 @@ public abstract class Mob extends Entity {
 		m_automata.step();
 
 		if (m_vecDir.isApplied()) {
-			double speedX = m_vecDir.getX() * MOB_MAX_SPEED;
-			double speedY = m_vecDir.getY() * MOB_MAX_SPEED;
+			double speedX = m_vecDir.getX() * MobMaxSpeed;
+			double speedY = m_vecDir.getY() * MobMaxSpeed;
 
 			//Dans le cas où le monstre est possédé
 			///////////////////////////////////////
@@ -72,6 +72,11 @@ public abstract class Mob extends Entity {
 	@Override
 	public void wizz () {
 		m_mb.wizz();
+	}
+	
+	@Override
+	public void pop () {
+		m_eb.pop();
 	}
 
 	private Entity autreJ () {
