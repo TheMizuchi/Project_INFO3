@@ -14,4 +14,9 @@ public class BatView extends EntityView {
 		this.a = (BatAnimation) super.a;
 		this.a.setDelay(50);
 	}
+
+	@Override
+	public void attack () {
+		return;
+	}
 }

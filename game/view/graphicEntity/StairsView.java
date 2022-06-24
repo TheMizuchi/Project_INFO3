@@ -19,4 +19,9 @@ public class StairsView extends EntityView {
 	public void walk () {
 		this.idle();
 	}
+
+	@Override
+	public void attack () {
+		return;
+	}
 }

@@ -31,4 +31,29 @@ public class DoorView extends EntityView {
 		this.a.walk();
 	}
 
+	public void lat_idle () {
+		this.a.setListener(this.al);
+		this.a.opening();
+	}
+
+	public void lat_opening () {
+		this.a.setListener(this.al);
+		this.a.opening();
+	}
+
+	public void lat_closing () {
+		this.a.setListener(this.al);
+		this.a.opening();
+	}
+
+	public void lat_opened () {
+		this.a.setListener(this.al);
+		this.a.opening();
+	}
+
+	@Override
+	public void attack () {
+		return;
+	}
+
 }
