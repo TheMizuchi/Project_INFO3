@@ -4,7 +4,7 @@ import model.entity.Entity;
 import view.graphicEntity.CowboyView;
 
 
-public class CowboyBehavior extends EntityBehavior {
+public class CowboyBehavior extends PlayerBehavior {
 
 	CowboyView m_cv;
 

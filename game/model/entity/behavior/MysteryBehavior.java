@@ -4,7 +4,7 @@ import model.entity.Entity;
 import view.graphicEntity.MysteryView;
 
 
-public class MysteryBehavior extends EntityBehavior {
+public class MysteryBehavior extends MobBehavior {
 
 	MysteryView m_mv;
 

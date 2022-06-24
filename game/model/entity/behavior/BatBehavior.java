@@ -4,7 +4,7 @@ import model.entity.Entity;
 import view.graphicEntity.BatView;
 
 
-public class BatBehavior extends EntityBehavior {
+public class BatBehavior extends MobBehavior {
 
 	BatView m_bv;
 

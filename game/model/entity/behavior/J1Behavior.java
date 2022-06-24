@@ -4,7 +4,7 @@ import model.entity.Entity;
 import view.graphicEntity.J1View;
 
 
-public class J1Behavior extends EntityBehavior {
+public class J1Behavior extends PlayerBehavior {
 
 	J1View m_jv;
 

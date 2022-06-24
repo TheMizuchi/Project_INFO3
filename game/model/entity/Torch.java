@@ -8,7 +8,7 @@ import view.graphicEntity.TorchView;
 public class Torch extends Entity {
 
 	TorchView m_tv;
-	EntityInterface porteur;
+	public EntityInterface porteur;
 	TorchBehavior m_tb;
 
 

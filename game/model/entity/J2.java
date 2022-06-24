@@ -17,6 +17,7 @@ public class J2 extends Player {
 		m_jv = new J2View(this);
 		m_ev = m_jv;
 		m_jb = new J2Behavior(this, m_jv);
+		m_pb = m_jb;
 		m_eb = m_jb;
 		MyCanvas.getInstance().createEntityView(m_jv);
 	}
@@ -46,17 +47,17 @@ public class J2 extends Player {
 	}
 
 	@Override
-	void hide () {
+	public void hide () {
 		m_jv.hide();
 	}
 
 	@Override
-	void show () {
+	public void show () {
 		m_jv.show();
 	}
 
 	@Override
-	void setCam (Entity e) {
+	public void setCam (Entity e) {
 		Camera.getInstance().setj2(e);
 	}
 }

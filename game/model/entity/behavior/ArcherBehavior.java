@@ -4,7 +4,7 @@ import model.entity.Entity;
 import view.graphicEntity.ArcherView;
 
 
-public class ArcherBehavior extends EntityBehavior {
+public class ArcherBehavior extends MobBehavior {
 
 	ArcherView m_av;
 

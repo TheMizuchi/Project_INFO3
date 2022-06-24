@@ -4,16 +4,17 @@ import common.MyTimer;
 import common.TimerListener;
 import controller.RefAutomata;
 import model.Camera;
+import model.entity.behavior.PlayerBehavior;
 
 
 public abstract class Player extends Entity {
 
-	protected static final long POSSESSION_CD = 30;
-
-	final static double SLOW_TORCHE = 0.20;
-	final static double POSSESSION_RANGE = 10;
+	public static final long POSSESSION_CD = 30;
+	public final static double SLOW_TORCHE = 0.20;
+	public final static double POSSESSION_RANGE = 10;
 	long m_possessionCD;
 	Mob m_possessing;
+	PlayerBehavior m_pb;
 
 
 	public Player (double x, double y, EntityProperties ep) {
@@ -89,47 +90,17 @@ public abstract class Player extends Entity {
 
 	@Override
 	public void pick () {
-		Torch torch = Torch.getInstance();
-		Key key = Key.getInstance();
-
-		if (distance(key) <= 2 && key.porteur == null) {
-			key.porteur = this;
-			key.hide();
-		}
-
-		else if (this.equals(torch.porteur)) {
-			torch.porteur = null;
-		} else if (distance(torch) <= 2) {
-			torch.porteur = this;
-		}
+		m_pb.pick();
 	}
 
 	@Override
 	public void wizz () {
-
-		if (m_possessionCD == 0) {
-
-			Mob closestTarget = (Mob) closest(true);
-
-			if (closestTarget != null && distance(closestTarget) < POSSESSION_RANGE) {
-				closestTarget.devientGentil(m_entityProperties, m_vecDir.clone(), this);
-				m_automata = new RefAutomata(this, true);
-				m_possessing = closestTarget;
-				m_tangible = false;
-				hide();
-				setCam(closestTarget);
-
-				// On arrete l'animation de déplacement s'il y en a une
-				if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
-					m_ev.walk();
-				}
-			}
-		}
+		m_pb.wizz(m_possessionCD, m_automata, m_possessing, m_tangible, m_entityProperties, m_vecDir);
 	}
 
-	abstract void hide ();
+	public abstract void hide ();
 	abstract void show ();
-	abstract void setCam (Entity e);
+	public abstract void setCam (Entity e);
 
 	public Player finPossession (Mob m, int pv, Vector dir) {
 		m_pv = pv;

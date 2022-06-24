@@ -4,7 +4,7 @@ import model.entity.Entity;
 import view.graphicEntity.SkeletonView;
 
 
-public class SkeletonBehavior extends EntityBehavior {
+public class SkeletonBehavior extends MobBehavior {
 
 	SkeletonView m_sv;
 
