@@ -8,6 +8,7 @@ import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 import model.ILightSource;
 import model.entity.Entity;
+import model.entity.Player;
 import model.map.Case;
 import view.ATH.ATH;
 import view.animation.bank.AnimationBank;
@@ -66,7 +67,7 @@ public class MyCanvas extends Component {
 		m_light = new LightView(this.win_w, this.win_h, 1);
 	}
 
-	public void initATH (Entity j1, Entity j2) {
+	public void initATH (Player j1, Player j2) {
 		m_ath = ATH.getInstance(j1, j2);
 	}
 
