@@ -12,35 +12,31 @@ import model.map.TileType;
 
 public class Hitbox {
 
-	private Point m_p1;
-	private Point m_p2;
-	private Point m_p3;
-	private Point m_p4;
-	private Entity m_e;
-
-	private boolean m_hit;
+	protected Point m_p1;
+	protected Point m_p2;
+	protected Point m_p3;
+	protected Point m_p4;
+	protected Entity m_e;
 
 
-	public Hitbox (double x, double y, double lar, double haut, Entity e, boolean hit) {
+	public Hitbox (double x, double y, double lar, double haut, Entity e) {
 		m_p1 = new Point(x, y);
 		m_p2 = new Point(x + lar, y);
 		m_p3 = new Point(x + lar, y + haut);
 		m_p4 = new Point(x, y + haut);
-
 		m_e = e;
-		m_hit = hit;
 	}
 
-	public Hitbox (Point p1, Point p2, Point p3, Point p4, Entity e, boolean hit) {
+	public Hitbox (Point p1, Point p2, Point p3, Point p4, Entity e) {
 		m_p1 = p1;
 		m_p2 = p2;
 		m_p3 = p3;
 		m_p4 = p4;
 		m_e = e;
-		m_hit = hit;
 	}
 
 	public void move (double dx, double dy) {
+
 		Point new_p1_x = new Point(m_p1.getX() + dx, m_p1.getY());
 		Point new_p2_x = new Point(m_p2.getX() + dx, m_p2.getY());
 		Point new_p3_x = new Point(m_p3.getX() + dx, m_p3.getY());
@@ -69,6 +65,10 @@ public class Hitbox {
 	public boolean deplacementValide (Point new_p1, Point new_p2, Point new_p3, Point new_p4) {
 		LinkedList tuileInterdit = m_e.getTuileInterdite();
 		Iterator it = tuileInterdit.iterator();
+
+		if (new_p1.outMap() || new_p2.outMap() || new_p3.outMap() || new_p4.outMap()) {
+			return false;
+		}
 
 		while (it.hasNext()) {
 			TileType tile = (TileType) it.next();
@@ -133,14 +133,21 @@ public class Hitbox {
 	}
 
 	public double getCenterX () {
-		double dx = (m_p1.getX() + m_p2.getX()) / 2;
+		double dx = (m_p1.getX() + m_p3.getX()) / 2;
 		return dx;
+	}
+
+	public double getCenterRealX () {
+		return (m_p1.getX() + m_p3.getX()) / 2;
 	}
 
 	public double getCenterY () {
 		double dy = (m_p1.getY() + m_p3.getY()) / 2;
 		return dy;
+	}
 
+	public double getCenterRealY () {
+		return (m_p1.getY() + m_p3.getY()) / 2;
 	}
 
 	public boolean pointInHitbox (Point p) {
@@ -182,6 +189,43 @@ public class Hitbox {
 		m_p2.paint(g);
 		m_p3.paint(g);
 		m_p4.paint(g);
+	}
+
+	public void rotate (double angle) {
+		Point center = new Point(getCenterRealX(), getCenterRealY());
+
+		m_p1.sub(center);
+		m_p2.sub(center);
+		m_p3.sub(center);
+		m_p4.sub(center);
+
+		double cos = Math.cos(angle);
+		double sin = Math.sin(angle);
+
+		double x = m_p1.getX();
+		double y = m_p1.getY();
+		m_p1.setX(x * cos - y * sin);
+		m_p1.setY(x * sin + y * cos);
+
+		x = m_p2.getX();
+		y = m_p2.getY();
+		m_p2.setX(x * cos - y * sin);
+		m_p2.setY(x * sin + y * cos);
+
+		x = m_p3.getX();
+		y = m_p3.getY();
+		m_p3.setX(x * cos - y * sin);
+		m_p3.setY(x * sin + y * cos);
+
+		x = m_p4.getX();
+		y = m_p4.getY();
+		m_p4.setX(x * cos - y * sin);
+		m_p4.setY(x * sin + y * cos);
+
+		m_p1.add(center);
+		m_p2.add(center);
+		m_p3.add(center);
+		m_p4.add(center);
 	}
 
 }

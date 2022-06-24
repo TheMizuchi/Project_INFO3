@@ -14,7 +14,7 @@ public class DogeView extends EntityView {
 		this.a = (DogeAnimation) super.a;
 	}
 
-	public void angry () {
+	public void getAngry () {
 		this.a.setListener(this.al);
 		this.a.angry();
 	}

@@ -25,7 +25,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.RandomAccessFile;
 
-import javax.management.RuntimeErrorException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -163,12 +162,13 @@ public class Game {
 
 	private long m_textElapsed;
 
-
 	/*
 	 * This method is invoked almost periodically, given the number of milli-seconds
 	 * that elapsed since the last time this method was invoked.
 	 */
 	long elapsedDeath = 0;
+
+
 	void tick (long elapsed) {
 
 		//m_cowboy.tick(elapsed);
@@ -194,11 +194,12 @@ public class Game {
 			m_m.update(m_elapsedUpdate);
 			m_elapsedUpdate -= 20;
 		}
-		
-		if (J1.isDeath() || J2.isDeath()) {
+
+		if (J1.getInstance().isDeath() || J2.getInstance().isDeath()) {
 			GameOver.getInstance();
 			this.elapsedDeath += elapsed;
-			if(this.elapsedDeath > 3000 ) System.exit(0);
+			if (this.elapsedDeath > 3000)
+				System.exit(0);
 		}
 
 	}
