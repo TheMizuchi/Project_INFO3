@@ -12,7 +12,7 @@ import view.graphicEntity.EntityView;
 public abstract class Entity implements EntityInterface {
 
 	public int m_ID;
-	protected static int m_pv;
+	protected int m_pv;
 	public Hitbox m_hitbox;
 	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
@@ -29,6 +29,8 @@ public abstract class Entity implements EntityInterface {
 	protected boolean m_tangible;
 	protected EntityBehavior m_eb;
 
+	protected int m_nbDamages;
+
 	// Liste d'items
 
 
@@ -36,7 +38,8 @@ public abstract class Entity implements EntityInterface {
 		m_entityProperties = ep;
 		m_ID = ep.getID();
 		m_pv = ep.getInitialPv();
-		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this, false);
+		m_nbDamages = ep.getDamages();
+		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this);
 		m_automata = new RefAutomata(this);
 		m_blockInterdit = new LinkedList();
 		m_blockInterdit.insertAt(0, TileType.WALL);
@@ -148,15 +151,6 @@ public abstract class Entity implements EntityInterface {
 		}
 	}
 
-	public static boolean isDeath () {
-
-		if (m_pv <= 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	public Vector getDirVector () {
 		return m_vecDir;
 	}
@@ -175,6 +169,17 @@ public abstract class Entity implements EntityInterface {
 		double speedX = m_vecDir.getX() * ENTITY_MAX_SPEED;
 		double speedY = m_vecDir.getY() * ENTITY_MAX_SPEED;
 		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
+	}
+
+	void attack (Entity cible) {
+
+		if (!isDeath()) {
+			cible.takeDamages(m_nbDamages);
+		}
+	}
+
+	public boolean isDeath () {
+		return m_pv <= 0;
 	}
 
 	public double distance (Entity e) {
@@ -243,10 +248,6 @@ public abstract class Entity implements EntityInterface {
 			return bool;
 		}
 		return false;
-	}
-
-	void attack (Entity cible) {
-		m_eb.attack(cible);
 	}
 
 	void interact () {
@@ -378,5 +379,21 @@ public abstract class Entity implements EntityInterface {
 
 	public double getMobSpeed () {
 		return MOB_MAX_SPEED;
+	}
+
+	void takeDamages (int damages) {
+		m_pv -= damages;
+
+		if (m_pv < 0) {
+			m_pv = 0;
+		}
+
+		if (isDeath()) {
+			deleteEntity();
+		}
+	}
+
+	int getDamages () {
+		return m_nbDamages;
 	}
 }

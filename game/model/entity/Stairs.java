@@ -45,8 +45,12 @@ public class Stairs extends Entity {
 			if (e.getType() == EntityType.ENEMY)
 				return false;
 		}
-
 		return true;
+	}
+
+	@Override
+	void takeDamages (int damages) {
+		return;
 	}
 
 }

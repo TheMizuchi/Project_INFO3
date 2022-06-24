@@ -86,4 +86,9 @@ public class Door extends Entity {
 		return true;
 	}
 
+	@Override
+	void takeDamages (int damages) {
+		return;
+	}
+
 }

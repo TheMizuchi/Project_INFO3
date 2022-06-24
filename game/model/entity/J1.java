@@ -61,4 +61,10 @@ public class J1 extends Player {
 		Camera.getInstance().setj1(e);
 	}
 
+	@Override
+	public void hit (Vector v) {
+		super.hit(v);
+		m_jv.attack();
+	}
+
 }

@@ -50,4 +50,9 @@ public class Torch extends Entity {
 		// si automate, faire un step
 		m_hitbox.move(e);
 	}
+
+	@Override
+	void takeDamages (int damages) {
+		return;
+	}
 }
