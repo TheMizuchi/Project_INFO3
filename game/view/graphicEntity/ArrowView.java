@@ -44,4 +44,8 @@ public class ArrowView extends EntityView {
 		a.setListener(this.al);
 		a.basdroite();
 	}
+
+	@Override
+	public void attack () {		
+	}
 }
