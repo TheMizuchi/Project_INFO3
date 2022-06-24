@@ -32,16 +32,13 @@ public class Door extends Entity {
 	//Ouvrir porte
 	@Override
 	public void pop () {
-		nb_frame_open = 0;
-		m_dv.opening();
-		m_tangible = false;
+		m_db.pop(nb_frame_open, m_tangible);
 	}
 
 	//Fermer porte
 	@Override
 	public void wizz () {
-		m_tangible = true;
-		m_dv.closing();
+		m_db.wizz(m_tangible);
 	}
 
 	@Override

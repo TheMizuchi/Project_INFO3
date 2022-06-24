@@ -13,4 +13,17 @@ public class DoorBehavior extends EntityBehavior {
 		super(e, ev);
 		m_dv = ev;
 	}
+
+	//Ouvrir porte
+	public void pop (int nb_frame_open, boolean tangible) {
+		nb_frame_open = 0;
+		m_dv.opening();
+		tangible = false;
+	}
+
+	//Fermer porte
+	public void wizz (boolean tangible) {
+		tangible = true;
+		m_dv.closing();
+	}
 }
