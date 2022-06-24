@@ -4,7 +4,9 @@ import common.MyTimer;
 import common.TimerListener;
 import controller.RefAutomata;
 import model.Camera;
+import model.Model;
 import model.entity.behavior.PlayerBehavior;
+import model.map.TileType;
 
 
 public abstract class Player extends Entity {
@@ -29,6 +31,15 @@ public abstract class Player extends Entity {
 
 	@Override
 	public void update (long elapsed) {
+		double centerX = this.m_hitbox.getCenterRealX();
+		double centerY = this.m_hitbox.getCenterRealY();
+		
+		if(Model.getMap().getCases()[(int)centerX][(int)centerY].getType() == TileType.ICE) {
+			this.onIce();
+		}
+		else {
+			this.onGround();
+		}
 		(m_pb).update(elapsed);
 	}
 

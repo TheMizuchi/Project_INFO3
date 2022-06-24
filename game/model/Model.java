@@ -113,6 +113,9 @@ public class Model {
 			}
 
 		}
+		else {
+			m_level++;
+		}
 
 	}
 
@@ -249,6 +252,10 @@ public class Model {
 
 	public static Map getMap () {
 		return m_map;
+	}
+	
+	public int getLevel() {
+		return m_level;
 	}
 
 	public Entity getJ (int i) {
