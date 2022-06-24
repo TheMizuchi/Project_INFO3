@@ -43,13 +43,7 @@ public class Door extends Entity {
 
 	@Override
 	public void store () {
-
-		if (nb_frame_open >= 7) {
-
-			m_dv.opened();
-		} else {
-			nb_frame_open++;
-		}
+		m_db.store(nb_frame_open);
 	}
 
 	public void setRoom (Room r) {

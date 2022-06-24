@@ -26,4 +26,14 @@ public class DoorBehavior extends EntityBehavior {
 		tangible = true;
 		m_dv.closing();
 	}
+
+	public void store (int nb_frame_open) {
+
+		if (nb_frame_open >= 7) {
+
+			m_dv.opened();
+		} else {
+			nb_frame_open++;
+		}
+	}
 }
