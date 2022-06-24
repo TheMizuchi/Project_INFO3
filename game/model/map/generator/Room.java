@@ -2,10 +2,13 @@ package model.map.generator;
 
 import java.util.Random;
 
+import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.LinkedList;
 import model.Model;
+import model.entity.Door;
 import model.entity.Entity;
 import model.entity.EntityProperties;
+import model.entity.Hitbox;
 import model.entity.J1;
 import model.entity.J2;
 import model.entity.Point;
@@ -21,6 +24,9 @@ public class Room {
 	private Case comp[][];
 	private RoomType type;
 	private LinkedList listeEntity; //Portes non incluses
+	private LinkedList listeDoors;
+	private boolean visited;
+	private Door firstDoor;
 
 
 	public Room (int w, int h, Case[][] composition, int typeID) {
@@ -31,6 +37,10 @@ public class Room {
 		height = h;
 
 		listeEntity = new LinkedList();
+
+		listeDoors = new LinkedList();
+		visited = false;
+		firstDoor = null;
 
 		comp = new Case[w][h];
 
@@ -174,8 +184,37 @@ public class Room {
 		return (x >= upperLeftX && x <= upperLeftX + width - 1 && y >= upperLeftY && y <= upperLeftY + height - 1);
 	}
 
+	public boolean containsHitbox (Hitbox h) {
+		Hitbox eR = new Hitbox(upperLeftX + 1, upperLeftY + 1, width - 2, height - 2, null);
+		return h.collides(eR);
+	}
+
 	public LinkedList getListeEntity () {
 		return listeEntity;
+	}
+
+	public boolean getVisited () {
+		return visited;
+	}
+
+	public void setVisited (boolean v) {
+		this.visited = v;
+	}
+
+	public Door getFirstDoor () {
+		return this.firstDoor;
+	}
+
+	public void setFirstDoor (Door door) {
+		this.firstDoor = door;
+	}
+
+	public void add (Door e) {
+		listeDoors.insertAt(listeDoors.length(), e);
+	}
+
+	public ICollection getDoors () {
+		return listeDoors;
 	}
 
 }

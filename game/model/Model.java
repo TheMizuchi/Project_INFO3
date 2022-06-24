@@ -75,6 +75,7 @@ public class Model {
 		Room spawnRoom = m_map.getSpawn();
 		Room keyRoom = m_map.getKey();
 		spawnRoom.spawnEntities(m_map, 0);
+		spawnRoom.setVisited(true);
 		keyRoom.spawnEntities(m_map, 0);
 		m_map.doors();
 	}
