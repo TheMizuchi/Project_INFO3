@@ -82,7 +82,7 @@ public class JsonDecode {
 				comp[i][j] = tile;
 			}
 		}
-		return new Room(model, width, height, comp, type);
+		return new Room(width, height, comp, type);
 	}
 
 	public int getNbRooms () {

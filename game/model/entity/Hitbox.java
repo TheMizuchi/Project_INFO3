@@ -228,4 +228,8 @@ public class Hitbox {
 		m_p4.add(center);
 	}
 
+	public boolean collides (Hitbox h) {
+		return this.getP1().getX() < h.getP3().getX() && this.getP3().getX() > h.getP1().getX() && this.getP1().getY() < h.getP3().getY() && this.getP3().getY() > h.getP1().getY();
+	}
+
 }

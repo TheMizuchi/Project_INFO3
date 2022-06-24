@@ -139,6 +139,7 @@ public abstract class Player extends Entity {
 				torch.update(this);
 			if (this.equals(key.porteur))
 				key.update(this);
+
 		}
 
 	}
