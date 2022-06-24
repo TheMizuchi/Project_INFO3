@@ -2,14 +2,14 @@ package model.entity;
 
 public enum EntityProperties {
 
-	COWBOY(0, 1, 1, EntityType.ALLY, false, 0, 0.5, 0.5), J1(1, 20, 1, EntityType.ALLY, false, 0, 0.5, 0.5),
-	J2(2, 20, 1, EntityType.ALLY, false, 0, 0.5, 0.5), TORCH(3, 1, 0, EntityType.ITEM, false, 0, 0.5, 0.5),
-	SKELETON(4, 1, 1, EntityType.ENEMY, true, 7, 0.5, 0.5), BAT(5, 1, 1, EntityType.NEUTRAL, true, 1, 0.5, 0.5),
-	ARCHER(6, 1, 1, EntityType.ENEMY, true, 1, 0.5, 0.5), BLOON(7, 1, 1, EntityType.ENEMY, true, 0, 0.5, 0.5),
-	DOGE(8, 1, 1, EntityType.ENEMY, false, 0, 0.5, 0.5), MYSTERY(9, 1, 1, EntityType.ENEMY, false, 0, 0.5, 0.5),
+	COWBOY(0, 1, 1, EntityType.ALLY, false, 0, 0.5, 0.5), J1(1, 20, 1, EntityType.ALLY, false, 0, 0.5, 0.7),
+	J2(2, 20, 1, EntityType.ALLY, false, 0, 0.5, 0.7), TORCH(3, 1, 0, EntityType.ITEM, false, 0, 0.3, 0.3),
+	SKELETON(4, 1, 1, EntityType.ENEMY, true, 7, 0.5, 0.7), BAT(5, 1, 1, EntityType.NEUTRAL, true, 1, 0.5, 0.5),
+	ARCHER(6, 1, 1, EntityType.ENEMY, true, 1, 0.5, 0.9), BLOON(7, 1, 1, EntityType.ENEMY, true, 0, 0.5, 0.6),
+	DOGE(8, 1, 1, EntityType.ENEMY, false, 0, 1.1, 1.3), MYSTERY(9, 1, 1, EntityType.ENEMY, false, 0, 3.3, 2.2),
 	BLOON_BOSS(10, 1, 1, EntityType.ENEMY, false, 0, 0.5, 0.5), KEY(11, 1, 0, EntityType.ITEM, false, 0, 0.5, 0.5),
-	DOOR(12, 1, 0, EntityType.ITEM, false, 0, 1, 1), STAIRS(12, 1, 0, EntityType.ITEM, false, 0, 1, 1),
-	BATSPAWNER(13, 1, 0, EntityType.NEUTRAL, false, 0, 0.5, 0.5);
+	DOOR(12, 1, 0, EntityType.ITEM, false, 0, 1, 1), STAIRS(13, 1, 0, EntityType.ITEM, false, 0, 1, 1),
+	BATSPAWNER(14, 1, 0, EntityType.NEUTRAL, false, 0, 0.4, 0.3);
 
 
 	public static int ENTITY_NUMBER = EntityProperties.values().length;

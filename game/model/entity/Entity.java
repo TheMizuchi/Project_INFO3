@@ -85,6 +85,7 @@ public abstract class Entity implements EntityInterface {
 			case BLOON_BOSS:
 				e = new Bloon(x, y);
 				((Bloon) e).setLevel(5);
+				break;
 			case DOOR:
 				e = new Door(x, y);
 				break;
