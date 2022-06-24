@@ -4,6 +4,7 @@ import common.MyTimer;
 import common.TimerListener;
 import controller.RefAutomata;
 import model.Camera;
+import model.entity.behavior.MobBehavior;
 
 
 public abstract class Mob extends Entity {
@@ -14,6 +15,7 @@ public abstract class Mob extends Entity {
 	EntityProperties m_OriginalEP;
 	Player m_p;
 	long m_PossessionTime;
+	MobBehavior m_mb;
 
 
 	public Mob (double x, double y, EntityProperties ep) {
@@ -69,7 +71,7 @@ public abstract class Mob extends Entity {
 
 	@Override
 	public void wizz () {
-		redevientMechant();
+		m_mb.wizz();
 	}
 	
 	@Override

@@ -9,11 +9,11 @@ import view.graphicEntity.TorchView;
 
 public class Torch extends Entity {
 
-	private static final double HOLDED_RADIUS = 7.5;
-	private static final double GROUND_RADIUS = 6;
+	static final double HOLDED_RADIUS = 12;
+	static final double GROUND_RADIUS = 6;
 
 	TorchView m_tv;
-	EntityInterface porteur;
+	public EntityInterface porteur;
 	TorchBehavior m_tb;
 	LightSource m_ls;
 
@@ -53,7 +53,7 @@ public class Torch extends Entity {
 		porteur = e;
 	}
 
-	public void update () {
+	public void update (Player p) {
 		// si automate, faire un step
 
 		if (this.porteur != null) {

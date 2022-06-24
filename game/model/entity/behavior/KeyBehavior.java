@@ -13,4 +13,14 @@ public class KeyBehavior extends EntityBehavior {
 		super(e, ev);
 		m_kv = ev;
 	}
+
+	@Override
+	public void pop () {
+		// TODO Key
+	}
+
+	@Override
+	public void wizz () {
+		// TODO Key
+	}
 }

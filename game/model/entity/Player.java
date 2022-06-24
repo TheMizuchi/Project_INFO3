@@ -4,24 +4,35 @@ import common.MyTimer;
 import common.TimerListener;
 import controller.RefAutomata;
 import model.Camera;
+import model.entity.behavior.PlayerBehavior;
 
 
 public abstract class Player extends Entity {
 
-	protected static final long POSSESSION_CD = 30;
-
-	final static double SLOW_TORCHE = 0.20;
-	final static double POSSESSION_RANGE = 10;
+	public static final long POSSESSION_CD = 30;
+	public final static double SLOW_TORCHE = 0.20;
+	public final static double POSSESSION_RANGE = 10;
 	long m_possessionCD;
 	Mob m_possessing;
+	PlayerBehavior m_pb;
+
+	double m_speedX, m_speedY;
 
 
 	public Player (double x, double y, EntityProperties ep) {
 		super(x, y, ep);
 	}
 
+	abstract public void onGround ();
+
+	abstract public void onIce ();
+
 	@Override
 	public void update (long elapsed) {
+		(m_pb).update(elapsed);
+	}
+
+	public void updateOnNormalGround (long elapsed) {
 
 		if (m_possessing == null) {
 			Torch torch = Torch.getInstance();
@@ -32,16 +43,12 @@ public abstract class Player extends Entity {
 			if (cdAction != 0)
 				cdAction--;
 			else {
-
-				double speedX;
-				double speedY;
+				double speedX = super.m_vecDir.getX() * EntityMaxSpeed;
+				double speedY = super.m_vecDir.getY() * EntityMaxSpeed;
 
 				if (this.equals(torch.porteur)) {
-					speedX = super.m_vecDir.getX() * EntityMaxSpeed * (1 - SLOW_TORCHE);
-					speedY = super.m_vecDir.getY() * EntityMaxSpeed * (1 - SLOW_TORCHE);
-				} else {
-					speedX = super.m_vecDir.getX() * EntityMaxSpeed;
-					speedY = super.m_vecDir.getY() * EntityMaxSpeed;
+					speedX *= (1 - SLOW_TORCHE);
+					speedY *= (1 - SLOW_TORCHE);
 				}
 
 				if (Camera.getBlock()) {
@@ -69,14 +76,82 @@ public abstract class Player extends Entity {
 						return;
 
 				}
-
-				m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
-
-				torch.update();
+				m_speedX = speedX * elapsed / 1000;
+				m_speedY = speedY * elapsed / 1000;
+				m_hitbox.move(m_speedX, m_speedY);
+				if (this.equals(torch.porteur))
+					torch.update(this);
 				if (this.equals(key.porteur))
 					key.update(this);
 			}
 		}
+
+	}
+
+	public void updateOnIce (long elapsed) {
+
+		if (m_possessing == null) {
+			Torch torch = Torch.getInstance();
+			Key key = Key.getInstance();
+			// déplacement
+			m_automata.step();
+
+			double speedX;
+			double speedY;
+
+			speedX = m_speedX + 0.5 * ENTITY_MAX_ACCELERATION * elapsed / 1000 * elapsed / 1000 * m_vecDir.getX();
+			speedY = m_speedY + 0.5 * ENTITY_MAX_ACCELERATION * elapsed / 1000 * elapsed / 1000 * m_vecDir.getY();
+
+			if (this.equals(torch.porteur)) {
+				speedX *= (1 - SLOW_TORCHE);
+				speedY *= (1 - SLOW_TORCHE);
+			}
+
+			if (Camera.getBlock()) {
+				Entity autreJ = autreJ();
+				Entity moi = getEntity();
+				double m_angle = m_vecDir.getAngle();
+
+				double distY = Math.abs(autreJ.m_hitbox.getP1().getY() - (moi.m_hitbox.getP1().getY() + (speedY * elapsed / 1000))); // distance future entre les 2 joueurs
+				double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX() + (speedX * elapsed / 1000)));
+
+				// haut
+				if (m_angle < Math.PI && m_angle > 0 && distY > Camera.DISTANCE_MAX_Y) // si la distance sur cet axe est supérieur au max
+					return;
+
+				// bas
+				if (m_angle > Math.PI && distY > Camera.DISTANCE_MAX_Y)
+					return;
+
+				// gauche
+				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && distX > Camera.DISTANCE_MAX_X)
+					return;
+
+				// droite
+				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && distX > Camera.DISTANCE_MAX_X)
+					return;
+
+			}
+			if (Math.abs(speedX) < 0.5)
+				m_speedX = speedX;
+			if (Math.abs(speedY) < 0.5)
+				m_speedY = speedY;
+
+			m_hitbox.move(m_speedX, m_speedY);
+			if (this.equals(torch.porteur))
+				torch.update(this);
+			if (this.equals(key.porteur))
+				key.update(this);
+		}
+
+	}
+
+	public void setAutomata (RefAutomata a) {
+		m_automata = a;
+	}
+
+	public void setPossessedMob (Mob m) {
+		m_possessing = m;
 	}
 
 	private Entity autreJ () {
@@ -92,8 +167,7 @@ public abstract class Player extends Entity {
 		return this;
 	}
 
-	@Override
-	public void pick () {
+	public void pickTorch () {
 		Torch torch = Torch.getInstance();
 		Key key = Key.getInstance();
 
@@ -101,9 +175,11 @@ public abstract class Player extends Entity {
 			key.porteur = this;
 			key.hide();
 		} else if (this.equals(torch.porteur)) {
+			torch.m_ls.setRadius(Torch.GROUND_RADIUS);
 			torch.porteur = null;
 			torch.show();
 		} else if (distance(torch) <= 2) {
+			torch.m_ls.setRadius(Torch.HOLDED_RADIUS);
 			torch.porteur = this;
 			torch.hide();
 		}
@@ -116,6 +192,10 @@ public abstract class Player extends Entity {
 
 	@Override
 	public void wizz () {
+		possession();
+	}
+
+	public void possession () {
 
 		if (m_possessionCD == 0) {
 

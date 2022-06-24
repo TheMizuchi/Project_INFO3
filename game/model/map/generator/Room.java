@@ -2,7 +2,6 @@ package model.map.generator;
 
 import java.util.Random;
 
-import edu.polytech.oop.collections.LinkedList;
 import model.Model;
 import model.entity.Entity;
 import model.entity.EntityProperties;
@@ -22,7 +21,6 @@ public class Room {
 
 	private Case comp[][];
 	private RoomType type;
-	private LinkedList listeEntity; //Portes non incluses
 
 
 	public Room (Model m, int w, int h, Case[][] composition, int typeID) {
@@ -32,8 +30,6 @@ public class Room {
 		upperLeftY = -1;
 		width = w;
 		height = h;
-
-		listeEntity = new LinkedList();
 
 		comp = new Case[w][h];
 
@@ -76,7 +72,6 @@ public class Room {
 					int x = i + upperLeftX;
 					int y = j + upperLeftY;
 					Entity e = model.createEntity(x, y, entityProperties);
-					listeEntity.insertAt(listeEntity.length(), e);
 					//à enlever plus tard
 					if (e.getID() == EntityProperties.TORCH.getID())
 						model.createLightSource(e);
@@ -113,7 +108,6 @@ public class Room {
 
 				if (e.distance(j1) > minDistance && e.distance(j2) > minDistance) {
 					model.createEntity(x, y, ep);
-					listeEntity.insertAt(listeEntity.length(), e);
 					iterationsSinceLastSuccess = 0;
 					placed++;
 				}
@@ -174,9 +168,4 @@ public class Room {
 	public boolean containsPoint (int x, int y) {
 		return (x >= upperLeftX && x <= upperLeftX + width - 1 && y >= upperLeftY && y <= upperLeftY + height - 1);
 	}
-
-	public LinkedList getListeEntity () {
-		return listeEntity;
-	}
-
 }

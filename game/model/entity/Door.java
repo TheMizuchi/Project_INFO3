@@ -2,6 +2,7 @@ package model.entity;
 
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
+import model.Model;
 import model.entity.behavior.DoorBehavior;
 import model.map.generator.Room;
 import view.MyCanvas;
@@ -13,7 +14,7 @@ public class Door extends Entity {
 	Room m_room;
 	Key m_key;
 	DoorView m_dv;
-	int nb_frame_open;
+	public int nb_frame_open;
 	DoorBehavior m_db;
 
 
@@ -29,32 +30,6 @@ public class Door extends Entity {
 		MyCanvas.getInstance().createEntityView(m_dv);
 	}
 
-	//Ouvrir porte
-	@Override
-	public void pop () {
-		nb_frame_open = 0;
-		m_dv.opening();
-		m_tangible = false;
-	}
-
-	//Fermer porte
-	@Override
-	public void wizz () {
-		m_tangible = true;
-		m_dv.closing();
-	}
-
-	@Override
-	public void store () {
-
-		if (nb_frame_open >= 7) {
-
-			m_dv.opened();
-		} else {
-			nb_frame_open++;
-		}
-	}
-
 	public void setRoom (Room r) {
 		m_room = r;
 	}
@@ -63,8 +38,7 @@ public class Door extends Entity {
 		m_key = k;
 	}
 
-	@Override
-	public boolean gotStuff () {
+	public boolean shouldIOpenDoor () {
 
 		int proximity = 2;
 
@@ -81,7 +55,7 @@ public class Door extends Entity {
 			}
 		}
 
-		LinkedList entities = m_room.getListeEntity();
+		LinkedList entities = (LinkedList) Model.getlistEntity();
 		IList.Iterator iter = entities.iterator();
 
 		while (iter.hasNext()) {

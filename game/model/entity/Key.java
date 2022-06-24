@@ -9,7 +9,7 @@ public class Key extends Entity {
 
 	static Key m_instance;
 	KeyView m_kv;
-	EntityInterface porteur;
+	public EntityInterface porteur;
 	KeyBehavior m_kb;
 
 
@@ -45,7 +45,7 @@ public class Key extends Entity {
 		m_hitbox.move(e);
 	}
 
-	void hide () {
+	public void hide () {
 		m_kv.hide();
 	}
 }
