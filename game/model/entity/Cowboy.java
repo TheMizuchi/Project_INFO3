@@ -20,11 +20,6 @@ public class Cowboy extends Player {
 		MyCanvas.getInstance().createEntityView(m_cv);
 	}
 
-	//Constructeur pour créer entité sans view
-	public Cowboy (double x, double y, Object o) {
-		super(x, y, EntityProperties.COWBOY);
-	}
-
 	@Override
 	void hide () {}
 

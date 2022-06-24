@@ -21,11 +21,6 @@ public class Doge extends Mob {
 		MyCanvas.getInstance().createEntityView(m_dv);
 	}
 
-	//Constructeur pour créer entité sans view
-	public Doge (double x, double y, Object o) {
-		super(x, y, EntityProperties.DOGE);
-	}
-
 	public void getAngry () {
 		m_dv.getAngry();
 		m_db = new AngryDogeBehavior(this, m_dv);

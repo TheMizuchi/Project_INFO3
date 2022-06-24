@@ -15,8 +15,6 @@ import model.map.Map;
 
 public class Room {
 
-	Model model;
-
 	private int upperLeftX, upperLeftY;
 	private int width, height;
 
@@ -25,8 +23,7 @@ public class Room {
 	private LinkedList listeEntity; //Portes non incluses
 
 
-	public Room (Model m, int w, int h, Case[][] composition, int typeID) {
-		model = m;
+	public Room (int w, int h, Case[][] composition, int typeID) {
 
 		upperLeftX = -1; //On remplie à -1 parce que l'emplacement dès salle sera fait plus tard
 		upperLeftY = -1;
@@ -65,6 +62,8 @@ public class Room {
 
 	public void spawnEntities (Map m, int nbMobsRandomlyPlaced) {
 
+		Model model = Model.getInstance();
+
 		//Spawn des entités placées dans le JSON
 		for (int i = 0; i < width; i++) {
 
@@ -102,7 +101,7 @@ public class Room {
 			EntityProperties ep = getWeightedRandom(weightSum);
 			double x = random.nextDouble() * (width - 2) + upperLeftX + 1;
 			double y = random.nextDouble() * (height - 2) + upperLeftY + 1;
-			Entity e = Entity.createEntityWithoutView(x, y, ep);
+			Entity e = model.createEntity(x, y, ep);
 
 			Point p1 = e.getHibox().getP1();
 			Point p2 = e.getHibox().getP2();
@@ -112,12 +111,12 @@ public class Room {
 			if (e.getHibox().deplacementValide(p1, p2, p3, p4)) {
 
 				if (e.distance(j1) > minDistance && e.distance(j2) > minDistance) {
-					model.createEntity(x, y, ep);
 					listeEntity.insertAt(listeEntity.length(), e);
 					iterationsSinceLastSuccess = 0;
 					placed++;
 				}
 			} else {
+				model.deleteEntity(e);
 				iterationsSinceLastSuccess++;
 			}
 

@@ -101,44 +101,6 @@ public abstract class Entity implements EntityInterface {
 		return e;
 	}
 
-	public static Entity createEntityWithoutView (double x, double y, EntityProperties entityProperties) {
-		Entity e = null;
-
-		switch (entityProperties) {
-			case COWBOY:
-				e = new Cowboy(x, y, null);
-				break;
-			case J1:
-				e = new J1(x, y, null);
-				break;
-			case J2:
-				e = new J2(x, y, null);
-				break;
-			case BLOON:
-				e = new Bloon(x, y, null);
-				break;
-			case SKELETON:
-				e = new Skeleton(x, y, null);
-				break;
-			case BAT:
-				e = new Bat(x, y, null);
-				break;
-			case ARCHER:
-				e = new Archer(x, y, null);
-				break;
-			case DOGE:
-				e = new Doge(x, y, null);
-				break;
-			case MYSTERY:
-				e = new MysteryMachine(x, y, null);
-				break;
-			default:
-				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
-
-		}
-		return e;
-	}
-
 	public int getOrientation () {
 
 		// T si gauche / north
