@@ -21,6 +21,7 @@ public abstract class Entity implements EntityInterface {
 	static final double rangeDetection = 10;
 	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
 	protected static double MOB_MAX_SPEED = 1;
+	protected static double ENTITY_MAX_ACCELERATION = 3;
 	protected Vector m_vecDir = new Vector();
 
 	private static int m_count = 0;
@@ -266,75 +267,25 @@ public abstract class Entity implements EntityInterface {
 
 	@Override
 	public boolean myDir (double orientation, boolean absolute) {
-		double angle = (absolute) ? (orientation) : (m_vecDir.getAngle() + orientation);
-		return (angle - MYDIR_SENSI <= m_vecDir.getAngle()) && (m_vecDir.getAngle() <= angle + MYDIR_SENSI);
+		return m_eb.myDir(orientation, absolute);
 	}
 
 	@Override
 	public boolean cell (Vector vect, EntityType type) {
-		float x = 0, y = 0;
-		double ang = vect.getAngle();
+		return m_eb.cell(vect, type);
+	}
 
-		if (ang >= 7 * Math.PI / 4) {
-			x = 1;
-			y = 0;
-		}
-
-		if (ang < 7 * Math.PI / 4) {
-			x = 0;
-			y = 1;
-		}
-
-		if (ang < 5 * Math.PI / 4) {
-			x = -1;
-			y = 0;
-		}
-
-		if (ang < 3 * Math.PI / 4) {
-			x = 0;
-			y = -1;
-		}
-
-		if (ang < Math.PI / 4) {
-			x = 1;
-			y = 0;
-		}
-
-		Point p1 = new Point(m_hitbox.getP1().getX() + x, m_hitbox.getP1().getY() + y);
-		Point p2 = new Point(m_hitbox.getP2().getX() + x, m_hitbox.getP2().getY() + y);
-		Point p3 = new Point(m_hitbox.getP3().getX() + x, m_hitbox.getP3().getY() + y);
-		Point p4 = new Point(m_hitbox.getP4().getX() + x, m_hitbox.getP4().getY() + y);
-
-		if (m_hitbox.deplacementValide(p1, p2, p3, p4))
-			return true;
-
-		return false;
+	public double getRangeDetection () {
+		return rangeDetection;
 	}
 
 	@Override
 	public boolean closest (Direction orientation, EntityType type) {
-		ICollection.Iterator iter = Model.getlistEntity().iterator();
-		Entity e, e_min = null;
-		double distMin = Float.MAX_VALUE;
+		return m_eb.closest(orientation, type);
+	}
 
-		while (iter.hasNext()) {
-			e = (Entity) iter.next();
-
-			if (e.getType() == type) {
-				double dist = this.distance(e);
-
-				if (distMin > dist && distMin < rangeDetection) {
-					e_min = e;
-					distMin = dist;
-				}
-			}
-		}
-		if (e_min == null)
-			return false;
-		// Si y a une erreur dans closest, elle est dans cette détection d'angle
-		if (this.angleVers(e_min) < this.getDirVector().getAngle() + 0.2 && this.angleVers(e_min) > this.getDirVector().getAngle() - 0.2)
-			return true;
-		return false;
+	public double getAngle () {
+		return m_vecDir.getAngle();
 	}
 
 	public Entity closest (EntityType type) {
@@ -381,13 +332,12 @@ public abstract class Entity implements EntityInterface {
 
 	@Override
 	public boolean gotPower () {
-		return m_pv > 0;
+		return m_eb.gotPower();
 	}
 
 	@Override
 	public boolean gotStuff () {
-		// TODO Auto-generated method stub
-		return false;
+		return m_eb.gotStuff();
 	}
 
 	@Override

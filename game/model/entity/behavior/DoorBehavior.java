@@ -16,6 +16,7 @@ public class DoorBehavior extends EntityBehavior {
 	}
 
 	//Ouvrir porte
+	@Override
 	public void pop () {
 		Door d = (Door) this.e;
 		d.nb_frame_open = 0;
@@ -24,12 +25,19 @@ public class DoorBehavior extends EntityBehavior {
 	}
 
 	//Fermer porte
+	@Override
 	public void wizz () {
 		Door d = (Door) this.e;
 		d.setTangible(true);
 		m_dv.closing();
 	}
 
+	@Override
+	public boolean gotStuff () {
+		return ((Door) e).shouldIOpenDoor();
+	}
+
+	@Override
 	public void store () {
 		Door d = (Door) this.e;
 

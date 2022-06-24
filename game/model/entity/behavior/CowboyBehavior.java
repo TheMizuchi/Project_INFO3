@@ -18,4 +18,9 @@ public class CowboyBehavior extends PlayerBehavior {
 	public void pop () {
 		m_cv.spin();
 	}
+
+	@Override
+	public void update (long elapsed) {
+		e.update(elapsed);
+	}
 }

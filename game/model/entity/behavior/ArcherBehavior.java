@@ -13,4 +13,9 @@ public class ArcherBehavior extends MobBehavior {
 		super(e, ev);
 		m_av = ev;
 	}
+
+	@Override
+	public void pop () {
+		// TODO Archer Pop
+	}
 }

@@ -36,8 +36,7 @@ public class BloonBehavior extends MobBehavior {
 
 	@Override
 	public void pop () {
-		m_bv.explode();
-		//Die now
+		// TODO Bloon Pop
 	}
 
 }

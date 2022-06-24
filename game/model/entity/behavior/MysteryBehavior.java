@@ -12,7 +12,11 @@ public class MysteryBehavior extends MobBehavior {
 	public MysteryBehavior (Entity e, MysteryView ev) {
 		super(e, ev);
 		m_mv = ev;
+	}
 
+	@Override
+	public void pop () {
+		// TODO Mystery Pop
 	}
 
 }

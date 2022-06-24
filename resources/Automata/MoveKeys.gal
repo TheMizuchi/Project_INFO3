@@ -7,4 +7,5 @@ MoveKeys (Init) {
 		| Key(t) ? Pick : (Init)
 		| Key(a) ? Hit : (Init)
 		| Key(SPACE) ? Wizz : (Init)
+		| Key(x) ? Pop : (Init)
 }

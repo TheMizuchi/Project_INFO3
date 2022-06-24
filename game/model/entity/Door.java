@@ -30,24 +30,6 @@ public class Door extends Entity {
 		MyCanvas.getInstance().createEntityView(m_dv);
 	}
 
-	//Ouvrir porte
-	@Override
-	public void pop () {
-		m_db.pop();
-	}
-
-	//Fermer porte
-	@Override
-	public void wizz () {
-		m_db.wizz();
-	}
-
-	@Override
-	public void store () {
-		m_db.store();
-
-	}
-
 	public void setRoom (Room r) {
 		m_room = r;
 	}
@@ -56,12 +38,9 @@ public class Door extends Entity {
 		m_key = k;
 	}
 
-	@Override
-	public boolean gotStuff () {
+	public boolean shouldIOpenDoor () {
 
 		int proximity = 2;
-
-		System.out.println("HEY");
 
 		if (m_key == null) {
 

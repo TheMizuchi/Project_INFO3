@@ -13,4 +13,9 @@ public class SkeletonBehavior extends MobBehavior {
 		super(e, ev);
 		m_sv = ev;
 	}
+
+	@Override
+	public void pop () {
+		// TODO Skeleton Pop		
+	}
 }

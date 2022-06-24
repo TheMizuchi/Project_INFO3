@@ -13,4 +13,9 @@ public class BatBehavior extends MobBehavior {
 		super(e, ev);
 		m_bv = ev;
 	}
+
+	@Override
+	public void pop () {
+		// TODO Bat Pop
+	}
 }

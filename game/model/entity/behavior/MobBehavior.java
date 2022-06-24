@@ -5,7 +5,7 @@ import model.entity.Mob;
 import view.graphicEntity.EntityView;
 
 
-public class MobBehavior extends EntityBehavior {
+public abstract class MobBehavior extends EntityBehavior {
 
 	EntityView ev;
 
@@ -19,5 +19,8 @@ public class MobBehavior extends EntityBehavior {
 	public void wizz () {
 		((Mob) this.e).redevientMechant();
 	}
+
+	@Override
+	abstract public void pop ();
 
 }
