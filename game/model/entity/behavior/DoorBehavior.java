@@ -1,5 +1,6 @@
 package model.entity.behavior;
 
+import model.entity.Door;
 import model.entity.Entity;
 import view.graphicEntity.DoorView;
 
@@ -15,25 +16,28 @@ public class DoorBehavior extends EntityBehavior {
 	}
 
 	//Ouvrir porte
-	public void pop (int nb_frame_open, boolean tangible) {
-		nb_frame_open = 0;
+	public void pop () {
+		Door d = (Door) this.e;
+		d.nb_frame_open = 0;
 		m_dv.opening();
-		tangible = false;
+		d.setTangible(false);
 	}
 
 	//Fermer porte
-	public void wizz (boolean tangible) {
-		tangible = true;
+	public void wizz () {
+		Door d = (Door) this.e;
+		d.setTangible(true);
 		m_dv.closing();
 	}
 
-	public void store (int nb_frame_open) {
+	public void store () {
+		Door d = (Door) this.e;
 
-		if (nb_frame_open >= 7) {
+		if (d.nb_frame_open >= 7) {
 
 			m_dv.opened();
 		} else {
-			nb_frame_open++;
+			d.nb_frame_open++;
 		}
 	}
 }

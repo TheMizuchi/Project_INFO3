@@ -2,6 +2,7 @@ package model.entity;
 
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
+import model.Model;
 import model.entity.behavior.DoorBehavior;
 import model.map.generator.Room;
 import view.MyCanvas;
@@ -13,7 +14,7 @@ public class Door extends Entity {
 	Room m_room;
 	Key m_key;
 	DoorView m_dv;
-	int nb_frame_open;
+	public int nb_frame_open;
 	DoorBehavior m_db;
 
 
@@ -32,18 +33,19 @@ public class Door extends Entity {
 	//Ouvrir porte
 	@Override
 	public void pop () {
-		m_db.pop(nb_frame_open, m_tangible);
+		m_db.pop();
 	}
 
 	//Fermer porte
 	@Override
 	public void wizz () {
-		m_db.wizz(m_tangible);
+		m_db.wizz();
 	}
 
 	@Override
 	public void store () {
-		m_db.store(nb_frame_open);
+		m_db.store();
+
 	}
 
 	public void setRoom (Room r) {
@@ -59,6 +61,8 @@ public class Door extends Entity {
 
 		int proximity = 2;
 
+		System.out.println("HEY");
+
 		if (m_key == null) {
 
 			if (distance(J1.getInstance()) > proximity && distance(J2.getInstance()) > proximity) {
@@ -72,7 +76,7 @@ public class Door extends Entity {
 			}
 		}
 
-		LinkedList entities = m_room.getListeEntity();
+		LinkedList entities = (LinkedList) Model.getlistEntity();
 		IList.Iterator iter = entities.iterator();
 
 		while (iter.hasNext()) {
@@ -89,6 +93,10 @@ public class Door extends Entity {
 	@Override
 	void takeDamages (int damages) {
 		return;
+	}
+
+	public void setTangible (boolean b) {
+		m_tangible = b;
 	}
 
 }
