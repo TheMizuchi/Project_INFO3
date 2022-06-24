@@ -214,6 +214,10 @@ public abstract class Entity implements EntityInterface {
 		return m_hitbox;
 	}
 
+	public double getAngle () {
+		return m_vecDir.getAngle();
+	}
+
 	public double angleVers (Entity e) {
 		double dist = distance(e);
 		double truc = m_hitbox.getCenterX() - e.m_hitbox.getCenterX();
