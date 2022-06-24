@@ -4,7 +4,7 @@ import model.entity.Entity;
 import view.graphicEntity.CowboyView;
 
 
-public class CowboyBehavior extends EntityBehavior {
+public class CowboyBehavior extends PlayerBehavior {
 
 	CowboyView m_cv;
 
@@ -17,5 +17,10 @@ public class CowboyBehavior extends EntityBehavior {
 	@Override
 	public void pop () {
 		m_cv.spin();
+	}
+
+	@Override
+	public void update (long elapsed) {
+		e.update(elapsed);
 	}
 }

@@ -7,4 +7,5 @@ MoveKeysArrows (Init) {
 		| Key(r) ? Pick : (Init)
 		| Key(p) ? Hit : (Init)
 		| Key(ENTER) ? Wizz() : (Init)
+		| Key(x) ? Pop : (Init)
 }

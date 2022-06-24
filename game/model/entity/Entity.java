@@ -1,6 +1,7 @@
 package model.entity;
 
 import controller.RefAutomata;
+import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.LinkedList;
 import model.Model;
 import model.entity.behavior.EntityBehavior;
@@ -20,6 +21,7 @@ public abstract class Entity implements EntityInterface {
 	static final double rangeDetection = 10;
 	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
 	protected static double MOB_MAX_SPEED = 1;
+	protected static double ENTITY_MAX_ACCELERATION = 3;
 	protected Vector m_vecDir = new Vector();
 
 	private static int m_count = 0;
@@ -163,6 +165,10 @@ public abstract class Entity implements EntityInterface {
 		return m_hitbox.getCenterY();
 	}
 
+	public void setTangible (boolean b) {
+		m_tangible = b;
+	}
+
 	public void update (long elapsed) {
 		// déplacement
 		m_automata.step();
@@ -258,32 +264,75 @@ public abstract class Entity implements EntityInterface {
 		m_eb.interact();
 	}
 
+
+	// Permet de choisir la précision que vous voulez sur l'angle de MyDir
+	static final double MYDIR_SENSI = 15 * 180 / Math.PI;
+
+
 	@Override
 	public boolean myDir (double orientation, boolean absolute) {
-		return m_eb.myDir(orientation, absolute, m_vecDir);
+		return m_eb.myDir(orientation, absolute);
 	}
 
 	@Override
 	public boolean cell (Vector vect, EntityType type) {
-		return m_eb.cell(vect, type, m_hitbox);
+		return m_eb.cell(vect, type);
+	}
+
+	public double getRangeDetection () {
+		return rangeDetection;
 	}
 
 	@Override
 	public boolean closest (Direction orientation, EntityType type) {
-		return m_eb.closest(orientation, type, rangeDetection);
+		return m_eb.closest(orientation, type);
 	}
 
 	public Entity closest (EntityType type) {
-		return m_eb.closest(type);
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e, e_min = null;
+		double distMin = Double.MAX_VALUE;
+
+		while (iter.hasNext()) {
+			e = (Entity) iter.next();
+
+			if (e.getType() == type) {
+				double dist = this.distance(e);
+
+				if (distMin > dist) {
+					e_min = e;
+					distMin = dist;
+				}
+
+			}
+		}
+		return e_min;
 	}
 
 	public Entity closest (boolean possessable) {
-		return m_eb.closest(possessable);
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e, e_min = null;
+		double distMin = Double.MAX_VALUE;
+
+		while (iter.hasNext()) {
+			e = (Entity) iter.next();
+
+			if (e.getPossessable() == possessable) {
+				double dist = this.distance(e);
+
+				if (distMin > dist) {
+					e_min = e;
+					distMin = dist;
+				}
+
+			}
+		}
+		return e_min;
 	}
 
 	@Override
 	public boolean gotPower () {
-		return m_eb.gotPower(m_pv);
+		return m_eb.gotPower();
 	}
 
 	@Override

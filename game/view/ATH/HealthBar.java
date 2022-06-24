@@ -3,6 +3,7 @@ package view.ATH;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import model.entity.Player;
 import view.ViewElement;
 
 

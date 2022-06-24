@@ -5,7 +5,7 @@ import model.entity.Entity;
 import view.graphicEntity.DogeView;
 
 
-public class DogeBehavior extends EntityBehavior {
+public class DogeBehavior extends MobBehavior {
 
 	DogeView m_dv;
 

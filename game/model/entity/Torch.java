@@ -13,7 +13,7 @@ public class Torch extends Entity {
 	private static final double GROUND_RADIUS = 6.5;
 
 	TorchView m_tv;
-	EntityInterface porteur;
+	public EntityInterface porteur;
 	TorchBehavior m_tb;
 	LightSource m_ls;
 
@@ -53,7 +53,7 @@ public class Torch extends Entity {
 		porteur = e;
 	}
 
-	public void update () {
+	public void update (Player p) {
 		// si automate, faire un step
 
 		if (this.porteur != null) {
