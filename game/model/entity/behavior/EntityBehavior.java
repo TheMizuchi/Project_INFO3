@@ -180,37 +180,49 @@ public class EntityBehavior {
 		double a1 = Math.cos(Math.PI * 22.5 / 180);
 		double a2 = Math.cos(Math.PI * 67.5 / 180);
 
-		double longeur;
+		double profondeur;
 
 		double dist_x = Math.abs(this.e.m_hitbox.getP1().getX() - this.e.m_hitbox.getP3().getX()) / 2;
 		double dist_y = Math.abs(this.e.m_hitbox.getP1().getY() - this.e.m_hitbox.getP3().getY()) / 2;
 		double dist_diagonal = Math.sqrt(dist_x * dist_x + dist_y * dist_y);
 
-		if (vec.getX() < 1 && vec.getX() >= a1) {
-			longeur = dist_x;
-		} else if (vec.getX() < a1 && vec.getX() >= a2) {
-			longeur = dist_diagonal;
+		if (Math.abs(vec.getX()) < 1 && Math.abs(vec.getX()) >= a1) {
+			profondeur = dist_x;
+		} else if (Math.abs(vec.getX()) < a1 && Math.abs(vec.getX()) >= a2) {
+			profondeur = dist_diagonal;
 		} else {
-			longeur = dist_y;
+			profondeur = dist_y;
 		}
 
 		double centre_x = this.e.m_hitbox.getCenterRealX();
 		double centre_y = this.e.m_hitbox.getCenterRealY();
 
-		Point p1 = new Point(centre_x - (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y - RANGE_ATTAQUE_LARG / 2);
-		Point p4 = new Point(centre_x - (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y + RANGE_ATTAQUE_LARG / 2);
+		double largeur_hurt_box = RANGE_ATTAQUE_PROF + profondeur;
+		double hauteur_hurt_box = RANGE_ATTAQUE_LARG;
 
-		Point p2 = new Point(centre_x + (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y - RANGE_ATTAQUE_LARG / 2);
-		Point p3 = new Point(centre_x + (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y + RANGE_ATTAQUE_LARG / 2);
+		Point p1 = new Point(centre_x - (largeur_hurt_box / 2), centre_y - (hauteur_hurt_box / 2));
+		Point p2 = new Point(centre_x + (largeur_hurt_box / 2), centre_y - (hauteur_hurt_box / 2));
+		Point p3 = new Point(centre_x + (largeur_hurt_box / 2), centre_y + (hauteur_hurt_box / 2));
+		Point p4 = new Point(centre_x - (largeur_hurt_box / 2), centre_y + (hauteur_hurt_box / 2));
 
 		HurtBox attaque = new HurtBox(p1, p2, p3, p4, this.e);
 
-		attaque.rotate(vec.getAngle() - (Math.PI / 2));
+		attaque.rotate(vec.getAngle());
 
 		double c_p1_p4_x = (attaque.getP1().getX() + attaque.getP4().getX()) / 2;
 		double c_p1_p4_y = (attaque.getP1().getY() + attaque.getP4().getY()) / 2;
 
 		attaque.translate(c_p1_p4_x - attaque.getCenterRealX(), c_p1_p4_y - attaque.getCenterRealY());
+
+		System.out.println("angle " + vec.getAngle());
+
+		System.out.println("je suis en : " + this.e.getHibox().getP1() + " " + this.e.getHibox().getP2() + " " + this.e.getHibox().getP3() + "\n" + this.e.getHibox().getP4() + " ");
+
+		System.out.println("attaque en : " + attaque.getP1() + " " + attaque.getP2() + " " + attaque.getP3() + "\n" + attaque.getP4());
+
+		System.out.println("centre hurtbox : y " + attaque.getCenterRealY() + "x = " + attaque.getP1().getX() + " ou " + attaque.getP3().getX());
+
+		System.out.println("centre hitbox : y : " + this.e.getHibox().getCenterRealY() + " x :" + this.e.getHibox().getCenterRealX() + "\n\n\n\n");
 
 		attaque.attaque();
 

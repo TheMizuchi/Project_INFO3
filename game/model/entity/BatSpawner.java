@@ -35,4 +35,9 @@ public class BatSpawner extends Entity {
 		m_bats--;
 	}
 
+	@Override
+	void takeDamages (int damages) {
+		return;
+	}
+
 }
