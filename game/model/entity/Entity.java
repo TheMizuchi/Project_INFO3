@@ -414,6 +414,8 @@ public abstract class Entity implements EntityInterface {
 			m_pv = 0;
 		}
 
+		this.m_automata.step();
+
 		if (isDeath()) {
 			deleteEntity();
 		}
