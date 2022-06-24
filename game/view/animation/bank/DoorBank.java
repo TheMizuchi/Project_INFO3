@@ -81,7 +81,7 @@ public class DoorBank extends EntityAnimationBank {
 		BufferedImage[] lat_closing_img = new BufferedImage[7];
 		int y = 0;
 
-		for (int j = 29; j > 7; j--) {
+		for (int j = 29; j > 22; j--) {
 			lat_closing_img[y] = spriteFile.m_images[j];
 			y++;
 		}
