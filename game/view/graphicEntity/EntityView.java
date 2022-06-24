@@ -90,4 +90,6 @@ public abstract class EntityView extends ViewElement {
 		a.paint(g);
 	}
 
+	public abstract void attack ();
+
 }

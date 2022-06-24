@@ -14,4 +14,9 @@ public class MysteryView extends EntityView {
 		this.a = (MysteryAnimation) super.a;
 	}
 
+	@Override
+	public void attack () {
+		return;
+	}
+
 }

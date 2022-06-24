@@ -11,4 +11,9 @@ public class StairsView extends EntityView {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public void attack () {
+		return;
+	}
+
 }

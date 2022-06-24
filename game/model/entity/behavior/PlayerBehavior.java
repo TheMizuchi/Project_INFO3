@@ -3,12 +3,11 @@ package model.entity.behavior;
 import model.entity.Entity;
 import model.entity.Mob;
 import model.entity.Player;
+import model.entity.Vector;
 import view.graphicEntity.EntityView;
 
 
 public abstract class PlayerBehavior extends EntityBehavior {
-
-	EntityView ev;
 
 	protected static final long POSSESSION_CD = 30;
 
@@ -37,5 +36,11 @@ public abstract class PlayerBehavior extends EntityBehavior {
 	@Override
 	public void pop () {
 		((Player) this.e).pick();
+	}
+
+	@Override
+	public void hit (Vector v) {
+		super.hit(v);
+		ev.attack();
 	}
 }
