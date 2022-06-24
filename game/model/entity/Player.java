@@ -29,48 +29,53 @@ public abstract class Player extends Entity {
 			// déplacement
 			m_automata.step();
 
-			double speedX;
-			double speedY;
+			if (cdAction != 0)
+				cdAction--;
+			else {
 
-			if (this.equals(torch.porteur)) {
-				speedX = super.m_vecDir.getX() * ENTITY_MAX_SPEED * (1 - SLOW_TORCHE);
-				speedY = super.m_vecDir.getY() * ENTITY_MAX_SPEED * (1 - SLOW_TORCHE);
-			} else {
-				speedX = super.m_vecDir.getX() * ENTITY_MAX_SPEED;
-				speedY = super.m_vecDir.getY() * ENTITY_MAX_SPEED;
+				double speedX;
+				double speedY;
+
+				if (this.equals(torch.porteur)) {
+					speedX = super.m_vecDir.getX() * EntityMaxSpeed * (1 - SLOW_TORCHE);
+					speedY = super.m_vecDir.getY() * EntityMaxSpeed * (1 - SLOW_TORCHE);
+				} else {
+					speedX = super.m_vecDir.getX() * EntityMaxSpeed;
+					speedY = super.m_vecDir.getY() * EntityMaxSpeed;
+				}
+
+				if (Camera.getBlock()) {
+					Entity autreJ = autreJ();
+					Entity moi = getEntity();
+					double m_angle = m_vecDir.getAngle();
+
+					double distY = Math.abs(autreJ.m_hitbox.getP1().getY() - (moi.m_hitbox.getP1().getY() + (speedY * elapsed / 1000))); // distance future entre les 2 joueurs
+					double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX() + (speedX * elapsed / 1000)));
+
+					// haut
+					if (m_angle < Math.PI && m_angle > 0 && distY > Camera.DISTANCE_MAX_Y) // si la distance sur cet axe est supérieur au max
+						return;
+
+					// bas
+					if (m_angle > Math.PI && distY > Camera.DISTANCE_MAX_Y)
+						return;
+
+					// gauche
+					if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && distX > Camera.DISTANCE_MAX_X)
+						return;
+
+					// droite
+					if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && distX > Camera.DISTANCE_MAX_X)
+						return;
+
+				}
+
+				m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
+
+				torch.update();
+				if (this.equals(key.porteur))
+					key.update(this);
 			}
-
-			if (Camera.getBlock()) {
-				Entity autreJ = autreJ();
-				Entity moi = getEntity();
-				double m_angle = m_vecDir.getAngle();
-
-				double distY = Math.abs(autreJ.m_hitbox.getP1().getY() - (moi.m_hitbox.getP1().getY() + (speedY * elapsed / 1000))); // distance future entre les 2 joueurs
-				double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX() + (speedX * elapsed / 1000)));
-
-				// haut
-				if (m_angle < Math.PI && m_angle > 0 && distY > Camera.DISTANCE_MAX_Y) // si la distance sur cet axe est supérieur au max
-					return;
-
-				// bas
-				if (m_angle > Math.PI && distY > Camera.DISTANCE_MAX_Y)
-					return;
-
-				// gauche
-				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && distX > Camera.DISTANCE_MAX_X)
-					return;
-
-				// droite
-				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && distX > Camera.DISTANCE_MAX_X)
-					return;
-
-			}
-
-			m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
-
-			torch.update();
-			if (this.equals(key.porteur))
-				key.update(this);
 		}
 	}
 
@@ -103,7 +108,7 @@ public abstract class Player extends Entity {
 			torch.hide();
 		}
 	}
-	
+
 	@Override
 	public void pop () {
 		pick();
