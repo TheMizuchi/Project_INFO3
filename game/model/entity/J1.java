@@ -1,7 +1,8 @@
 package model.entity;
 
 import model.Camera;
-import model.entity.behavior.J1Behavior;
+import model.entity.behavior.J1IceBehavior;
+import model.entity.behavior.J1NormalGroundBehavior;
 import view.MyCanvas;
 import view.graphicEntity.J1View;
 
@@ -9,16 +10,24 @@ import view.graphicEntity.J1View;
 public class J1 extends Player {
 
 	J1View m_jv;
-	J1Behavior m_jb;
 
 
 	public J1 (double x, double y) {
 		super(x, y, EntityProperties.J1);
 		m_jv = new J1View(this);
 		m_ev = m_jv;
-		m_jb = new J1Behavior(this, m_jv);
-		m_eb = m_jb;
 		MyCanvas.getInstance().createEntityView(m_jv);
+		onGround();
+	}
+
+	@Override
+	public void onGround () {
+		m_eb = new J1NormalGroundBehavior(this, m_ev);
+	}
+
+	@Override
+	public void onIce () {
+		m_eb = new J1IceBehavior(this, m_ev);
 	}
 
 

@@ -33,4 +33,10 @@ public class Cowboy extends Player {
 
 	@Override
 	void setCam (Entity e) {}
+
+	@Override
+	public void onGround () {}
+
+	@Override
+	public void onIce () {}
 }
