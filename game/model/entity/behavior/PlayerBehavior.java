@@ -38,8 +38,7 @@ public class PlayerBehavior extends EntityBehavior {
 		}
 	}
 
-	public void wizz (long possCD, RefAutomata automata, Mob possessing, boolean tangible, EntityProperties ep,
-			Vector v) {
+	public void wizz (long possCD, EntityProperties ep, Vector v) {
 
 		if (possCD == 0) {
 
@@ -47,9 +46,9 @@ public class PlayerBehavior extends EntityBehavior {
 
 			if (closestTarget != null && this.e.distance(closestTarget) < Player.POSSESSION_RANGE) {
 				closestTarget.devientGentil(ep, v.clone(), (Player) this.e);
-				automata = new RefAutomata(this.e, true);
-				possessing = closestTarget;
-				tangible = false;
+				((Player) this.e).setAutomata(new RefAutomata(this.e, true));
+				((Player) this.e).setPossessedMob(closestTarget);
+				((Player) this.e).setTangible(false);
 				((Player) this.e).hide();
 				((Player) this.e).setCam(closestTarget);
 

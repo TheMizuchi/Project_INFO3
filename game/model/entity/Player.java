@@ -75,6 +75,14 @@ public abstract class Player extends Entity {
 		}
 	}
 
+	public void setAutomata (RefAutomata a) {
+		m_automata = a;
+	}
+
+	public void setPossessedMob (Mob m) {
+		m_possessing = m;
+	}
+
 	private Entity autreJ () {
 
 		if (this == J1.getInstance())
@@ -95,7 +103,7 @@ public abstract class Player extends Entity {
 
 	@Override
 	public void wizz () {
-		m_pb.wizz(m_possessionCD, m_automata, m_possessing, m_tangible, m_entityProperties, m_vecDir);
+		m_pb.wizz(m_possessionCD, m_entityProperties, m_vecDir);
 	}
 
 	public abstract void hide ();

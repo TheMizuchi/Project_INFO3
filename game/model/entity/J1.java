@@ -63,8 +63,7 @@ public class J1 extends Player {
 
 	@Override
 	public void hit (Vector v) {
-		super.hit(v);
-		m_jv.attack();
+		m_pb.hit(v);
 	}
 
 }

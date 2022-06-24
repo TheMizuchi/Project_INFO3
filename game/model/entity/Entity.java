@@ -164,6 +164,10 @@ public abstract class Entity implements EntityInterface {
 		return m_hitbox.getCenterY();
 	}
 
+	public void setTangible (boolean b) {
+		m_tangible = b;
+	}
+
 	public void update (long elapsed) {
 		// déplacement
 		m_automata.step();

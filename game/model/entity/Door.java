@@ -95,8 +95,4 @@ public class Door extends Entity {
 		return;
 	}
 
-	public void setTangible (boolean b) {
-		m_tangible = b;
-	}
-
 }
