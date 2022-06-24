@@ -9,6 +9,8 @@ import model.entity.Entity;
 import model.entity.EntityProperties;
 import model.entity.J1;
 import model.entity.J2;
+import model.entity.Key;
+import model.entity.Torch;
 import model.map.Map;
 import model.map.generator.Graph;
 import model.map.generator.JsonDecode;
@@ -90,17 +92,19 @@ public class Model {
 			} else {
 				J1 player1 = J1.getInstance();
 				J2 player2 = J2.getInstance();
+				Key cle = Key.getInstance();
+				Torch tor = Torch.getInstance();
 				
 				Iterator iterEntity = m_listeEntity.iterator();
 				while(iterEntity.hasNext()) {
 					Entity e = (Entity) iterEntity.next();
-					if(!e.equal(player1) && !e.equal(player2)) {
+					if(!e.equal(player1) && !e.equal(player2) && !e.equal(cle) && !e.equal(tor)) {
 						e.deleteEntity();
 					}
 				}				
 				m_level++;
 				int nbRooms = 10 + 3 * m_level;
-				createMap(m_level, nbRooms);
+				createMap(m_level, 0);
 				loadEnv();
 			}
 

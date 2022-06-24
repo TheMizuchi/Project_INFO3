@@ -8,7 +8,9 @@ import model.entity.Entity;
 import model.entity.EntityProperties;
 import model.entity.J1;
 import model.entity.J2;
+import model.entity.Key;
 import model.entity.Point;
+import model.entity.Torch;
 import model.map.Case;
 import model.map.Map;
 import model.entity.Hitbox;
@@ -90,6 +92,28 @@ public class Room {
 					else if(entityProperties == EntityProperties.J2){
 						try {
 							J2.getInstance().m_hitbox = new Hitbox(x,y,0.5,0.5, J2.getInstance(),false);
+						}
+						catch(Exception ex){
+							Entity e = model.createEntity(x, y, entityProperties);
+							listeEntity.insertAt(listeEntity.length(), e);
+							//à enelever plus tard
+							model.createLightSource(e);
+						}
+					}
+					else if(entityProperties == EntityProperties.KEY){
+						try {
+							Key.getInstance().m_hitbox = new Hitbox(x,y,0.5,0.5, Key.getInstance(),false);
+						}
+						catch(Exception ex){
+							Entity e = model.createEntity(x, y, entityProperties);
+							listeEntity.insertAt(listeEntity.length(), e);
+							//à enelever plus tard
+							model.createLightSource(e);
+						}
+					}
+					else if(entityProperties == EntityProperties.TORCH){
+						try {
+							Torch.getInstance().m_hitbox = new Hitbox(x,y,0.5,0.5, Torch.getInstance(),false);
 						}
 						catch(Exception ex){
 							Entity e = model.createEntity(x, y, entityProperties);
