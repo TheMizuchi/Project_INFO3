@@ -13,4 +13,9 @@ public class BatSpawnerView extends EntityView {
 		super(0, 0, 1, e, new BatSpawnerAnimation());
 		this.a = (BatSpawnerAnimation) super.a;
 	}
+
+	@Override
+	public void attack () {
+		return;
+	}
 }
