@@ -212,17 +212,7 @@ public class EntityBehavior {
 		double c_p1_p4_x = (attaque.getP1().getX() + attaque.getP4().getX()) / 2;
 		double c_p1_p4_y = (attaque.getP1().getY() + attaque.getP4().getY()) / 2;
 
-		attaque.translate(c_p1_p4_x - attaque.getCenterRealX(), c_p1_p4_y - attaque.getCenterRealY());
-
-		System.out.println("angle " + vec.getAngle());
-
-		System.out.println("je suis en : " + this.e.getHibox().getP1() + " " + this.e.getHibox().getP2() + " " + this.e.getHibox().getP3() + "\n" + this.e.getHibox().getP4() + " ");
-
-		System.out.println("attaque en : " + attaque.getP1() + " " + attaque.getP2() + " " + attaque.getP3() + "\n" + attaque.getP4());
-
-		System.out.println("centre hurtbox : y " + attaque.getCenterRealY() + "x = " + attaque.getP1().getX() + " ou " + attaque.getP3().getX());
-
-		System.out.println("centre hitbox : y : " + this.e.getHibox().getCenterRealY() + " x :" + this.e.getHibox().getCenterRealX() + "\n\n\n\n");
+		attaque.translate(attaque.getCenterRealX() - c_p1_p4_x, c_p1_p4_y - attaque.getCenterRealY());
 
 		attaque.attaque();
 
