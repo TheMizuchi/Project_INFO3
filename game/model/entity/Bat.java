@@ -30,7 +30,8 @@ public class Bat extends Mob {
 	@Override
 	public void deleteEntity () {
 		super.deleteEntity();
-		m_spawner.batDied();
+		if (m_spawner != null)
+			m_spawner.batDied();
 	}
 
 }

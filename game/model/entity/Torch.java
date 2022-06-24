@@ -9,8 +9,8 @@ import view.graphicEntity.TorchView;
 
 public class Torch extends Entity {
 
-	private static final double HOLDED_RADIUS = 5;
-	private static final double GROUND_RADIUS = 6.5;
+	static final double HOLDED_RADIUS = 8;
+	static final double GROUND_RADIUS = 6;
 
 	TorchView m_tv;
 	public EntityInterface porteur;
@@ -62,6 +62,14 @@ public class Torch extends Entity {
 		} else {
 			m_ls.setRadius(GROUND_RADIUS);
 		}
+	}
+
+	void hide () {
+		m_tv.hide();
+	}
+
+	void show () {
+		m_tv.show();
 	}
 
 	@Override

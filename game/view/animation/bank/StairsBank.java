@@ -5,13 +5,27 @@ import view.animation.Sprite;
 
 public class StairsBank extends EntityAnimationBank {
 
-	public StairsBank () {
-		// TODO Auto-generated constructor stub
+	private StairsBank () {
+		Sprite spriteFile = Sprite.loadSprite("resources/stairs.png", 1, 1);
+		loadBasicAnimation(spriteFile);
+		loadSpecificAnimation(spriteFile);
 	}
 
+
+	private static StairsBank INSTANCE = null;
+
+
+	public static StairsBank getInstance () {
+
+		if (INSTANCE == null) {
+			INSTANCE = new StairsBank();
+		}
+		return INSTANCE;
+		
+	}
 	@Override
 	protected void loadBasicAnimation (Sprite spriteFile) {
-		// TODO Auto-generated method stub
+		this.idle = spriteFile;
 
 	}
 

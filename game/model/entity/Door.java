@@ -1,10 +1,13 @@
 package model.entity;
 
+import java.util.Random;
+
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 import model.Model;
 import model.entity.behavior.DoorBehavior;
 import model.map.generator.Room;
+import model.map.generator.RoomType;
 import view.MyCanvas;
 import view.graphicEntity.DoorView;
 
@@ -103,7 +106,14 @@ public class Door extends Entity {
 				}
 				m_room.setFirstDoor(null);
 				m_room.setVisited(true);
-				m_room.spawnEntities(Model.getMap(), 5);
+				int nbRandomSpawn = 0;
+
+				if (m_room.getType() == RoomType.FIGHT) {
+					Random random = new Random();
+					nbRandomSpawn = random.nextInt(10) + 5;
+				}
+				m_room.spawnEntities(Model.getMap(), nbRandomSpawn);
+
 			}
 		} else if (j1Inside || j2Inside) {
 

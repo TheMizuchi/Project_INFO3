@@ -11,7 +11,9 @@ import model.entity.EntityProperties;
 import model.entity.Hitbox;
 import model.entity.J1;
 import model.entity.J2;
+import model.entity.Key;
 import model.entity.Point;
+import model.entity.Torch;
 import model.map.Case;
 import model.map.Map;
 
@@ -79,13 +81,55 @@ public class Room {
 				EntityProperties entityProperties = c.getType().getEntityProperties();
 
 				if (entityProperties != null) {
+					double entityWidth = entityProperties.getWidth();
+					double entityHeight = entityProperties.getHeight();
 					int x = i + upperLeftX;
 					int y = j + upperLeftY;
-					Entity e = model.createEntity(x, y, entityProperties);
 
-					//à décommenter plus tard
-					//if (e.getID() == EntityProperties.TORCH.getID())
-					model.createLightSource(e);
+					if (entityProperties == EntityProperties.J1) {
+
+						try {
+							J1.getInstance().m_hitbox = new Hitbox(x, y, entityWidth, entityHeight, J1.getInstance());
+						}
+						catch (Exception ex) {
+							Entity e = model.createEntity(x, y, entityProperties);
+							//à enelever plus tard
+							model.createLightSource(e);
+						}
+					} else if (entityProperties == EntityProperties.J2) {
+
+						try {
+							J2.getInstance().m_hitbox = new Hitbox(x, y, entityWidth, entityHeight, J2.getInstance());
+						}
+						catch (Exception ex) {
+							Entity e = model.createEntity(x, y, entityProperties);
+							//à enelever plus tard
+							model.createLightSource(e);
+						}
+					} else if (entityProperties == EntityProperties.KEY) {
+
+						try {
+							Key.getInstance().m_hitbox = new Hitbox(x, y, entityWidth, entityHeight, Key.getInstance());
+						}
+						catch (Exception ex) {
+							Entity e = model.createEntity(x, y, entityProperties);
+							//à enelever plus tard
+							model.createLightSource(e);
+						}
+					} else if (entityProperties == EntityProperties.TORCH) {
+
+						try {
+							Torch.getInstance().m_hitbox = new Hitbox(x, y, entityWidth, entityHeight, Torch.getInstance());
+						}
+						catch (Exception ex) {
+							Entity e = model.createEntity(x, y, entityProperties);
+							model.createLightSource(e);
+						}
+					} else {
+						Entity e = model.createEntity(x, y, entityProperties);
+						//à enelever plus tard
+						model.createLightSource(e);
+					}
 				}
 			}
 		}
@@ -118,14 +162,14 @@ public class Room {
 			if (e.getHibox().deplacementValide(p1, p2, p3, p4)) {
 
 				if (e.distance(j1) > minDistance && e.distance(j2) > minDistance) {
-
-					model.createEntity(x, y, ep);
-
 					iterationsSinceLastSuccess = 0;
 					placed++;
+				} else {
+					e.deleteEntity();
+					iterationsSinceLastSuccess++;
 				}
 			} else {
-				model.deleteEntity(e);
+				e.deleteEntity();
 				iterationsSinceLastSuccess++;
 			}
 

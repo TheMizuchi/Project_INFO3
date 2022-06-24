@@ -232,8 +232,8 @@ public class Map {
 			r.setUpperLeft(r.getUpperLeftX() + max(-minX, maxX), r.getUpperLeftY() + max(-minY, maxY));
 		}
 
-		width = max(-minX, maxX) * 2;
-		height = max(-minY, maxY) * 2;
+		width = (max(-minX, maxX) +1)* 2;
+		height = (max(-minY, maxY) +1)* 2;
 
 	}
 

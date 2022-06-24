@@ -19,8 +19,8 @@ public abstract class Entity implements EntityInterface {
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 	static final double rangeDetection = 10;
-	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
-	protected static double MOB_MAX_SPEED = 1;
+	protected double EntityMaxSpeed = 2; // vitesse par seconde
+	protected static double MobMaxSpeed = 5;
 	protected static double ENTITY_MAX_ACCELERATION = 3;
 	protected Vector m_vecDir = new Vector();
 
@@ -32,6 +32,7 @@ public abstract class Entity implements EntityInterface {
 	protected EntityBehavior m_eb;
 
 	protected int m_nbDamages;
+	protected int cdAction;
 
 	// Liste d'items
 
@@ -97,6 +98,9 @@ public abstract class Entity implements EntityInterface {
 			case KEY:
 				e = Key.getInstance(x, y);
 				break;
+			case STAIRS:
+				e = new Stairs(x, y);
+				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
 
@@ -141,8 +145,8 @@ public abstract class Entity implements EntityInterface {
 
 		// déplacement
 		m_automata.step();
-		double speedX = m_vecDir.getX() * ENTITY_MAX_SPEED;
-		double speedY = m_vecDir.getY() * ENTITY_MAX_SPEED;
+		double speedX = m_vecDir.getX() * EntityMaxSpeed;
+		double speedY = m_vecDir.getY() * EntityMaxSpeed;
 		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 
 	}
@@ -331,6 +335,9 @@ public abstract class Entity implements EntityInterface {
 
 	@Override
 	public void hit (Vector vec) {
+		if (cdAction != 0)
+			return;
+		cdAction = 40;
 		m_eb.hit(vec);
 	}
 
@@ -397,7 +404,7 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	public double getMobSpeed () {
-		return MOB_MAX_SPEED;
+		return MobMaxSpeed;
 	}
 
 	void takeDamages (int damages) {
@@ -414,5 +421,17 @@ public abstract class Entity implements EntityInterface {
 
 	int getDamages () {
 		return m_nbDamages;
+	}
+
+	public boolean isBloon () {
+		if (getProperties() == EntityProperties.BLOON || getProperties() == EntityProperties.BLOON_BOSS)
+			return true;
+		return false;
+	}
+
+	public boolean isDoor () {
+		if (getProperties() == EntityProperties.DOOR)
+			return true;
+		return false;
 	}
 }
