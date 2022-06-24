@@ -13,7 +13,7 @@ public class J2NormalGroundBehavior extends PlayerNormalGroundBehavior {
 
 	public J2NormalGroundBehavior (Entity e, EntityView ev) {
 		super(e, ev);
-		J2View m_jv = (J2View) ev;
+		m_jv = (J2View) ev;
 	}
 
 	@Override
