@@ -33,11 +33,10 @@ public abstract class Player extends Entity {
 	public void update (long elapsed) {
 		double centerX = this.m_hitbox.getCenterRealX();
 		double centerY = this.m_hitbox.getCenterRealY();
-		
-		if(Model.getMap().getCases()[(int)centerX][(int)centerY].getType() == TileType.ICE) {
+
+		if (Model.getMap().getCases()[(int) centerX][(int) centerY].getType() == TileType.ICE) {
 			this.onIce();
-		}
-		else {
+		} else {
 			this.onGround();
 		}
 		(m_pb).update(elapsed);
