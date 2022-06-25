@@ -29,8 +29,6 @@ public class J2NormalGroundBehavior extends PlayerNormalGroundBehavior {
 		double dist_y = Math.abs(this.e.m_hitbox.getP1().getY() - this.e.m_hitbox.getP3().getY()) / 2;
 		double dist_diagonal = Math.sqrt(dist_x * dist_x + dist_y * dist_y);
 
-		System.out.println("vec x : " + vec.getX());
-
 		if (Math.abs(vec.getX()) <= 1 && Math.abs(vec.getX()) >= a1) {
 			dx = dist_x + RANGE_ATTAQUE_PROF / 2;
 
@@ -69,8 +67,6 @@ public class J2NormalGroundBehavior extends PlayerNormalGroundBehavior {
 		attaque.rotate(-vec.getAngle());
 
 		this.hur = attaque;
-
-		System.out.println("dx : " + dx);
 
 		attaque.translate(dx, dy);
 

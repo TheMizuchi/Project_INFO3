@@ -25,8 +25,8 @@ public class BotHit extends BotAction {
 		vec.setAngle(e.getAngle());
 		double x = Math.cos(vec.getAngle());
 		double y = Math.sin(vec.getAngle());
-		x = Math.round(x);
-		y = Math.round(y);
+		x = Math.round(x * 1000) / 1000.0;
+		y = Math.round(y * 1000) / 1000.0;
 		vec.setX(x);
 		vec.setY(-y);
 		e.hit(vec);

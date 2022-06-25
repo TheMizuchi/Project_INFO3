@@ -49,6 +49,8 @@ public class Game {
 
 		new MenuFrame();
 
+		while (MenuFrame.getBoolFen() == true) {}
+
 		try {
 			System.out.println("Game starting...");
 			game = new Game();
@@ -197,8 +199,7 @@ public class Game {
 			this.elapsedDeath += elapsed;
 			if (this.elapsedDeath > 3000)
 				System.exit(0);
-		}
-		else if(Model.getInstance().getLevel() >= 4) {
+		} else if (Model.getInstance().getLevel() >= 4) {
 			Victory.getInstance();
 			this.elapsedDeath += elapsed;
 			if (this.elapsedDeath > 3000)
