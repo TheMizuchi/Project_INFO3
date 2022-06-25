@@ -49,9 +49,7 @@ public class Game {
 
 		new MenuFrame();
 
-		while (MenuFrame.getBoolFen() == true) {
-			System.out.println("Salut à toi cher cobaye ! Tu veux tuer des ballons ?");
-		}
+		while (MenuFrame.getBoolFen() == true) {}
 
 		try {
 			System.out.println("Game starting...");
@@ -201,8 +199,7 @@ public class Game {
 			this.elapsedDeath += elapsed;
 			if (this.elapsedDeath > 3000)
 				System.exit(0);
-		}
-		else if(Model.getInstance().getLevel() >= 4) {
+		} else if (Model.getInstance().getLevel() >= 4) {
 			Victory.getInstance();
 			this.elapsedDeath += elapsed;
 			if (this.elapsedDeath > 3000)
