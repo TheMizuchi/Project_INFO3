@@ -1,7 +1,6 @@
 package view.graphicEntity;
 
 import model.entity.EntityInterface;
-import view.animation.J1Animation;
 import view.animation.TorchAnimation;
 
 
@@ -20,12 +19,17 @@ public class TorchView extends EntityView {
 	public void walk () {
 		this.idle();
 	}
-	
+
 	public void show () {
 		this.a.show();
 	}
 
 	public void hide () {
 		this.a.hide();
+	}
+
+	@Override
+	public void attack () {
+		return;
 	}
 }

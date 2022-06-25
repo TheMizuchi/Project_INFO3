@@ -26,4 +26,9 @@ public class BloonView extends EntityView {
 			throw new RuntimeException("Bloon entity created with a wrong level");
 		this.a.setLevel(n);
 	}
+
+	@Override
+	public void attack () {
+		return;
+	}
 }

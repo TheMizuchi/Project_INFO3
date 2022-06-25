@@ -37,6 +37,7 @@ import model.entity.J2;
 import view.GameOver;
 import view.MenuFrame;
 import view.MyCanvas;
+import view.Victory;
 
 
 public class Game {
@@ -197,6 +198,12 @@ public class Game {
 
 		if (J1.getInstance().isDeath() || J2.getInstance().isDeath()) {
 			GameOver.getInstance();
+			this.elapsedDeath += elapsed;
+			if (this.elapsedDeath > 3000)
+				System.exit(0);
+		}
+		else if(Model.getInstance().getLevel() >= 4) {
+			Victory.getInstance();
 			this.elapsedDeath += elapsed;
 			if (this.elapsedDeath > 3000)
 				System.exit(0);

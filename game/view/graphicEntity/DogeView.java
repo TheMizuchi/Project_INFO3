@@ -18,4 +18,9 @@ public class DogeView extends EntityView {
 		this.a.setListener(this.al);
 		this.a.angry();
 	}
+
+	@Override
+	public void attack () {
+		return;
+	}
 }

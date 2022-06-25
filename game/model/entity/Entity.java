@@ -20,7 +20,7 @@ public abstract class Entity implements EntityInterface {
 	protected EntityView m_ev;
 	static final double rangeDetection = 10;
 	protected double EntityMaxSpeed = 2; // vitesse par seconde
-	protected static double MobMaxSpeed = 5;
+	protected static double MobMaxSpeed = 1;
 	protected static double ENTITY_MAX_ACCELERATION = 3;
 	protected Vector m_vecDir = new Vector();
 
@@ -32,7 +32,8 @@ public abstract class Entity implements EntityInterface {
 	protected EntityBehavior m_eb;
 
 	protected int m_nbDamages;
-	protected int cdAction;
+	protected double cdAction;
+	protected double cdDmgTaken;
 
 	// Liste d'items
 
@@ -42,7 +43,7 @@ public abstract class Entity implements EntityInterface {
 		m_ID = ep.getID();
 		m_pv = ep.getInitialPv();
 		m_nbDamages = ep.getDamages();
-		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this);
+		m_hitbox = new Hitbox(x, y, ep.getWidth(), ep.getHeight(), this);
 		m_automata = new RefAutomata(this);
 		m_blockInterdit = new LinkedList();
 		m_blockInterdit.insertAt(0, TileType.WALL);
@@ -88,6 +89,7 @@ public abstract class Entity implements EntityInterface {
 			case BLOON_BOSS:
 				e = new Bloon(x, y);
 				((Bloon) e).setLevel(5);
+				break;
 			case DOOR:
 				e = new Door(x, y);
 				break;
@@ -99,44 +101,6 @@ public abstract class Entity implements EntityInterface {
 				break;
 			case STAIRS:
 				e = new Stairs(x, y);
-				break;
-			default:
-				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
-
-		}
-		return e;
-	}
-
-	public static Entity createEntityWithoutView (double x, double y, EntityProperties entityProperties) {
-		Entity e = null;
-
-		switch (entityProperties) {
-			case COWBOY:
-				e = new Cowboy(x, y, null);
-				break;
-			case J1:
-				e = new J1(x, y, null);
-				break;
-			case J2:
-				e = new J2(x, y, null);
-				break;
-			case BLOON:
-				e = new Bloon(x, y, null);
-				break;
-			case SKELETON:
-				e = new Skeleton(x, y, null);
-				break;
-			case BAT:
-				e = new Bat(x, y, null);
-				break;
-			case ARCHER:
-				e = new Archer(x, y, null);
-				break;
-			case DOGE:
-				e = new Doge(x, y, null);
-				break;
-			case MYSTERY:
-				e = new MysteryMachine(x, y, null);
 				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
@@ -174,6 +138,12 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	public void update (long elapsed) {
+
+		if (this.getProperties() == EntityProperties.DOOR) {
+			Door d = (Door) this;
+			d.stops();
+		}
+
 		// déplacement
 		m_automata.step();
 		double speedX = m_vecDir.getX() * EntityMaxSpeed;
@@ -222,10 +192,6 @@ public abstract class Entity implements EntityInterface {
 
 	public Hitbox getHibox () {
 		return m_hitbox;
-	}
-
-	public double getAngle () {
-		return m_vecDir.getAngle();
 	}
 
 	public double angleVers (Entity e) {
@@ -367,6 +333,7 @@ public abstract class Entity implements EntityInterface {
 		m_eb.turn(orientation, absolute, m_vecDir);
 	}
 
+	// les hits des joueurs sont override dans la classe player
 	@Override
 	public void hit (Vector vec) {
 		if (cdAction != 0)
@@ -442,6 +409,12 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	void takeDamages (int damages) {
+
+		if (cdDmgTaken != 0)
+			return;
+
+		cdDmgTaken = 100;
+
 		m_pv -= damages;
 
 		if (m_pv < 0) {

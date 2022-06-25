@@ -66,7 +66,7 @@ public class Hitbox {
 		LinkedList tuileInterdit = m_e.getTuileInterdite();
 		Iterator it = tuileInterdit.iterator();
 
-	 	if (new_p1.outMap() || new_p2.outMap() || new_p3.outMap() || new_p4.outMap()) {
+		if (new_p1.outMap() || new_p2.outMap() || new_p3.outMap() || new_p4.outMap()) {
 			return false;
 		}
 
@@ -92,9 +92,9 @@ public class Hitbox {
 
 		//if (m_e.isTanguible()) {
 
-			if (contactEntity(new_p1, new_p2, new_p3, new_p4)) {
-				return false;
-			}
+		if (contactEntity(new_p1, new_p2, new_p3, new_p4)) {
+			return false;
+		}
 		//}
 		return true;
 	}
@@ -114,7 +114,7 @@ public class Hitbox {
 		while (it.hasNext()) {
 			Entity e = (Entity) it.next();
 
-			if ((!e.equal(m_e) && e.isTanguible() && m_e.isTanguible()) ||  (e.isDoor() && e.isTanguible())) {
+			if ((!e.equal(m_e) && e.isTanguible() && m_e.isTanguible()) || (e.isDoor() && e.isTanguible())) {
 
 				if (e.m_hitbox.pointInHitbox(new_p1) || e.m_hitbox.pointInHitbox(new_p2) || e.m_hitbox.pointInHitbox(new_p3) || e.m_hitbox.pointInHitbox(new_p4)) {
 					return true;
@@ -225,6 +225,10 @@ public class Hitbox {
 		m_p2.add(center);
 		m_p3.add(center);
 		m_p4.add(center);
+	}
+
+	public boolean collides (Hitbox h) {
+		return this.getP1().getX() < h.getP3().getX() && this.getP3().getX() > h.getP1().getX() && this.getP1().getY() < h.getP3().getY() && this.getP3().getY() > h.getP1().getY();
 	}
 
 }
