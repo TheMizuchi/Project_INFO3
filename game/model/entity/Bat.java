@@ -23,11 +23,6 @@ public class Bat extends Mob {
 		m_tangible = false;
 	}
 
-	//Constructeur pour créer entité sans view
-	public Bat (double x, double y, Object o) {
-		super(x, y, EntityProperties.BAT);
-	}
-
 	void setSpawner (BatSpawner spawner) {
 		m_spawner = spawner;
 	}
@@ -35,7 +30,8 @@ public class Bat extends Mob {
 	@Override
 	public void deleteEntity () {
 		super.deleteEntity();
-		m_spawner.batDied();
+		if (m_spawner != null)
+			m_spawner.batDied();
 	}
 
 }

@@ -23,6 +23,7 @@ public class J1View extends EntityView {
 		this.a.hide();
 	}
 
+	@Override
 	public void attack () {
 		a.setListener(this.al);
 		a.attack();

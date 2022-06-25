@@ -64,6 +64,7 @@ public class Controller {
 			BotAutomata Egg = getAutFromFile("resources/Automata/Egg.gal");
 			BotAutomata Door = getAutFromFile("resources/Automata/Door.gal");
 			BotAutomata Key = getAutFromFile("resources/Automata/Torch.gal");
+			BotAutomata Stairs = getAutFromFile("resources/Automata/NextLevel.gal");
 			BotAutomata Spawner = getAutFromFile("resources/Automata/Spawner.gal");
 
 			// Automates de Tests
@@ -74,7 +75,6 @@ public class Controller {
 			BotAutomata MoveFoward = getAutFromFile("resources/Automata/MoveFoward.gal");
 
 			insertAt(m_auts, EntityProperties.COWBOY.getID(), m_IdleAutomata);
-
 			insertAt(m_auts, EntityProperties.J1.getID(), J1);
 			insertAt(m_auts, EntityProperties.J2.getID(), J2);
 			insertAt(m_auts, EntityProperties.BLOON.getID(), Bloon);
@@ -87,6 +87,7 @@ public class Controller {
 			insertAt(m_auts, EntityProperties.MYSTERY.getID(), Mystery);
 			insertAt(m_auts, EntityProperties.DOOR.getID(), Door);
 			insertAt(m_auts, EntityProperties.KEY.getID(), Key);
+			insertAt(m_auts, EntityProperties.STAIRS.getID(), Stairs);
 		}
 		catch (ParseException ex) {
 			throw new RuntimeException("Erreur de parsing");

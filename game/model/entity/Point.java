@@ -58,6 +58,6 @@ public class Point {
 	}
 
 	public boolean outMap () {
-		return !(m_x > 0 && m_y > 0 && Model.getMap().getHeight() > m_x && Model.getMap().getWidth() > m_y);
+		return !(m_x > 0 && m_y > 0 && Model.getMap().getWidth() > m_x && Model.getMap().getHeight() > m_y);
 	}
 }

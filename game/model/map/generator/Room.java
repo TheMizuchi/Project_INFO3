@@ -2,34 +2,44 @@ package model.map.generator;
 
 import java.util.Random;
 
+import edu.polytech.oop.collections.ICollection;
+import edu.polytech.oop.collections.LinkedList;
 import model.Model;
+import model.entity.Door;
 import model.entity.Entity;
 import model.entity.EntityProperties;
+import model.entity.Hitbox;
 import model.entity.J1;
 import model.entity.J2;
+import model.entity.Key;
 import model.entity.Point;
+import model.entity.Torch;
 import model.map.Case;
 import model.map.Map;
 
 
 public class Room {
 
-	Model model;
-
 	private int upperLeftX, upperLeftY;
 	private int width, height;
 
 	private Case comp[][];
 	private RoomType type;
+	private LinkedList listeDoors;
+	private boolean visited;
+	private Door firstDoor;
 
 
-	public Room (Model m, int w, int h, Case[][] composition, int typeID) {
-		model = m;
+	public Room (int w, int h, Case[][] composition, int typeID) {
 
 		upperLeftX = -1; //On remplie à -1 parce que l'emplacement dès salle sera fait plus tard
 		upperLeftY = -1;
 		width = w;
 		height = h;
+
+		listeDoors = new LinkedList();
+		visited = false;
+		firstDoor = null;
 
 		comp = new Case[w][h];
 
@@ -61,6 +71,8 @@ public class Room {
 
 	public void spawnEntities (Map m, int nbMobsRandomlyPlaced) {
 
+		Model model = Model.getInstance();
+
 		//Spawn des entités placées dans le JSON
 		for (int i = 0; i < width; i++) {
 
@@ -69,12 +81,55 @@ public class Room {
 				EntityProperties entityProperties = c.getType().getEntityProperties();
 
 				if (entityProperties != null) {
+					double entityWidth = entityProperties.getWidth();
+					double entityHeight = entityProperties.getHeight();
 					int x = i + upperLeftX;
 					int y = j + upperLeftY;
-					Entity e = model.createEntity(x, y, entityProperties);
-					//à enlever plus tard
-					if (e.getID() == EntityProperties.TORCH.getID())
+
+					if (entityProperties == EntityProperties.J1) {
+
+						try {
+							J1.getInstance().m_hitbox = new Hitbox(x, y, entityWidth, entityHeight, J1.getInstance());
+						}
+						catch (Exception ex) {
+							Entity e = model.createEntity(x, y, entityProperties);
+							//à enelever plus tard
+							model.createLightSource(e);
+						}
+					} else if (entityProperties == EntityProperties.J2) {
+
+						try {
+							J2.getInstance().m_hitbox = new Hitbox(x, y, entityWidth, entityHeight, J2.getInstance());
+						}
+						catch (Exception ex) {
+							Entity e = model.createEntity(x, y, entityProperties);
+							//à enelever plus tard
+							model.createLightSource(e);
+						}
+					} else if (entityProperties == EntityProperties.KEY) {
+
+						try {
+							Key.getInstance().m_hitbox = new Hitbox(x, y, entityWidth, entityHeight, Key.getInstance());
+						}
+						catch (Exception ex) {
+							Entity e = model.createEntity(x, y, entityProperties);
+							//à enelever plus tard
+							model.createLightSource(e);
+						}
+					} else if (entityProperties == EntityProperties.TORCH) {
+
+						try {
+							Torch.getInstance().m_hitbox = new Hitbox(x, y, entityWidth, entityHeight, Torch.getInstance());
+						}
+						catch (Exception ex) {
+							Entity e = model.createEntity(x, y, entityProperties);
+							model.createLightSource(e);
+						}
+					} else {
+						Entity e = model.createEntity(x, y, entityProperties);
+						//à enelever plus tard
 						model.createLightSource(e);
+					}
 				}
 			}
 		}
@@ -97,7 +152,7 @@ public class Room {
 			EntityProperties ep = getWeightedRandom(weightSum);
 			double x = random.nextDouble() * (width - 2) + upperLeftX + 1;
 			double y = random.nextDouble() * (height - 2) + upperLeftY + 1;
-			Entity e = Entity.createEntityWithoutView(x, y, ep);
+			Entity e = model.createEntity(x, y, ep);
 
 			Point p1 = e.getHibox().getP1();
 			Point p2 = e.getHibox().getP2();
@@ -107,11 +162,14 @@ public class Room {
 			if (e.getHibox().deplacementValide(p1, p2, p3, p4)) {
 
 				if (e.distance(j1) > minDistance && e.distance(j2) > minDistance) {
-					model.createEntity(x, y, ep);
 					iterationsSinceLastSuccess = 0;
 					placed++;
+				} else {
+					e.deleteEntity();
+					iterationsSinceLastSuccess++;
 				}
 			} else {
+				e.deleteEntity();
 				iterationsSinceLastSuccess++;
 			}
 
@@ -168,4 +226,34 @@ public class Room {
 	public boolean containsPoint (int x, int y) {
 		return (x >= upperLeftX && x <= upperLeftX + width - 1 && y >= upperLeftY && y <= upperLeftY + height - 1);
 	}
+
+	public boolean containsHitbox (Hitbox h) {
+		Hitbox eR = new Hitbox(upperLeftX + 1, upperLeftY + 1, width - 2, height - 2, null);
+		return h.collides(eR);
+	}
+
+	public boolean getVisited () {
+		return visited;
+	}
+
+	public void setVisited (boolean v) {
+		this.visited = v;
+	}
+
+	public Door getFirstDoor () {
+		return this.firstDoor;
+	}
+
+	public void setFirstDoor (Door door) {
+		this.firstDoor = door;
+	}
+
+	public void add (Door e) {
+		listeDoors.insertAt(listeDoors.length(), e);
+	}
+
+	public ICollection getDoors () {
+		return listeDoors;
+	}
+
 }

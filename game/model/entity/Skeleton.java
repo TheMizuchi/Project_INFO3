@@ -21,8 +21,4 @@ public class Skeleton extends Mob {
 		MyCanvas.getInstance().createEntityView(m_sv);
 	}
 
-	public Skeleton (double x, double y, Object object) {
-		super(x, y, EntityProperties.SKELETON);
-	}
-
 }

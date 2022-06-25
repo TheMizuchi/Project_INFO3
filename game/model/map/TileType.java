@@ -5,7 +5,7 @@ import model.entity.EntityProperties;
 
 public enum TileType {
 
-	VOID(-1, 0, null), WALL(0, 0, null), FLOOR(1, 1, null), PLANKS(2, 2, null), OTHER(3, 3, null),
+	WALL(0, 0, null), FLOOR(1, 1, null), VOID(2, 2, null), ICE(3, 3, null),
 	COWBOY(EntityProperties.COWBOY.spawnerID(), 1, EntityProperties.COWBOY),
 	J1(EntityProperties.J1.spawnerID(), 1, EntityProperties.J1),
 	J2(EntityProperties.J2.spawnerID(), 1, EntityProperties.J2),
@@ -19,6 +19,7 @@ public enum TileType {
 	BLOON_BOSS(EntityProperties.BLOON_BOSS.spawnerID(), 1, EntityProperties.BLOON_BOSS),
 	DOOR(EntityProperties.DOOR.spawnerID(), 1, EntityProperties.DOOR),
 	MYSTERY(EntityProperties.MYSTERY.spawnerID(), 1, EntityProperties.MYSTERY),
+	STAIRS(EntityProperties.STAIRS.spawnerID(), 1, EntityProperties.STAIRS),
 	BATSPAWNER(EntityProperties.BATSPAWNER.spawnerID(), 1, EntityProperties.BATSPAWNER);
 
 

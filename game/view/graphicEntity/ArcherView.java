@@ -13,4 +13,9 @@ public class ArcherView extends EntityView {
 		super(0, 0, 1, e, new ArcherAnimation());
 		this.a = (ArcherAnimation) super.a;
 	}
+
+	@Override
+	public void attack () {
+		return;
+	}
 }
