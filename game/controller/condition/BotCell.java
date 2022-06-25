@@ -48,7 +48,7 @@ public class BotCell implements ICondition {
 			boolean door = false;
 
 			if (closestObstacle.getProperties() == EntityProperties.DOOR) {
-				door = closestObstacle.m_hitbox.pointInHitbox(p1) || closestObstacle.m_hitbox.pointInHitbox(p2) || closestObstacle.m_hitbox.pointInHitbox(p3) || closestObstacle.m_hitbox.pointInHitbox(p4);
+				door = closestObstacle.m_hitbox.collides(p1, p2, p3, p4);
 			}
 			return wall || door;
 		} else {

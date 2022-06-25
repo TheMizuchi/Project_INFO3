@@ -106,7 +106,7 @@ public class Door extends Entity {
 
 		if (j1Inside && j2Inside) {
 
-			if (j1.colisionWithItbox(m_room.getFirstDoor().getHitbox()) || j2.colisionWithItbox(m_room.getFirstDoor().getHitbox())) {
+			if (j1.colisionWithHitbox(m_room.getFirstDoor().getHitbox()) || j2.colisionWithHitbox(m_room.getFirstDoor().getHitbox())) {
 
 			} else {
 
@@ -132,7 +132,7 @@ public class Door extends Entity {
 				d.setStop(true);
 			}
 
-			if (j1.colisionWithItbox(this.getHitbox()) || j2.colisionWithItbox(this.getHitbox())) {
+			if (j1.colisionWithHitbox(this.getHitbox()) || j2.colisionWithHitbox(this.getHitbox())) {
 				m_room.setFirstDoor(this);
 			}
 
@@ -143,7 +143,7 @@ public class Door extends Entity {
 				d.setStop(false);
 			}
 
-			if (j1.colisionWithItbox(this.getHitbox()) || j2.colisionWithItbox(this.getHitbox())) {
+			if (j1.colisionWithHitbox(this.getHitbox()) || j2.colisionWithHitbox(this.getHitbox())) {
 				m_room.setFirstDoor(this);
 			} else {
 				m_room.setFirstDoor(null);

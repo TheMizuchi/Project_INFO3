@@ -236,6 +236,8 @@ public abstract class Player extends Entity {
 
 			if (closestTarget != null && distance(closestTarget) < POSSESSION_RANGE) {
 				closestTarget.devientGentil(m_entityProperties, m_vecDir.clone(), this);
+				Point p = new Point(Double.MIN_VALUE, Double.MIN_VALUE);
+				m_hitbox = new Hitbox(p, p, p, p, this);
 				m_automata = new RefAutomata(this, true);
 				m_possessing = closestTarget;
 				m_tangible = false;

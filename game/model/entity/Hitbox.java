@@ -229,10 +229,10 @@ public class Hitbox {
 
 	public boolean collides (Point p1, Point p2, Point p3, Point p4) {
 		Hitbox hit = new Hitbox(p1, p2, p3, p4, null);
-		return colisionWithItbox(hit);
+		return colisionWithHitbox(hit);
 	}
 
-	public boolean colisionWithItbox (Hitbox hit) {
+	public boolean colisionWithHitbox (Hitbox hit) {
 		return (pointInHitbox(hit.getP1()) || pointInHitbox(hit.getP2()) || pointInHitbox(hit.getP3()) || pointInHitbox(hit.getP4()) || hit.pointInHitbox(m_p1) || hit.pointInHitbox(m_p2) || hit.pointInHitbox(m_p3) || hit.pointInHitbox(m_p4));
 
 	}

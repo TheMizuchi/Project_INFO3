@@ -229,7 +229,7 @@ public class Room {
 
 	public boolean containsHitbox (Hitbox h) {
 		Hitbox eR = new Hitbox(upperLeftX + 1, upperLeftY + 1, width - 2, height - 2, null);
-		return h.colisionWithItbox(eR);
+		return h.colisionWithHitbox(eR);
 	}
 
 	public boolean getVisited () {

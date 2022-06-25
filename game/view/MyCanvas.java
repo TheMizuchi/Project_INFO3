@@ -153,7 +153,10 @@ public class MyCanvas extends Component {
 				e.paint(g);
 			}
 			Entity entity = ((Entity) e.entity);
-			entity.m_hitbox.paint(g);
+
+			if (entity.m_hitbox != null) {
+				entity.m_hitbox.paint(g);
+			}
 
 			if (entity.m_eb.hur != null) {
 				entity.m_eb.hur.paint(g);

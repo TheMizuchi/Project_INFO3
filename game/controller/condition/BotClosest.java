@@ -17,7 +17,8 @@ public class BotClosest implements ICondition {
 
 	@Override
 	public boolean eval (Entity e) {
-		throw new RuntimeException("NYI");
+		// TODO
+		return false;
 	}
 
 }
