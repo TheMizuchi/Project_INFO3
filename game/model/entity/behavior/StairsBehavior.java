@@ -18,7 +18,7 @@ public class StairsBehavior extends EntityBehavior {
 	@Override
 	public boolean gotStuff () {
 
-		int proximity = 1;
+		double proximity = 0.5;
 
 		if (this.e.distance(J1.getInstance()) > proximity && this.e.distance(J2.getInstance()) > proximity)
 			return false;

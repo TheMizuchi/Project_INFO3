@@ -94,4 +94,11 @@ public class HurtBox extends Hitbox {
 		m_p4.add(p);
 	}
 
+	public void setTo (Hitbox hit) {
+		m_p1 = hit.m_p1;
+		m_p2 = hit.m_p2;
+		m_p3 = hit.m_p3;
+		m_p4 = hit.m_p4;
+	}
+
 }

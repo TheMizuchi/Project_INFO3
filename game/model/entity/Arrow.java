@@ -20,10 +20,13 @@ public class Arrow extends Entity {
 		m_ab = new ArrowBehavior(this, m_av);
 		m_eb = m_ab;
 		MyCanvas.getInstance().createEntityView(m_av);
+		m_blockInterdit.removeAt(0);
+		m_tangible = false;
 	}
 
 	public void setVector (Vector v) {
 		m_vecDir = v;
+
 	}
 
 }

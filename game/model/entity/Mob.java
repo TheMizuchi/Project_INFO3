@@ -16,18 +16,25 @@ public abstract class Mob extends Entity {
 	Player m_p;
 	long m_PossessionTime;
 	MobBehavior m_mb;
+	HurtBox m_hurtbox;
 
 
 	public Mob (double x, double y, EntityProperties ep) {
 		super(x, y, ep);
 		m_OriginalEP = ep;
 		m_PVMob = m_pv;
+		m_hurtbox = new HurtBox(x, y, ep.getWidth(), ep.getHeight(), this);
 	}
 
 	@Override
 	public void update (long elapsed) {
 		// déplacement
 		m_automata.step();
+
+		if (cdDmgTaken >= 0)
+			cdDmgTaken -= elapsed;
+		if (cdAction >= 0)
+			cdAction -= elapsed;
 
 		if (m_vecDir.isApplied()) {
 			double speedX = m_vecDir.getX() * MobMaxSpeed;
@@ -62,6 +69,8 @@ public abstract class Mob extends Entity {
 			}
 			//Fin cas de possession
 			m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
+			m_hurtbox.setTo(m_hitbox);
+			m_hurtbox.attaque();
 
 			if (m_entityProperties.getEntityType() == EntityType.ENEMY || m_entityProperties.getEntityType() == EntityType.NEUTRAL) {
 				m_vecDir.setApply(false);
@@ -73,7 +82,7 @@ public abstract class Mob extends Entity {
 	public void wizz () {
 		m_mb.wizz();
 	}
-	
+
 	@Override
 	public void pop () {
 		m_eb.pop();

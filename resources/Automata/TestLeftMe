@@ -1,0 +1,4 @@
+TestLeftMe (Init) {
+	* (Init):
+		| True ? Move(L, @) : (Init)
+} 

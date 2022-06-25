@@ -3,6 +3,7 @@ package model.entity;
 import common.MyTimer;
 import common.TimerListener;
 import controller.RefAutomata;
+import edu.polytech.oop.collections.IList;
 import model.Camera;
 import model.Model;
 import model.entity.behavior.PlayerBehavior;
@@ -13,7 +14,9 @@ public abstract class Player extends Entity {
 
 	public static final long POSSESSION_CD = 30;
 	public final static double SLOW_TORCHE = 0.20;
-	public final static double POSSESSION_RANGE = 10;
+	public final static double POSSESSION_RANGE = 5;
+	public final static double CD_ATTAQUE = 700;
+	public final static double SLOW_TORCHE_ATTAQUE = 1.3;
 	long m_possessionCD;
 	Mob m_possessing;
 	PlayerBehavior m_pb;
@@ -33,14 +36,13 @@ public abstract class Player extends Entity {
 	public void update (long elapsed) {
 		double centerX = this.m_hitbox.getCenterRealX();
 		double centerY = this.m_hitbox.getCenterRealY();
-		
-		if(Model.getMap().getCases()[(int)centerX][(int)centerY].getType() == TileType.ICE) {
+
+		if (Model.getMap().getCases()[(int) centerX][(int) centerY].getType() == TileType.ICE) {
 			this.onIce();
-		}
-		else {
+		} else {
 			this.onGround();
 		}
-		(m_pb).update(elapsed);
+		m_pb.update(elapsed);
 	}
 
 	public void updateOnNormalGround (long elapsed) {
@@ -51,8 +53,11 @@ public abstract class Player extends Entity {
 			// déplacement
 			m_automata.step();
 
-			if (cdAction != 0)
-				cdAction--;
+			if (cdDmgTaken >= 0)
+				cdDmgTaken -= elapsed;
+
+			if (cdAction >= 0)
+				cdAction -= elapsed;
 			else {
 				double speedX = super.m_vecDir.getX() * EntityMaxSpeed;
 				double speedY = super.m_vecDir.getY() * EntityMaxSpeed;
@@ -107,6 +112,11 @@ public abstract class Player extends Entity {
 			// déplacement
 			m_automata.step();
 
+			if (cdDmgTaken != 0)
+				cdDmgTaken--;
+			if (cdAction != 0)
+				cdAction--;
+
 			double speedX;
 			double speedY;
 
@@ -127,20 +137,24 @@ public abstract class Player extends Entity {
 				double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX() + (speedX * elapsed / 1000)));
 
 				// haut
-				if (m_angle < Math.PI && m_angle > 0 && distY > Camera.DISTANCE_MAX_Y) // si la distance sur cet axe est supérieur au max
+				if (m_angle < Math.PI && m_angle > 0 && distY > Camera.DISTANCE_MAX_Y) { // si la distance sur cet axe est supérieur au max
 					return;
+				}
 
 				// bas
-				if (m_angle > Math.PI && distY > Camera.DISTANCE_MAX_Y)
+				if (m_angle > Math.PI && distY > Camera.DISTANCE_MAX_Y) {
 					return;
+				}
 
 				// gauche
-				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && distX > Camera.DISTANCE_MAX_X)
+				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && distX > Camera.DISTANCE_MAX_X) {
 					return;
+				}
 
 				// droite
-				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && distX > Camera.DISTANCE_MAX_X)
+				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && distX > Camera.DISTANCE_MAX_X) {
 					return;
+				}
 
 			}
 			if (Math.abs(speedX) < 0.5)
@@ -148,14 +162,34 @@ public abstract class Player extends Entity {
 			if (Math.abs(speedY) < 0.5)
 				m_speedY = speedY;
 
+			double p1x = m_hitbox.m_p1.getX();
+			double p1y = m_hitbox.m_p1.getY();
 			m_hitbox.move(m_speedX, m_speedY);
+
+			if (p1x == m_hitbox.m_p1.getX()) {
+				m_speedX = 0;
+			}
+
+			if (p1y == m_hitbox.m_p1.getY()) {
+				m_speedY = 0;
+			}
+
+			Entity autreJ = autreJ();
+			Entity moi = getEntity();
+			double distY = Math.abs(autreJ.m_hitbox.getP1().getY() - (moi.m_hitbox.getP1().getY())); // distance future entre les 2 joueurs
+			double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX()));
+
+			if (distY > Camera.DISTANCE_MAX_Y || distX > Camera.DISTANCE_MAX_X) {
+				m_hitbox.move(-m_speedX, -m_speedY);
+				m_speedY = 0;
+				m_speedX = 0;
+			}
 			if (this.equals(torch.porteur))
 				torch.update(this);
 			if (this.equals(key.porteur))
 				key.update(this);
 
 		}
-
 	}
 
 	public void setAutomata (RefAutomata a) {
@@ -207,6 +241,17 @@ public abstract class Player extends Entity {
 		possession();
 	}
 
+	@Override
+	public void hit (Vector vec) {
+		if (cdAction >= 0)
+			return;
+		if (Torch.getInstance().porteur == this)
+			cdAction = CD_ATTAQUE * SLOW_TORCHE_ATTAQUE;
+		else
+			cdAction = CD_ATTAQUE;
+		m_eb.hit(vec);
+	}
+
 	public void possession () {
 
 		if (m_possessionCD == 0) {
@@ -215,6 +260,8 @@ public abstract class Player extends Entity {
 
 			if (closestTarget != null && distance(closestTarget) < POSSESSION_RANGE) {
 				closestTarget.devientGentil(m_entityProperties, m_vecDir.clone(), this);
+				Point p = new Point(Double.MIN_VALUE, Double.MIN_VALUE);
+				m_hitbox = new Hitbox(p, p, p, p, this);
 				m_automata = new RefAutomata(this, true);
 				m_possessing = closestTarget;
 				m_tangible = false;
@@ -225,8 +272,18 @@ public abstract class Player extends Entity {
 				if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
 					m_ev.walk();
 				}
+
+				// On coupe la torche
+				if (Torch.getInstance().porteur == this)
+					Torch.getInstance().m_ls.setRadius(Torch.POSSESSED_RADIUS);
 			}
 		}
+	}
+
+	public boolean isPossessing () {
+		if (m_possessing != null)
+			return true;
+		return false;
 	}
 
 	abstract void hide ();
@@ -249,6 +306,11 @@ public abstract class Player extends Entity {
 		if (m_vecDir.getX() != 0 || m_vecDir.getY() != 0) {
 			m_ev.walk();
 		}
+
+		// On rallume la torche
+		if (Torch.getInstance().porteur == this)
+			Torch.getInstance().m_ls.setRadius(Torch.HOLDED_RADIUS);
+
 		return null;
 	}
 
@@ -269,13 +331,33 @@ public abstract class Player extends Entity {
 		@Override
 		public void expired () {
 
-			if (!m_p.m_hitbox.contactEntity(m_p.m_hitbox.getP1(), m_p.m_hitbox.getP2(), m_p.m_hitbox.getP3(), m_p.m_hitbox.getP4())) {
+			if (!contactPossession(m_p.m_hitbox.getP1(), m_p.m_hitbox.getP2(), m_p.m_hitbox.getP3(), m_p.m_hitbox.getP4())) {
 				m_p.m_tangible = true;
+				m_p.m_hitbox.m_e = m_p;
 			} else {
 				MyTimer mt = MyTimer.getTimer();
 				mt.setTimer(20, this);
 			}
+		}
 
+		private boolean contactPossession (Point new_p1, Point new_p2, Point new_p3, Point new_p4) {
+			IList list = Model.getlistEntity();
+			IList.Iterator it = list.iterator();
+
+			//if (!m_e.isTanguible() && !m_e.isBloon())	
+			//	return false;
+
+			while (it.hasNext()) {
+				Entity e = (Entity) it.next();
+
+				if ((!e.equal(this.m_p) && (e.isTanguible())) || (e.isDoor() && e.isTanguible())) {
+
+					if (e.getHibox().collides(new_p1, new_p2, new_p3, new_p4)) {
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 
 	}

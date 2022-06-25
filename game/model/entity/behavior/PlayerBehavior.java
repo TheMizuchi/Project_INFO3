@@ -40,7 +40,6 @@ public abstract class PlayerBehavior extends EntityBehavior {
 
 	@Override
 	public void hit (Vector v) {
-		System.out.println("meow c'est trop bien els attaques");
 		super.hit(v);
 		ev.attack();
 	}

@@ -21,7 +21,6 @@ public class Doge extends Mob {
 		m_mb = m_db;
 		m_eb = m_db;
 		MyCanvas.getInstance().createEntityView(m_dv);
-
 	}
 
 	public void getAngry () {

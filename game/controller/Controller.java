@@ -80,7 +80,7 @@ public class Controller {
 			insertAt(m_auts, EntityProperties.J2.getID(), J2);
 			insertAt(m_auts, EntityProperties.BLOON.getID(), Bloon);
 			insertAt(m_auts, EntityProperties.SKELETON.getID(), Skeleton);
-			insertAt(m_auts, EntityProperties.BAT.getID(), MoveRandomSuicide);
+			insertAt(m_auts, EntityProperties.BAT.getID(), Bat);
 			insertAt(m_auts, EntityProperties.ARCHER.getID(), Archer);
 			insertAt(m_auts, EntityProperties.TORCH.getID(), Torch);
 			insertAt(m_auts, EntityProperties.DOGE.getID(), Doge);
