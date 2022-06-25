@@ -1,0 +1,4 @@
+TestFearMe (Init) {
+	* (Init):
+		| True ? Move(B, @) : (Init)
+} 

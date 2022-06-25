@@ -82,6 +82,16 @@ public class Door extends Entity {
 		return;
 	}
 
+	@Override
+	public void update (long elapsed) {
+		this.stops();
+		m_automata.step();
+		double speedX = m_vecDir.getX() * EntityMaxSpeed;
+		double speedY = m_vecDir.getY() * EntityMaxSpeed;
+		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
+
+	}
+
 	public void stops () {
 		if (m_room.getVisited())
 			return;
@@ -96,7 +106,7 @@ public class Door extends Entity {
 
 		if (j1Inside && j2Inside) {
 
-			if (j1.collides(m_room.getFirstDoor().getHitbox()) || j2.collides(m_room.getFirstDoor().getHitbox())) {
+			if (j1.colisionWithHitbox(m_room.getFirstDoor().getHitbox()) || j2.colisionWithHitbox(m_room.getFirstDoor().getHitbox())) {
 
 			} else {
 
@@ -122,7 +132,7 @@ public class Door extends Entity {
 				d.setStop(true);
 			}
 
-			if (j1.collides(this.getHitbox()) || j2.collides(this.getHitbox())) {
+			if (j1.colisionWithHitbox(this.getHitbox()) || j2.colisionWithHitbox(this.getHitbox())) {
 				m_room.setFirstDoor(this);
 			}
 
@@ -133,7 +143,7 @@ public class Door extends Entity {
 				d.setStop(false);
 			}
 
-			if (j1.collides(this.getHitbox()) || j2.collides(this.getHitbox())) {
+			if (j1.colisionWithHitbox(this.getHitbox()) || j2.colisionWithHitbox(this.getHitbox())) {
 				m_room.setFirstDoor(this);
 			} else {
 				m_room.setFirstDoor(null);

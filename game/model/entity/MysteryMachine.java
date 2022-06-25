@@ -15,7 +15,7 @@ public class MysteryMachine extends Mob {
 		super(x, y, EntityProperties.MYSTERY);
 		m_mmv = new MysteryView(this);
 		m_ev = m_mmv;
-		m_mb = new MysteryBehavior(this, m_mmv);
+		m_mmb = new MysteryBehavior(this, m_mmv);
 		m_mb = m_mmb;
 		m_eb = m_mmb;
 		MyCanvas.getInstance().createEntityView(m_mmv);

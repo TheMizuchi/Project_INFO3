@@ -18,6 +18,8 @@ public abstract class EntityBehavior {
 	Entity e;
 	EntityView ev;
 
+	public HurtBox hur;
+
 
 	public EntityBehavior (Entity e, EntityView ev) {
 		this.e = e;

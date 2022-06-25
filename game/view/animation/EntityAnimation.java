@@ -90,4 +90,6 @@ public abstract class EntityAnimation extends Animation {
 		return this.w;
 	}
 
+	public abstract void attack ();
+
 }

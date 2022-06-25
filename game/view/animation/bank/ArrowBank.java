@@ -69,6 +69,5 @@ public class ArrowBank extends EntityAnimationBank {
 		this.basgauche = new Sprite(basgauche_img);
 		this.bas = new Sprite(bas_img);
 		this.basdroite = new Sprite(basdroite_img);
-
 	}
 }

@@ -11,7 +11,7 @@ public class BotPower extends BotAction {
 
 	@Override
 	public boolean apply (Entity e, RefAutomata aut) {
-		throw new RuntimeException("NYI");
+		return false;
 	}
 
 }
