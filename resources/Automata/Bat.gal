@@ -1,6 +1,0 @@
-Bat (Init) {
-   	* (Init) :
-   		| !(GotPower) ? Explode : ()
-   		| Cell(F,O) ? Explode : ()
-   		| True ? Move(F) : (Init)
-}

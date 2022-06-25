@@ -22,7 +22,7 @@ public class MenuFrame extends JFrame implements ActionListener {
 	JButton but_Bloon;
 	JButton but_Bat;
 	JButton but_Skeleton;
-	JButton but_MonkeyDart;
+	JButton but_Archer;
 	JButton but_Doge;
 	JButton but_Mystery;
 	JButton but_launch;
@@ -33,20 +33,20 @@ public class MenuFrame extends JFrame implements ActionListener {
 	JFileChooser file_Bloon;
 	JFileChooser file_Bat;
 	JFileChooser file_Skeleton;
-	JFileChooser file_MonkeyDart;
+	JFileChooser file_Archer;
 	JFileChooser file_Doge;
 	JFileChooser file_Mystery;
 	JFileChooser file_BigBloon;
 
-	static String fileJ1 = "resources/Automata/MoveKeys.gal";
-	static String fileJ2 = "resources/Automata/MoveKeysArrows.gal";
-	static String fileBloon = "resources/Automata/Balloon.gal";
-	static String fileBat = "resources/Automata/Idle.gal";
-	static String fileSkeleton = "resources/Automata/EntityTurnTest.gal";
-	static String fileMonkeyDart = "resources/Automata/Archer.gal";
-	static String fileDoge = "resources/Automata/Doge.gal";
-	static String fileMystery = "resources/Automata/MysteryWaitTest.gal";
-	static String fileBigBloon = "resources/Automata/Idle.gal";
+	static String fileJ1 = "resources/Automata/Default/J1.gal";
+	static String fileJ2 = "resources/Automata/Default/J2.gal";
+	static String fileBloon = "resources/Automata/Default/Bloon.gal";
+	static String fileBat = "resources/Automata/Default/Bat.gal";
+	static String fileSkeleton = "resources/Automata/Default/Skeleton.gal";
+	static String fileArcher = "resources/Automata/Default/Archer.gal";
+	static String fileDoge = "resources/Automata/Default/Doge.gal";
+	static String fileMystery = "resources/Automata/Default/Mystery.gal";
+	static String fileBigBloon = "resources/Automata/Default/Bloon.gal";
 
 	JLabel label;
 
@@ -60,7 +60,7 @@ public class MenuFrame extends JFrame implements ActionListener {
 		but_Bloon = new JButton();
 		but_Bat = new JButton();
 		but_Skeleton = new JButton();
-		but_MonkeyDart = new JButton();
+		but_Archer = new JButton();
 		but_Doge = new JButton();
 		but_Mystery = new JButton();
 		but_BigBloon = new JButton();
@@ -71,7 +71,7 @@ public class MenuFrame extends JFrame implements ActionListener {
 		but_Bloon.setBounds(200, 60, 200, 30);
 		but_Bat.setBounds(200, 90, 200, 30);
 		but_Skeleton.setBounds(200, 120, 200, 30);
-		but_MonkeyDart.setBounds(200, 150, 200, 30);
+		but_Archer.setBounds(200, 150, 200, 30);
 		but_Doge.setBounds(200, 180, 200, 30);
 		but_Mystery.setBounds(200, 210, 200, 30);
 		but_BigBloon.setBounds(200, 240, 200, 30);
@@ -83,7 +83,7 @@ public class MenuFrame extends JFrame implements ActionListener {
 		but_Bloon.addActionListener(this);
 		but_Bat.addActionListener(this);
 		but_Skeleton.addActionListener(this);
-		but_MonkeyDart.addActionListener(this);
+		but_Archer.addActionListener(this);
 		but_Doge.addActionListener(this);
 		but_Mystery.addActionListener(this);
 		but_BigBloon.addActionListener(this);
@@ -94,7 +94,7 @@ public class MenuFrame extends JFrame implements ActionListener {
 		but_Bloon.setText("Le Ballon");
 		but_Bat.setText("La chauve-souris");
 		but_Skeleton.setText("Le squelette");
-		but_MonkeyDart.setText("L'archer");
+		but_Archer.setText("L'archer");
 		but_Doge.setText("Le Doge");
 		but_Mystery.setText("La Mystery Machine");
 		but_BigBloon.setText("Le Big Ballon");
@@ -105,7 +105,7 @@ public class MenuFrame extends JFrame implements ActionListener {
 		but_Bloon.setFocusable(false);
 		but_Bat.setFocusable(false);
 		but_Skeleton.setFocusable(false);
-		but_MonkeyDart.setFocusable(false);
+		but_Archer.setFocusable(false);
 		but_Doge.setFocusable(false);
 		but_Mystery.setFocusable(false);
 		but_BigBloon.setFocusable(false);
@@ -121,8 +121,8 @@ public class MenuFrame extends JFrame implements ActionListener {
 		but_Bat.setVerticalTextPosition(JButton.CENTER);
 		but_Skeleton.setHorizontalTextPosition(JButton.CENTER);
 		but_Skeleton.setVerticalTextPosition(JButton.CENTER);
-		but_MonkeyDart.setHorizontalTextPosition(JButton.CENTER);
-		but_MonkeyDart.setVerticalTextPosition(JButton.CENTER);
+		but_Archer.setHorizontalTextPosition(JButton.CENTER);
+		but_Archer.setVerticalTextPosition(JButton.CENTER);
 		but_Doge.setHorizontalTextPosition(JButton.CENTER);
 		but_Doge.setVerticalTextPosition(JButton.CENTER);
 		but_Mystery.setHorizontalTextPosition(JButton.CENTER);
@@ -157,10 +157,10 @@ public class MenuFrame extends JFrame implements ActionListener {
 		but_Skeleton.setBackground(new Color(163, 76, 0));
 		but_Skeleton.setBorder(BorderFactory.createBevelBorder(ABORT));
 
-		but_MonkeyDart.setFont(new Font("Comic sans", Font.BOLD, 13));
-		but_MonkeyDart.setForeground(Color.BLACK);
-		but_MonkeyDart.setBackground(new Color(163, 76, 0));
-		but_MonkeyDart.setBorder(BorderFactory.createBevelBorder(ABORT));
+		but_Archer.setFont(new Font("Comic sans", Font.BOLD, 13));
+		but_Archer.setForeground(Color.BLACK);
+		but_Archer.setBackground(new Color(163, 76, 0));
+		but_Archer.setBorder(BorderFactory.createBevelBorder(ABORT));
 
 		but_Doge.setFont(new Font("Comic sans", Font.BOLD, 13));
 		but_Doge.setForeground(Color.BLACK);
@@ -198,7 +198,7 @@ public class MenuFrame extends JFrame implements ActionListener {
 		this.add(but_Bloon);
 		this.add(but_Bat);
 		this.add(but_Skeleton);
-		this.add(but_MonkeyDart);
+		this.add(but_Archer);
 		this.add(but_Doge);
 		this.add(but_Mystery);
 		this.add(but_BigBloon);
@@ -259,14 +259,14 @@ public class MenuFrame extends JFrame implements ActionListener {
 				fileSkeleton = new String(file_Skeleton.getSelectedFile().getAbsolutePath());
 				System.out.println(fileSkeleton);
 			}
-		} else if (e.getSource() == but_MonkeyDart) {
-			file_MonkeyDart = new JFileChooser();
-			file_MonkeyDart.setCurrentDirectory(new File("resources/Automata"));
-			int response = (file_MonkeyDart.showOpenDialog(null)); //Select file to open.
+		} else if (e.getSource() == but_Archer) {
+			file_Archer = new JFileChooser();
+			file_Archer.setCurrentDirectory(new File("resources/Automata"));
+			int response = (file_Archer.showOpenDialog(null)); //Select file to open.
 
 			if (response == JFileChooser.APPROVE_OPTION) {
-				fileMonkeyDart = new String(file_MonkeyDart.getSelectedFile().getAbsolutePath());
-				System.out.println(fileMonkeyDart);
+				fileArcher = new String(file_Archer.getSelectedFile().getAbsolutePath());
+				System.out.println(fileArcher);
 			}
 		} else if (e.getSource() == but_Doge) {
 			file_Doge = new JFileChooser();
@@ -317,6 +317,10 @@ public class MenuFrame extends JFrame implements ActionListener {
 		return fileBloon;
 	}
 
+	public static String getFileBigBloon () {
+		return fileBigBloon;
+	}
+
 	public static String getFileBat () {
 		return fileBat;
 	}
@@ -325,8 +329,8 @@ public class MenuFrame extends JFrame implements ActionListener {
 		return fileSkeleton;
 	}
 
-	public static String getFileMonkeyDart () {
-		return fileMonkeyDart;
+	public static String getFileArcher () {
+		return fileArcher;
 	}
 
 	public static String getFileDoge () {

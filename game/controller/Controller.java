@@ -52,27 +52,17 @@ public class Controller {
 			BotAutomata Bloon = getAutFromFile(MenuFrame.getFileBloon());
 			BotAutomata Bat = getAutFromFile(MenuFrame.getFileBat());
 			BotAutomata Skeleton = getAutFromFile(MenuFrame.getFileSkeleton());
-			//BotAutomata Archer = getAutFromFile(MenuFrame.getFileArcher());
+			BotAutomata Archer = getAutFromFile(MenuFrame.getFileArcher());
 			BotAutomata Doge = getAutFromFile(MenuFrame.getFileDoge());
 			BotAutomata Mystery = getAutFromFile(MenuFrame.getFileMystery());
-			BotAutomata Archer = getAutFromFile(MenuFrame.getFileMonkeyDart());
+			BotAutomata BigBloon = getAutFromFile(MenuFrame.getFileBloon());
 
-			m_IdleAutomata = getAutFromFile("resources/Automata/Idle.gal");
+			m_IdleAutomata = getAutFromFile("resources/Automata/Default/Idle.gal");
 
-			BotAutomata Torch = getAutFromFile("resources/Automata/Torch.gal");
-			BotAutomata Idle = getAutFromFile("resources/Automata/Idle.gal");
-			BotAutomata Egg = getAutFromFile("resources/Automata/Egg.gal");
-			BotAutomata Door = getAutFromFile("resources/Automata/Door.gal");
-			BotAutomata Key = getAutFromFile("resources/Automata/Torch.gal");
-			BotAutomata Stairs = getAutFromFile("resources/Automata/NextLevel.gal");
-			BotAutomata Spawner = getAutFromFile("resources/Automata/Spawner.gal");
-
-			// Automates de Tests
-			BotAutomata EntityTurnTest = getAutFromFile("resources/Automata/EntityTurnTest.gal");
-			BotAutomata EntityMyDirTest = getAutFromFile("resources/Automata/EntityMyDirTest.gal");
-			BotAutomata SuicideTestDeleteEntity = getAutFromFile("resources/Automata/SuicideTestDeleteEntity.gal");
-			BotAutomata MoveRandomSuicide = getAutFromFile("resources/Automata/MoveRandomSuicide.gal");
-			BotAutomata MoveFoward = getAutFromFile("resources/Automata/MoveFoward.gal");
+			BotAutomata Torch = getAutFromFile("resources/Automata/Default/Torch.gal");
+			BotAutomata Door = getAutFromFile("resources/Automata/Default/Door.gal");
+			BotAutomata Stairs = getAutFromFile("resources/Automata/Default/Stairs.gal");
+			BotAutomata Spawner = getAutFromFile("resources/Automata/Default/Spawner.gal");
 
 			insertAt(m_auts, EntityProperties.COWBOY.getID(), m_IdleAutomata);
 			insertAt(m_auts, EntityProperties.J1.getID(), J1);
@@ -86,7 +76,7 @@ public class Controller {
 			insertAt(m_auts, EntityProperties.BATSPAWNER.getID(), Spawner);
 			insertAt(m_auts, EntityProperties.MYSTERY.getID(), Mystery);
 			insertAt(m_auts, EntityProperties.DOOR.getID(), Door);
-			insertAt(m_auts, EntityProperties.KEY.getID(), Key);
+			insertAt(m_auts, EntityProperties.KEY.getID(), m_IdleAutomata);
 			insertAt(m_auts, EntityProperties.STAIRS.getID(), Stairs);
 		}
 		catch (ParseException ex) {
@@ -104,10 +94,10 @@ public class Controller {
 		m_dirKeys['S'] = true;
 		m_dirKeys['D'] = true;
 
-		m_dirKeys[37] = true;
-		m_dirKeys[38] = true;
-		m_dirKeys[39] = true;
-		m_dirKeys[40] = true;
+		m_dirKeys['O'] = true;
+		m_dirKeys['K'] = true;
+		m_dirKeys['L'] = true;
+		m_dirKeys['M'] = true;
 
 		m_keysToUpdate = new LinkedList();
 	}

@@ -3,6 +3,7 @@ package controller.condition;
 import controller.BotCategory;
 import controller.BotDirection;
 import controller.ICondition;
+import model.Model;
 import model.entity.Entity;
 import model.entity.EntityProperties;
 import model.entity.EntityType;
@@ -26,7 +27,7 @@ public class BotCell implements ICondition {
 	@Override
 	public boolean eval (Entity e) {
 
-		long environElapsed = 60;
+		long environElapsed = Model.getInstance().getLastElapsed();
 
 		Vector zer = e.getDirVector().clone();
 		zer.setAngle(zer.getAngle() + m_dir.getAngle());
@@ -53,7 +54,7 @@ public class BotCell implements ICondition {
 			return wall || door;
 		} else {
 			Entity target = e.closest(m_cat.getType());
-			if (target.m_hitbox.contactEntity(p1, p2, p3, p4))
+			if (target.m_hitbox.collides(p1, p2, p3, p4))
 				return true;
 		}
 		return false;

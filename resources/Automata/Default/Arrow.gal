@@ -1,4 +1,4 @@
-Flechette (Init) {
+Arrow (Init) {
 	* (Init) :
 		| Cell(F, _) ? Hit(F) : (Die)
 		| True ? Move(F) : (Init)

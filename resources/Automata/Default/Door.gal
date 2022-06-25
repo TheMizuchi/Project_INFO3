@@ -1,4 +1,4 @@
-DoorClassic (Init) {
+Door (Init) {
 	* (Init) :
 		| GotStuff ? Pop : (Open)
 	* (Open) :

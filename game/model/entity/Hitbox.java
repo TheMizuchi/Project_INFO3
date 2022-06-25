@@ -150,15 +150,15 @@ public class Hitbox {
 	}
 
 	public boolean pointInHitbox (Point p) {
-		return (dansLeTriangle(p, m_p1, m_p2, m_p4) || dansLeTriangle(p, m_p2, m_p3, m_p4));
+		return (dansLeTriangle(p, m_p1, m_p2, m_p4) || dansLeTriangle(p, m_p2, m_p3, m_p4) || dansLeTriangle(p, m_p1, m_p3, m_p4) || dansLeTriangle(p, m_p1, m_p2, m_p3));
 	}
 
 	boolean dansLeTriangle (Point pt, Point v1, Point v2, Point v3) {
 		boolean b1, b2, b3;
 
-		b1 = barycentre(pt, v1, v2) < 0;
-		b2 = barycentre(pt, v2, v3) < 0;
-		b3 = barycentre(pt, v3, v1) < 0;
+		b1 = barycentre(pt, v1, v2) <= 0;
+		b2 = barycentre(pt, v2, v3) <= 0;
+		b3 = barycentre(pt, v3, v1) <= 0;
 
 		return ((b1 == b2) && (b2 == b3));
 	}

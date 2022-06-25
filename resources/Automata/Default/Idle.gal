@@ -1,0 +1,4 @@
+Idle (Init) {
+	* (Init):
+		| True ? : (Init)
+}

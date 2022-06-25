@@ -1,6 +1,5 @@
 package model.entity.behavior;
 
-import edu.polytech.oop.collections.ICollection;
 import model.Model;
 import model.entity.Direction;
 import model.entity.Entity;
@@ -77,31 +76,9 @@ public abstract class EntityBehavior {
 		return false;
 	}
 
-	public boolean closest (Direction orientation, EntityType type) {
-		ICollection.Iterator iter = Model.getlistEntity().iterator();
-		Entity e, e_min = null;
-		double distMin = Float.MAX_VALUE;
-
-		while (iter.hasNext()) {
-			e = (Entity) iter.next();
-
-			if (e.getType() == type) {
-				double dist = this.e.distance(e);
-
-				if (distMin > dist && distMin < this.e.getRangeDetection()) {
-					e_min = e;
-					distMin = dist;
-				}
-			}
-		}
-
-		if (e_min == null)
-			return false;
-
-		// Si y a une erreur dans closest, elle est dans cette détection d'angle
-		if (this.e.angleVers(e_min) < this.e.getDirVector().getAngle() + 0.2 && this.e.angleVers(e_min) > this.e.getDirVector().getAngle() - 0.2)
-			return true;
-		return false;
+	public boolean closest (double orientation, EntityType type) {
+		Entity target = e.closest(type);
+		return e.distance(target) <= e.getRangeDetection();
 	}
 
 	public boolean gotPower () {

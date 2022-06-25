@@ -1,0 +1,10 @@
+Archer (Left) {
+	* (Left)
+		| Closest(H, @) ? 95%Move(B, @) / 5%Hit(F, @) : (Right)
+		| Cell(L, O) ? Hit(F, @) : (Right)
+		| True ? 85%Move(L, @) / 15%Hit(F, @) : (Left)
+	* (Right):
+		| Closest(H, @) ? 95%Move(B, @) / 5%Hit(F, @) : (Left)
+		| Cell(R, O) ? Hit(F, @) : (Left)
+		| True ? 85%Move(R, @) / 15%Hit(F, @) : (Right)
+}

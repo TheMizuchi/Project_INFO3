@@ -3,7 +3,7 @@ package model.entity;
 public class EntityRelativeDirection extends EntityAbsoluteDirection {
 
 	public EntityRelativeDirection (Entity e, double angle) {
-		super(angle + e.getAngle());
+		super(angle + e.getDirVector().getAngle());
 	}
 
 	@Override

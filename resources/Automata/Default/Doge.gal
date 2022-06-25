@@ -1,0 +1,5 @@
+Doge (Foward) {
+    * (Foward) :
+    	| !(GotPower) ? Pop : (Foward)
+        | True ? Move(F, @) : (Foward)
+}

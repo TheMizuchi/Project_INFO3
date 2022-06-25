@@ -1,0 +1,5 @@
+TestFollowMe (Init) {
+	* (Init):
+		| Cell(F, @) ? Hit(F, @) : (Init)
+		| True ? Move(F, @) : (Init)
+} 

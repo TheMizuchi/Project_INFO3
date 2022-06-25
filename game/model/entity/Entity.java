@@ -18,7 +18,7 @@ public abstract class Entity implements EntityInterface {
 	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
-	static final double rangeDetection = 10;
+	protected static double DETECTIONRANGE = 10;
 	protected double EntityMaxSpeed = 2; // vitesse par seconde
 	protected static double MobMaxSpeed = 1;
 	protected static double ENTITY_MAX_ACCELERATION = 3;
@@ -252,11 +252,12 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	public double getRangeDetection () {
-		return rangeDetection;
+		return DETECTIONRANGE;
 	}
 
+	// La direction est inutilisée dans le jeu
 	@Override
-	public boolean closest (Direction orientation, EntityType type) {
+	public boolean closest (double orientation, EntityType type) {
 		return m_eb.closest(orientation, type);
 	}
 

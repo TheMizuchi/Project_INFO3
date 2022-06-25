@@ -1,8 +1,0 @@
-Doge (Init) {
-    * (Avancer):
-        | !(GotPower) ? Pop : (Init)
-        | True ? Move(F, @) : (Init)
-    * (Init) :
-    	| !(GotPower) ? Pop : (Avancer)
-        | True ? Turn(F, @) : (Avancer)
-}

@@ -36,6 +36,7 @@ public class Model {
 	private ArrayList m_rooms; //Totalité des salles pour pouvoir piocher dedans
 	private JsonDecode m_jd;
 	private int m_level;
+	private long m_elasped;
 
 
 	public Model () {
@@ -69,6 +70,10 @@ public class Model {
 		createMap(1, 30);
 		m_toClearEntity = new LinkedList();
 
+	}
+
+	public long getLastElapsed () {
+		return m_elasped;
 	}
 
 	//méthode tmp pour les tests
@@ -115,8 +120,7 @@ public class Model {
 				loadEnv();
 			}
 
-		}
-		else {
+		} else {
 			m_level++;
 		}
 
@@ -138,6 +142,7 @@ public class Model {
 	}
 
 	public void update (long elapsed) {
+		m_elasped = elapsed;
 
 		m_cont.transfertTab();
 
@@ -256,8 +261,8 @@ public class Model {
 	public static Map getMap () {
 		return m_map;
 	}
-	
-	public int getLevel() {
+
+	public int getLevel () {
 		return m_level;
 	}
 

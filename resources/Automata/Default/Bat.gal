@@ -1,0 +1,7 @@
+Bat (ChooseDir) {
+   	* (ChooseDir) :
+   		| True ? Move(N) / Move(W) / Move(S) / Move(E) : (Foward)
+   	* (Foward) :
+   		| Cell(F, O) ? : ()
+   		| True ? Move(F) : (Foward)
+}

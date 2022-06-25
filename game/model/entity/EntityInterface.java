@@ -8,7 +8,7 @@ public interface EntityInterface {
 	abstract boolean cell (Vector vect, EntityType type);
 	// l'entité cible se situe devant (orientation) à une étapde de déplacemenet
 
-	abstract boolean closest (Direction orientation, EntityType type);
+	abstract boolean closest (double orientation, EntityType type);
 	// l'entité la plus proche du type est dans cette direciton
 
 	abstract boolean gotPower ();

@@ -1,0 +1,10 @@
+MoveKeysArrows (Init) {
+	* (Init):
+		| Key(o) ? Move(N) : (Init)
+		| Key(k) ? Move(W) : (Init)
+		| Key(l) ? Move(S) : (Init)
+		| Key(m) ? Move(E) : (Init)
+		| Key(p) ? Pop : (Init)
+		| Key(i) ? Hit : (Init)
+		| Key(ENTER) ? Wizz() : (Init)
+}

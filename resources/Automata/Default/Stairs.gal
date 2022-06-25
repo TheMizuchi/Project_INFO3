@@ -1,4 +1,4 @@
-NextLevel (Init) {
+Stairs (Init) {
 	* (Init) :
 		| GotPower ? Pop : (Open)
 	* (Open) :

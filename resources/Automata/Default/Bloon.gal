@@ -1,4 +1,4 @@
-Balloon (Init) {
+Bloon (Init) {
 	* (Init) : 
 		| True ? Move(NE) / Move(NW) / Move(SE) / Move(SW) : (Moving)
 	* (Moving) :
