@@ -1,0 +1,4 @@
+TestFollowMe (Init) {
+	* (Init):
+		| True ? Move(F, @) : (Init)
+} 

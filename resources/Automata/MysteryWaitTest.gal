@@ -3,5 +3,5 @@ MysteryWaitTest (Init) {
 		| Cell ? Move(F) : (Init)
 		| True ? Wait : (Waiting)
 	* (Waiting) :
-		| True ? Turn : (Init)
+		| True ? Turn(F, @) : (Init)
 }

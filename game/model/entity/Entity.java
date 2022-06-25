@@ -20,7 +20,7 @@ public abstract class Entity implements EntityInterface {
 	protected EntityView m_ev;
 	static final double rangeDetection = 10;
 	protected double EntityMaxSpeed = 2; // vitesse par seconde
-	protected static double MobMaxSpeed = 5;
+	protected static double MobMaxSpeed = 1;
 	protected static double ENTITY_MAX_ACCELERATION = 3;
 	protected Vector m_vecDir = new Vector();
 
@@ -148,7 +148,6 @@ public abstract class Entity implements EntityInterface {
 		double speedX = m_vecDir.getX() * EntityMaxSpeed;
 		double speedY = m_vecDir.getY() * EntityMaxSpeed;
 		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
-
 	}
 
 	void attack (Entity cible) {

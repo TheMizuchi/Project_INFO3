@@ -239,7 +239,7 @@ public class BotBuilder implements IVisitor {
 
 				switch (call.m_name) {
 					case "Move":
-						act = new BotMove(call.m_p1);
+						act = new BotMove(call.m_p1, call.m_p2);
 						break;
 					case "Pop":
 						act = new BotPop();
@@ -257,7 +257,7 @@ public class BotBuilder implements IVisitor {
 						act = new BotJump();
 						break;
 					case "Turn":
-						act = new BotTurn(call.m_p1);
+						act = new BotTurn(call.m_p1, call.m_p2);
 						break;
 					case "Protect":
 						act = new BotProtect();

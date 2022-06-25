@@ -11,7 +11,7 @@ public class BotJump extends BotAction {
 
 	@Override
 	public boolean apply (Entity e, RefAutomata aut) {
-		return true;
+		return false;
 	}
 
 }

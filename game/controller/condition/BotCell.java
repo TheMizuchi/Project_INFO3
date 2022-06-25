@@ -1,9 +1,9 @@
 package controller.condition;
 
+import controller.BotCategory;
 import controller.BotDirection;
 import controller.ICondition;
 import model.entity.Entity;
-import model.entity.EntityType;
 import model.entity.Point;
 import model.entity.Vector;
 
@@ -11,19 +11,19 @@ import model.entity.Vector;
 public class BotCell implements ICondition {
 
 	BotDirection m_dir;
-	String m_cat;
+	BotCategory m_cat;
 
 
 	public BotCell (String dir, String cat) {
 		m_dir = new BotDirection(dir);
-		m_cat = cat;
+		m_cat = new BotCategory(cat);
 	}
 
 	@Override
 	public boolean eval (Entity e) {
 
-		if (m_dir.getSel())
-			return e.cell(e.getDirVector(), EntityType.OBSTACLE);
+		//		if (m_cat.getSel())
+		//			return e.cell(e.getDirVector(), EntityType.OBSTACLE);
 
 		long environElapsed = 60;
 
