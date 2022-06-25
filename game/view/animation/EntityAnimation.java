@@ -12,15 +12,15 @@ public abstract class EntityAnimation extends Animation {
 	protected int h, w;
 	protected double scale;
 	protected int orientation;
-	protected EntityAnimationBank ab;
+	protected EntityAnimationBank eab;
 
 
 	public EntityAnimation (EntityAnimationBank a) {
 		super();
-		this.ab = a;
+		this.eab = a;
 		this.scale = 1F;
-		this.h = this.ab.idle.m_height;
-		this.w = this.ab.idle.m_width;
+		this.h = this.eab.idle.m_height;
+		this.w = this.eab.idle.m_width;
 		this.orientation = 1;
 		this.al = new AnimationListener() {
 
@@ -50,12 +50,12 @@ public abstract class EntityAnimation extends Animation {
 	}
 
 	public void idle () {
-		m_sprite = this.ab.idle;
+		m_sprite = this.eab.idle;
 		this.start();
 	}
 
 	public void walk () {
-		m_sprite = this.ab.walk;
+		m_sprite = this.eab.walk;
 		this.start();
 	}
 

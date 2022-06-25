@@ -19,7 +19,7 @@ public class DogeAnimation extends EntityAnimation {
 
 	@Override
 	public void idle () {
-		m_sprite = (m_s != null) ? m_s : this.ab.idle;
+		m_sprite = (m_s != null) ? m_s : this.eab.idle;
 		this.h = m_sprite.m_height;
 		this.w = m_sprite.m_width;
 		this.start();
@@ -27,7 +27,7 @@ public class DogeAnimation extends EntityAnimation {
 
 	@Override
 	public void walk () {
-		m_sprite = (m_s != null) ? m_s : this.ab.idle;
+		m_sprite = (m_s != null) ? m_s : this.eab.idle;
 		this.h = m_sprite.m_height;
 		this.w = m_sprite.m_width;
 		this.start();
