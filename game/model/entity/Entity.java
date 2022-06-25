@@ -29,7 +29,7 @@ public abstract class Entity implements EntityInterface {
 
 	protected LinkedList m_blockInterdit;
 	protected boolean m_tangible;
-	protected EntityBehavior m_eb;
+	public EntityBehavior m_eb;
 
 	protected int m_nbDamages;
 	protected int cdAction;
@@ -195,6 +195,10 @@ public abstract class Entity implements EntityInterface {
 
 	public Hitbox getHibox () {
 		return m_hitbox;
+	}
+
+	public double getAngle () {
+		return m_vecDir.getAngle();
 	}
 
 	public double angleVers (Entity e) {

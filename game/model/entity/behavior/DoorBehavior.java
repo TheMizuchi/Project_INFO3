@@ -12,7 +12,6 @@ public class DoorBehavior extends EntityBehavior {
 
 	public DoorBehavior (Entity e, DoorView ev) {
 		super(e, ev);
-		m_dv = ev;
 	}
 
 	//Ouvrir porte

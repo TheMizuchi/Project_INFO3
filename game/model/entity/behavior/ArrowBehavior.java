@@ -2,15 +2,13 @@
 package model.entity.behavior;
 
 import model.entity.Entity;
+import view.graphicEntity.ArrowView;
 
 
 public class ArrowBehavior extends EntityBehavior {
 
-	//ArrowView m_av;
-
-	public ArrowBehavior (Entity e/* , ArrowView av */) {
-		super(e, null);
-		//m_av = av;
+	public ArrowBehavior (Entity e, ArrowView av) {
+		super(e, av);
 	}
 
 	@Override
