@@ -4,14 +4,12 @@ public class BotDirection {
 
 	private double m_angle;
 	private boolean m_absolute;
-	private boolean m_select_cible;
 	private boolean m_here;
 
 
 	public BotDirection (String s) {
 		m_angle = 0;
 		m_absolute = true;
-		m_select_cible = false;
 		m_here = false;
 
 		double ang = Math.PI / 4;
@@ -25,12 +23,9 @@ public class BotDirection {
 			case "L":
 				m_angle += 2 * ang;
 			case "F":
+			case "H":
+				m_here = true;
 				m_absolute = false;
-				break;
-			case "":
-				m_angle = 0;
-				m_absolute = true;
-				m_select_cible = true;
 				break;
 
 			// Rotation absolue
@@ -50,9 +45,6 @@ public class BotDirection {
 				m_angle += ang;
 			case "E":
 				break;
-			case "H":
-				m_here = true;
-				break;
 		}
 	}
 
@@ -62,10 +54,6 @@ public class BotDirection {
 
 	public void setAngle (double angle) {
 		m_angle = angle;
-	}
-
-	public boolean getSel () {
-		return m_select_cible;
 	}
 
 	public boolean getAbs () {

@@ -94,7 +94,8 @@ public class Room {
 						catch (Exception ex) {
 							Entity e = model.createEntity(x, y, entityProperties);
 							//à enelever plus tard
-							model.createLightSource(e);
+							model.createLightSource(e).setRadius(0.5);
+							;
 						}
 					} else if (entityProperties == EntityProperties.J2) {
 
@@ -104,7 +105,8 @@ public class Room {
 						catch (Exception ex) {
 							Entity e = model.createEntity(x, y, entityProperties);
 							//à enelever plus tard
-							model.createLightSource(e);
+							model.createLightSource(e).setRadius(0.5);
+							;
 						}
 					} else if (entityProperties == EntityProperties.KEY) {
 
@@ -128,7 +130,7 @@ public class Room {
 					} else {
 						Entity e = model.createEntity(x, y, entityProperties);
 						//à enelever plus tard
-						model.createLightSource(e);
+						//model.createLightSource(e);
 					}
 				}
 			}
@@ -229,7 +231,7 @@ public class Room {
 
 	public boolean containsHitbox (Hitbox h) {
 		Hitbox eR = new Hitbox(upperLeftX + 1, upperLeftY + 1, width - 2, height - 2, null);
-		return h.collides(eR);
+		return h.colisionWithHitbox(eR);
 	}
 
 	public boolean getVisited () {

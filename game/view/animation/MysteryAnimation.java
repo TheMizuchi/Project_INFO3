@@ -21,4 +21,7 @@ public class MysteryAnimation extends EntityAnimation {
 		this.y = y;
 		this.scale = scale / 6;
 	}
+
+	@Override
+	public void attack () {}
 }

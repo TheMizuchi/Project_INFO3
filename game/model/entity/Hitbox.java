@@ -116,7 +116,7 @@ public class Hitbox {
 
 			if ((!e.equal(m_e) && e.isTanguible() && m_e.isTanguible()) || (e.isDoor() && e.isTanguible())) {
 
-				if (e.m_hitbox.pointInHitbox(new_p1) || e.m_hitbox.pointInHitbox(new_p2) || e.m_hitbox.pointInHitbox(new_p3) || e.m_hitbox.pointInHitbox(new_p4)) {
+				if (e.getHibox().collides(new_p1, new_p2, new_p3, new_p4)) {
 					return true;
 				}
 			}
@@ -227,8 +227,14 @@ public class Hitbox {
 		m_p4.add(center);
 	}
 
-	public boolean collides (Hitbox h) {
-		return this.getP1().getX() < h.getP3().getX() && this.getP3().getX() > h.getP1().getX() && this.getP1().getY() < h.getP3().getY() && this.getP3().getY() > h.getP1().getY();
+	public boolean collides (Point p1, Point p2, Point p3, Point p4) {
+		Hitbox hit = new Hitbox(p1, p2, p3, p4, null);
+		return colisionWithHitbox(hit);
+	}
+
+	public boolean colisionWithHitbox (Hitbox hit) {
+		return (pointInHitbox(hit.getP1()) || pointInHitbox(hit.getP2()) || pointInHitbox(hit.getP3()) || pointInHitbox(hit.getP4()) || hit.pointInHitbox(m_p1) || hit.pointInHitbox(m_p2) || hit.pointInHitbox(m_p3) || hit.pointInHitbox(m_p4));
+
 	}
 
 }

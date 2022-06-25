@@ -37,4 +37,7 @@ public class DogeAnimation extends EntityAnimation {
 		m_s = this.db.angry;
 		this.idle();
 	}
+
+	@Override
+	public void attack () {}
 }

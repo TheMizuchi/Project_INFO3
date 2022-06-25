@@ -20,8 +20,9 @@ public abstract class Entity implements EntityInterface {
 	protected EntityView m_ev;
 	static final double rangeDetection = 10;
 	protected double EntityMaxSpeed = 2; // vitesse par seconde
-	protected static double MobMaxSpeed = 5;
+	protected static double MobMaxSpeed = 1;
 	protected static double ENTITY_MAX_ACCELERATION = 3;
+	protected static int ENTITY_ATTACK_CD = 500;
 	protected Vector m_vecDir = new Vector();
 
 	private static int m_count = 0;
@@ -29,10 +30,12 @@ public abstract class Entity implements EntityInterface {
 
 	protected LinkedList m_blockInterdit;
 	protected boolean m_tangible;
-	protected EntityBehavior m_eb;
+	public EntityBehavior m_eb;
 
 	protected int m_nbDamages;
-	protected int cdAction;
+	protected double cdAction;
+	protected double cdDmgTaken;
+	protected static double TEMPS_INVUNERABILITE = 3000;
 
 	// Liste d'items
 
@@ -137,18 +140,11 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	public void update (long elapsed) {
-
-		if (this.getProperties() == EntityProperties.DOOR) {
-			Door d = (Door) this;
-			d.stops();
-		}
-
 		// déplacement
 		m_automata.step();
 		double speedX = m_vecDir.getX() * EntityMaxSpeed;
 		double speedY = m_vecDir.getY() * EntityMaxSpeed;
 		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
-
 	}
 
 	void attack (Entity cible) {
@@ -194,6 +190,10 @@ public abstract class Entity implements EntityInterface {
 		return m_hitbox;
 	}
 
+	public double getAngle () {
+		return m_vecDir.getAngle();
+	}
+
 	public double angleVers (Entity e) {
 		double dist = distance(e);
 		double truc = m_hitbox.getCenterX() - e.m_hitbox.getCenterX();
@@ -214,7 +214,9 @@ public abstract class Entity implements EntityInterface {
 		}
 
 		// haut droite
-		else if (m_hitbox.getCenterX() <= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() <= e.m_hitbox.getCenterY()) {
+		else if (m_hitbox.getCenterX() <= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() <= e.m_hitbox.getCenterY())
+
+		{
 			return Math.acos(Math.abs(bidule) / dist) + Math.PI / 2 * 3;
 		}
 
@@ -333,11 +335,9 @@ public abstract class Entity implements EntityInterface {
 		m_eb.turn(orientation, absolute, m_vecDir);
 	}
 
+	// les hits des joueurs sont override dans la classe player
 	@Override
 	public void hit (Vector vec) {
-		if (cdAction != 0)
-			return;
-		cdAction = 40;
 		m_eb.hit(vec);
 	}
 
@@ -408,6 +408,12 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	void takeDamages (int damages) {
+
+		if (cdDmgTaken >= 0)
+			return;
+
+		cdDmgTaken = TEMPS_INVUNERABILITE;
+
 		m_pv -= damages;
 
 		if (m_pv < 0) {

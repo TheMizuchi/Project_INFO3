@@ -1,0 +1,8 @@
+Archer (WaitingPlayers) {
+	* (WaitingPlayers):
+		| Closest(H, @) ? : (Aggro)
+	* (Aggro):
+		| Closest(H, @) ? 80%Move(B, @) / 20%Hit(F, @) : (Aggro)
+		| !Cell(L, O) ? 60%Move(L, @) / 40%Hit(F, @) : (Aggro)
+		| True ? 60%Move(L, @) / 40%Hit(F, @) : (Aggro)
+}
