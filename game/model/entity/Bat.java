@@ -21,6 +21,7 @@ public class Bat extends Mob {
 		m_eb = m_bb;
 		MyCanvas.getInstance().createEntityView(m_bv);
 		m_tangible = false;
+		m_blockInterdit.removeAt(0);
 	}
 
 	void setSpawner (BatSpawner spawner) {

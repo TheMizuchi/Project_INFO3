@@ -52,6 +52,7 @@ public abstract class Entity implements EntityInterface {
 		m_tangible = true;
 		m_c = m_count;
 		m_count++;
+		m_blockInterdit.insertAt(0, TileType.VOID);
 	}
 
 	public static Entity createEntity (double x, double y, EntityProperties entityProperties) {

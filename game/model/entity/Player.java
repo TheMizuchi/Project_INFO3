@@ -318,7 +318,6 @@ public abstract class Player extends Entity {
 	private class IntangibleTimer implements TimerListener {
 
 		Player m_p;
-		
 
 
 		IntangibleTimer (Player p) {
@@ -335,25 +334,24 @@ public abstract class Player extends Entity {
 			if (!contactPossession(m_p.m_hitbox.getP1(), m_p.m_hitbox.getP2(), m_p.m_hitbox.getP3(), m_p.m_hitbox.getP4())) {
 				m_p.m_tangible = true;
 				m_p.m_hitbox.m_e = m_p;
-			}
-			else {
+			} else {
 				MyTimer mt = MyTimer.getTimer();
 				mt.setTimer(20, this);
 			}
 		}
-		
-		private boolean contactPossession(Point new_p1, Point new_p2, Point new_p3, Point new_p4) {
+
+		private boolean contactPossession (Point new_p1, Point new_p2, Point new_p3, Point new_p4) {
 			IList list = Model.getlistEntity();
 			IList.Iterator it = list.iterator();
 
-	 		//if (!m_e.isTanguible() && !m_e.isBloon())	
+			//if (!m_e.isTanguible() && !m_e.isBloon())	
 			//	return false;
 
 			while (it.hasNext()) {
 				Entity e = (Entity) it.next();
 
 				if ((!e.equal(this.m_p) && (e.isTanguible())) || (e.isDoor() && e.isTanguible())) {
-	 
+
 					if (e.getHibox().collides(new_p1, new_p2, new_p3, new_p4)) {
 						return true;
 					}
