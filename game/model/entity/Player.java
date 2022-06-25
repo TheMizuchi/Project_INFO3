@@ -14,7 +14,7 @@ public abstract class Player extends Entity {
 	public static final long POSSESSION_CD = 30;
 	public final static double SLOW_TORCHE = 0.20;
 	public final static double POSSESSION_RANGE = 10;
-	public final static double CD_ATTAQUE = 40;
+	public final static double CD_ATTAQUE = 700;
 	public final static double SLOW_TORCHE_ATTAQUE = 1.3;
 	long m_possessionCD;
 	Mob m_possessing;
@@ -35,11 +35,10 @@ public abstract class Player extends Entity {
 	public void update (long elapsed) {
 		double centerX = this.m_hitbox.getCenterRealX();
 		double centerY = this.m_hitbox.getCenterRealY();
-		
-		if(Model.getMap().getCases()[(int)centerX][(int)centerY].getType() == TileType.ICE) {
+
+		if (Model.getMap().getCases()[(int) centerX][(int) centerY].getType() == TileType.ICE) {
 			this.onIce();
-		}
-		else {
+		} else {
 			this.onGround();
 		}
 		(m_pb).update(elapsed);
@@ -53,10 +52,11 @@ public abstract class Player extends Entity {
 			// déplacement
 			m_automata.step();
 
-			if (cdDmgTaken != 0)
-				cdDmgTaken--;
-			if (cdAction != 0)
-				cdAction--;
+			if (cdDmgTaken >= 0)
+				cdDmgTaken -= elapsed;
+
+			if (cdAction >= 0)
+				cdAction -= elapsed;
 			else {
 				double speedX = super.m_vecDir.getX() * EntityMaxSpeed;
 				double speedY = super.m_vecDir.getY() * EntityMaxSpeed;
@@ -110,7 +110,7 @@ public abstract class Player extends Entity {
 			Key key = Key.getInstance();
 			// déplacement
 			m_automata.step();
-			
+
 			if (cdDmgTaken != 0)
 				cdDmgTaken--;
 			if (cdAction != 0)
@@ -196,12 +196,10 @@ public abstract class Player extends Entity {
 			key.porteur = this;
 			key.hide();
 		} else if (this.equals(torch.porteur)) {
-			System.out.println("je pose la torche");
 			torch.m_ls.setRadius(Torch.GROUND_RADIUS);
 			torch.porteur = null;
 			torch.show();
 		} else if (distance(torch) <= 2) {
-			System.out.println("je porte la torche");
 			torch.m_ls.setRadius(Torch.HOLDED_RADIUS);
 			torch.porteur = this;
 			torch.hide();
@@ -220,7 +218,7 @@ public abstract class Player extends Entity {
 
 	@Override
 	public void hit (Vector vec) {
-		if (cdAction != 0)
+		if (cdAction >= 0)
 			return;
 		if (Torch.getInstance().porteur == this)
 			cdAction = CD_ATTAQUE * SLOW_TORCHE_ATTAQUE;
@@ -249,8 +247,7 @@ public abstract class Player extends Entity {
 				}
 
 				// On coupe la torche
-				System.out.println("je coupe la torche");
-				if (Torch.getInstance().porteur == this) 
+				if (Torch.getInstance().porteur == this)
 					Torch.getInstance().m_ls.setRadius(Torch.POSSESSED_RADIUS);
 			}
 		}

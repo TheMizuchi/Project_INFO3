@@ -22,7 +22,7 @@ public class Bloon extends Mob {
 		m_eb = m_bb;
 		MyCanvas.getInstance().createEntityView(m_bv);
 		m_tangible = false;
-		cdDmgTaken = 30;
+		cdDmgTaken = 100;
 	}
 
 	public int getLevel () {

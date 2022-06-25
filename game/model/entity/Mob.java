@@ -29,10 +29,10 @@ public abstract class Mob extends Entity {
 		// déplacement
 		m_automata.step();
 		
-		if (cdDmgTaken != 0)
-			cdDmgTaken--;
-		if (cdAction != 0)
-			cdAction--;
+		if (cdDmgTaken >= 0)
+			cdDmgTaken -= elapsed;
+		if (cdAction >= 0)
+			cdAction -= elapsed;
 
 		if (m_vecDir.isApplied()) {
 			double speedX = m_vecDir.getX() * MobMaxSpeed;

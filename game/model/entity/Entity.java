@@ -34,6 +34,7 @@ public abstract class Entity implements EntityInterface {
 	protected int m_nbDamages;
 	protected double cdAction;
 	protected double cdDmgTaken;
+	protected static double TEMPS_INVUNERABILITE = 3000;
 
 	// Liste d'items
 
@@ -336,9 +337,9 @@ public abstract class Entity implements EntityInterface {
 	// les hits des joueurs sont override dans la classe player
 	@Override
 	public void hit (Vector vec) {
-		if (cdAction != 0)
+		if (cdAction >= 0)
 			return;
-		cdAction = 40;
+		cdAction = 1000;
 		m_eb.hit(vec);
 	}
 
@@ -410,10 +411,10 @@ public abstract class Entity implements EntityInterface {
 
 	void takeDamages (int damages) {
 
-		if (cdDmgTaken != 0)
+		if (cdDmgTaken >= 0)
 			return;
 
-		cdDmgTaken = 100;
+		cdDmgTaken = TEMPS_INVUNERABILITE;
 
 		m_pv -= damages;
 
