@@ -53,6 +53,8 @@ public abstract class Player extends Entity {
 			// déplacement
 			m_automata.step();
 
+			if (cdDmgTaken != 0)
+				cdDmgTaken--;
 			if (cdAction != 0)
 				cdAction--;
 			else {
@@ -108,6 +110,11 @@ public abstract class Player extends Entity {
 			Key key = Key.getInstance();
 			// déplacement
 			m_automata.step();
+			
+			if (cdDmgTaken != 0)
+				cdDmgTaken--;
+			if (cdAction != 0)
+				cdAction--;
 
 			double speedX;
 			double speedY;

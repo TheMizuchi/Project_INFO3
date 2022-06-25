@@ -33,6 +33,7 @@ public abstract class Entity implements EntityInterface {
 
 	protected int m_nbDamages;
 	protected double cdAction;
+	protected double cdDmgTaken;
 
 	// Liste d'items
 
@@ -409,6 +410,14 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	void takeDamages (int damages) {
+		
+		System.out.println(cdDmgTaken);
+		
+		if (cdDmgTaken != 0)
+			return ;
+		
+		cdDmgTaken = 100;
+		
 		m_pv -= damages;
 
 		if (m_pv < 0) {
