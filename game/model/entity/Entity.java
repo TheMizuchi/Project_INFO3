@@ -69,7 +69,7 @@ public abstract class Entity implements EntityInterface {
 				e = J2.getInstance(x, y);
 				break;
 			case BLOON:
-				e = new Bloon(x, y);
+				e = new Bloon(x, y, 2);
 				break;
 			case SKELETON:
 				e = new Skeleton(x, y);
@@ -90,8 +90,7 @@ public abstract class Entity implements EntityInterface {
 				e = new MysteryMachine(x, y);
 				break;
 			case BLOON_BOSS:
-				e = new Bloon(x, y);
-				((Bloon) e).setLevel(5);
+				e = new Bloon(x, y, 5);
 				break;
 			case DOOR:
 				e = new Door(x, y);

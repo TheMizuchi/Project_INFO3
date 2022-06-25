@@ -12,17 +12,17 @@ public class Bloon extends Mob {
 	BloonBehavior m_bb;
 
 
-	public Bloon (double x, double y) {
+	public Bloon (double x, double y, int level) {
 		super(x, y, EntityProperties.BLOON);
-		m_bv = new BloonView(this, 2);
-		this.setLevel(2);
+		m_bv = new BloonView(this, level);
+		this.setLevel(level);
 		m_ev = m_bv;
 		m_bb = new BloonBehavior(this, m_bv);
 		m_mb = m_bb;
 		m_eb = m_bb;
 		MyCanvas.getInstance().createEntityView(m_bv);
 		m_tangible = false;
-		cdDmgTaken = 100;
+		cdDmgTaken = 200;
 		m_blockInterdit.removeAt(0);
 	}
 
@@ -34,4 +34,13 @@ public class Bloon extends Mob {
 		this.level = n;
 		m_bv.setLevel(n);
 	}
+	
+	void attack (Entity cible) {
+
+		if (!isDeath() && cible.m_entityProperties != EntityProperties.BLOON) {
+			cible.takeDamages(m_nbDamages);
+		}
+	}
+	
+	
 }

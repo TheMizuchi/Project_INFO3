@@ -7,6 +7,7 @@ import view.animation.BloonAnimation;
 public class BloonView extends EntityView {
 
 	BloonAnimation a;
+	int level;
 
 
 	public BloonView (EntityInterface e, int level) {
@@ -14,6 +15,7 @@ public class BloonView extends EntityView {
 		this.a = (BloonAnimation) super.a;
 		this.a.setDelay(50);
 		this.setLevel(level);
+		this.level = level;
 	}
 
 	public void explode () {
@@ -30,5 +32,10 @@ public class BloonView extends EntityView {
 	@Override
 	public void attack () {
 		return;
+	}
+	
+	@Override
+	protected void setPosition (int x, int y, double scale) {
+		super.setPosition(x, y, scale + level/3);
 	}
 }
