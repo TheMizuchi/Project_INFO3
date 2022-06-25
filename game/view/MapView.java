@@ -64,6 +64,12 @@ public class MapView extends ViewElement {
 					case 3:
 						img = tex.m_images[3];
 						break;
+//					case 4:
+//						img = tex.m_images[4];
+//						break;
+//					case 5:
+//						img = tex.m_images[5];
+//						break;
 					default:
 						img = tex.m_images[0];
 				}
