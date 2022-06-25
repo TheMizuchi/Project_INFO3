@@ -1,0 +1,5 @@
+Arrow (Init) {
+	* (Init)
+		| Cell(F,O) ? Explode : ()
+   		| True ? Move(F) : (Init)
+}

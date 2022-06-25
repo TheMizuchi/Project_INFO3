@@ -1,6 +1,9 @@
 package model.entity.behavior;
 
+import model.Model;
+import model.entity.Arrow;
 import model.entity.Entity;
+import model.entity.EntityProperties;
 import model.entity.HurtBox;
 import model.entity.Point;
 import model.entity.Vector;
@@ -16,8 +19,8 @@ public class J2NormalGroundBehavior extends PlayerNormalGroundBehavior {
 	@Override
 	public void hit (Vector vec) {
 
-		final double RANGE_ATTAQUE_PROF = 0.5;
-		final double RANGE_ATTAQUE_LARG = 0.2;
+		final double RANGE_ATTAQUE_PROF = EntityProperties.ARROW.getWidth();
+		final double RANGE_ATTAQUE_LARG = EntityProperties.ARROW.getHeight();
 
 		double a1 = Math.cos(Math.PI * 22.5 / 180);
 		double a2 = Math.cos(Math.PI * 67.5 / 180);
@@ -72,8 +75,12 @@ public class J2NormalGroundBehavior extends PlayerNormalGroundBehavior {
 
 		attaque.attaque();
 
-		ev.attack();
+		Arrow a = (Arrow) Model.getInstance().createEntity(0.0, 0.0, EntityProperties.ARROW);
+		a.setVector(vec);
+		a.m_hitbox = attaque;
+		a.setNbDamages(this.e.getNbDamages());
 
+		ev.attack();
 	}
 
 }

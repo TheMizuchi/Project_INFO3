@@ -26,6 +26,7 @@ public class AnimationBank {
 		EAB[EntityProperties.DOOR.getID()] = DoorBank.getInstance();
 		EAB[EntityProperties.KEY.getID()] = KeyBank.getInstance();
 		EAB[EntityProperties.STAIRS.getID()] = StairsBank.getInstance();
+		EAB[EntityProperties.ARROW.getID()] = ArrowBank.getInstance();
 	}
 
 
