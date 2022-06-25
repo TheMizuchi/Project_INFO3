@@ -20,7 +20,8 @@ public enum TileType {
 	DOOR(EntityProperties.DOOR.spawnerID(), 1, EntityProperties.DOOR),
 	MYSTERY(EntityProperties.MYSTERY.spawnerID(), 1, EntityProperties.MYSTERY),
 	STAIRS(EntityProperties.STAIRS.spawnerID(), 1, EntityProperties.STAIRS),
-	BATSPAWNER(EntityProperties.BATSPAWNER.spawnerID(), 1, EntityProperties.BATSPAWNER);
+	BATSPAWNER(EntityProperties.BATSPAWNER.spawnerID(), 1, EntityProperties.BATSPAWNER),
+	ARROW(EntityProperties.ARROW.spawnerID(), 1, EntityProperties.ARROW);
 
 
 	private int id;

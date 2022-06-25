@@ -11,8 +11,8 @@ public class ArrowAnimation extends EntityAnimation {
 
 
 	public ArrowAnimation () {
-		super(AnimationBank.getAnimationBank(EntityProperties.BAT.getID())); //entité arrow;
-		this.ab = (ArrowBank) AnimationBank.getAnimationBank(EntityProperties.BAT.getID());
+		super(AnimationBank.getAnimationBank(EntityProperties.ARROW.getID())); //entité arrow;
+		this.ab = (ArrowBank) AnimationBank.getAnimationBank(EntityProperties.ARROW.getID());
 	}
 
 	public void walk () {

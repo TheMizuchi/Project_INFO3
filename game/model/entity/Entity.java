@@ -105,6 +105,9 @@ public abstract class Entity implements EntityInterface {
 			case STAIRS:
 				e = new Stairs(x, y);
 				break;
+			case ARROW:
+				e = new Arrow(x, y);
+				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
 
@@ -447,5 +450,9 @@ public abstract class Entity implements EntityInterface {
 
 	public void waitt (long time) {
 		m_automata.waitt(time);
+	}
+
+	public int getNbDamages () {
+		return m_nbDamages;
 	}
 }
