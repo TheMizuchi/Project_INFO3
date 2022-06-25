@@ -22,8 +22,6 @@ public class J2NormalGroundBehavior extends PlayerNormalGroundBehavior {
 		final double RANGE_ATTAQUE_PROF = EntityProperties.ARROW.getWidth();
 		final double RANGE_ATTAQUE_LARG = EntityProperties.ARROW.getHeight();
 
-		System.out.println("meowww");
-
 		double a1 = Math.cos(Math.PI * 22.5 / 180);
 		double a2 = Math.cos(Math.PI * 67.5 / 180);
 
@@ -78,10 +76,8 @@ public class J2NormalGroundBehavior extends PlayerNormalGroundBehavior {
 		attaque.attaque();
 
 		Arrow a = (Arrow) Model.getInstance().createEntity(0.0, 0.0, EntityProperties.ARROW);
-		//a.setVector(vec);
+		a.setVector(vec);
 		a.m_hitbox = attaque;
-
-		System.out.println("meow");
 
 		ev.attack();
 	}

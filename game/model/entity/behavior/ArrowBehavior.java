@@ -7,7 +7,7 @@ import model.entity.Vector;
 import view.graphicEntity.ArrowView;
 
 
-public class ArrowBehavior extends EntityBehavior {
+public class ArrowBehavior extends MobBehavior {
 
 	public ArrowBehavior (Entity e, ArrowView av) {
 		super(e, av);
