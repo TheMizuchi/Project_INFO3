@@ -5,6 +5,7 @@ public class Arrow extends Mob {
 	public Arrow (double x, double y, EntityProperties ep) {
 		super(x, y, ep);
 		m_tangible = false;
+		m_blockInterdit.removeAt(0);
 	}
 
 }
