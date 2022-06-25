@@ -117,7 +117,7 @@ public class Hitbox {
 
 			if (!e.equal(m_e) && e.isTanguible()) {
 
-				if (e.m_hitbox.pointInHitbox(new_p1) || e.m_hitbox.pointInHitbox(new_p2) || e.m_hitbox.pointInHitbox(new_p3) || e.m_hitbox.pointInHitbox(new_p4)) {
+				if (e.m_hitbox.pointInHitbox(new_p1) || e.m_hitbox.pointInHitbox(new_p2) || e.m_hitbox.pointInHitbox(new_p3) || e.m_hitbox.pointInHitbox(new_p4) || pointInHitbox(e.getHitbox().getP1()) || pointInHitbox(e.getHitbox().getP2()) || pointInHitbox(e.getHitbox().getP3()) || pointInHitbox(e.getHitbox().getP4())) {
 					return true;
 				}
 			}
