@@ -14,11 +14,10 @@ public class BatSpawnerBehavior extends EntityBehavior {
 	@Override
 	public void pop () {
 		((BatSpawner) this.e).addBats();
-
 	}
 
 	@Override
 	public void wizz () {
-		// TODO : Wizz Spawner
+		e.waitt(5000);
 	}
 }

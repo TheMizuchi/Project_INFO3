@@ -444,4 +444,8 @@ public abstract class Entity implements EntityInterface {
 			return true;
 		return false;
 	}
+
+	public void waitt (long time) {
+		m_automata.waitt(time);
+	}
 }

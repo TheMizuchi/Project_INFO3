@@ -2,5 +2,5 @@ Spawner (Spawn) {
 	* (Spawn):
 		| True ? Pop : (Waiting)
 	* (Waiting):
-		| True ? Wait(5000) : (Spawn)
+		| True ? Wizz : (Spawn)
 }
