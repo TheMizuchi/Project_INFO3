@@ -52,7 +52,7 @@ public class HurtBox extends Hitbox {
 
 			if (!e.equal(m_e)) {
 
-				if ((e.m_hitbox.pointInHitbox(m_p1) || e.m_hitbox.pointInHitbox(m_p2) || e.m_hitbox.pointInHitbox(m_p3) || e.m_hitbox.pointInHitbox(m_p4))) {
+				if ((e.m_hitbox.pointInHitbox(m_p1) || e.m_hitbox.pointInHitbox(m_p2) || e.m_hitbox.pointInHitbox(m_p3) || e.m_hitbox.pointInHitbox(m_p4)) || pointInHitbox(e.getHibox().getP1()) || pointInHitbox(e.getHibox().getP2()) || pointInHitbox(e.getHibox().getP3()) || pointInHitbox(e.getHibox().getP4())) {
 					m_e.attack(e);
 				}
 			}
