@@ -24,13 +24,17 @@ public class BloonBehavior extends MobBehavior {
 		Model m;
 		m = Model.getInstance();
 
-		if (((Bloon) this.e).getLevel() >= 0) {
+		if (((Bloon) this.e).getLevel() > 0) {
+			int lvl = ((Bloon) this.e).getLevel() - 1;
+			System.out.println(((Bloon) this.e).getLevel());
 			Bloon e = (Bloon) m.createEntity(this.e.getPosX(), this.e.getPosY(), entityProperties);
-			((Bloon) e).setLevel(e.getLevel() - 1);
+			((Bloon) e).setLevel(lvl);
 			m.createLightSource(e);
+			System.out.println("J'ai le niveau :" + e.getLevel());
 			e = (Bloon) m.createEntity(this.e.getPosX(), this.e.getPosY(), entityProperties);
-			((Bloon) e).setLevel(e.getLevel() - 1);
+			((Bloon) e).setLevel(lvl);
 			m.createLightSource(e);
+			System.out.println("Et moi j'ai le niveau :" + e.getLevel());
 		}
 	}
 

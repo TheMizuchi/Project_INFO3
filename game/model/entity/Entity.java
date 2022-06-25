@@ -53,7 +53,6 @@ public abstract class Entity implements EntityInterface {
 
 	public static Entity createEntity (double x, double y, EntityProperties entityProperties) {
 		Entity e = null;
-		
 
 		switch (entityProperties) {
 			case COWBOY:
@@ -177,9 +176,9 @@ public abstract class Entity implements EntityInterface {
 	public void update (long elapsed) {
 		// déplacement
 		m_automata.step();
-			double speedX = m_vecDir.getX() * EntityMaxSpeed;
-			double speedY = m_vecDir.getY() * EntityMaxSpeed;
-			m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
+		double speedX = m_vecDir.getX() * EntityMaxSpeed;
+		double speedY = m_vecDir.getY() * EntityMaxSpeed;
+		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 	}
 
 	void attack (Entity cible) {
@@ -448,6 +447,8 @@ public abstract class Entity implements EntityInterface {
 		if (m_pv < 0) {
 			m_pv = 0;
 		}
+
+		this.m_automata.step();
 
 		if (isDeath()) {
 			deleteEntity();

@@ -168,6 +168,7 @@ public class Model {
 		} else if (entityProperties == EntityProperties.J2) {
 			m_cam.setj2(e);
 		}
+		System.out.println("je me suis crée" + entityProperties.getID());
 		return e;
 	}
 
