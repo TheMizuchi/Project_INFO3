@@ -9,7 +9,7 @@ public enum EntityProperties {
 	DOGE(8, 10, 1, EntityType.ENEMY, false, 0, 1.1, 1.3), MYSTERY(9, 10, 1, EntityType.ENEMY, false, 0, 3.3, 2.2),
 	BLOON_BOSS(10, 1, 1, EntityType.ENEMY, false, 0, 0.5, 0.5), KEY(11, 1, 0, EntityType.ITEM, false, 0, 0.5, 0.5),
 	DOOR(12, 1, 0, EntityType.ITEM, false, 0, 1, 1), STAIRS(13, 1, 0, EntityType.ITEM, false, 0, 1, 1),
-	BATSPAWNER(14, 1, 0, EntityType.NEUTRAL, false, 0, 0.4, 0.3);
+	BATSPAWNER(14, 1, 0, EntityType.NEUTRAL, false, 0, 0.4, 0.3), ARROW(15, 1, 0, EntityType.ENEMY, false, 0, 0.2, 0.2);
 
 
 	public static int ENTITY_NUMBER = EntityProperties.values().length;

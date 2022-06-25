@@ -101,6 +101,9 @@ public abstract class Entity implements EntityInterface {
 			case STAIRS:
 				e = new Stairs(x, y);
 				break;
+			case ARROW:
+				e = new Arrow(x, y);
+				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
 
