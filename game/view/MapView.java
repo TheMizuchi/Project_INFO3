@@ -56,16 +56,16 @@ public class MapView extends ViewElement {
 
 				switch (carte[h][l].getType().getTextureID()) {
 					case 1:
-						img = tex.m_images[1];
+						img = tex.m_images[0];
 						break;
 					case 2:
-						img = tex.m_images[2];
+						img = tex.m_images[1];
 						break;
 					case 3:
-						img = tex.m_images[3];
+						img = tex.m_images[2];
 						break;
 					default:
-						img = tex.m_images[0];
+						img = tex.m_images[3];
 				}
 				g.setColor(Color.black);
 				g.drawImage(img, (int) (x + this.t_case * (double) h), (int) (y + this.t_case * (double) l), (int) this.t_case, (int) this.t_case, null);
