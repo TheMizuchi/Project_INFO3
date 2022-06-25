@@ -34,4 +34,16 @@ public class Arrow extends Mob {
 		return;
 	}
 
+	public void setNbDamages (int dmg) {
+		m_nbDamages = dmg;
+	}
+
+	void attack (Entity cible) {
+
+		if (!isDeath()) {
+			cible.takeDamages(m_nbDamages);
+		}
+		this.deleteEntity();
+	}
+
 }

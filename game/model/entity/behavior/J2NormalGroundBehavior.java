@@ -78,6 +78,7 @@ public class J2NormalGroundBehavior extends PlayerNormalGroundBehavior {
 		Arrow a = (Arrow) Model.getInstance().createEntity(0.0, 0.0, EntityProperties.ARROW);
 		a.setVector(vec);
 		a.m_hitbox = attaque;
+		a.setNbDamages(this.e.getNbDamages());
 
 		ev.attack();
 	}

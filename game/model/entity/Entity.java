@@ -446,4 +446,8 @@ public abstract class Entity implements EntityInterface {
 			return true;
 		return false;
 	}
+
+	public int getNbDamages () {
+		return m_nbDamages;
+	}
 }

@@ -70,9 +70,6 @@ public abstract class Mob extends Entity {
 			//Fin cas de possession
 			m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 
-			if (this.getClass() == Arrow.class) {
-				System.out.println("mowwwwwww");
-			}
 			m_hurtbox.setTo(m_hitbox);
 			m_hurtbox.attaque();
 
