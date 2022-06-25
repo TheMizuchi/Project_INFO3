@@ -49,10 +49,6 @@ public class Game {
 
 		new MenuFrame();
 
-		while (MenuFrame.getBoolFen() == true) {
-			System.out.println("Salut à toi cher cobaye ! Tu veux tuer des ballons ?");
-		}
-
 		try {
 			System.out.println("Game starting...");
 			game = new Game();
