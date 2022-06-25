@@ -17,14 +17,10 @@ public class Bat extends Mob {
 		m_bv = new BatView(this);
 		m_ev = m_bv;
 		m_bb = new BatBehavior(this, m_bv);
+		m_mb = m_bb;
 		m_eb = m_bb;
 		MyCanvas.getInstance().createEntityView(m_bv);
 		m_tangible = false;
-	}
-
-	//Constructeur pour créer entité sans view
-	public Bat (double x, double y, Object o) {
-		super(x, y, EntityProperties.BAT);
 	}
 
 	void setSpawner (BatSpawner spawner) {
@@ -34,7 +30,8 @@ public class Bat extends Mob {
 	@Override
 	public void deleteEntity () {
 		super.deleteEntity();
-		m_spawner.batDied();
+		if (m_spawner != null)
+			m_spawner.batDied();
 	}
 
 }

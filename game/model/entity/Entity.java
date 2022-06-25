@@ -1,6 +1,7 @@
 package model.entity;
 
 import controller.RefAutomata;
+import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.LinkedList;
 import model.Model;
 import model.entity.behavior.EntityBehavior;
@@ -18,8 +19,9 @@ public abstract class Entity implements EntityInterface {
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 	static final double rangeDetection = 10;
-	protected static double ENTITY_MAX_SPEED = 2; // vitesse par seconde
-	protected static double MOB_MAX_SPEED = 1;
+	protected double EntityMaxSpeed = 2; // vitesse par seconde
+	protected static double MobMaxSpeed = 5;
+	protected static double ENTITY_MAX_ACCELERATION = 3;
 	protected Vector m_vecDir = new Vector();
 
 	private static int m_count = 0;
@@ -30,6 +32,7 @@ public abstract class Entity implements EntityInterface {
 	protected EntityBehavior m_eb;
 
 	protected int m_nbDamages;
+	protected int cdAction;
 
 	// Liste d'items
 
@@ -39,7 +42,7 @@ public abstract class Entity implements EntityInterface {
 		m_ID = ep.getID();
 		m_pv = ep.getInitialPv();
 		m_nbDamages = ep.getDamages();
-		m_hitbox = new Hitbox(x, y, 0.5, 0.5, this);
+		m_hitbox = new Hitbox(x, y, ep.getWidth(), ep.getHeight(), this);
 		m_automata = new RefAutomata(this);
 		m_blockInterdit = new LinkedList();
 		m_blockInterdit.insertAt(0, TileType.WALL);
@@ -85,6 +88,7 @@ public abstract class Entity implements EntityInterface {
 			case BLOON_BOSS:
 				e = new Bloon(x, y);
 				((Bloon) e).setLevel(5);
+				break;
 			case DOOR:
 				e = new Door(x, y);
 				break;
@@ -94,43 +98,8 @@ public abstract class Entity implements EntityInterface {
 			case KEY:
 				e = Key.getInstance(x, y);
 				break;
-			default:
-				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
-
-		}
-		return e;
-	}
-
-	public static Entity createEntityWithoutView (double x, double y, EntityProperties entityProperties) {
-		Entity e = null;
-
-		switch (entityProperties) {
-			case COWBOY:
-				e = new Cowboy(x, y, null);
-				break;
-			case J1:
-				e = new J1(x, y, null);
-				break;
-			case J2:
-				e = new J2(x, y, null);
-				break;
-			case BLOON:
-				e = new Bloon(x, y, null);
-				break;
-			case SKELETON:
-				e = new Skeleton(x, y, null);
-				break;
-			case BAT:
-				e = new Bat(x, y, null);
-				break;
-			case ARCHER:
-				e = new Archer(x, y, null);
-				break;
-			case DOGE:
-				e = new Doge(x, y, null);
-				break;
-			case MYSTERY:
-				e = new MysteryMachine(x, y, null);
+			case STAIRS:
+				e = new Stairs(x, y);
 				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
@@ -163,12 +132,23 @@ public abstract class Entity implements EntityInterface {
 		return m_hitbox.getCenterY();
 	}
 
+	public void setTangible (boolean b) {
+		m_tangible = b;
+	}
+
 	public void update (long elapsed) {
+
+		if (this.getProperties() == EntityProperties.DOOR) {
+			Door d = (Door) this;
+			d.stops();
+		}
+
 		// déplacement
 		m_automata.step();
-		double speedX = m_vecDir.getX() * ENTITY_MAX_SPEED;
-		double speedY = m_vecDir.getY() * ENTITY_MAX_SPEED;
+		double speedX = m_vecDir.getX() * EntityMaxSpeed;
+		double speedY = m_vecDir.getY() * EntityMaxSpeed;
 		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
+
 	}
 
 	void attack (Entity cible) {
@@ -214,10 +194,6 @@ public abstract class Entity implements EntityInterface {
 		return m_hitbox;
 	}
 
-	public double getAngle () {
-		return m_vecDir.getAngle();
-	}
-
 	public double angleVers (Entity e) {
 		double dist = distance(e);
 		double truc = m_hitbox.getCenterX() - e.m_hitbox.getCenterX();
@@ -258,32 +234,75 @@ public abstract class Entity implements EntityInterface {
 		m_eb.interact();
 	}
 
+
+	// Permet de choisir la précision que vous voulez sur l'angle de MyDir
+	static final double MYDIR_SENSI = 15 * 180 / Math.PI;
+
+
 	@Override
 	public boolean myDir (double orientation, boolean absolute) {
-		return m_eb.myDir(orientation, absolute, m_vecDir);
+		return m_eb.myDir(orientation, absolute);
 	}
 
 	@Override
 	public boolean cell (Vector vect, EntityType type) {
-		return m_eb.cell(vect, type, m_hitbox);
+		return m_eb.cell(vect, type);
+	}
+
+	public double getRangeDetection () {
+		return rangeDetection;
 	}
 
 	@Override
 	public boolean closest (Direction orientation, EntityType type) {
-		return m_eb.closest(orientation, type, rangeDetection);
+		return m_eb.closest(orientation, type);
 	}
 
 	public Entity closest (EntityType type) {
-		return m_eb.closest(type);
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e, e_min = null;
+		double distMin = Double.MAX_VALUE;
+
+		while (iter.hasNext()) {
+			e = (Entity) iter.next();
+
+			if (e.getType() == type) {
+				double dist = this.distance(e);
+
+				if (distMin > dist) {
+					e_min = e;
+					distMin = dist;
+				}
+
+			}
+		}
+		return e_min;
 	}
 
 	public Entity closest (boolean possessable) {
-		return m_eb.closest(possessable);
+		ICollection.Iterator iter = Model.getlistEntity().iterator();
+		Entity e, e_min = null;
+		double distMin = Double.MAX_VALUE;
+
+		while (iter.hasNext()) {
+			e = (Entity) iter.next();
+
+			if (e.getPossessable() == possessable) {
+				double dist = this.distance(e);
+
+				if (distMin > dist) {
+					e_min = e;
+					distMin = dist;
+				}
+
+			}
+		}
+		return e_min;
 	}
 
 	@Override
 	public boolean gotPower () {
-		return m_eb.gotPower(m_pv);
+		return m_eb.gotPower();
 	}
 
 	@Override
@@ -316,6 +335,9 @@ public abstract class Entity implements EntityInterface {
 
 	@Override
 	public void hit (Vector vec) {
+		if (cdAction != 0)
+			return;
+		cdAction = 40;
 		m_eb.hit(vec);
 	}
 
@@ -382,7 +404,7 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	public double getMobSpeed () {
-		return MOB_MAX_SPEED;
+		return MobMaxSpeed;
 	}
 
 	void takeDamages (int damages) {
@@ -392,6 +414,8 @@ public abstract class Entity implements EntityInterface {
 			m_pv = 0;
 		}
 
+		this.m_automata.step();
+
 		if (isDeath()) {
 			deleteEntity();
 		}
@@ -399,5 +423,17 @@ public abstract class Entity implements EntityInterface {
 
 	int getDamages () {
 		return m_nbDamages;
+	}
+
+	public boolean isBloon () {
+		if (getProperties() == EntityProperties.BLOON || getProperties() == EntityProperties.BLOON_BOSS)
+			return true;
+		return false;
+	}
+
+	public boolean isDoor () {
+		if (getProperties() == EntityProperties.DOOR)
+			return true;
+		return false;
 	}
 }

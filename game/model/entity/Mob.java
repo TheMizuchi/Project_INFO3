@@ -4,6 +4,7 @@ import common.MyTimer;
 import common.TimerListener;
 import controller.RefAutomata;
 import model.Camera;
+import model.entity.behavior.MobBehavior;
 
 
 public abstract class Mob extends Entity {
@@ -14,6 +15,7 @@ public abstract class Mob extends Entity {
 	EntityProperties m_OriginalEP;
 	Player m_p;
 	long m_PossessionTime;
+	MobBehavior m_mb;
 
 
 	public Mob (double x, double y, EntityProperties ep) {
@@ -28,8 +30,8 @@ public abstract class Mob extends Entity {
 		m_automata.step();
 
 		if (m_vecDir.isApplied()) {
-			double speedX = m_vecDir.getX() * MOB_MAX_SPEED;
-			double speedY = m_vecDir.getY() * MOB_MAX_SPEED;
+			double speedX = m_vecDir.getX() * MobMaxSpeed;
+			double speedY = m_vecDir.getY() * MobMaxSpeed;
 
 			//Dans le cas où le monstre est possédé
 			///////////////////////////////////////
@@ -69,7 +71,12 @@ public abstract class Mob extends Entity {
 
 	@Override
 	public void wizz () {
-		redevientMechant();
+		m_mb.wizz();
+	}
+	
+	@Override
+	public void pop () {
+		m_eb.pop();
 	}
 
 	private Entity autreJ () {

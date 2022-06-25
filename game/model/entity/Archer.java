@@ -16,11 +16,9 @@ public class Archer extends Mob {
 		m_av = new ArcherView(this);
 		m_ev = m_av;
 		m_ab = new ArcherBehavior(this, m_av);
+		m_mb = m_ab;
 		m_eb = m_ab;
 		MyCanvas.getInstance().createEntityView(m_av);
 	}
 
-	public Archer (double x, double y, Object object) {
-		super(x, y, EntityProperties.ARCHER);
-	}
 }

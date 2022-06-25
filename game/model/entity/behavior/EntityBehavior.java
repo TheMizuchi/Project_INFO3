@@ -13,7 +13,7 @@ import model.entity.Vector;
 import view.graphicEntity.EntityView;
 
 
-public class EntityBehavior {
+public abstract class EntityBehavior {
 
 	Entity e;
 	EntityView ev;
@@ -24,21 +24,17 @@ public class EntityBehavior {
 		this.ev = ev;
 	}
 
-	public void attack (Entity cible) {}
-
-	public void interact () {}
-
 
 	// Permet de choisir la précision que vous voulez sur l'angle de MyDir
 	static final double MYDIR_SENSI = 15 * 180 / Math.PI;
 
 
-	public boolean myDir (double orientation, boolean absolute, Vector vecDir) {
-		double angle = (absolute) ? (orientation) : (vecDir.getAngle() + orientation);
-		return (angle - MYDIR_SENSI <= vecDir.getAngle()) && (vecDir.getAngle() <= angle + MYDIR_SENSI);
+	public boolean myDir (double orientation, boolean absolute) {
+		double angle = (absolute) ? (orientation) : (this.e.getDirVector().getAngle() + orientation);
+		return (angle - MYDIR_SENSI <= this.e.getDirVector().getAngle()) && (this.e.getDirVector().getAngle() <= angle + MYDIR_SENSI);
 	}
 
-	public boolean cell (Vector vect, EntityType type, Hitbox hitbox) {
+	public boolean cell (Vector vect, EntityType type) {
 
 		float x = 0, y = 0;
 		double ang = vect.getAngle();
@@ -68,18 +64,18 @@ public class EntityBehavior {
 			y = 0;
 		}
 
-		Point p1 = new Point(hitbox.getP1().getX() + x, hitbox.getP1().getY() + y);
-		Point p2 = new Point(hitbox.getP2().getX() + x, hitbox.getP2().getY() + y);
-		Point p3 = new Point(hitbox.getP3().getX() + x, hitbox.getP3().getY() + y);
-		Point p4 = new Point(hitbox.getP4().getX() + x, hitbox.getP4().getY() + y);
+		Point p1 = new Point(this.e.m_hitbox.getP1().getX() + x, this.e.m_hitbox.getP1().getY() + y);
+		Point p2 = new Point(this.e.m_hitbox.getP2().getX() + x, this.e.m_hitbox.getP2().getY() + y);
+		Point p3 = new Point(this.e.m_hitbox.getP3().getX() + x, this.e.m_hitbox.getP3().getY() + y);
+		Point p4 = new Point(this.e.m_hitbox.getP4().getX() + x, this.e.m_hitbox.getP4().getY() + y);
 
-		if (hitbox.deplacementValide(p1, p2, p3, p4))
+		if (this.e.m_hitbox.deplacementValide(p1, p2, p3, p4))
 			return true;
 
 		return false;
 	}
 
-	public boolean closest (Direction orientation, EntityType type, double rangeDetection) {
+	public boolean closest (Direction orientation, EntityType type) {
 		ICollection.Iterator iter = Model.getlistEntity().iterator();
 		Entity e, e_min = null;
 		double distMin = Float.MAX_VALUE;
@@ -90,79 +86,37 @@ public class EntityBehavior {
 			if (e.getType() == type) {
 				double dist = this.e.distance(e);
 
-				if (distMin > dist && distMin < rangeDetection) {
+				if (distMin > dist && distMin < this.e.getRangeDetection()) {
 					e_min = e;
 					distMin = dist;
 				}
 			}
 		}
+
 		if (e_min == null)
 			return false;
+
 		// Si y a une erreur dans closest, elle est dans cette détection d'angle
 		if (this.e.angleVers(e_min) < this.e.getDirVector().getAngle() + 0.2 && this.e.angleVers(e_min) > this.e.getDirVector().getAngle() - 0.2)
 			return true;
 		return false;
 	}
 
-	public Entity closest (EntityType type) {
-		ICollection.Iterator iter = Model.getlistEntity().iterator();
-		Entity e, e_min = null;
-		double distMin = Double.MAX_VALUE;
-
-		while (iter.hasNext()) {
-			e = (Entity) iter.next();
-
-			if (e.getType() == type) {
-				double dist = this.e.distance(e);
-
-				if (distMin > dist) {
-					e_min = e;
-					distMin = dist;
-				}
-
-			}
-		}
-		return e_min;
-	}
-
-	public Entity closest (boolean possessable) {
-		ICollection.Iterator iter = Model.getlistEntity().iterator();
-		Entity e, e_min = null;
-		double distMin = Double.MAX_VALUE;
-
-		while (iter.hasNext()) {
-			e = (Entity) iter.next();
-
-			if (e.getPossessable() == possessable) {
-				double dist = this.e.distance(e);
-
-				if (distMin > dist) {
-					e_min = e;
-					distMin = dist;
-				}
-
-			}
-		}
-		return e_min;
-	}
-
-	public boolean gotPower (int pv) {
-		return pv > 0;
+	public boolean gotPower () {
+		return !(this.e.isDeath());
 	}
 
 	public boolean gotStuff () {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public void pop () {
-		// TODO C'est un truc à faire ça 
-	}
+	public void attack (Entity cible) {}
 
-	public void wizz () {
-		// TODO Auto-generated method stub
+	public void interact () {}
 
-	}
+	abstract public void pop ();
+
+	abstract public void wizz ();
 
 	public boolean move (Direction dir, Vector vecDir) {
 		return dir.move(vecDir);
@@ -180,78 +134,55 @@ public class EntityBehavior {
 		double a1 = Math.cos(Math.PI * 22.5 / 180);
 		double a2 = Math.cos(Math.PI * 67.5 / 180);
 
-		double profondeur;
+		double longeur;
 
 		double dist_x = Math.abs(this.e.m_hitbox.getP1().getX() - this.e.m_hitbox.getP3().getX()) / 2;
 		double dist_y = Math.abs(this.e.m_hitbox.getP1().getY() - this.e.m_hitbox.getP3().getY()) / 2;
 		double dist_diagonal = Math.sqrt(dist_x * dist_x + dist_y * dist_y);
 
-		if (Math.abs(vec.getX()) < 1 && Math.abs(vec.getX()) >= a1) {
-			profondeur = dist_x;
-		} else if (Math.abs(vec.getX()) < a1 && Math.abs(vec.getX()) >= a2) {
-			profondeur = dist_diagonal;
+		if (vec.getX() < 1 && vec.getX() >= a1) {
+			longeur = dist_x;
+		} else if (vec.getX() < a1 && vec.getX() >= a2) {
+			longeur = dist_diagonal;
 		} else {
-			profondeur = dist_y;
+			longeur = dist_y;
 		}
 
 		double centre_x = this.e.m_hitbox.getCenterRealX();
 		double centre_y = this.e.m_hitbox.getCenterRealY();
 
-		double largeur_hurt_box = RANGE_ATTAQUE_PROF + profondeur;
-		double hauteur_hurt_box = RANGE_ATTAQUE_LARG;
+		Point p1 = new Point(centre_x - (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y - RANGE_ATTAQUE_LARG / 2);
+		Point p4 = new Point(centre_x - (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y + RANGE_ATTAQUE_LARG / 2);
 
-		Point p1 = new Point(centre_x - (largeur_hurt_box / 2), centre_y - (hauteur_hurt_box / 2));
-		Point p2 = new Point(centre_x + (largeur_hurt_box / 2), centre_y - (hauteur_hurt_box / 2));
-		Point p3 = new Point(centre_x + (largeur_hurt_box / 2), centre_y + (hauteur_hurt_box / 2));
-		Point p4 = new Point(centre_x - (largeur_hurt_box / 2), centre_y + (hauteur_hurt_box / 2));
+		Point p2 = new Point(centre_x + (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y - RANGE_ATTAQUE_LARG / 2);
+		Point p3 = new Point(centre_x + (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y + RANGE_ATTAQUE_LARG / 2);
 
 		HurtBox attaque = new HurtBox(p1, p2, p3, p4, this.e);
 
-		attaque.rotate(vec.getAngle());
+		attaque.rotate(vec.getAngle() - (Math.PI / 2));
 
 		double c_p1_p4_x = (attaque.getP1().getX() + attaque.getP4().getX()) / 2;
 		double c_p1_p4_y = (attaque.getP1().getY() + attaque.getP4().getY()) / 2;
 
-		attaque.translate(attaque.getCenterRealX() - c_p1_p4_x, c_p1_p4_y - attaque.getCenterRealY());
+		attaque.translate(c_p1_p4_x - attaque.getCenterRealX(), c_p1_p4_y - attaque.getCenterRealY());
 
 		attaque.attaque();
 
 	}
 
-	public void protect (Direction orientation) {
-		// TODO Auto-generated method stub
+	public void protect (Direction orientation) {}
 
-	}
+	public void pick () {}
 
-	public void pick () {
-		// TODO Auto-generated method stub
+	public void put (Direction orientation) {}
 
-	}
+	public void store () {}
 
-	public void put (Direction orientation) {
-		// TODO Auto-generated method stub
+	public void get () {}
 
-	}
+	public void power () {}
 
-	public void store () {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void get () {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void power () {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void explode () {
-		// TODO Auto-generated method stub
-
-	}
+	public void explode () {}
 
 	public void egg (double orientationx, double orientationy, Hitbox hitbox, EntityProperties entityProperties) {
 		Model m;

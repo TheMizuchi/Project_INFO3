@@ -17,14 +17,10 @@ public class Bloon extends Mob {
 		m_bv = new BloonView(this, 2);
 		m_ev = m_bv;
 		m_bb = new BloonBehavior(this, m_bv);
+		m_mb = m_bb;
 		m_eb = m_bb;
 		MyCanvas.getInstance().createEntityView(m_bv);
 		m_tangible = false;
-	}
-
-	//Constructeur pour créer entité sans view
-	public Bloon (double x, double y, Object o) {
-		super(x, y, EntityProperties.BLOON);
 	}
 
 	public int getLevel () {

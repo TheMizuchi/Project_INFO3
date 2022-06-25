@@ -19,4 +19,9 @@ public class KeyView extends EntityView {
 		this.a.hide();
 	}
 
+	@Override
+	public void attack () {
+		return;
+	}
+
 }

@@ -2,11 +2,11 @@ package model.entity.behavior;
 
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
+import model.Model;
 import model.entity.Entity;
 import model.entity.EntityType;
 import model.entity.J1;
 import model.entity.J2;
-import model.entity.Stairs;
 import view.graphicEntity.StairsView;
 
 
@@ -20,19 +20,20 @@ public class StairsBehavior extends EntityBehavior {
 		m_sv = ev;
 	}
 
-	//Changer d'étage
-	public void pop () {
-
-	}
-
+	@Override
 	public boolean gotStuff () {
 
 		int proximity = 1;
 
-		if (this.e.distance(J1.getInstance()) > proximity && (this.e.distance(J2.getInstance()) > proximity))
+		if (this.e.distance(J1.getInstance()) > proximity && this.e.distance(J2.getInstance()) > proximity)
 			return false;
 
-		LinkedList entities = ((Stairs) this.e).getRoom().getListeEntity();
+		return true;
+	}
+
+	@Override
+	public boolean gotPower () {
+		IList entities = Model.getlistEntity();
 		IList.Iterator iter = entities.iterator();
 
 		while (iter.hasNext()) {
@@ -40,7 +41,17 @@ public class StairsBehavior extends EntityBehavior {
 			if (e.getType() == EntityType.ENEMY)
 				return false;
 		}
-
 		return true;
 	}
+
+	//Changer d'étage
+	@Override
+	public void wizz () {
+		Model.getInstance().newLevel();
+		System.out.println("Next level");
+	}
+
+	//Apparition de la porte
+	@Override
+	public void pop () {}
 }

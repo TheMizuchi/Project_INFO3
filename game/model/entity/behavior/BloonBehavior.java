@@ -8,7 +8,7 @@ import model.entity.Hitbox;
 import view.graphicEntity.BloonView;
 
 
-public class BloonBehavior extends EntityBehavior {
+public class BloonBehavior extends MobBehavior {
 
 	BloonView m_bv;
 
@@ -36,8 +36,7 @@ public class BloonBehavior extends EntityBehavior {
 
 	@Override
 	public void pop () {
-		m_bv.explode();
-		//Die now
+		// TODO Bloon Pop
 	}
 
 }

@@ -8,22 +8,22 @@ import view.graphicEntity.CowboyView;
 public class Cowboy extends Player {
 
 	CowboyView m_cv;
-	CowboyBehavior m_cb;
 
 
 	public Cowboy (double x, double y) {
 		super(x, y, EntityProperties.COWBOY);
 		m_cv = new CowboyView(this);
 		m_ev = m_cv;
-		m_cb = new CowboyBehavior(this, m_cv);
-		m_eb = m_cb;
+		m_pb = new CowboyBehavior(this, m_cv);
+		m_eb = m_pb;
 		MyCanvas.getInstance().createEntityView(m_cv);
 	}
 
-	//Constructeur pour créer entité sans view
-	public Cowboy (double x, double y, Object o) {
-		super(x, y, EntityProperties.COWBOY);
-	}
+	@Override
+	public void onGround () {}
+
+	@Override
+	public void onIce () {}
 
 	@Override
 	void hide () {}
@@ -33,4 +33,5 @@ public class Cowboy extends Player {
 
 	@Override
 	void setCam (Entity e) {}
+
 }

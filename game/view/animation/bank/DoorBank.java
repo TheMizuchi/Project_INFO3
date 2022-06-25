@@ -9,10 +9,6 @@ public class DoorBank extends EntityAnimationBank {
 
 	public Sprite opening;
 	public Sprite closing;
-	public Sprite lat_idle;
-	public Sprite lat_opening;
-	public Sprite lat_closing;
-	public Sprite lat_closed;
 
 
 	private DoorBank () {
@@ -58,38 +54,13 @@ public class DoorBank extends EntityAnimationBank {
 		this.opening = new Sprite(opening_img);
 
 		BufferedImage[] closing_img = new BufferedImage[7];
-		int x = 0;
+		int i = 0;
 
 		for (int j = 14; j > 7; j--) {
-			closing_img[x] = spriteFile.m_images[j];
-			x++;
+			closing_img[i] = spriteFile.m_images[j];
+			i++;
 		}
 		this.closing = new Sprite(closing_img);
-		
-		BufferedImage[] lat_idle_img = new BufferedImage[1];
-
-		lat_idle_img[0] = spriteFile.m_images[21];
-		this.lat_opening = new Sprite(lat_idle_img);
-		
-		BufferedImage[] lat_opening_img = new BufferedImage[7];
-
-		for (int i = 0; i < 7; i++) {
-			lat_opening_img[i] = spriteFile.m_images[i + 21];
-		}
-		this.lat_opening = new Sprite(lat_opening_img);
-		
-		BufferedImage[] lat_closing_img = new BufferedImage[7];
-		int y = 0;
-
-		for (int j = 29; j > 22; j--) {
-			lat_closing_img[y] = spriteFile.m_images[j];
-			y++;
-		}
-		this.lat_closing = new Sprite(lat_closing_img);
-		
-		BufferedImage[] lat_closed_img = new BufferedImage[7];
-		lat_closed_img[0] = spriteFile.m_images[29];
-		this.lat_closed= new Sprite(lat_closed_img);
 
 	}
 

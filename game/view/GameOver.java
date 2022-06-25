@@ -3,10 +3,13 @@ package view;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.management.RuntimeErrorException;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
+
+import view.animation.bank.BatBank;
 
 
 public class GameOver extends JFrame {
