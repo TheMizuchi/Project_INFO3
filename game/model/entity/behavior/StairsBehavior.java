@@ -1,7 +1,6 @@
 package model.entity.behavior;
 
 import edu.polytech.oop.collections.IList;
-import edu.polytech.oop.collections.LinkedList;
 import model.Model;
 import model.entity.Entity;
 import model.entity.EntityType;
@@ -12,12 +11,8 @@ import view.graphicEntity.StairsView;
 
 public class StairsBehavior extends EntityBehavior {
 
-	StairsView m_sv;
-
-
 	public StairsBehavior (Entity e, StairsView ev) {
 		super(e, ev);
-		m_sv = ev;
 	}
 
 	@Override

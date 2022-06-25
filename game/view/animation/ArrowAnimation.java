@@ -19,34 +19,37 @@ public class ArrowAnimation extends EntityAnimation {
 		m_sprite = this.ab.walk;
 		this.start();
 	}
-	
+
 	public void hautgauche () {
 		m_sprite = this.ab.hautgauche;
 		this.start();
 	}
-	
+
 	public void haut () {
 		m_sprite = this.ab.haut;
 		this.start();
 	}
-	
+
 	public void hautdroite () {
 		m_sprite = this.ab.hautdroite;
 		this.start();
 	}
-	
+
 	public void basgauche () {
 		m_sprite = this.ab.basgauche;
 		this.start();
 	}
-	
+
 	public void bas () {
 		m_sprite = this.ab.bas;
 		this.start();
 	}
-	
+
 	public void basdroite () {
 		m_sprite = this.ab.basdroite;
 		this.start();
 	}
+
+	@Override
+	public void attack () {}
 }

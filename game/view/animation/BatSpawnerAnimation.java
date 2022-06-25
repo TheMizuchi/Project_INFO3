@@ -14,4 +14,7 @@ public class BatSpawnerAnimation extends EntityAnimation {
 		super(AnimationBank.getAnimationBank(EntityProperties.BATSPAWNER.getID()));
 		this.bsb = (BatSpawnerBank) AnimationBank.getAnimationBank(EntityProperties.BATSPAWNER.getID());
 	}
+
+	@Override
+	public void attack () {}
 }

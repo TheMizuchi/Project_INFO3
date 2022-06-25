@@ -76,6 +76,8 @@ public class J2NormalGroundBehavior extends PlayerNormalGroundBehavior {
 
 		attaque.attaque();
 
+		ev.attack();
+
 	}
 
 }
