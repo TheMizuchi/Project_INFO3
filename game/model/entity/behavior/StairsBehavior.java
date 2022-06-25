@@ -25,10 +25,15 @@ public class StairsBehavior extends EntityBehavior {
 
 		int proximity = 1;
 
-		if (this.e.distance(J1.getInstance()) > proximity && (this.e.distance(J2.getInstance()) > proximity))
+		if (this.e.distance(J1.getInstance()) > proximity && this.e.distance(J2.getInstance()) > proximity)
 			return false;
 
-		LinkedList entities = (LinkedList) Model.getlistEntity();
+		return true;
+	}
+
+	@Override
+	public boolean gotPower () {
+		IList entities = Model.getlistEntity();
 		IList.Iterator iter = entities.iterator();
 
 		while (iter.hasNext()) {
@@ -41,12 +46,12 @@ public class StairsBehavior extends EntityBehavior {
 
 	//Changer d'étage
 	@Override
-	public void pop () {
-
-	}
-
-	@Override
 	public void wizz () {
-		// TODO : Wizz Stairs
+		Model.getInstance().newLevel();
+		System.out.println("Next level");
 	}
+
+	//Apparition de la porte
+	@Override
+	public void pop () {}
 }

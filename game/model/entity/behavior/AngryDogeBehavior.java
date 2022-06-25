@@ -13,4 +13,7 @@ public class AngryDogeBehavior extends DogeBehavior {
 		super(e, ev);
 		m_dv = ev;
 	}
+
+	@Override
+	public void pop () {}
 }

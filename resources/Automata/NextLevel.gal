@@ -1,0 +1,8 @@
+NextLevel (Init) {
+	* (Init) :
+		| GotPower ? Pop : (Open)
+	* (Open) :
+		| GotStuff ? Wizz : (Next)
+		| True ? Pop : (Open)
+	* (Next)
+}

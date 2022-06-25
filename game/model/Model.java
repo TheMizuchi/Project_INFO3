@@ -10,6 +10,8 @@ import model.entity.EntityProperties;
 import model.entity.EntityType;
 import model.entity.J1;
 import model.entity.J2;
+import model.entity.Key;
+import model.entity.Torch;
 import model.map.Map;
 import model.map.generator.Graph;
 import model.map.generator.JsonDecode;
@@ -75,6 +77,7 @@ public class Model {
 		Room spawnRoom = m_map.getSpawn();
 		Room keyRoom = m_map.getKey();
 		spawnRoom.spawnEntities(m_map, 0);
+		spawnRoom.setVisited(true);
 		keyRoom.spawnEntities(m_map, 0);
 		m_map.doors();
 	}
@@ -92,17 +95,29 @@ public class Model {
 				createMap(m_level, nbRooms);
 				loadEnv();
 			} else {
-				int j1_pv = J1.getInstance().getPv();
-				int j2_pv = J2.getInstance().getPv();
-				m_listeEntity = new LinkedList();
+				J1 player1 = J1.getInstance();
+				J2 player2 = J2.getInstance();
+				Key cle = Key.getInstance();
+				Torch tor = Torch.getInstance();
+
+				Iterator iterEntity = m_listeEntity.iterator();
+
+				while (iterEntity.hasNext()) {
+					Entity e = (Entity) iterEntity.next();
+
+					if (!e.equal(player1) && !e.equal(player2) && !e.equal(cle) && !e.equal(tor)) {
+						e.deleteEntity();
+					}
+				}
 				m_level++;
 				int nbRooms = 10 + 3 * m_level;
 				createMap(m_level, nbRooms);
 				loadEnv();
-				J1.getInstance().setPv(j1_pv);
-				J2.getInstance().setPv(j2_pv);
 			}
 
+		}
+		else {
+			m_level++;
 		}
 
 	}
@@ -240,6 +255,10 @@ public class Model {
 
 	public static Map getMap () {
 		return m_map;
+	}
+	
+	public int getLevel() {
+		return m_level;
 	}
 
 	public Entity getJ (int i) {

@@ -90,12 +90,12 @@ public class Hitbox {
 			}
 		}
 
-		if (m_e.isTanguible()) {
+		//if (m_e.isTanguible()) {
 
-			if (contactEntity(new_p1, new_p2, new_p3, new_p4)) {
-				return false;
-			}
+		if (contactEntity(new_p1, new_p2, new_p3, new_p4)) {
+			return false;
 		}
+		//}
 		return true;
 	}
 
@@ -108,14 +108,13 @@ public class Hitbox {
 		IList list = Model.getlistEntity();
 		IList.Iterator it = list.iterator();
 
-		if (!m_e.isTanguible()) {
-			return false;
-		}
+		//if (!m_e.isTanguible() && !m_e.isBloon())	
+		//	return false;
 
 		while (it.hasNext()) {
 			Entity e = (Entity) it.next();
 
-			if (!e.equal(m_e) && e.isTanguible()) {
+			if ((!e.equal(m_e) && e.isTanguible() && m_e.isTanguible()) || (e.isDoor() && e.isTanguible())) {
 
 				if (e.m_hitbox.pointInHitbox(new_p1) || e.m_hitbox.pointInHitbox(new_p2) || e.m_hitbox.pointInHitbox(new_p3) || e.m_hitbox.pointInHitbox(new_p4) || pointInHitbox(e.getHitbox().getP1()) || pointInHitbox(e.getHitbox().getP2()) || pointInHitbox(e.getHitbox().getP3()) || pointInHitbox(e.getHitbox().getP4())) {
 					return true;
@@ -226,6 +225,10 @@ public class Hitbox {
 		m_p2.add(center);
 		m_p3.add(center);
 		m_p4.add(center);
+	}
+
+	public boolean collides (Hitbox h) {
+		return this.getP1().getX() < h.getP3().getX() && this.getP3().getX() > h.getP1().getX() && this.getP1().getY() < h.getP3().getY() && this.getP3().getY() > h.getP1().getY();
 	}
 
 }

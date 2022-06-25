@@ -32,8 +32,8 @@ public abstract class EntityBehavior {
 
 
 	public boolean myDir (double orientation, boolean absolute) {
-		double angle = (absolute) ? (orientation) : (this.e.getAngle() + orientation);
-		return (angle - MYDIR_SENSI <= this.e.getAngle()) && (this.e.getAngle() <= angle + MYDIR_SENSI);
+		double angle = (absolute) ? (orientation) : (this.e.getDirVector().getAngle() + orientation);
+		return (angle - MYDIR_SENSI <= this.e.getDirVector().getAngle()) && (this.e.getDirVector().getAngle() <= angle + MYDIR_SENSI);
 	}
 
 	public boolean cell (Vector vect, EntityType type) {
@@ -99,7 +99,7 @@ public abstract class EntityBehavior {
 			return false;
 
 		// Si y a une erreur dans closest, elle est dans cette détection d'angle
-		if (this.e.angleVers(e_min) < this.e.getAngle() + 0.2 && this.e.angleVers(e_min) > this.e.getAngle() - 0.2)
+		if (this.e.angleVers(e_min) < this.e.getDirVector().getAngle() + 0.2 && this.e.angleVers(e_min) > this.e.getDirVector().getAngle() - 0.2)
 			return true;
 		return false;
 	}
@@ -136,39 +136,37 @@ public abstract class EntityBehavior {
 		double a1 = Math.cos(Math.PI * 22.5 / 180);
 		double a2 = Math.cos(Math.PI * 67.5 / 180);
 
-		double profondeur;
+		double longeur;
 
 		double dist_x = Math.abs(this.e.m_hitbox.getP1().getX() - this.e.m_hitbox.getP3().getX()) / 2;
 		double dist_y = Math.abs(this.e.m_hitbox.getP1().getY() - this.e.m_hitbox.getP3().getY()) / 2;
 		double dist_diagonal = Math.sqrt(dist_x * dist_x + dist_y * dist_y);
 
-		if (Math.abs(vec.getX()) < 1 && Math.abs(vec.getX()) >= a1) {
-			profondeur = dist_x;
-		} else if (Math.abs(vec.getX()) < a1 && Math.abs(vec.getX()) >= a2) {
-			profondeur = dist_diagonal;
+		if (vec.getX() < 1 && vec.getX() >= a1) {
+			longeur = dist_x;
+		} else if (vec.getX() < a1 && vec.getX() >= a2) {
+			longeur = dist_diagonal;
 		} else {
-			profondeur = dist_y;
+			longeur = dist_y;
 		}
 
 		double centre_x = this.e.m_hitbox.getCenterRealX();
 		double centre_y = this.e.m_hitbox.getCenterRealY();
 
-		double largeur_hurt_box = RANGE_ATTAQUE_PROF + profondeur;
-		double hauteur_hurt_box = RANGE_ATTAQUE_LARG;
+		Point p1 = new Point(centre_x - (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y - RANGE_ATTAQUE_LARG / 2);
+		Point p4 = new Point(centre_x - (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y + RANGE_ATTAQUE_LARG / 2);
 
-		Point p1 = new Point(centre_x - (largeur_hurt_box / 2), centre_y - (hauteur_hurt_box / 2));
-		Point p2 = new Point(centre_x + (largeur_hurt_box / 2), centre_y - (hauteur_hurt_box / 2));
-		Point p3 = new Point(centre_x + (largeur_hurt_box / 2), centre_y + (hauteur_hurt_box / 2));
-		Point p4 = new Point(centre_x - (largeur_hurt_box / 2), centre_y + (hauteur_hurt_box / 2));
+		Point p2 = new Point(centre_x + (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y - RANGE_ATTAQUE_LARG / 2);
+		Point p3 = new Point(centre_x + (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y + RANGE_ATTAQUE_LARG / 2);
 
 		HurtBox attaque = new HurtBox(p1, p2, p3, p4, this.e);
 
-		attaque.rotate(vec.getAngle());
+		attaque.rotate(vec.getAngle() - (Math.PI / 2));
 
 		double c_p1_p4_x = (attaque.getP1().getX() + attaque.getP4().getX()) / 2;
 		double c_p1_p4_y = (attaque.getP1().getY() + attaque.getP4().getY()) / 2;
 
-		attaque.translate(attaque.getCenterRealX() - c_p1_p4_x, c_p1_p4_y - attaque.getCenterRealY());
+		attaque.translate(c_p1_p4_x - attaque.getCenterRealX(), c_p1_p4_y - attaque.getCenterRealY());
 
 		attaque.attaque();
 

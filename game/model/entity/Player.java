@@ -4,7 +4,9 @@ import common.MyTimer;
 import common.TimerListener;
 import controller.RefAutomata;
 import model.Camera;
+import model.Model;
 import model.entity.behavior.PlayerBehavior;
+import model.map.TileType;
 
 
 public abstract class Player extends Entity {
@@ -29,6 +31,15 @@ public abstract class Player extends Entity {
 
 	@Override
 	public void update (long elapsed) {
+		double centerX = this.m_hitbox.getCenterRealX();
+		double centerY = this.m_hitbox.getCenterRealY();
+		
+		if(Model.getMap().getCases()[(int)centerX][(int)centerY].getType() == TileType.ICE) {
+			this.onIce();
+		}
+		else {
+			this.onGround();
+		}
 		(m_pb).update(elapsed);
 	}
 
@@ -40,47 +51,50 @@ public abstract class Player extends Entity {
 			// déplacement
 			m_automata.step();
 
-			double speedX = super.m_vecDir.getX() * ENTITY_MAX_SPEED;
-			double speedY = super.m_vecDir.getY() * ENTITY_MAX_SPEED;
+			if (cdAction != 0)
+				cdAction--;
+			else {
+				double speedX = super.m_vecDir.getX() * EntityMaxSpeed;
+				double speedY = super.m_vecDir.getY() * EntityMaxSpeed;
 
-			if (this.equals(torch.porteur)) {
-				speedX *= (1 - SLOW_TORCHE);
-				speedY *= (1 - SLOW_TORCHE);
+				if (this.equals(torch.porteur)) {
+					speedX *= (1 - SLOW_TORCHE);
+					speedY *= (1 - SLOW_TORCHE);
+				}
+
+				if (Camera.getBlock()) {
+					Entity autreJ = autreJ();
+					Entity moi = getEntity();
+					double m_angle = m_vecDir.getAngle();
+
+					double distY = Math.abs(autreJ.m_hitbox.getP1().getY() - (moi.m_hitbox.getP1().getY() + (speedY * elapsed / 1000))); // distance future entre les 2 joueurs
+					double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX() + (speedX * elapsed / 1000)));
+
+					// haut
+					if (m_angle < Math.PI && m_angle > 0 && distY > Camera.DISTANCE_MAX_Y) // si la distance sur cet axe est supérieur au max
+						return;
+
+					// bas
+					if (m_angle > Math.PI && distY > Camera.DISTANCE_MAX_Y)
+						return;
+
+					// gauche
+					if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && distX > Camera.DISTANCE_MAX_X)
+						return;
+
+					// droite
+					if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && distX > Camera.DISTANCE_MAX_X)
+						return;
+
+				}
+				m_speedX = speedX * elapsed / 1000;
+				m_speedY = speedY * elapsed / 1000;
+				m_hitbox.move(m_speedX, m_speedY);
+				if (this.equals(torch.porteur))
+					torch.update(this);
+				if (this.equals(key.porteur))
+					key.update(this);
 			}
-
-			if (Camera.getBlock()) {
-				Entity autreJ = autreJ();
-				Entity moi = getEntity();
-				double m_angle = m_vecDir.getAngle();
-
-				double distY = Math.abs(autreJ.m_hitbox.getP1().getY() - (moi.m_hitbox.getP1().getY() + (speedY * elapsed / 1000))); // distance future entre les 2 joueurs
-				double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX() + (speedX * elapsed / 1000)));
-
-				// haut
-				if (m_angle < Math.PI && m_angle > 0 && distY > Camera.DISTANCE_MAX_Y) // si la distance sur cet axe est supérieur au max
-					return;
-
-				// bas
-				if (m_angle > Math.PI && distY > Camera.DISTANCE_MAX_Y)
-					return;
-
-				// gauche
-				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && distX > Camera.DISTANCE_MAX_X)
-					return;
-
-				// droite
-				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && distX > Camera.DISTANCE_MAX_X)
-					return;
-
-			}
-
-			m_speedX = speedX * elapsed / 1000;
-			m_speedY = speedY * elapsed / 1000;
-			m_hitbox.move(m_speedX, m_speedY);
-			if (this.equals(torch.porteur))
-				torch.update(this);
-			if (this.equals(key.porteur))
-				key.update(this);
 		}
 
 	}
@@ -139,6 +153,7 @@ public abstract class Player extends Entity {
 				torch.update(this);
 			if (this.equals(key.porteur))
 				key.update(this);
+
 		}
 
 	}
@@ -172,10 +187,24 @@ public abstract class Player extends Entity {
 			key.porteur = this;
 			key.hide();
 		} else if (this.equals(torch.porteur)) {
+			torch.m_ls.setRadius(Torch.GROUND_RADIUS);
 			torch.porteur = null;
+			torch.show();
 		} else if (distance(torch) <= 2) {
+			torch.m_ls.setRadius(Torch.HOLDED_RADIUS);
 			torch.porteur = this;
+			torch.hide();
 		}
+	}
+
+	@Override
+	public void pop () {
+		pick();
+	}
+
+	@Override
+	public void wizz () {
+		possession();
 	}
 
 	public void possession () {

@@ -44,8 +44,8 @@ public class MenuFrame extends JFrame implements ActionListener {
 	static String fileBat = "resources/Automata/Idle.gal";
 	static String fileSkeleton = "resources/Automata/EntityTurnTest.gal";
 	static String fileMonkeyDart = "resources/Automata/Idle.gal";
-	static String fileDoge = "resources/Automata/Idle.gal";
-	static String fileMystery = "resources/Automata/Idle.gal";
+	static String fileDoge = "resources/Automata/Doge.gal";
+	static String fileMystery = "resources/Automata/MysteryWaitTest.gal";
 	static String fileBigBloon = "resources/Automata/Idle.gal";
 
 	JLabel label;

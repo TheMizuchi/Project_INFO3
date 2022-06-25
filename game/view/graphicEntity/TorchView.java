@@ -20,6 +20,14 @@ public class TorchView extends EntityView {
 		this.idle();
 	}
 
+	public void show () {
+		this.a.show();
+	}
+
+	public void hide () {
+		this.a.hide();
+	}
+
 	@Override
 	public void attack () {
 		return;
