@@ -27,13 +27,12 @@ public class J2NormalGroundBehavior extends PlayerNormalGroundBehavior {
 		double eCenterX = this.e.getHitbox().getCenterRealX();
 		double eCenterY = this.e.getHitbox().getCenterRealY();
 		double aCenterX = eCenterX + (eSemi_diagonal + aSemi_diagonal + 0.1) * Math.cos(vec.getAngle());
-		double aCenterY = eCenterY + (eSemi_diagonal + aSemi_diagonal + 0.1) * Math.sin(vec.getAngle());
+		double aCenterY = eCenterY + (eSemi_diagonal + aSemi_diagonal + 0.1) * Math.sin(-vec.getAngle());
 		double aX = aCenterX - aWidth / 2;
 		double aY = aCenterY - aHeight / 2;
 
 		Arrow a = (Arrow) model.createEntity(aX, aY, EntityProperties.ARROW);
 		a.setVector(vec);
-
 	}
 
 }

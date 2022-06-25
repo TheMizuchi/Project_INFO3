@@ -1,7 +1,9 @@
 
 package model.entity.behavior;
 
+import model.entity.Direction;
 import model.entity.Entity;
+import model.entity.Vector;
 import view.graphicEntity.ArrowView;
 
 
@@ -19,6 +21,11 @@ public class ArrowBehavior extends EntityBehavior {
 	@Override
 	public void wizz () {
 		// TODO Arrow Wizz
+	}
+
+	@Override
+	public boolean move (Direction dir, Vector vecDir) {
+		return dir.move(vecDir);
 	}
 
 }
