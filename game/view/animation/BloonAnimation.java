@@ -76,4 +76,7 @@ public class BloonAnimation extends EntityAnimation {
 		this.y = y;
 		this.scale = scale / 20;
 	}
+
+	@Override
+	public void attack () {}
 }

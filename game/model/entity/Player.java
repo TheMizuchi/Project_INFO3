@@ -13,7 +13,7 @@ public abstract class Player extends Entity {
 
 	public static final long POSSESSION_CD = 30;
 	public final static double SLOW_TORCHE = 0.20;
-	public final static double POSSESSION_RANGE = 10;
+	public final static double POSSESSION_RANGE = 5;
 	public final static double CD_ATTAQUE = 700;
 	public final static double SLOW_TORCHE_ATTAQUE = 1.3;
 	long m_possessionCD;
@@ -41,7 +41,7 @@ public abstract class Player extends Entity {
 		} else {
 			this.onGround();
 		}
-		(m_pb).update(elapsed);
+		m_pb.update(elapsed);
 	}
 
 	public void updateOnNormalGround (long elapsed) {
@@ -136,20 +136,24 @@ public abstract class Player extends Entity {
 				double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX() + (speedX * elapsed / 1000)));
 
 				// haut
-				if (m_angle < Math.PI && m_angle > 0 && distY > Camera.DISTANCE_MAX_Y) // si la distance sur cet axe est supérieur au max
+				if (m_angle < Math.PI && m_angle > 0 && distY > Camera.DISTANCE_MAX_Y) { // si la distance sur cet axe est supérieur au max
 					return;
+				}
 
 				// bas
-				if (m_angle > Math.PI && distY > Camera.DISTANCE_MAX_Y)
+				if (m_angle > Math.PI && distY > Camera.DISTANCE_MAX_Y) {
 					return;
+				}
 
 				// gauche
-				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && distX > Camera.DISTANCE_MAX_X)
+				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && distX > Camera.DISTANCE_MAX_X) {
 					return;
+				}
 
 				// droite
-				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && distX > Camera.DISTANCE_MAX_X)
+				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && distX > Camera.DISTANCE_MAX_X) {
 					return;
+				}
 
 			}
 			if (Math.abs(speedX) < 0.5)
@@ -157,14 +161,34 @@ public abstract class Player extends Entity {
 			if (Math.abs(speedY) < 0.5)
 				m_speedY = speedY;
 
+			double p1x = m_hitbox.m_p1.getX();
+			double p1y = m_hitbox.m_p1.getY();
 			m_hitbox.move(m_speedX, m_speedY);
+
+			if (p1x == m_hitbox.m_p1.getX()) {
+				m_speedX = 0;
+			}
+
+			if (p1y == m_hitbox.m_p1.getY()) {
+				m_speedY = 0;
+			}
+
+			Entity autreJ = autreJ();
+			Entity moi = getEntity();
+			double distY = Math.abs(autreJ.m_hitbox.getP1().getY() - (moi.m_hitbox.getP1().getY())); // distance future entre les 2 joueurs
+			double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX()));
+
+			if (distY > Camera.DISTANCE_MAX_Y || distX > Camera.DISTANCE_MAX_X) {
+				m_hitbox.move(-m_speedX, -m_speedY);
+				m_speedY = 0;
+				m_speedX = 0;
+			}
 			if (this.equals(torch.porteur))
 				torch.update(this);
 			if (this.equals(key.porteur))
 				key.update(this);
 
 		}
-
 	}
 
 	public void setAutomata (RefAutomata a) {
@@ -235,6 +259,8 @@ public abstract class Player extends Entity {
 
 			if (closestTarget != null && distance(closestTarget) < POSSESSION_RANGE) {
 				closestTarget.devientGentil(m_entityProperties, m_vecDir.clone(), this);
+				Point p = new Point(Double.MIN_VALUE, Double.MIN_VALUE);
+				m_hitbox = new Hitbox(p, p, p, p, this);
 				m_automata = new RefAutomata(this, true);
 				m_possessing = closestTarget;
 				m_tangible = false;

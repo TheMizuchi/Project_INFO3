@@ -29,4 +29,7 @@ public class DoorAnimation extends EntityAnimation {
 		this.start();
 	}
 
+	@Override
+	public void attack () {}
+
 }

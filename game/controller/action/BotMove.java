@@ -1,6 +1,7 @@
 package controller.action;
 
 import controller.BotAction;
+import controller.BotCategory;
 import controller.BotDirection;
 import controller.RefAutomata;
 import model.entity.Entity;
@@ -14,35 +15,42 @@ import model.entity.PlayerRelativeDirection;
 public class BotMove extends BotAction {
 
 	BotDirection m_dir;
+	BotCategory m_cat;
 
 
-	public BotMove (String dir) {
+	public BotMove (String dir, String cat) {
 		m_dir = new BotDirection(dir);
+		m_cat = new BotCategory(cat);
 	}
 
 	@Override
 	public boolean apply (Entity e, RefAutomata aut) {
 		EntityType type = e.getType();
 
-		// ne cible que les joueurs, fonction réservée aux monstres (ou aux margoulin qui veulent voler des torches)
-		if (m_dir.getSel()) {
-			Entity mobTarget = e.closest(EntityType.ALLY);
-			m_dir.setAngle(e.angleVers(mobTarget));
+		double angle = m_dir.getAngle();
+
+		// Permet de cibler l'entité la plus proche de la catégorie choisie
+		if (m_cat.getSel() && !m_dir.getAbs()) {
+			Entity target = e.closest(m_cat.getType());
+
+			if (target != null) {
+				angle += e.angleVers(target);
+			}
 		}
 
 		if (type == EntityType.ALLY) {
 
-			if (m_dir.getAbs()) {
-				e.move(new PlayerAbsoluteDirection(m_dir.getAngle()));
+			if (!m_dir.getAbs() && !m_cat.getSel()) {
+				e.move(new PlayerRelativeDirection(e, angle));
 			} else {
-				e.move(new PlayerRelativeDirection(e, m_dir.getAngle()));
+				e.move(new PlayerAbsoluteDirection(angle));
 			}
 		} else {
 
-			if (m_dir.getAbs()) {
-				e.move(new EntityAbsoluteDirection(m_dir.getAngle()));
+			if (!m_dir.getAbs() && !m_cat.getSel()) {
+				e.move(new EntityRelativeDirection(e, angle));
 			} else {
-				e.move(new EntityRelativeDirection(e, m_dir.getAngle()));
+				e.move(new EntityAbsoluteDirection(angle));
 			}
 		}
 		return true;

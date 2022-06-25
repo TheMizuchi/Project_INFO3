@@ -22,6 +22,7 @@ public abstract class Entity implements EntityInterface {
 	protected double EntityMaxSpeed = 2; // vitesse par seconde
 	protected static double MobMaxSpeed = 1;
 	protected static double ENTITY_MAX_ACCELERATION = 3;
+	protected static int ENTITY_ATTACK_CD = 500;
 	protected Vector m_vecDir = new Vector();
 
 	private static int m_count = 0;
@@ -29,7 +30,7 @@ public abstract class Entity implements EntityInterface {
 
 	protected LinkedList m_blockInterdit;
 	protected boolean m_tangible;
-	protected EntityBehavior m_eb;
+	public EntityBehavior m_eb;
 
 	protected int m_nbDamages;
 	protected double cdAction;
@@ -139,12 +140,6 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	public void update (long elapsed) {
-
-		if (this.getProperties() == EntityProperties.DOOR) {
-			Door d = (Door) this;
-			d.stops();
-		}
-
 		// déplacement
 		m_automata.step();
 		double speedX = m_vecDir.getX() * EntityMaxSpeed;
@@ -195,6 +190,10 @@ public abstract class Entity implements EntityInterface {
 		return m_hitbox;
 	}
 
+	public double getAngle () {
+		return m_vecDir.getAngle();
+	}
+
 	public double angleVers (Entity e) {
 		double dist = distance(e);
 		double truc = m_hitbox.getCenterX() - e.m_hitbox.getCenterX();
@@ -215,7 +214,9 @@ public abstract class Entity implements EntityInterface {
 		}
 
 		// haut droite
-		else if (m_hitbox.getCenterX() <= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() <= e.m_hitbox.getCenterY()) {
+		else if (m_hitbox.getCenterX() <= e.m_hitbox.getCenterX() && m_hitbox.getCenterY() <= e.m_hitbox.getCenterY())
+
+		{
 			return Math.acos(Math.abs(bidule) / dist) + Math.PI / 2 * 3;
 		}
 
@@ -337,9 +338,6 @@ public abstract class Entity implements EntityInterface {
 	// les hits des joueurs sont override dans la classe player
 	@Override
 	public void hit (Vector vec) {
-		if (cdAction >= 0)
-			return;
-		cdAction = 1000;
 		m_eb.hit(vec);
 	}
 

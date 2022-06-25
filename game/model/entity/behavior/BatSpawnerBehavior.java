@@ -7,12 +7,8 @@ import view.graphicEntity.BatSpawnerView;
 
 public class BatSpawnerBehavior extends EntityBehavior {
 
-	BatSpawnerView m_bv;
-
-
 	public BatSpawnerBehavior (Entity e, BatSpawnerView ev) {
 		super(e, ev);
-		m_bv = ev;
 	}
 
 	@Override

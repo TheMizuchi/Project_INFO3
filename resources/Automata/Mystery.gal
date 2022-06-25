@@ -1,5 +1,5 @@
 Mystery (Init) {
 	* (Init):
-		| Cell ? Move(F) : (Init)
-		| True ? Turn : (Init)
+		| !Cell(F, O) ? Move(F) : (Init)
+		| True ? Turn(F, @) : (Init)
 }
