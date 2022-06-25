@@ -23,6 +23,8 @@ public class BotDirection {
 			case "L":
 				m_angle += 2 * ang;
 			case "F":
+			case "H":
+				m_here = true;
 				m_absolute = false;
 				break;
 
@@ -42,9 +44,6 @@ public class BotDirection {
 			case "NE":
 				m_angle += ang;
 			case "E":
-				break;
-			case "H":
-				m_here = true;
 				break;
 		}
 	}

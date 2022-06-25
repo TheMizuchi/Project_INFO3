@@ -23,10 +23,11 @@ public class BotTurn extends BotAction {
 
 		// Permet de cibler l'entité la plus proche de la catégorie choisie
 		if (m_cat.getSel() && !m_dir.getAbs()) {
-			Entity cible = e.closest(m_cat.getType());
-			m_dir.setAngle(e.angleVers(cible));
+			Entity target = e.closest(m_cat.getType());
+			e.turn(m_dir.getAngle() + e.angleVers(target), true);
+		} else {
+			e.turn(m_dir.getAngle(), m_dir.getAbs());
 		}
-		e.turn(m_dir.getAngle(), m_dir.getAbs());
 		return true;
 
 	}

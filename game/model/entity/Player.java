@@ -33,14 +33,13 @@ public abstract class Player extends Entity {
 	public void update (long elapsed) {
 		double centerX = this.m_hitbox.getCenterRealX();
 		double centerY = this.m_hitbox.getCenterRealY();
-		
-		if(Model.getMap().getCases()[(int)centerX][(int)centerY].getType() == TileType.ICE) {
+
+		if (Model.getMap().getCases()[(int) centerX][(int) centerY].getType() == TileType.ICE) {
 			this.onIce();
-		}
-		else {
+		} else {
 			this.onGround();
 		}
-		(m_pb).update(elapsed);
+		m_pb.update(elapsed);
 	}
 
 	public void updateOnNormalGround (long elapsed) {
@@ -51,9 +50,7 @@ public abstract class Player extends Entity {
 			// déplacement
 			m_automata.step();
 
-			if (cdAction != 0)
-				cdAction--;
-			else {
+			if (m_cdAction <= 0) {
 				double speedX = super.m_vecDir.getX() * EntityMaxSpeed;
 				double speedY = super.m_vecDir.getY() * EntityMaxSpeed;
 
@@ -228,6 +225,48 @@ public abstract class Player extends Entity {
 			}
 		}
 	}
+
+	@Override
+	public void hit (Vector vec) {
+
+		if (m_cdAction <= 0) {
+			m_eb.hit(vec);
+			new AttackTimer(this);
+		}
+	}
+
+
+	private class AttackTimer implements TimerListener {
+
+		Player m_p;
+		long m_last;
+
+
+		AttackTimer (Player p) {
+			m_p = p;
+			m_p.m_cdAction = ENTITY_ATTACK_CD;
+			MyTimer mt = MyTimer.getTimer();
+			m_last = System.currentTimeMillis();
+			mt.setTimer(20, this);
+		}
+
+		@Override
+		public void expired () {
+
+			if (m_p.m_cdAction <= 0) {
+				m_p.m_cdAction = 0;
+			} else {
+				long time = System.currentTimeMillis();
+				m_cdAction -= time - m_last;
+				m_last = time;
+				MyTimer mt = MyTimer.getTimer();
+				mt.setTimer(20, this);
+			}
+
+		}
+
+	}
+
 
 	abstract void hide ();
 	abstract void show ();

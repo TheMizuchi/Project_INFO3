@@ -1,6 +1,6 @@
-MysteryWaitTest (Init) {
+MysteryWaitTest (Waiting) {
 	* (Init):
-		| Cell ? Move(F) : (Init)
+		| !Cell(F, O) ? Move(F) : (Init)
 		| True ? Wait : (Waiting)
 	* (Waiting) :
 		| True ? Turn(F, @) : (Init)

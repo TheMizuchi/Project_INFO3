@@ -4,8 +4,12 @@ import controller.BotCategory;
 import controller.BotDirection;
 import controller.ICondition;
 import model.entity.Entity;
+import model.entity.EntityProperties;
+import model.entity.EntityType;
+import model.entity.Hitbox;
 import model.entity.Point;
 import model.entity.Vector;
+import model.map.TileType;
 
 
 public class BotCell implements ICondition {
@@ -22,9 +26,6 @@ public class BotCell implements ICondition {
 	@Override
 	public boolean eval (Entity e) {
 
-		//		if (m_cat.getSel())
-		//			return e.cell(e.getDirVector(), EntityType.OBSTACLE);
-
 		long environElapsed = 60;
 
 		Vector zer = e.getDirVector().clone();
@@ -40,9 +41,21 @@ public class BotCell implements ICondition {
 		Point p3 = new Point(e.m_hitbox.getP3().getX() + dx, e.m_hitbox.getP3().getY() + dy);
 		Point p4 = new Point(e.m_hitbox.getP4().getX() + dx, e.m_hitbox.getP4().getY() + dy);
 
-		if (e.getHitbox().deplacementValide(p1, p2, p3, p4))
-			return true;
+		if (m_cat.getType() == EntityType.OBSTACLE) {
+			boolean wall = Hitbox.isInsideType(p1, TileType.WALL) || Hitbox.isInsideType(p2, TileType.WALL) || Hitbox.isInsideType(p3, TileType.WALL) || Hitbox.isInsideType(p4, TileType.WALL);
 
+			Entity closestObstacle = e.closest(EntityType.OBSTACLE);
+			boolean door = false;
+
+			if (closestObstacle.getProperties() == EntityProperties.DOOR) {
+				door = closestObstacle.m_hitbox.pointInHitbox(p1) || closestObstacle.m_hitbox.pointInHitbox(p2) || closestObstacle.m_hitbox.pointInHitbox(p3) || closestObstacle.m_hitbox.pointInHitbox(p4);
+			}
+			return wall || door;
+		} else {
+			Entity target = e.closest(m_cat.getType());
+			if (target.m_hitbox.contactEntity(p1, p2, p3, p4))
+				return true;
+		}
 		return false;
 	}
 
