@@ -137,12 +137,6 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	public void update (long elapsed) {
-
-		if (this.getProperties() == EntityProperties.DOOR) {
-			Door d = (Door) this;
-			d.stops();
-		}
-
 		// déplacement
 		m_automata.step();
 		double speedX = m_vecDir.getX() * EntityMaxSpeed;

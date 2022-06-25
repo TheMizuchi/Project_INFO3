@@ -82,6 +82,16 @@ public class Door extends Entity {
 		return;
 	}
 
+	@Override
+	public void update (long elapsed) {
+		this.stops();
+		m_automata.step();
+		double speedX = m_vecDir.getX() * EntityMaxSpeed;
+		double speedY = m_vecDir.getY() * EntityMaxSpeed;
+		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
+
+	}
+
 	public void stops () {
 		if (m_room.getVisited())
 			return;
