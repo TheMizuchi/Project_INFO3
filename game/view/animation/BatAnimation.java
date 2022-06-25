@@ -1,6 +1,5 @@
 package view.animation;
 
-import model.Model;
 import model.entity.EntityProperties;
 import view.animation.bank.AnimationBank;
 import view.animation.bank.BatBank;
@@ -20,4 +19,7 @@ public class BatAnimation extends EntityAnimation {
 		m_sprite = this.bb.walk;
 		this.start();
 	}
+
+	@Override
+	public void attack () {}
 }

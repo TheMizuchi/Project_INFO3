@@ -108,6 +108,8 @@ public class Hitbox {
 		IList list = Model.getlistEntity();
 		IList.Iterator it = list.iterator();
 
+		Hitbox new_hit = new Hitbox(new_p1, new_p2, new_p3, new_p4, m_e);
+
 		//if (!m_e.isTanguible() && !m_e.isBloon())	
 		//	return false;
 
@@ -116,7 +118,7 @@ public class Hitbox {
 
 			if ((!e.equal(m_e) && e.isTanguible() && m_e.isTanguible()) || (e.isDoor() && e.isTanguible())) {
 
-				if (e.m_hitbox.pointInHitbox(new_p1) || e.m_hitbox.pointInHitbox(new_p2) || e.m_hitbox.pointInHitbox(new_p3) || e.m_hitbox.pointInHitbox(new_p4)) {
+				if (e.m_hitbox.pointInHitbox(new_p1) || e.m_hitbox.pointInHitbox(new_p2) || e.m_hitbox.pointInHitbox(new_p3) || e.m_hitbox.pointInHitbox(new_p4) || new_hit.pointInHitbox(e.getHitbox().getP1()) || new_hit.pointInHitbox(e.getHitbox().getP2()) || new_hit.pointInHitbox(e.getHitbox().getP3()) || new_hit.pointInHitbox(e.getHitbox().getP4())) {
 					return true;
 				}
 			}
