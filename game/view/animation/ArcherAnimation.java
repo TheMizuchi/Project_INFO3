@@ -22,4 +22,7 @@ public class ArcherAnimation extends EntityAnimation {
 		this.y = y;
 		this.scale = scale / 30;
 	}
+
+	@Override
+	public void attack () {}
 }

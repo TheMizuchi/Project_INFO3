@@ -248,7 +248,7 @@ public class BotBuilder implements IVisitor {
 						act = new BotWizz();
 						break;
 					case "Hit":
-						act = new BotHit(call.m_p1);
+						act = new BotHit(call.m_p1, call.m_p2);
 						break;
 					case "Power":
 						act = new BotPower();

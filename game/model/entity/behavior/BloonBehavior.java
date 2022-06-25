@@ -10,13 +10,8 @@ import view.graphicEntity.BloonView;
 
 public class BloonBehavior extends MobBehavior {
 
-	BloonView m_bv;
-
-
 	public BloonBehavior (Entity e, BloonView ev) {
 		super(e, ev);
-		m_bv = ev;
-
 	}
 
 	@Override

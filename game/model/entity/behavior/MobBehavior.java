@@ -7,12 +7,8 @@ import view.graphicEntity.EntityView;
 
 public abstract class MobBehavior extends EntityBehavior {
 
-	EntityView ev;
-
-
 	public MobBehavior (Entity e, EntityView ev) {
 		super(e, ev);
-		this.ev = ev;
 	}
 
 	@Override

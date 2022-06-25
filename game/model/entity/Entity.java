@@ -30,7 +30,7 @@ public abstract class Entity implements EntityInterface {
 
 	protected LinkedList m_blockInterdit;
 	protected boolean m_tangible;
-	protected EntityBehavior m_eb;
+	public EntityBehavior m_eb;
 
 	protected int m_nbDamages;
 	protected int m_cdAction;
@@ -138,12 +138,6 @@ public abstract class Entity implements EntityInterface {
 	}
 
 	public void update (long elapsed) {
-
-		if (this.getProperties() == EntityProperties.DOOR) {
-			Door d = (Door) this;
-			d.stops();
-		}
-
 		// déplacement
 		m_automata.step();
 		double speedX = m_vecDir.getX() * EntityMaxSpeed;
