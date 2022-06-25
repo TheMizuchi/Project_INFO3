@@ -18,8 +18,8 @@ public class PlayerAbsoluteDirection extends Direction {
 	protected void compute () {
 		double x = Math.cos(m_angle);
 		double y = Math.sin(m_angle);
-		x = Math.round(x);
-		y = Math.round(y);
+		x = Math.round(x * 1000) / 1000.0;
+		y = Math.round(y * 1000) / 1000.0;
 		m_v.setX(x);
 		m_v.setY(-y);
 	}
