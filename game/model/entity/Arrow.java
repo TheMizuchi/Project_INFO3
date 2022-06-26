@@ -58,4 +58,9 @@ public class Arrow extends Mob {
 		this.deleteEntity();
 	}
 
+	//	@Override
+	//	public void move (Direction orientation) {
+	//
+	//		m_eb.move(orientation, m_vecDir);
+	//	}
 }

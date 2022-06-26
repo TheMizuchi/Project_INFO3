@@ -97,7 +97,12 @@ public abstract class EntityBehavior {
 	abstract public void wizz ();
 
 	public boolean move (Direction dir, Vector vecDir) {
-		return dir.move(vecDir);
+		boolean b = dir.move(vecDir);
+
+		if (b) {
+			this.ev.walk();
+		}
+		return b;
 	}
 
 	public void turn (double orientation, boolean absolute, Vector vecDir) {

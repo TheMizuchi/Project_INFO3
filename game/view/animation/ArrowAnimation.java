@@ -15,6 +15,9 @@ public class ArrowAnimation extends EntityAnimation {
 		this.ab = (ArrowBank) AnimationBank.getAnimationBank(EntityProperties.ARROW.getID());
 	}
 
+	// Idle = Droite
+
+	// Gauche
 	public void walk () {
 		m_sprite = this.ab.walk;
 		this.start();

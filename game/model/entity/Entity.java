@@ -337,9 +337,7 @@ public abstract class Entity implements EntityInterface {
 	@Override
 	public void move (Direction orientation) {
 
-		if (m_eb.move(orientation, m_vecDir)) {
-			m_ev.walk();
-		}
+		m_eb.move(orientation, m_vecDir);
 	}
 
 	@Override
