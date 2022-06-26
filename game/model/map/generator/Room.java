@@ -93,7 +93,6 @@ public class Room {
 						}
 						catch (Exception ex) {
 							Entity e = model.createEntity(x, y, entityProperties);
-							//à enelever plus tard
 							model.createLightSource(e);
 						}
 					} else if (entityProperties == EntityProperties.J2) {
@@ -103,7 +102,6 @@ public class Room {
 						}
 						catch (Exception ex) {
 							Entity e = model.createEntity(x, y, entityProperties);
-							//à enelever plus tard
 							model.createLightSource(e);
 						}
 					} else if (entityProperties == EntityProperties.KEY) {
@@ -113,8 +111,6 @@ public class Room {
 						}
 						catch (Exception ex) {
 							Entity e = model.createEntity(x, y, entityProperties);
-							//à enelever plus tard
-							model.createLightSource(e);
 						}
 					} else if (entityProperties == EntityProperties.TORCH) {
 
@@ -127,8 +123,6 @@ public class Room {
 						}
 					} else {
 						Entity e = model.createEntity(x, y, entityProperties);
-						//à enelever plus tard
-						model.createLightSource(e);
 					}
 				}
 			}
