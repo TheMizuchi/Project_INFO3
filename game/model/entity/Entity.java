@@ -53,6 +53,7 @@ public abstract class Entity implements EntityInterface {
 		m_c = m_count;
 		m_count++;
 		m_blockInterdit.insertAt(0, TileType.VOID);
+		m_hitbox.setDxDyView(ep.getDxView(), ep.getDyView());
 	}
 
 	public static Entity createEntity (double x, double y, EntityProperties entityProperties) {
