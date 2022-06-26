@@ -64,12 +64,12 @@ public abstract class EntityBehavior {
 			y = 0;
 		}
 
-		Point p1 = new Point(this.e.m_hitbox.getP1().getX() + x, this.e.m_hitbox.getP1().getY() + y);
-		Point p2 = new Point(this.e.m_hitbox.getP2().getX() + x, this.e.m_hitbox.getP2().getY() + y);
-		Point p3 = new Point(this.e.m_hitbox.getP3().getX() + x, this.e.m_hitbox.getP3().getY() + y);
-		Point p4 = new Point(this.e.m_hitbox.getP4().getX() + x, this.e.m_hitbox.getP4().getY() + y);
+		Point p1 = new Point(this.e.getHibox().getP1().getX() + x, this.e.getHibox().getP1().getY() + y);
+		Point p2 = new Point(this.e.getHibox().getP2().getX() + x, this.e.getHibox().getP2().getY() + y);
+		Point p3 = new Point(this.e.getHibox().getP3().getX() + x, this.e.getHibox().getP3().getY() + y);
+		Point p4 = new Point(this.e.getHibox().getP4().getX() + x, this.e.getHibox().getP4().getY() + y);
 
-		if (this.e.m_hitbox.deplacementValide(p1, p2, p3, p4))
+		if (this.e.getHibox().deplacementValide(p1, p2, p3, p4))
 			return true;
 
 		return false;
@@ -146,8 +146,8 @@ public abstract class EntityBehavior {
 
 		double longeur;
 
-		double dist_x = Math.abs(e.m_hitbox.getP1().getX() - e.m_hitbox.getP3().getX()) / 2;
-		double dist_y = Math.abs(e.m_hitbox.getP1().getY() - e.m_hitbox.getP3().getY()) / 2;
+		double dist_x = Math.abs(e.getHibox().getP1().getX() - e.getHibox().getP3().getX()) / 2;
+		double dist_y = Math.abs(e.getHibox().getP1().getY() - e.getHibox().getP3().getY()) / 2;
 		double dist_diagonal = Math.sqrt(dist_x * dist_x + dist_y * dist_y);
 
 		if (vec.getX() < 1 && vec.getX() >= a1) {
@@ -158,8 +158,8 @@ public abstract class EntityBehavior {
 			longeur = dist_y;
 		}
 
-		double centre_x = e.m_hitbox.getCenterRealX();
-		double centre_y = e.m_hitbox.getCenterRealY();
+		double centre_x = e.getHibox().getCenterRealX();
+		double centre_y = e.getHibox().getCenterRealY();
 
 		Point p1 = new Point(centre_x - (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y - RANGE_ATTAQUE_LARG / 2);
 		Point p4 = new Point(centre_x - (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y + RANGE_ATTAQUE_LARG / 2);
@@ -190,8 +190,8 @@ public abstract class EntityBehavior {
 		double dx = 0;
 		double dy = 0;
 
-		double dist_x = Math.abs(e.m_hitbox.getP1().getX() - e.m_hitbox.getP3().getX()) / 2;
-		double dist_y = Math.abs(e.m_hitbox.getP1().getY() - e.m_hitbox.getP3().getY()) / 2;
+		double dist_x = Math.abs(e.getHibox().getP1().getX() - e.getHibox().getP3().getX()) / 2;
+		double dist_y = Math.abs(e.getHibox().getP1().getY() - e.getHibox().getP3().getY()) / 2;
 
 		if (Math.abs(vec.getX()) <= 1 && Math.abs(vec.getX()) >= a1) {
 			dx = dist_x + RANGE_ATTAQUE_PROF / 2;
@@ -218,8 +218,8 @@ public abstract class EntityBehavior {
 			}
 		}
 
-		double centre_x = e.m_hitbox.getCenterRealX();
-		double centre_y = e.m_hitbox.getCenterRealY();
+		double centre_x = e.getHibox().getCenterRealX();
+		double centre_y = e.getHibox().getCenterRealY();
 
 		Point p1 = new Point(centre_x - (RANGE_ATTAQUE_PROF / 2), centre_y - (RANGE_ATTAQUE_LARG / 2));
 		Point p2 = new Point(centre_x + (RANGE_ATTAQUE_PROF / 2), centre_y - (RANGE_ATTAQUE_LARG / 2));
@@ -243,7 +243,7 @@ public abstract class EntityBehavior {
 		} else {
 			a.setVector(vec);
 		}
-		a.m_hitbox = attaque;
+		a.setHitBox(attaque);
 		a.setNbDamages(e.getNbDamages());
 		attaque.setOwner(a);
 	}

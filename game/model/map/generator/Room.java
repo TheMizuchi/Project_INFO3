@@ -89,7 +89,7 @@ public class Room {
 					if (entityProperties == EntityProperties.J1) {
 
 						try {
-							J1.getInstance().m_hitbox = new Hitbox(x, y, entityWidth, entityHeight, J1.getInstance());
+							J1.getInstance().setHitBox(new Hitbox(x, y, entityWidth, entityHeight, J1.getInstance()));
 						}
 						catch (Exception ex) {
 							Entity e = model.createEntity(x, y, entityProperties);
@@ -98,7 +98,7 @@ public class Room {
 					} else if (entityProperties == EntityProperties.J2) {
 
 						try {
-							J2.getInstance().m_hitbox = new Hitbox(x, y, entityWidth, entityHeight, J2.getInstance());
+							J2.getInstance().setHitBox(new Hitbox(x, y, entityWidth, entityHeight, J2.getInstance()));
 						}
 						catch (Exception ex) {
 							Entity e = model.createEntity(x, y, entityProperties);
@@ -107,7 +107,7 @@ public class Room {
 					} else if (entityProperties == EntityProperties.KEY) {
 
 						try {
-							Key.getInstance().m_hitbox = new Hitbox(x, y, entityWidth, entityHeight, Key.getInstance());
+							Key.getInstance().setHitBox(new Hitbox(x, y, entityWidth, entityHeight, Key.getInstance()));
 							Key.getInstance().porteur = null;
 						}
 						catch (Exception ex) {
@@ -116,7 +116,7 @@ public class Room {
 					} else if (entityProperties == EntityProperties.TORCH) {
 
 						try {
-							Torch.getInstance().m_hitbox = new Hitbox(x, y, entityWidth, entityHeight, Torch.getInstance());
+							Torch.getInstance().setHitBox(new Hitbox(x, y, entityWidth, entityHeight, Torch.getInstance()));
 						}
 						catch (Exception ex) {
 							Entity e = model.createEntity(x, y, entityProperties);

@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 
@@ -155,13 +154,6 @@ public class MyCanvas extends Component {
 				e.paint(g);
 			}
 			Entity entity = ((Entity) e.entity);
-
-			g.setColor(Color.red);
-			g.drawRect(e.x - (int) (e.getW() * e.scale / 2), e.y - (int) (e.getH() * e.scale / 2), (int) (e.getW() * e.scale), (int) (e.getH() * e.scale));
-
-			if (entity.m_hitbox != null) {
-				entity.m_hitbox.paint(g);
-			}
 
 		}
 

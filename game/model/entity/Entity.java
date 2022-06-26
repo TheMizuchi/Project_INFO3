@@ -22,17 +22,19 @@ public abstract class Entity implements EntityInterface {
 		return 2;
 	}
 
+	public double getActionCD () {
+		return 700;
+	}
+
 
 	public int m_ID;
 	protected int m_pv;
-	public Hitbox m_hitbox;
+	protected Hitbox m_hitbox;
 	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 	protected static double ENTITY_MAX_ACCELERATION = 3;
-	protected static int ENTITY_ATTACK_CD = 500;
 	protected static double TEMPS_INVUNERABILITE = 300;
-	protected final static double CD_ATTAQUE = 700;
 	protected Vector m_vecDir = new Vector();
 
 	private static int m_count = 0;
@@ -511,9 +513,9 @@ public abstract class Entity implements EntityInterface {
 			m_e = e;
 
 			if (Torch.getInstance().porteur == this)
-				m_e.m_cdAction = CD_ATTAQUE * Player.SLOW_TORCHE_ATTAQUE;
+				m_e.m_cdAction = getActionCD() * Player.SLOW_TORCHE_ATTAQUE;
 			else
-				m_e.m_cdAction = CD_ATTAQUE;
+				m_e.m_cdAction = getActionCD();
 			MyTimer mt = MyTimer.getTimer();
 			m_last = System.currentTimeMillis();
 			mt.setTimer(30, this);

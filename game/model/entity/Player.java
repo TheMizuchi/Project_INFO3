@@ -22,6 +22,11 @@ public abstract class Player extends Entity {
 		return 3;
 	}
 
+	@Override
+	public double getActionCD () {
+		return 700;
+	}
+
 
 	protected static final long POSSESSION_CD = 30;
 	protected final static double SLOW_TORCHE = 0.20;
@@ -39,7 +44,6 @@ public abstract class Player extends Entity {
 
 	public Player (double x, double y, EntityProperties ep) {
 		super(x, y, ep);
-		m_blockInterdit.remove(TileType.VOID);
 	}
 
 	abstract public void onGround ();
@@ -426,5 +430,10 @@ public abstract class Player extends Entity {
 			}
 		}
 
+	}
+
+
+	public void setHitBox (Hitbox hit) {
+		m_hitbox = hit;
 	}
 }
