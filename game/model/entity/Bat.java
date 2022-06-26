@@ -1,11 +1,18 @@
 package model.entity;
 
 import model.entity.behavior.BatBehavior;
+import model.map.TileType;
 import view.MyCanvas;
 import view.graphicEntity.BatView;
 
 
 public class Bat extends Mob {
+
+	@Override
+	public double getSpeed () {
+		return 5;
+	}
+
 
 	BatView m_bv;
 	BatBehavior m_bb;
@@ -21,7 +28,7 @@ public class Bat extends Mob {
 		m_eb = m_bb;
 		MyCanvas.getInstance().createEntityView(m_bv);
 		m_tangible = false;
-		m_blockInterdit.removeAt(0);
+		m_blockInterdit.remove(TileType.VOID);
 	}
 
 	void setSpawner (BatSpawner spawner) {

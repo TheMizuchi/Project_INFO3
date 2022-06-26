@@ -52,7 +52,7 @@ public class HurtBox extends Hitbox {
 
 			if (!e.equal(m_e)) {
 
-				if ((e.m_hitbox.pointInHitbox(m_p1) || e.m_hitbox.pointInHitbox(m_p2) || e.m_hitbox.pointInHitbox(m_p3) || e.m_hitbox.pointInHitbox(m_p4)) || pointInHitbox(e.getHibox().getP1()) || pointInHitbox(e.getHibox().getP2()) || pointInHitbox(e.getHibox().getP3()) || pointInHitbox(e.getHibox().getP4())) {
+				if (!e.getHitbox().getP1().outMap() && (e.m_hitbox.pointInHitbox(m_p1) || e.m_hitbox.pointInHitbox(m_p2) || e.m_hitbox.pointInHitbox(m_p3) || e.m_hitbox.pointInHitbox(m_p4)) || pointInHitbox(e.getHibox().getP1()) || pointInHitbox(e.getHibox().getP2()) || pointInHitbox(e.getHibox().getP3()) || pointInHitbox(e.getHibox().getP4())) {
 					m_e.attack(e);
 				}
 			}
@@ -66,6 +66,10 @@ public class HurtBox extends Hitbox {
 
 		while (it.hasNext()) {
 			TileType tile = (TileType) it.next();
+
+			if (tile.equals(TileType.VOID)) {
+				System.out.println("meow" + m_e.getClass());
+			}
 
 			if (isInsideType(new_p1, tile)) {
 				return false;
@@ -99,6 +103,10 @@ public class HurtBox extends Hitbox {
 		m_p2 = hit.m_p2;
 		m_p3 = hit.m_p3;
 		m_p4 = hit.m_p4;
+	}
+
+	public void setOwner (Entity e) {
+		m_e = e;
 	}
 
 }

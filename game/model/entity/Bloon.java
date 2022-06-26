@@ -1,6 +1,7 @@
 package model.entity;
 
 import model.entity.behavior.BloonBehavior;
+import model.map.TileType;
 import view.MyCanvas;
 import view.graphicEntity.BloonView;
 
@@ -22,8 +23,8 @@ public class Bloon extends Mob {
 		m_eb = m_bb;
 		MyCanvas.getInstance().createEntityView(m_bv);
 		m_tangible = false;
-		cdDmgTaken = 200;
-		m_blockInterdit.removeAt(0);
+		m_blockInterdit.remove(TileType.VOID);
+		setInvulnerable();
 	}
 
 	public int getLevel () {
@@ -34,13 +35,12 @@ public class Bloon extends Mob {
 		this.level = n;
 		m_bv.setLevel(n);
 	}
-	
+
 	void attack (Entity cible) {
 
-		if (!isDeath() && cible.m_entityProperties != EntityProperties.BLOON) {
+		if (!isDeath() && cible.getClass() != Bloon.class) {
 			cible.takeDamages(m_nbDamages);
 		}
 	}
-	
-	
+
 }

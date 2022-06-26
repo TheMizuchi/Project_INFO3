@@ -34,13 +34,13 @@ public class BotCell implements ICondition {
 		zer.setX(Math.cos(zer.getAngle()));
 		zer.setY(-Math.sin(zer.getAngle()));
 
-		double dx = zer.getX() * e.getMobSpeed() * environElapsed / 1000;
-		double dy = zer.getY() * e.getMobSpeed() * environElapsed / 1000;
+		double dx = zer.getX() * e.getSpeed() * environElapsed / 1000;
+		double dy = zer.getY() * e.getSpeed() * environElapsed / 1000;
 
-		Point p1 = new Point(e.m_hitbox.getP1().getX() + dx, e.m_hitbox.getP1().getY() + dy);
-		Point p2 = new Point(e.m_hitbox.getP2().getX() + dx, e.m_hitbox.getP2().getY() + dy);
-		Point p3 = new Point(e.m_hitbox.getP3().getX() + dx, e.m_hitbox.getP3().getY() + dy);
-		Point p4 = new Point(e.m_hitbox.getP4().getX() + dx, e.m_hitbox.getP4().getY() + dy);
+		Point p1 = new Point(e.getHibox().getP1().getX() + dx, e.getHibox().getP1().getY() + dy);
+		Point p2 = new Point(e.getHibox().getP2().getX() + dx, e.getHibox().getP2().getY() + dy);
+		Point p3 = new Point(e.getHibox().getP3().getX() + dx, e.getHibox().getP3().getY() + dy);
+		Point p4 = new Point(e.getHibox().getP4().getX() + dx, e.getHibox().getP4().getY() + dy);
 
 		if (m_cat.getType() == EntityType.OBSTACLE) {
 			boolean wall = Hitbox.isInsideType(p1, TileType.WALL) || Hitbox.isInsideType(p2, TileType.WALL) || Hitbox.isInsideType(p3, TileType.WALL) || Hitbox.isInsideType(p4, TileType.WALL);
@@ -49,12 +49,12 @@ public class BotCell implements ICondition {
 			boolean door = false;
 
 			if (closestObstacle.getProperties() == EntityProperties.DOOR) {
-				door = closestObstacle.m_hitbox.collides(p1, p2, p3, p4);
+				door = closestObstacle.getHibox().collides(p1, p2, p3, p4);
 			}
 			return wall || door;
 		} else {
 			Entity target = e.closest(m_cat.getType());
-			if (target.m_hitbox.collides(p1, p2, p3, p4))
+			if (target.getHibox().collides(p1, p2, p3, p4))
 				return true;
 		}
 		return false;

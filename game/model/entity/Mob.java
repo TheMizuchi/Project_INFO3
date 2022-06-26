@@ -9,6 +9,22 @@ import model.entity.behavior.MobBehavior;
 
 public abstract class Mob extends Entity {
 
+	@Override
+	public double getDetectionRange () {
+		return 5;
+	}
+
+	@Override
+	public double getSpeed () {
+		return 0.5;
+	}
+
+	@Override
+	public double getActionCD () {
+		return 1000;
+	}
+
+
 	protected static final long POSSESSION_DURATION = 10;
 
 	int m_PVMob;
@@ -31,14 +47,9 @@ public abstract class Mob extends Entity {
 		// déplacement
 		m_automata.step();
 
-		if (cdDmgTaken >= 0)
-			cdDmgTaken -= elapsed;
-		if (cdAction >= 0)
-			cdAction -= elapsed;
-
 		if (m_vecDir.isApplied()) {
-			double speedX = m_vecDir.getX() * MobMaxSpeed;
-			double speedY = m_vecDir.getY() * MobMaxSpeed;
+			double speedX = m_vecDir.getX() * getSpeed();
+			double speedY = m_vecDir.getY() * getSpeed();
 
 			//Dans le cas où le monstre est possédé
 			///////////////////////////////////////
@@ -82,11 +93,6 @@ public abstract class Mob extends Entity {
 	@Override
 	public void wizz () {
 		m_mb.wizz();
-	}
-
-	@Override
-	public void pop () {
-		m_eb.pop();
 	}
 
 	private Entity autreJ () {
