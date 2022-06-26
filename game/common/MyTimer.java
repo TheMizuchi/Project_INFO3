@@ -38,7 +38,6 @@ public class MyTimer {
 	 * @param listener
 	 */
 	public void setTimer (int delay, TimerListener listener) {
-		System.out.println(m_timerList.length());
 		m_t.stop();
 
 		int i = 0;

@@ -95,6 +95,8 @@ public abstract class Animation {
 		}
 
 		public void deleteAnimation () {
+			if (t == null)
+				return;
 			this.t.setTimer(-1, this);
 			this.t = null;
 		}
