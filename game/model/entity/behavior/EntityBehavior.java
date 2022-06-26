@@ -78,7 +78,7 @@ public abstract class EntityBehavior {
 
 	public boolean closest (double orientation, EntityType type) {
 		Entity target = e.closest(type);
-		return e.distance(target) <= e.getRangeDetection();
+		return target != null && e.distance(target) <= e.getDetectionRange();
 	}
 
 	public boolean gotPower () {
