@@ -90,11 +90,6 @@ public abstract class Mob extends Entity {
 		m_mb.wizz();
 	}
 
-	@Override
-	public void pop () {
-		m_eb.pop();
-	}
-
 	private Entity autreJ () {
 
 		if (this.m_p == J1.getInstance())

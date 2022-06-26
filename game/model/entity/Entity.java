@@ -31,7 +31,7 @@ public abstract class Entity implements EntityInterface {
 	protected EntityView m_ev;
 	protected static double ENTITY_MAX_ACCELERATION = 3;
 	protected static int ENTITY_ATTACK_CD = 500;
-	protected static double TEMPS_INVUNERABILITE = 3000;
+	protected static double TEMPS_INVUNERABILITE = 300;
 	protected final static double CD_ATTAQUE = 700;
 	protected Vector m_vecDir = new Vector();
 
@@ -421,6 +421,10 @@ public abstract class Entity implements EntityInterface {
 
 	void takeDamages (int damages) {
 
+		if (m_cdDmgTaken > 0) {
+			return;
+		}
+
 		m_pv -= damages;
 
 		if (m_pv < 0) {
@@ -462,6 +466,10 @@ public abstract class Entity implements EntityInterface {
 		return m_cdAction;
 	}
 
+	protected void setInvulnerable () {
+		new InvulnerableTimer(this);
+	}
+
 
 	protected class InvulnerableTimer implements TimerListener {
 
@@ -474,7 +482,7 @@ public abstract class Entity implements EntityInterface {
 			m_e.m_cdDmgTaken = TEMPS_INVUNERABILITE;
 			MyTimer mt = MyTimer.getTimer();
 			m_last = System.currentTimeMillis();
-			mt.setTimer(20, this);
+			mt.setTimer(30, this);
 		}
 
 		@Override
@@ -486,7 +494,7 @@ public abstract class Entity implements EntityInterface {
 				m_e.m_cdDmgTaken = 0;
 			} else {
 				MyTimer mt = MyTimer.getTimer();
-				mt.setTimer(20, this);
+				mt.setTimer(30, this);
 				m_last = time;
 			}
 		}
@@ -501,13 +509,15 @@ public abstract class Entity implements EntityInterface {
 
 		ActionTimer (Entity e) {
 			m_e = e;
+
 			if (Torch.getInstance().porteur == this)
 				m_e.m_cdAction = CD_ATTAQUE * Player.SLOW_TORCHE_ATTAQUE;
 			else
 				m_e.m_cdAction = CD_ATTAQUE;
 			MyTimer mt = MyTimer.getTimer();
 			m_last = System.currentTimeMillis();
-			mt.setTimer(20, this);
+			mt.setTimer(30, this);
+
 		}
 
 		@Override
@@ -519,7 +529,7 @@ public abstract class Entity implements EntityInterface {
 				m_e.m_cdAction = 0;
 			} else {
 				MyTimer mt = MyTimer.getTimer();
-				mt.setTimer(20, this);
+				mt.setTimer(30, this);
 				m_last = time;
 			}
 		}

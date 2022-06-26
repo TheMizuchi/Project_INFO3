@@ -12,20 +12,26 @@ import model.map.TileType;
 
 public abstract class Player extends Entity {
 
+	@Override
 	public double getDetectionRange () {
 		return 2.5;
+	}
+
+	@Override
+	public double getSpeed () {
+		return 3;
 	}
 
 
 	protected static final long POSSESSION_CD = 30;
 	protected final static double SLOW_TORCHE = 0.20;
-	protected final static double POSSESSION_RANGE = 5;
+	protected final static double POSSESSION_RANGE = 2;
 	protected final static double SLOW_TORCHE_ATTAQUE = 1.3;
 
 	long m_possessionCD;
 	Mob m_possessing;
 	PlayerBehavior m_pb;
-	
+
 	Hitbox m_possess_Before;
 
 	double m_speedX, m_speedY;
@@ -33,6 +39,7 @@ public abstract class Player extends Entity {
 
 	public Player (double x, double y, EntityProperties ep) {
 		super(x, y, ep);
+		m_blockInterdit.remove(TileType.VOID);
 	}
 
 	abstract public void onGround ();
@@ -44,92 +51,32 @@ public abstract class Player extends Entity {
 		double centerX = this.m_hitbox.getCenterRealX();
 		double centerY = this.m_hitbox.getCenterRealY();
 
-		if (Model.getMap().getCases()[(int) centerX][(int) centerY].getType() == TileType.ICE) {
-			this.onIce();
-		} else {
-			this.onGround();
+		if (m_possessing == null) {
+
+			if (Model.getMap().getCases()[(int) centerX][(int) centerY].getType() == TileType.ICE) {
+				this.onIce();
+			} else {
+				this.onGround();
+			}
+			m_pb.update(elapsed);
 		}
-		m_pb.update(elapsed);
 	}
 
 	public void updateOnNormalGround (long elapsed) {
 
-		if (m_possessing == null) {
-			Torch torch = Torch.getInstance();
-			Key key = Key.getInstance();
-			// déplacement
-			m_automata.step();
+		Torch torch = Torch.getInstance();
+		Key key = Key.getInstance();
+		// déplacement
+		m_automata.step();
 
-			if (m_cdAction == 0) {
-				double speedX = super.m_vecDir.getX() * getSpeed();
-				double speedY = super.m_vecDir.getY() * getSpeed();
-
-				if (this.equals(torch.porteur)) {
-					speedX *= (1 - SLOW_TORCHE);
-					speedY *= (1 - SLOW_TORCHE);
-				}
-
-				if (Camera.getBlock()) {
-					Entity autreJ = autreJ();
-					Entity moi = getEntity();
-					double m_angle = m_vecDir.getAngle();
-
-					double distY = Math.abs(autreJ.m_hitbox.getP1().getY() - (moi.m_hitbox.getP1().getY() + (speedY * elapsed / 1000))); // distance future entre les 2 joueurs
-					double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX() + (speedX * elapsed / 1000)));
-
-					// haut
-					if (m_angle < Math.PI && m_angle > 0 && distY > Camera.DISTANCE_MAX_Y) // si la distance sur cet axe est supérieur au max
-						return;
-
-					// bas
-					if (m_angle > Math.PI && distY > Camera.DISTANCE_MAX_Y)
-						return;
-
-					// gauche
-					if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && distX > Camera.DISTANCE_MAX_X)
-						return;
-
-					// droite
-					if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && distX > Camera.DISTANCE_MAX_X)
-						return;
-
-				}
-				m_speedX = speedX * elapsed / 1000;
-				m_speedY = speedY * elapsed / 1000;
-				m_hitbox.move(m_speedX, m_speedY);
-				if (this.equals(torch.porteur))
-					torch.update(this);
-				if (this.equals(key.porteur))
-					key.update(this);
-			}
-		}
-
-	}
-
-	public void updateOnIce (long elapsed) {
-
-		if (m_possessing == null) {
-			Torch torch = Torch.getInstance();
-			Key key = Key.getInstance();
-			// déplacement
-			m_automata.step();
-
-			if (m_cdAction >= 0)
-				m_cdAction -= elapsed;
-
-			double speedX;
-			double speedY;
-
-			speedX = 0.5 * ENTITY_MAX_ACCELERATION * elapsed / 1000 * elapsed / 1000 * m_vecDir.getX();
-			speedY = 0.5 * ENTITY_MAX_ACCELERATION * elapsed / 1000 * elapsed / 1000 * m_vecDir.getY();
+		if (m_cdAction == 0) {
+			double speedX = super.m_vecDir.getX() * getSpeed();
+			double speedY = super.m_vecDir.getY() * getSpeed();
 
 			if (this.equals(torch.porteur)) {
 				speedX *= (1 - SLOW_TORCHE);
 				speedY *= (1 - SLOW_TORCHE);
 			}
-
-			speedX += m_speedX;
-			speedY += m_speedY;
 
 			if (Camera.getBlock()) {
 				Entity autreJ = autreJ();
@@ -140,59 +87,118 @@ public abstract class Player extends Entity {
 				double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX() + (speedX * elapsed / 1000)));
 
 				// haut
-				if (m_angle < Math.PI && m_angle > 0 && distY > Camera.DISTANCE_MAX_Y) { // si la distance sur cet axe est supérieur au max
+				if (m_angle < Math.PI && m_angle > 0 && distY > Camera.DISTANCE_MAX_Y) // si la distance sur cet axe est supérieur au max
 					return;
-				}
 
 				// bas
-				if (m_angle > Math.PI && distY > Camera.DISTANCE_MAX_Y) {
+				if (m_angle > Math.PI && distY > Camera.DISTANCE_MAX_Y)
 					return;
-				}
 
 				// gauche
-				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && distX > Camera.DISTANCE_MAX_X) {
+				if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && distX > Camera.DISTANCE_MAX_X)
 					return;
-				}
 
 				// droite
-				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && distX > Camera.DISTANCE_MAX_X) {
+				if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && distX > Camera.DISTANCE_MAX_X)
 					return;
-				}
 
 			}
-			if (Math.abs(speedX) < 0.5)
-				m_speedX = speedX;
-			if (Math.abs(speedY) < 0.5)
-				m_speedY = speedY;
-
-			double p1x = m_hitbox.m_p1.getX();
-			double p1y = m_hitbox.m_p1.getY();
+			m_speedX = speedX * elapsed / 1000;
+			m_speedY = speedY * elapsed / 1000;
 			m_hitbox.move(m_speedX, m_speedY);
-
-			if (p1x == m_hitbox.m_p1.getX()) {
-				m_speedX = 0;
-			}
-
-			if (p1y == m_hitbox.m_p1.getY()) {
-				m_speedY = 0;
-			}
-
-			Entity autreJ = autreJ();
-			Entity moi = getEntity();
-			double distY = Math.abs(autreJ.m_hitbox.getP1().getY() - (moi.m_hitbox.getP1().getY())); // distance future entre les 2 joueurs
-			double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX()));
-
-			if (distY > Camera.DISTANCE_MAX_Y || distX > Camera.DISTANCE_MAX_X) {
-				m_hitbox.move(-m_speedX, -m_speedY);
-				m_speedY = 0;
-				m_speedX = 0;
-			}
 			if (this.equals(torch.porteur))
 				torch.update(this);
 			if (this.equals(key.porteur))
 				key.update(this);
+		}
+
+	}
+
+	public void updateOnIce (long elapsed) {
+
+		Torch torch = Torch.getInstance();
+		Key key = Key.getInstance();
+		// déplacement
+		m_automata.step();
+
+		if (m_cdAction >= 0)
+			m_cdAction -= elapsed;
+
+		double speedX;
+		double speedY;
+
+		speedX = 0.5 * ENTITY_MAX_ACCELERATION * elapsed / 1000 * elapsed / 1000 * m_vecDir.getX();
+		speedY = 0.5 * ENTITY_MAX_ACCELERATION * elapsed / 1000 * elapsed / 1000 * m_vecDir.getY();
+
+		if (this.equals(torch.porteur)) {
+			speedX *= (1 - SLOW_TORCHE);
+			speedY *= (1 - SLOW_TORCHE);
+		}
+
+		speedX += m_speedX;
+		speedY += m_speedY;
+
+		if (Camera.getBlock()) {
+			Entity autreJ = autreJ();
+			Entity moi = getEntity();
+			double m_angle = m_vecDir.getAngle();
+
+			double distY = Math.abs(autreJ.m_hitbox.getP1().getY() - (moi.m_hitbox.getP1().getY() + (speedY * elapsed / 1000))); // distance future entre les 2 joueurs
+			double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX() + (speedX * elapsed / 1000)));
+
+			// haut
+			if (m_angle < Math.PI && m_angle > 0 && distY > Camera.DISTANCE_MAX_Y) { // si la distance sur cet axe est supérieur au max
+				return;
+			}
+
+			// bas
+			if (m_angle > Math.PI && distY > Camera.DISTANCE_MAX_Y) {
+				return;
+			}
+
+			// gauche
+			if (m_angle > Math.PI / 2 && m_angle < 3 * Math.PI / 2 && distX > Camera.DISTANCE_MAX_X) {
+				return;
+			}
+
+			// droite
+			if ((m_angle < Math.PI / 2 || m_angle > 3 * Math.PI / 2) && distX > Camera.DISTANCE_MAX_X) {
+				return;
+			}
 
 		}
+		if (Math.abs(speedX) < 0.5)
+			m_speedX = speedX;
+		if (Math.abs(speedY) < 0.5)
+			m_speedY = speedY;
+
+		double p1x = m_hitbox.m_p1.getX();
+		double p1y = m_hitbox.m_p1.getY();
+		m_hitbox.move(m_speedX, m_speedY);
+
+		if (p1x == m_hitbox.m_p1.getX()) {
+			m_speedX = 0;
+		}
+
+		if (p1y == m_hitbox.m_p1.getY()) {
+			m_speedY = 0;
+		}
+
+		Entity autreJ = autreJ();
+		Entity moi = getEntity();
+		double distY = Math.abs(autreJ.m_hitbox.getP1().getY() - (moi.m_hitbox.getP1().getY())); // distance future entre les 2 joueurs
+		double distX = Math.abs(autreJ.m_hitbox.getP1().getX() - (moi.m_hitbox.getP1().getX()));
+
+		if (distY > Camera.DISTANCE_MAX_Y || distX > Camera.DISTANCE_MAX_X) {
+			m_hitbox.move(-m_speedX, -m_speedY);
+			m_speedY = 0;
+			m_speedX = 0;
+		}
+		if (this.equals(torch.porteur))
+			torch.update(this);
+		if (this.equals(key.porteur))
+			key.update(this);
+
 	}
 
 	public void setAutomata (RefAutomata a) {
@@ -247,12 +253,23 @@ public abstract class Player extends Entity {
 	@Override
 	void takeDamages (int damages) {
 
-		if (m_cdDmgTaken > 0)
+		if (m_cdDmgTaken > 0) {
 			return;
+		}
 
-		new InvulnerableTimer(this);
+		setInvulnerable();
 
-		super.takeDamages(damages);
+		m_pv -= damages;
+
+		if (m_pv < 0) {
+			m_pv = 0;
+		}
+
+		this.m_automata.step();
+
+		if (isDeath()) {
+			deleteEntity();
+		}
 	}
 
 	@Override
@@ -273,9 +290,9 @@ public abstract class Player extends Entity {
 
 			if (closestTarget != null && distance(closestTarget) < POSSESSION_RANGE) {
 				this.m_possess_Before = this.m_hitbox;
-				
+
 				closestTarget.devientGentil(m_entityProperties, m_vecDir.clone(), this);
-				Point p = new Point(Double.MIN_VALUE, Double.MIN_VALUE);
+				Point p = new Point(Double.MAX_VALUE, Double.MAX_VALUE);
 				m_hitbox = new Hitbox(p, p, p, p, this);
 				m_automata = new RefAutomata(this, true);
 				m_possessing = closestTarget;
@@ -315,7 +332,8 @@ public abstract class Player extends Entity {
 		setCam(this);
 		new IntangibleTimer(this);
 		Hitbox hit = new Hitbox(m.m_hitbox.getP1(), m.m_hitbox.getP2(), m.m_hitbox.getP3(), m.m_hitbox.getP4(), m);
-		if(Model.getMap().getCases()[(int) hit.getCenterX()][(int) hit.getCenterY()].getType() == TileType.VOID) {
+
+		if (Model.getMap().getCases()[(int) hit.getCenterX()][(int) hit.getCenterY()].getType() == TileType.VOID) {
 			hit = this.m_possess_Before;
 		}
 		m_hitbox = hit;
