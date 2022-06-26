@@ -7,6 +7,14 @@ author: Groupe 3
 
 Ce jeu de coopération entre 2 joueurs se déroule dans un donjon. Le donjon est constitué de 3 étages (chacun généré aléatoirement) pour chaque étage, une salle contient la clé pour accéder à la salle du Boss. Pour gagner il faut vaincre les Boss de chacun des 3 étages.
 
+## Vidéo de présentation du jeu
+
+https://youtu.be/RQkvCTKLgik
+
+## Pourcentage du projet
+
+Nous avons équitablement réparti le travail du projet, c'est pourquoi nous avons choisi d'attribuer à tous les membres du groupe un pourcentage de 12.5%.
+
 ## Joueurs
 
 Les 2 joueurs jouent sur le même PC sur le même clavier. Les joueurs doivent coopérer pour gagner. Si un joueur meurt la partie est perdue. Si les joueurs parviennent à tuer le 3ème Boss alors la partie est gagnée. Un joueur se bat au corps à corps (CàC) et l'autre joueur à distance.
