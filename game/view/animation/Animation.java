@@ -59,6 +59,10 @@ public abstract class Animation {
 		return m_done;
 	}
 
+	public void delete () {
+		this._al.deleteAnimation();
+	}
+
 	protected void start () {
 		m_idx = 0;
 		m_done = false;
@@ -88,6 +92,11 @@ public abstract class Animation {
 			this.last = System.currentTimeMillis();
 			this.t.setTimer(20, this);
 
+		}
+
+		public void deleteAnimation () {
+			this.t.setTimer(-1, this);
+			this.t = null;
 		}
 
 		@Override

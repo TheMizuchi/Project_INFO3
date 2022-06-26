@@ -78,6 +78,10 @@ public abstract class EntityView extends ViewElement {
 			this.a.setOrientation(this.entity.getOrientation());
 	}
 
+	public void delete () {
+		this.a.delete();
+	}
+
 	public int getH () {
 		return this.a.getH();
 	}

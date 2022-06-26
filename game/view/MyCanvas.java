@@ -88,7 +88,9 @@ public class MyCanvas extends Component {
 		IList.Iterator ite = m_toClearEntity.iterator();
 
 		while (ite.hasNext()) {
-			m_entityViews.remove(ite.next());
+			EntityView ev = (EntityView) ite.next();
+			ev.delete();
+			m_entityViews.remove(ev);
 		}
 		m_toClearEntity = new LinkedList();
 	}

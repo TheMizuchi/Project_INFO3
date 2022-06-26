@@ -2,7 +2,9 @@ package common;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.Timer;
+
 import edu.polytech.oop.collections.LinkedList;
 
 
@@ -36,6 +38,7 @@ public class MyTimer {
 	 * @param listener
 	 */
 	public void setTimer (int delay, TimerListener listener) {
+		System.out.println(m_timerList.length());
 		m_t.stop();
 
 		int i = 0;
