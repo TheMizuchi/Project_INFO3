@@ -19,6 +19,11 @@ public abstract class Mob extends Entity {
 		return 0.5;
 	}
 
+	@Override
+	public double getActionCD () {
+		return 1000;
+	}
+
 
 	protected static final long POSSESSION_DURATION = 10;
 

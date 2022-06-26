@@ -12,6 +12,11 @@ public class Archer extends Mob {
 		return 3.5;
 	}
 
+	@Override
+	public double getActionCD () {
+		return 4000;
+	}
+
 
 	ArcherView m_av;
 	ArcherBehavior m_ab;
