@@ -1,6 +1,7 @@
 package model.entity.behavior;
 
 import model.Model;
+import model.entity.Arrow;
 import model.entity.Direction;
 import model.entity.Entity;
 import model.entity.EntityProperties;
@@ -16,8 +17,6 @@ public abstract class EntityBehavior {
 
 	Entity e;
 	EntityView ev;
-
-	public HurtBox hur;
 
 
 	public EntityBehavior (Entity e, EntityView ev) {
@@ -106,47 +105,7 @@ public abstract class EntityBehavior {
 	}
 
 	public void hit (Vector vec) {
-
-		final double RANGE_ATTAQUE_PROF = 0.5;
-		final double RANGE_ATTAQUE_LARG = 1;
-
-		double a1 = Math.cos(Math.PI * 22.5 / 180);
-		double a2 = Math.cos(Math.PI * 67.5 / 180);
-
-		double longeur;
-
-		double dist_x = Math.abs(this.e.m_hitbox.getP1().getX() - this.e.m_hitbox.getP3().getX()) / 2;
-		double dist_y = Math.abs(this.e.m_hitbox.getP1().getY() - this.e.m_hitbox.getP3().getY()) / 2;
-		double dist_diagonal = Math.sqrt(dist_x * dist_x + dist_y * dist_y);
-
-		if (vec.getX() < 1 && vec.getX() >= a1) {
-			longeur = dist_x;
-		} else if (vec.getX() < a1 && vec.getX() >= a2) {
-			longeur = dist_diagonal;
-		} else {
-			longeur = dist_y;
-		}
-
-		double centre_x = this.e.m_hitbox.getCenterRealX();
-		double centre_y = this.e.m_hitbox.getCenterRealY();
-
-		Point p1 = new Point(centre_x - (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y - RANGE_ATTAQUE_LARG / 2);
-		Point p4 = new Point(centre_x - (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y + RANGE_ATTAQUE_LARG / 2);
-
-		Point p2 = new Point(centre_x + (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y - RANGE_ATTAQUE_LARG / 2);
-		Point p3 = new Point(centre_x + (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y + RANGE_ATTAQUE_LARG / 2);
-
-		HurtBox attaque = new HurtBox(p1, p2, p3, p4, this.e);
-
-		attaque.rotate(vec.getAngle() - (Math.PI / 2));
-
-		double c_p1_p4_x = (attaque.getP1().getX() + attaque.getP4().getX()) / 2;
-		double c_p1_p4_y = (attaque.getP1().getY() + attaque.getP4().getY()) / 2;
-
-		attaque.translate(c_p1_p4_x - attaque.getCenterRealX(), c_p1_p4_y - attaque.getCenterRealY());
-
-		attaque.attaque();
-
+		attackCac(vec, this.e);
 	}
 
 	public void protect (Direction orientation) {}
@@ -176,5 +135,118 @@ public abstract class EntityBehavior {
 			Entity e = m.createEntity(this.e.getPosX() + orientationx, this.e.getPosY() - orientationy, entityProperties);
 			m.createLightSource(e);
 		}
+	}
+
+	protected static void attackCac (Vector vec, Entity e) {
+		final double RANGE_ATTAQUE_PROF = 0.5;
+		final double RANGE_ATTAQUE_LARG = 1;
+
+		double a1 = Math.cos(Math.PI * 22.5 / 180);
+		double a2 = Math.cos(Math.PI * 67.5 / 180);
+
+		System.out.println("x : " + vec.getX() + " y : " + vec.getY());
+
+		double longeur;
+
+		double dist_x = Math.abs(e.m_hitbox.getP1().getX() - e.m_hitbox.getP3().getX()) / 2;
+		double dist_y = Math.abs(e.m_hitbox.getP1().getY() - e.m_hitbox.getP3().getY()) / 2;
+		double dist_diagonal = Math.sqrt(dist_x * dist_x + dist_y * dist_y);
+
+		if (vec.getX() < 1 && vec.getX() >= a1) {
+			longeur = dist_x;
+		} else if (vec.getX() < a1 && vec.getX() >= a2) {
+			longeur = dist_diagonal;
+		} else {
+			longeur = dist_y;
+		}
+
+		double centre_x = e.m_hitbox.getCenterRealX();
+		double centre_y = e.m_hitbox.getCenterRealY();
+
+		Point p1 = new Point(centre_x - (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y - RANGE_ATTAQUE_LARG / 2);
+		Point p4 = new Point(centre_x - (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y + RANGE_ATTAQUE_LARG / 2);
+
+		Point p2 = new Point(centre_x + (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y - RANGE_ATTAQUE_LARG / 2);
+		Point p3 = new Point(centre_x + (RANGE_ATTAQUE_PROF + longeur) / 2, centre_y + RANGE_ATTAQUE_LARG / 2);
+
+		HurtBox attaque = new HurtBox(p1, p2, p3, p4, e);
+
+		attaque.rotate(vec.getAngle());
+
+		double c_p1_p4_x = (attaque.getP1().getX() + attaque.getP4().getX()) / 2;
+		double c_p1_p4_y = (attaque.getP1().getY() + attaque.getP4().getY()) / 2;
+
+		attaque.translate(attaque.getCenterRealX() - c_p1_p4_x, c_p1_p4_y - attaque.getCenterRealY());
+
+		attaque.attaque();
+
+	}
+
+	protected static void attackDist (Vector vec, Entity e, boolean autoAim) {
+		final double RANGE_ATTAQUE_PROF = EntityProperties.ARROW.getWidth();
+		final double RANGE_ATTAQUE_LARG = EntityProperties.ARROW.getHeight();
+
+		double a1 = Math.cos(Math.PI * 22.5 / 180);
+		double a2 = Math.cos(Math.PI * 67.5 / 180);
+
+		double dx = 0;
+		double dy = 0;
+
+		double dist_x = Math.abs(e.m_hitbox.getP1().getX() - e.m_hitbox.getP3().getX()) / 2;
+		double dist_y = Math.abs(e.m_hitbox.getP1().getY() - e.m_hitbox.getP3().getY()) / 2;
+
+		if (Math.abs(vec.getX()) <= 1 && Math.abs(vec.getX()) >= a1) {
+			dx = dist_x + RANGE_ATTAQUE_PROF / 2;
+
+			if (vec.getX() < 0) {
+				dx = -dx;
+			}
+		} else if (Math.abs(vec.getX()) < a1 && Math.abs(vec.getX()) >= a2) {
+			dx = dist_x + RANGE_ATTAQUE_PROF / 2;
+			dy = dist_y + RANGE_ATTAQUE_LARG / 2;
+
+			if (vec.getX() < 0) {
+				dx = -dx;
+			}
+
+			if (vec.getY() < 0) {
+				dy = -dy;
+			}
+		} else {
+			dy = dist_y + RANGE_ATTAQUE_PROF / 2;
+
+			if (vec.getY() < 0) {
+				dy = -dy;
+			}
+		}
+
+		double centre_x = e.m_hitbox.getCenterRealX();
+		double centre_y = e.m_hitbox.getCenterRealY();
+
+		Point p1 = new Point(centre_x - (RANGE_ATTAQUE_PROF / 2), centre_y - (RANGE_ATTAQUE_LARG / 2));
+		Point p2 = new Point(centre_x + (RANGE_ATTAQUE_PROF / 2), centre_y - (RANGE_ATTAQUE_LARG / 2));
+		Point p3 = new Point(centre_x + (RANGE_ATTAQUE_PROF / 2), centre_y + (RANGE_ATTAQUE_LARG / 2));
+		Point p4 = new Point(centre_x - (RANGE_ATTAQUE_PROF / 2), centre_y + (RANGE_ATTAQUE_LARG / 2));
+
+		HurtBox attaque = new HurtBox(p1, p2, p3, p4, e);
+
+		attaque.rotate(-vec.getAngle());
+
+		attaque.translate(dx, dy);
+
+		attaque.attaque();
+
+		Arrow a = (Arrow) Model.getInstance().createEntity(0.0, 0.0, EntityProperties.ARROW);
+
+		if (!autoAim) {
+			Vector arrowVec = vec.clone();
+			arrowVec.addNoise();
+			a.setVector(arrowVec);
+		} else {
+			a.setVector(vec);
+		}
+		a.m_hitbox = attaque;
+		a.setNbDamages(e.getNbDamages());
+		attaque.setOwner(a);
 	}
 }

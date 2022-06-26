@@ -1,5 +1,15 @@
-Doge (Foward) {
-    * (Foward) :
-    	| !(GotPower) ? Pop : (Foward)
-        | True ? Move(F, @) : (Foward)
+Doge (Left) {
+	* (Left)
+		| !(GotPower) ? Pop : (Forward)
+		| Closest(H, @) ? 95%Move(B, @) / 5%Hit(F, @) : (Right)
+		| Cell(L, O) ? Hit(F, @) : (Right)
+		| True ? 85%Move(L, @) / 15%Hit(F, @) : (Left)
+	* (Right):
+		| !(GotPower) ? Pop : (Forward)
+		| Closest(H, @) ? 95%Move(B, @) / 5%Hit(F, @) : (Left)
+		| Cell(R, O) ? Hit(F, @) : (Left)
+		| True ? 85%Move(R, @) / 15%Hit(F, @) : (Right)
+    * (Forward) :
+    	| Cell(F, @) ? Hit(F, @) : (Forward)
+        | True ? Move(F, @) : (Forward)
 }
