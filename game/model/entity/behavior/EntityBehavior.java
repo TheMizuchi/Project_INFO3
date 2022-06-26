@@ -17,13 +17,11 @@ public abstract class EntityBehavior {
 
 	Entity e;
 	EntityView ev;
-	public HurtBox hur;
 
 
 	public EntityBehavior (Entity e, EntityView ev) {
 		this.e = e;
 		this.ev = ev;
-		this.hur = null;
 	}
 
 
@@ -146,6 +144,8 @@ public abstract class EntityBehavior {
 		double a1 = Math.cos(Math.PI * 22.5 / 180);
 		double a2 = Math.cos(Math.PI * 67.5 / 180);
 
+		System.out.println("x : " + vec.getX() + " y : " + vec.getY());
+
 		double longeur;
 
 		double dist_x = Math.abs(e.m_hitbox.getP1().getX() - e.m_hitbox.getP3().getX()) / 2;
@@ -171,16 +171,14 @@ public abstract class EntityBehavior {
 
 		HurtBox attaque = new HurtBox(p1, p2, p3, p4, e);
 
-		attaque.rotate(vec.getAngle() - (Math.PI / 2));
+		attaque.rotate(vec.getAngle());
 
 		double c_p1_p4_x = (attaque.getP1().getX() + attaque.getP4().getX()) / 2;
 		double c_p1_p4_y = (attaque.getP1().getY() + attaque.getP4().getY()) / 2;
 
-		attaque.translate(c_p1_p4_x - attaque.getCenterRealX(), c_p1_p4_y - attaque.getCenterRealY());
+		attaque.translate(attaque.getCenterRealX() - c_p1_p4_x, c_p1_p4_y - attaque.getCenterRealY());
 
 		attaque.attaque();
-
-		eb.hur = attaque;
 
 	}
 
@@ -243,10 +241,5 @@ public abstract class EntityBehavior {
 		a.m_hitbox = attaque;
 		a.setNbDamages(e.getNbDamages());
 		attaque.setOwner(a);
-
-		eb.hur = attaque;
-
-		//ev.attack();
-
 	}
 }

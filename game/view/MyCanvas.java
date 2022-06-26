@@ -161,9 +161,6 @@ public class MyCanvas extends Component {
 				entity.m_hitbox.paint(g);
 			}
 
-			if (entity.m_eb.hur != null) {
-				entity.m_eb.hur.paint(g);
-			}
 		}
 
 		// Applique un masque pour couvrir les zones non éclairées.
