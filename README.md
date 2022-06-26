@@ -127,3 +127,7 @@ Implémentation d'une minimap à ajouter à l'ATH.
 ### Enigmes
 
 Rajouter des bouttons et des plaques de pression.
+
+### Licences
+
+https://policies.warnerbros.com/terms/en-us/html/terms_en-us_1.2.1.html
