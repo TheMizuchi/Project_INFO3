@@ -44,6 +44,9 @@ public class Arrow extends Mob {
 	}
 
 	void attack (Entity cible) {
+		
+		if (cible.getClass() == Arrow.class)
+			return;
 
 		if (!isDeath()) {
 			cible.takeDamages(m_nbDamages);

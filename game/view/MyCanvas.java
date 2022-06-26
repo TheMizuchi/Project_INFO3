@@ -154,15 +154,13 @@ public class MyCanvas extends Component {
 			}
 			Entity entity = ((Entity) e.entity);
 
+			g.setColor(Color.red);
+			g.drawRect(e.x - (int) (e.getW() * e.scale / 2), e.y - (int) (e.getH() * e.scale / 2), (int) (e.getW() * e.scale), (int) (e.getH() * e.scale));
+
 			if (entity.m_hitbox != null) {
 				entity.m_hitbox.paint(g);
 			}
 
-			if (entity.m_eb.hur != null) {
-				entity.m_eb.hur.paint(g);
-			}
-			g.setColor(Color.red);
-			g.drawRect(e.x - (int) (e.getW() * e.scale / 2), e.y - (int) (e.getH() * e.scale / 2), (int) (e.getW() * e.scale), (int) (e.getH() * e.scale));
 		}
 
 		// Applique un masque pour couvrir les zones non éclairées.

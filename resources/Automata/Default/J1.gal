@@ -5,6 +5,7 @@ J1 (Init) {
 		| Key(s) ? Move(S) : (Init)
 		| Key(d) ? Move(E) : (Init)
 		| Key(e) ? Pop : (Init)
-		| Key(a) ? Hit : (Init)
-		| Key(SPACE) ? Wizz : (Init)
+		| Key(SPACE) & Closest(F, A) ? Hit(F, A) : (Init)
+		| Key(SPACE) ? Hit : (Init)
+		| Key(a) ? Wizz : (Init)
 }
