@@ -101,6 +101,8 @@ public abstract class Animation {
 
 		@Override
 		public void expired () {
+			if (t == null)
+				return;
 			long now = System.currentTimeMillis();
 			this.elapsed += now - this.last;
 			this.last = now;
