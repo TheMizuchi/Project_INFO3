@@ -23,8 +23,8 @@ public class Bloon extends Mob {
 		m_eb = m_bb;
 		MyCanvas.getInstance().createEntityView(m_bv);
 		m_tangible = false;
-		m_cdDmgTaken = 200;
 		m_blockInterdit.remove(TileType.VOID);
+		setInvulnerable();
 	}
 
 	public int getLevel () {
@@ -38,7 +38,7 @@ public class Bloon extends Mob {
 
 	void attack (Entity cible) {
 
-		if (!isDeath() && cible.m_entityProperties != EntityProperties.BLOON) {
+		if (!isDeath() && cible.getClass() != Bloon.class) {
 			cible.takeDamages(m_nbDamages);
 		}
 	}
