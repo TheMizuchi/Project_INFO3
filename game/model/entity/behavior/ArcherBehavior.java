@@ -18,6 +18,6 @@ public class ArcherBehavior extends MobBehavior {
 
 	@Override
 	public void hit (Vector vec) {
-		attackDist(vec, this.e, this);
+		attackDist(vec, this.e, false);
 	}
 }

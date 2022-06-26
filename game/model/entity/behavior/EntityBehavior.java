@@ -77,7 +77,7 @@ public abstract class EntityBehavior {
 
 	public boolean closest (double orientation, EntityType type) {
 		Entity target = e.closest(type);
-		return e.distance(target) <= e.getRangeDetection();
+		return target != null && e.distance(target) <= e.getDetectionRange();
 	}
 
 	public boolean gotPower () {
@@ -105,7 +105,7 @@ public abstract class EntityBehavior {
 	}
 
 	public void hit (Vector vec) {
-		attackCac(vec, this.e, this);
+		attackCac(vec, this.e);
 	}
 
 	public void protect (Direction orientation) {}
@@ -137,7 +137,7 @@ public abstract class EntityBehavior {
 		}
 	}
 
-	protected static void attackCac (Vector vec, Entity e, EntityBehavior eb) {
+	protected static void attackCac (Vector vec, Entity e) {
 		final double RANGE_ATTAQUE_PROF = 0.5;
 		final double RANGE_ATTAQUE_LARG = 1;
 
@@ -182,7 +182,7 @@ public abstract class EntityBehavior {
 
 	}
 
-	protected static void attackDist (Vector vec, Entity e, EntityBehavior eb) {
+	protected static void attackDist (Vector vec, Entity e, boolean autoAim) {
 		final double RANGE_ATTAQUE_PROF = EntityProperties.ARROW.getWidth();
 		final double RANGE_ATTAQUE_LARG = EntityProperties.ARROW.getHeight();
 
@@ -237,7 +237,14 @@ public abstract class EntityBehavior {
 		attaque.attaque();
 
 		Arrow a = (Arrow) Model.getInstance().createEntity(0.0, 0.0, EntityProperties.ARROW);
-		a.setVector(vec);
+
+		if (!autoAim) {
+			Vector arrowVec = vec.clone();
+			arrowVec.addNoise();
+			a.setVector(arrowVec);
+		} else {
+			a.setVector(vec);
+		}
 		a.m_hitbox = attaque;
 		a.setNbDamages(e.getNbDamages());
 		attaque.setOwner(a);

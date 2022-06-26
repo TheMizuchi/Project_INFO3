@@ -9,6 +9,11 @@ import view.graphicEntity.J1View;
 
 public class J1 extends Player {
 
+	public double getDetectionRange () {
+		return 1;
+	}
+
+
 	J1View m_jv;
 
 

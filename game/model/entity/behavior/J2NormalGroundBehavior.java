@@ -13,7 +13,7 @@ public class J2NormalGroundBehavior extends PlayerNormalGroundBehavior {
 
 	@Override
 	public void hit (Vector vec) {
-		attackDist(vec, this.e, this);
+		attackDist(vec, this.e, true);
 	}
 
 }
