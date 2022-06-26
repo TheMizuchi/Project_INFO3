@@ -108,6 +108,7 @@ public class Room {
 
 						try {
 							Key.getInstance().m_hitbox = new Hitbox(x, y, entityWidth, entityHeight, Key.getInstance());
+							Key.getInstance().porteur = null;
 						}
 						catch (Exception ex) {
 							Entity e = model.createEntity(x, y, entityProperties);
