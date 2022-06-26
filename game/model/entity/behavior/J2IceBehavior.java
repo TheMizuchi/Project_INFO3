@@ -14,5 +14,6 @@ public class J2IceBehavior extends PlayerIceBehavior {
 	@Override
 	public void hit (Vector vec) {
 		attackDist(vec, this.e, true);
+		ev.attack();
 	}
 }
