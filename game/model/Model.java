@@ -289,4 +289,16 @@ public class Model {
 		return null;
 	}
 
+	public void deleteLightSource (Entity e) {
+		Iterator iterLight = m_listeLight.iterator();
+		while(iterLight.hasNext()) {
+			LightSource s = (LightSource) iterLight.next();
+			if(s.getEntity() == e) {
+				s.setRadius(0);
+				m_listeLight.remove(s);		
+				return;
+			}
+		}
+	}
+
 }

@@ -312,6 +312,8 @@ public abstract class Player extends Entity {
 				// On coupe la torche
 				if (Torch.getInstance().porteur == this)
 					Torch.getInstance().m_ls.setRadius(Torch.POSSESSED_RADIUS);
+
+					Model.getInstance().createLightSource(m_possessing);
 			}
 		}
 	}
@@ -329,6 +331,7 @@ public abstract class Player extends Entity {
 	public Player finPossession (Mob m, int pv, Vector dir) {
 		m_pv = pv;
 		m_vecDir = dir;
+		Model.getInstance().deleteLightSource(m_possessing);
 		m_possessing = null;
 		m_automata = new RefAutomata(this);
 		show();
