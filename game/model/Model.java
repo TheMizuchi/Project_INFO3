@@ -85,7 +85,6 @@ public class Model {
 		spawnRoom.setVisited(true);
 		keyRoom.spawnEntities(m_map, 0);
 		m_map.doors();
-		createEntity(m_map.getWidth() / 2, m_map.getHeight() / 2, EntityProperties.ARROW);
 	}
 
 	public void newLevel () {

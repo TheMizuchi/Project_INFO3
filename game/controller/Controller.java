@@ -63,7 +63,7 @@ public class Controller {
 			BotAutomata Door = getAutFromFile("resources/Automata/Default/Door.gal");
 			BotAutomata Stairs = getAutFromFile("resources/Automata/Default/Stairs.gal");
 			BotAutomata Spawner = getAutFromFile("resources/Automata/Default/Spawner.gal");
-			BotAutomata Arrow = getAutFromFile("resources/Automata/Arrow.gal");
+			BotAutomata Arrow = getAutFromFile("resources/Automata/Default/Arrow.gal");
 
 			insertAt(m_auts, EntityProperties.COWBOY.getID(), m_IdleAutomata);
 			insertAt(m_auts, EntityProperties.J1.getID(), J1);

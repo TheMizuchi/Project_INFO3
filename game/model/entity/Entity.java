@@ -12,6 +12,11 @@ import view.graphicEntity.EntityView;
 
 public abstract class Entity implements EntityInterface {
 
+	public double getSpeed () {
+		return 2;
+	}
+
+
 	public int m_ID;
 	protected int m_pv;
 	public Hitbox m_hitbox;
@@ -19,8 +24,6 @@ public abstract class Entity implements EntityInterface {
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 	protected static double DETECTIONRANGE = 10;
-	protected double EntityMaxSpeed = 2; // vitesse par seconde
-	protected static double MobMaxSpeed = 1;
 	protected static double ENTITY_MAX_ACCELERATION = 3;
 	protected static int ENTITY_ATTACK_CD = 500;
 	protected Vector m_vecDir = new Vector();
@@ -145,8 +148,8 @@ public abstract class Entity implements EntityInterface {
 	public void update (long elapsed) {
 		// déplacement
 		m_automata.step();
-		double speedX = m_vecDir.getX() * EntityMaxSpeed;
-		double speedY = m_vecDir.getY() * EntityMaxSpeed;
+		double speedX = m_vecDir.getX() * getSpeed();
+		double speedY = m_vecDir.getY() * getSpeed();
 		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
 	}
 
@@ -407,10 +410,6 @@ public abstract class Entity implements EntityInterface {
 		return m_hitbox;
 	}
 
-	public double getMobSpeed () {
-		return MobMaxSpeed;
-	}
-
 	void takeDamages (int damages) {
 
 		if (cdDmgTaken >= 0)
@@ -454,4 +453,5 @@ public abstract class Entity implements EntityInterface {
 	public int getNbDamages () {
 		return m_nbDamages;
 	}
+
 }
