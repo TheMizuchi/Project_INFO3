@@ -14,6 +14,10 @@ import view.graphicEntity.EntityView;
 
 public abstract class Entity implements EntityInterface {
 
+	public double getDetectionRange () {
+		return 5;
+	}
+
 	public double getSpeed () {
 		return 2;
 	}
@@ -25,7 +29,6 @@ public abstract class Entity implements EntityInterface {
 	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
-	protected static double DETECTIONRANGE = 10;
 	protected static double ENTITY_MAX_ACCELERATION = 3;
 	protected static int ENTITY_ATTACK_CD = 500;
 	protected static double TEMPS_INVUNERABILITE = 3000;
@@ -42,8 +45,6 @@ public abstract class Entity implements EntityInterface {
 	protected int m_nbDamages;
 	protected double m_cdAction;
 	protected double m_cdDmgTaken;
-
-	// Liste d'items
 
 
 	public Entity (double x, double y, EntityProperties ep) {
@@ -115,7 +116,6 @@ public abstract class Entity implements EntityInterface {
 				break;
 			default:
 				throw new RuntimeException("Aie Aie Aie ... Ton ID n'existe pas, pauvre de toi");
-
 		}
 		return e;
 	}
@@ -261,10 +261,6 @@ public abstract class Entity implements EntityInterface {
 	@Override
 	public boolean cell (Vector vect, EntityType type) {
 		return m_eb.cell(vect, type);
-	}
-
-	public double getRangeDetection () {
-		return DETECTIONRANGE;
 	}
 
 	// La direction est inutilisée dans le jeu

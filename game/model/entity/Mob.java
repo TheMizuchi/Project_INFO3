@@ -10,6 +10,11 @@ import model.entity.behavior.MobBehavior;
 public abstract class Mob extends Entity {
 
 	@Override
+	public double getDetectionRange () {
+		return 5;
+	}
+
+	@Override
 	public double getSpeed () {
 		return 0.5;
 	}
