@@ -8,6 +8,12 @@ import view.graphicEntity.BloonView;
 
 public class Bloon extends Mob {
 
+	@Override
+	public double getActionCD () {
+		return 2000;
+	}
+
+
 	BloonView m_bv;
 	int level;
 	BloonBehavior m_bb;
@@ -38,8 +44,12 @@ public class Bloon extends Mob {
 
 	void attack (Entity cible) {
 
+		if (m_cdAction > 0)
+			return;
+
 		if (!isDeath() && cible.getClass() != Bloon.class) {
 			cible.takeDamages(m_nbDamages);
+			setActionCD();
 		}
 	}
 
