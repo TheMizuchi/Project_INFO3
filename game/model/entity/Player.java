@@ -12,6 +12,11 @@ import model.map.TileType;
 
 public abstract class Player extends Entity {
 
+	public double getDetectionRange () {
+		return 2.5;
+	}
+
+
 	protected static final long POSSESSION_CD = 30;
 	protected final static double SLOW_TORCHE = 0.20;
 	protected final static double POSSESSION_RANGE = 5;
@@ -20,6 +25,8 @@ public abstract class Player extends Entity {
 	long m_possessionCD;
 	Mob m_possessing;
 	PlayerBehavior m_pb;
+	
+	Hitbox m_possess_Before;
 
 	double m_speedX, m_speedY;
 
@@ -228,6 +235,16 @@ public abstract class Player extends Entity {
 	}
 
 	@Override
+	public int getPv () {
+
+		if (m_possessing != null) {
+			return m_possessing.getPv();
+		} else {
+			return m_pv;
+		}
+	}
+
+	@Override
 	void takeDamages (int damages) {
 
 		if (m_cdDmgTaken > 0)
@@ -255,6 +272,8 @@ public abstract class Player extends Entity {
 			Mob closestTarget = (Mob) closest(true);
 
 			if (closestTarget != null && distance(closestTarget) < POSSESSION_RANGE) {
+				this.m_possess_Before = this.m_hitbox;
+				
 				closestTarget.devientGentil(m_entityProperties, m_vecDir.clone(), this);
 				Point p = new Point(Double.MIN_VALUE, Double.MIN_VALUE);
 				m_hitbox = new Hitbox(p, p, p, p, this);
@@ -296,6 +315,9 @@ public abstract class Player extends Entity {
 		setCam(this);
 		new IntangibleTimer(this);
 		Hitbox hit = new Hitbox(m.m_hitbox.getP1(), m.m_hitbox.getP2(), m.m_hitbox.getP3(), m.m_hitbox.getP4(), m);
+		if(Model.getMap().getCases()[(int) hit.getCenterX()][(int) hit.getCenterY()].getType() == TileType.VOID) {
+			hit = this.m_possess_Before;
+		}
 		m_hitbox = hit;
 
 		// Si besoin on lance l'animation de déplacement
