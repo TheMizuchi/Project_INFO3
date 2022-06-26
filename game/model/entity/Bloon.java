@@ -23,7 +23,7 @@ public class Bloon extends Mob {
 		m_eb = m_bb;
 		MyCanvas.getInstance().createEntityView(m_bv);
 		m_tangible = false;
-		cdDmgTaken = 200;
+		m_cdDmgTaken = 200;
 		m_blockInterdit.remove(TileType.VOID);
 	}
 

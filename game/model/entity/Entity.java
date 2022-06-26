@@ -1,5 +1,7 @@
 package model.entity;
 
+import common.MyTimer;
+import common.TimerListener;
 import controller.RefAutomata;
 import edu.polytech.oop.collections.ICollection;
 import edu.polytech.oop.collections.LinkedList;
@@ -12,6 +14,11 @@ import view.graphicEntity.EntityView;
 
 public abstract class Entity implements EntityInterface {
 
+	public double getSpeed () {
+		return 2;
+	}
+
+
 	public int m_ID;
 	protected int m_pv;
 	public Hitbox m_hitbox;
@@ -19,10 +26,10 @@ public abstract class Entity implements EntityInterface {
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
 	protected static double DETECTIONRANGE = 10;
-	protected double EntityMaxSpeed = 2; // vitesse par seconde
-	protected static double MobMaxSpeed = 1;
 	protected static double ENTITY_MAX_ACCELERATION = 3;
 	protected static int ENTITY_ATTACK_CD = 500;
+	protected static double TEMPS_INVUNERABILITE = 3000;
+	protected final static double CD_ATTAQUE = 700;
 	protected Vector m_vecDir = new Vector();
 
 	private static int m_count = 0;
@@ -33,9 +40,8 @@ public abstract class Entity implements EntityInterface {
 	public EntityBehavior m_eb;
 
 	protected int m_nbDamages;
-	protected double cdAction;
-	protected double cdDmgTaken;
-	protected static double TEMPS_INVUNERABILITE = 3000;
+	protected double m_cdAction;
+	protected double m_cdDmgTaken;
 
 	// Liste d'items
 
@@ -145,9 +151,12 @@ public abstract class Entity implements EntityInterface {
 	public void update (long elapsed) {
 		// déplacement
 		m_automata.step();
-		double speedX = m_vecDir.getX() * EntityMaxSpeed;
-		double speedY = m_vecDir.getY() * EntityMaxSpeed;
-		m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
+
+		if (m_cdAction == 0) {
+			double speedX = m_vecDir.getX() * getSpeed();
+			double speedY = m_vecDir.getY() * getSpeed();
+			m_hitbox.move(speedX * elapsed / 1000, speedY * elapsed / 1000);
+		}
 	}
 
 	void attack (Entity cible) {
@@ -342,6 +351,12 @@ public abstract class Entity implements EntityInterface {
 	// les hits des joueurs sont override dans la classe player
 	@Override
 	public void hit (Vector vec) {
+
+		if (getCDAction() > 0)
+			return;
+
+		new ActionTimer(this);
+
 		m_eb.hit(vec);
 	}
 
@@ -407,16 +422,7 @@ public abstract class Entity implements EntityInterface {
 		return m_hitbox;
 	}
 
-	public double getMobSpeed () {
-		return MobMaxSpeed;
-	}
-
 	void takeDamages (int damages) {
-
-		if (cdDmgTaken >= 0)
-			return;
-
-		cdDmgTaken = TEMPS_INVUNERABILITE;
 
 		m_pv -= damages;
 
@@ -454,4 +460,73 @@ public abstract class Entity implements EntityInterface {
 	public int getNbDamages () {
 		return m_nbDamages;
 	}
+
+	public double getCDAction () {
+		return m_cdAction;
+	}
+
+
+	protected class InvulnerableTimer implements TimerListener {
+
+		Entity m_e;
+		long m_last;
+
+
+		InvulnerableTimer (Entity e) {
+			m_e = e;
+			m_e.m_cdDmgTaken = TEMPS_INVUNERABILITE;
+			MyTimer mt = MyTimer.getTimer();
+			m_last = System.currentTimeMillis();
+			mt.setTimer(20, this);
+		}
+
+		@Override
+		public void expired () {
+			long time = System.currentTimeMillis();
+			m_e.m_cdDmgTaken -= time - m_last;
+
+			if (m_e.m_cdDmgTaken <= 0) {
+				m_e.m_cdDmgTaken = 0;
+			} else {
+				MyTimer mt = MyTimer.getTimer();
+				mt.setTimer(20, this);
+				m_last = time;
+			}
+		}
+
+	}
+
+	protected class ActionTimer implements TimerListener {
+
+		Entity m_e;
+		long m_last;
+
+
+		ActionTimer (Entity e) {
+			m_e = e;
+			if (Torch.getInstance().porteur == this)
+				m_e.m_cdAction = CD_ATTAQUE * Player.SLOW_TORCHE_ATTAQUE;
+			else
+				m_e.m_cdAction = CD_ATTAQUE;
+			MyTimer mt = MyTimer.getTimer();
+			m_last = System.currentTimeMillis();
+			mt.setTimer(20, this);
+		}
+
+		@Override
+		public void expired () {
+			long time = System.currentTimeMillis();
+			m_e.m_cdAction -= time - m_last;
+
+			if (m_e.m_cdAction <= 0) {
+				m_e.m_cdAction = 0;
+			} else {
+				MyTimer mt = MyTimer.getTimer();
+				mt.setTimer(20, this);
+				m_last = time;
+			}
+		}
+
+	}
+
 }

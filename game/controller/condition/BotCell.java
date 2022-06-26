@@ -34,8 +34,8 @@ public class BotCell implements ICondition {
 		zer.setX(Math.cos(zer.getAngle()));
 		zer.setY(-Math.sin(zer.getAngle()));
 
-		double dx = zer.getX() * e.getMobSpeed() * environElapsed / 1000;
-		double dy = zer.getY() * e.getMobSpeed() * environElapsed / 1000;
+		double dx = zer.getX() * e.getSpeed() * environElapsed / 1000;
+		double dy = zer.getY() * e.getSpeed() * environElapsed / 1000;
 
 		Point p1 = new Point(e.m_hitbox.getP1().getX() + dx, e.m_hitbox.getP1().getY() + dy);
 		Point p2 = new Point(e.m_hitbox.getP2().getX() + dx, e.m_hitbox.getP2().getY() + dy);

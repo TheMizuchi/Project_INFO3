@@ -12,11 +12,11 @@ import model.map.TileType;
 
 public abstract class Player extends Entity {
 
-	public static final long POSSESSION_CD = 30;
-	public final static double SLOW_TORCHE = 0.20;
-	public final static double POSSESSION_RANGE = 5;
-	public final static double CD_ATTAQUE = 700;
-	public final static double SLOW_TORCHE_ATTAQUE = 1.3;
+	protected static final long POSSESSION_CD = 30;
+	protected final static double SLOW_TORCHE = 0.20;
+	protected final static double POSSESSION_RANGE = 5;
+	protected final static double SLOW_TORCHE_ATTAQUE = 1.3;
+
 	long m_possessionCD;
 	Mob m_possessing;
 	PlayerBehavior m_pb;
@@ -53,14 +53,9 @@ public abstract class Player extends Entity {
 			// déplacement
 			m_automata.step();
 
-			if (cdDmgTaken >= 0)
-				cdDmgTaken -= elapsed;
-
-			if (cdAction >= 0)
-				cdAction -= elapsed;
-			else {
-				double speedX = super.m_vecDir.getX() * EntityMaxSpeed;
-				double speedY = super.m_vecDir.getY() * EntityMaxSpeed;
+			if (m_cdAction == 0) {
+				double speedX = super.m_vecDir.getX() * getSpeed();
+				double speedY = super.m_vecDir.getY() * getSpeed();
 
 				if (this.equals(torch.porteur)) {
 					speedX *= (1 - SLOW_TORCHE);
@@ -112,21 +107,22 @@ public abstract class Player extends Entity {
 			// déplacement
 			m_automata.step();
 
-			if (cdDmgTaken != 0)
-				cdDmgTaken--;
-			if (cdAction != 0)
-				cdAction--;
+			if (m_cdAction >= 0)
+				m_cdAction -= elapsed;
 
 			double speedX;
 			double speedY;
 
-			speedX = m_speedX + 0.5 * ENTITY_MAX_ACCELERATION * elapsed / 1000 * elapsed / 1000 * m_vecDir.getX();
-			speedY = m_speedY + 0.5 * ENTITY_MAX_ACCELERATION * elapsed / 1000 * elapsed / 1000 * m_vecDir.getY();
+			speedX = 0.5 * ENTITY_MAX_ACCELERATION * elapsed / 1000 * elapsed / 1000 * m_vecDir.getX();
+			speedY = 0.5 * ENTITY_MAX_ACCELERATION * elapsed / 1000 * elapsed / 1000 * m_vecDir.getY();
 
 			if (this.equals(torch.porteur)) {
 				speedX *= (1 - SLOW_TORCHE);
 				speedY *= (1 - SLOW_TORCHE);
 			}
+
+			speedX += m_speedX;
+			speedY += m_speedY;
 
 			if (Camera.getBlock()) {
 				Entity autreJ = autreJ();
@@ -232,6 +228,17 @@ public abstract class Player extends Entity {
 	}
 
 	@Override
+	void takeDamages (int damages) {
+
+		if (m_cdDmgTaken > 0)
+			return;
+
+		new InvulnerableTimer(this);
+
+		super.takeDamages(damages);
+	}
+
+	@Override
 	public void pop () {
 		pick();
 	}
@@ -239,17 +246,6 @@ public abstract class Player extends Entity {
 	@Override
 	public void wizz () {
 		possession();
-	}
-
-	@Override
-	public void hit (Vector vec) {
-		if (cdAction >= 0)
-			return;
-		if (Torch.getInstance().porteur == this)
-			cdAction = CD_ATTAQUE * SLOW_TORCHE_ATTAQUE;
-		else
-			cdAction = CD_ATTAQUE;
-		m_eb.hit(vec);
 	}
 
 	public void possession () {
