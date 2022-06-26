@@ -1,7 +1,5 @@
 package model.entity;
 
-import java.awt.Graphics;
-
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 import edu.polytech.oop.collections.LinkedList.Iterator;
@@ -185,13 +183,6 @@ public class Hitbox {
 
 	public Point getP4 () {
 		return m_p4;
-	}
-
-	public void paint (Graphics g) {
-		m_p1.paint(g);
-		m_p2.paint(g);
-		m_p3.paint(g);
-		m_p4.paint(g);
 	}
 
 	public void rotate (double angle) {

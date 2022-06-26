@@ -25,7 +25,7 @@ public class BloonBehavior extends MobBehavior {
 			int lvl = ((Bloon) this.e).getLevel() - 1;
 
 			for (int i = 0; i < 2; i++) {
-				((Bloon) m.createEntity(this.e.m_hitbox.getP1().getX(), this.e.m_hitbox.getP1().getY(), entityProperties)).setLevel(lvl);
+				((Bloon) m.createEntity(this.e.getHibox().getP1().getX(), this.e.getHibox().getP1().getY(), entityProperties)).setLevel(lvl);
 			}
 		}
 	}

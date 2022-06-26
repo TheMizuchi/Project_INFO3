@@ -427,4 +427,9 @@ public abstract class Player extends Entity {
 		}
 
 	}
+
+
+	public void setHitBox (Hitbox hit) {
+		m_hitbox = hit;
+	}
 }

@@ -73,4 +73,8 @@ public class Torch extends Entity {
 	void takeDamages (int damages) {
 		return;
 	}
+
+	public void setHitBox (Hitbox hit) {
+		m_hitbox = hit;
+	}
 }

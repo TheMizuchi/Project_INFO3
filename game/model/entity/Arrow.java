@@ -43,8 +43,12 @@ public class Arrow extends Mob {
 		m_nbDamages = dmg;
 	}
 
+	public void setHitBox (Hitbox hit) {
+		m_hitbox = hit;
+	}
+
 	void attack (Entity cible) {
-		
+
 		if (cible.getClass() == Arrow.class)
 			return;
 

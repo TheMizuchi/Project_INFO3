@@ -25,7 +25,7 @@ public abstract class Entity implements EntityInterface {
 
 	public int m_ID;
 	protected int m_pv;
-	public Hitbox m_hitbox;
+	protected Hitbox m_hitbox;
 	EntityProperties m_entityProperties;
 	protected RefAutomata m_automata;
 	protected EntityView m_ev;
