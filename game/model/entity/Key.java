@@ -48,4 +48,13 @@ public class Key extends Entity {
 	public void hide () {
 		m_kv.hide();
 	}
+
+	@Override
+	void takeDamages (int damages) {
+		return;
+	}
+
+	public void setHitBox (Hitbox hit) {
+		m_hitbox = hit;
+	}
 }

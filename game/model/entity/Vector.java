@@ -1,5 +1,7 @@
 package model.entity;
 
+import java.util.Random;
+
 public class Vector {
 
 	private double m_x;
@@ -160,6 +162,15 @@ public class Vector {
 			angle -= 2 * Math.PI;
 		}
 		m_angle = angle;
+	}
+	
+	public void addNoise() {
+		double noise = Math.PI / 4;
+		Random zer = new Random();
+		float erf = zer.nextFloat();
+		noise = noise * erf - Math.PI/8;
+		m_angle += noise;
+		
 	}
 
 }

@@ -1,7 +1,9 @@
 Bloon (Init) {
-	* (Init) : 
-		| True ? Move(NE) / Move(NW) / Move(SE) / Move(SW) : (Moving)
-	* (Moving) :
+	* (Init): 
+		| True ? Pop : (Start)
+	* (Start):
+		| True ? Move(NW) / Move(NE) / Move(SE) / Move(SW) : (Moving)
+	* (Moving):
 		| !(GotPower) ? Egg : ()
 		| !Cell(F, O) ? Move(F) : (Moving)
 		| !Cell(L, O) ? Turn(L) : (Moving)

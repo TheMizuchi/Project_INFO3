@@ -23,6 +23,16 @@ public class BotHit extends BotAction {
 	public boolean apply (Entity e, RefAutomata aut) {
 		Vector vec = new Vector();
 		vec.setAngle(e.getAngle());
+
+		// Permet de cibler l'entité la plus proche de la catégorie choisie
+		if (m_cat.getSel() && !m_dir.getAbs()) {
+			Entity target = e.closest(m_cat.getType());
+
+			if (target != null) {
+				vec.setAngle(e.angleVers(target));
+			}
+		}
+
 		double x = Math.cos(vec.getAngle());
 		double y = Math.sin(vec.getAngle());
 		x = Math.round(x * 1000) / 1000.0;

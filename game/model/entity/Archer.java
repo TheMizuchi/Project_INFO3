@@ -7,13 +7,23 @@ import view.graphicEntity.ArcherView;
 
 public class Archer extends Mob {
 
+	@Override
+	public double getDetectionRange () {
+		return 3.5;
+	}
+
+	@Override
+	public double getActionCD () {
+		return 4000;
+	}
+
+
 	ArcherView m_av;
 	ArcherBehavior m_ab;
 
 
 	public Archer (double x, double y) {
 		super(x, y, EntityProperties.ARCHER);
-		DETECTIONRANGE = 2;
 		m_av = new ArcherView(this);
 		m_ev = m_av;
 		m_ab = new ArcherBehavior(this, m_av);

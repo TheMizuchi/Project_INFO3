@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 
@@ -88,7 +87,9 @@ public class MyCanvas extends Component {
 		IList.Iterator ite = m_toClearEntity.iterator();
 
 		while (ite.hasNext()) {
-			m_entityViews.remove(ite.next());
+			EntityView ev = (EntityView) ite.next();
+			ev.delete();
+			m_entityViews.remove(ev);
 		}
 		m_toClearEntity = new LinkedList();
 	}
@@ -154,15 +155,6 @@ public class MyCanvas extends Component {
 			}
 			Entity entity = ((Entity) e.entity);
 
-			if (entity.m_hitbox != null) {
-				entity.m_hitbox.paint(g);
-			}
-
-			if (entity.m_eb.hur != null) {
-				entity.m_eb.hur.paint(g);
-			}
-			g.setColor(Color.red);
-			g.drawRect(e.x - (int) (e.getW() * e.scale / 2), e.y - (int) (e.getH() * e.scale / 2), (int) (e.getW() * e.scale), (int) (e.getH() * e.scale));
 		}
 
 		// Applique un masque pour couvrir les zones non éclairées.

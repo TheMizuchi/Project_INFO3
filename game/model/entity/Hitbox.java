@@ -1,7 +1,5 @@
 package model.entity;
 
-import java.awt.Graphics;
-
 import edu.polytech.oop.collections.IList;
 import edu.polytech.oop.collections.LinkedList;
 import edu.polytech.oop.collections.LinkedList.Iterator;
@@ -16,6 +14,10 @@ public class Hitbox {
 	protected Point m_p2;
 	protected Point m_p3;
 	protected Point m_p4;
+
+	protected double m_dx_view;
+	protected double m_dy_view;
+
 	protected Entity m_e;
 
 
@@ -66,10 +68,6 @@ public class Hitbox {
 		LinkedList tuileInterdit = m_e.getTuileInterdite();
 		Iterator it = tuileInterdit.iterator();
 
-		if (new_p1.outMap() || new_p2.outMap() || new_p3.outMap() || new_p4.outMap()) {
-			return false;
-		}
-
 		while (it.hasNext()) {
 			TileType tile = (TileType) it.next();
 
@@ -101,6 +99,10 @@ public class Hitbox {
 
 	static public boolean isInsideType (Point p, TileType type) {
 		Case[][] grid = Model.getMap().getCases();
+
+		if (p.outMap()) {
+			return true;
+		}
 		return grid[(int) p.getX()][(int) p.getY()].getType() == type;
 	}
 
@@ -133,7 +135,7 @@ public class Hitbox {
 
 	public double getCenterX () {
 		double dx = (m_p1.getX() + m_p3.getX()) / 2;
-		return dx;
+		return dx + m_dx_view;
 	}
 
 	public double getCenterRealX () {
@@ -142,7 +144,7 @@ public class Hitbox {
 
 	public double getCenterY () {
 		double dy = (m_p1.getY() + m_p3.getY()) / 2;
-		return dy;
+		return dy + m_dy_view;
 	}
 
 	public double getCenterRealY () {
@@ -181,13 +183,6 @@ public class Hitbox {
 
 	public Point getP4 () {
 		return m_p4;
-	}
-
-	public void paint (Graphics g) {
-		m_p1.paint(g);
-		m_p2.paint(g);
-		m_p3.paint(g);
-		m_p4.paint(g);
 	}
 
 	public void rotate (double angle) {
@@ -235,6 +230,11 @@ public class Hitbox {
 	public boolean colisionWithHitbox (Hitbox hit) {
 		return (pointInHitbox(hit.getP1()) || pointInHitbox(hit.getP2()) || pointInHitbox(hit.getP3()) || pointInHitbox(hit.getP4()) || hit.pointInHitbox(m_p1) || hit.pointInHitbox(m_p2) || hit.pointInHitbox(m_p3) || hit.pointInHitbox(m_p4));
 
+	}
+
+	public void setDxDyView (double dx, double dy) {
+		m_dx_view = dx;
+		m_dy_view = dy;
 	}
 
 }
