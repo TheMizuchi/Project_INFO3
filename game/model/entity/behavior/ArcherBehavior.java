@@ -80,10 +80,13 @@ public class ArcherBehavior extends MobBehavior {
 		attaque.attaque();
 
 		Arrow a = (Arrow) Model.getInstance().createEntity(0.0, 0.0, EntityProperties.ARROW);
-		a.setVector(vec);
+		Vector arrowVec = vec.clone();
+		arrowVec.addNoise();
+		a.setVector(arrowVec);
 		a.m_hitbox = attaque;
 		a.setNbDamages(this.e.getNbDamages());
 		attaque.setOwner(a);
+		
 
 		ev.attack();
 	}
