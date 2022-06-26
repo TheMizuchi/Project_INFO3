@@ -12,6 +12,11 @@ import model.map.TileType;
 
 public abstract class Player extends Entity {
 
+	public double getDetectionRange () {
+		return 2.5;
+	}
+
+
 	protected static final long POSSESSION_CD = 30;
 	protected final static double SLOW_TORCHE = 0.20;
 	protected final static double POSSESSION_RANGE = 5;
@@ -226,6 +231,16 @@ public abstract class Player extends Entity {
 			torch.m_ls.setRadius(Torch.HOLDED_RADIUS);
 			torch.porteur = this;
 			torch.hide();
+		}
+	}
+
+	@Override
+	public int getPv () {
+
+		if (m_possessing != null) {
+			return m_possessing.getPv();
+		} else {
+			return m_pv;
 		}
 	}
 

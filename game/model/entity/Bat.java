@@ -8,6 +8,12 @@ import view.graphicEntity.BatView;
 
 public class Bat extends Mob {
 
+	@Override
+	public double getSpeed () {
+		return 5;
+	}
+
+
 	BatView m_bv;
 	BatBehavior m_bb;
 	BatSpawner m_spawner;
