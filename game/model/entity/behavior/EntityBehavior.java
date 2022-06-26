@@ -144,8 +144,6 @@ public abstract class EntityBehavior {
 		double a1 = Math.cos(Math.PI * 22.5 / 180);
 		double a2 = Math.cos(Math.PI * 67.5 / 180);
 
-		System.out.println("x : " + vec.getX() + " y : " + vec.getY());
-
 		double longeur;
 
 		double dist_x = Math.abs(e.getHibox().getP1().getX() - e.getHibox().getP3().getX()) / 2;
