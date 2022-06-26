@@ -7,7 +7,7 @@ public enum EntityProperties {
 	J2(2, 20, 2, EntityType.ALLY, false, 0, 0.5, 0.7, 0.0, 0.2),
 	TORCH(3, 1, 0, EntityType.ITEM, false, 0, 0.3, 0.3, 0.0, 0.1),
 	SKELETON(4, 3, 1, EntityType.ENEMY, true, 5, 0.5, 0.7, 0.2, 0.0),
-	BAT(5, 1, 1, EntityType.NEUTRAL, true, 2, 0.5, 0.5, 0.0, 0.3),
+	BAT(5, 1, 0, EntityType.NEUTRAL, true, 2, 0.5, 0.5, 0.0, 0.3),
 	ARCHER(6, 2, 1, EntityType.ENEMY, true, 4, 0.6, 0.9, 0.2, 0.15),
 	BLOON(7, 1, 3, EntityType.ENEMY, true, 3, 0.5, 0.7, 0, 0.2),
 	DOGE(8, 10, 1, EntityType.ENEMY, false, 0, 1.2, 1.8, 0.0, 0.5),

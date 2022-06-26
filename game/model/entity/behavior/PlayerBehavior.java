@@ -4,6 +4,7 @@ import model.entity.Entity;
 import model.entity.Mob;
 import model.entity.Player;
 import model.entity.Vector;
+import model.map.TileType;
 import view.graphicEntity.EntityView;
 
 

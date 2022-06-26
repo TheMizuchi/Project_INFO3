@@ -18,6 +18,6 @@ public class BatSpawnerBehavior extends EntityBehavior {
 
 	@Override
 	public void wizz () {
-		e.waitt(5000);
+		e.waitt(2000);
 	}
 }
