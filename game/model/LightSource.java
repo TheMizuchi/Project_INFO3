@@ -25,6 +25,10 @@ public class LightSource implements ILightSource {
 		this.sv = new LightSourceView(this);
 		MyCanvas.getInstance().createLightSourceView(sv);
 	}
+	
+	Entity getEntity() {
+		return entity;
+	}
 
 	void setPosition (double x, double y, double radius) {
 		setPosition(x, y);
