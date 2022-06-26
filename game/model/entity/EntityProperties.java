@@ -16,7 +16,7 @@ public enum EntityProperties {
 	KEY(11, 1, 0, EntityType.ITEM, false, 0, 0.5, 0.5, 0.0, 0.0),
 	DOOR(12, 1, 0, EntityType.OBSTACLE, false, 0, 1, 1, 0.0, 0.2),
 	STAIRS(13, 1, 0, EntityType.ITEM, false, 0, 1, 1, 0.0, 0.2),
-	BATSPAWNER(14, 1, 0, EntityType.NEUTRAL, false, 0, 0.4, 0.3, 0.0, 0.1),
+	BATSPAWNER(14, 1, 0, EntityType.NEUTRAL, false, 0, 1, 1, 0, 0.3),
 	ARROW(15, 1, 0, EntityType.ENEMY, false, 0, 0.5, 0.2, 0.0, 0.2);
 
 
