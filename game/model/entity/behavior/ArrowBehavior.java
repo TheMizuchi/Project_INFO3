@@ -29,25 +29,24 @@ public class ArrowBehavior extends MobBehavior {
 
 	@Override
 	public boolean move (Direction dir, Vector vecDir) {
-		double ang = Math.PI / 4;
-		boolean b = dir.move(vecDir);
+		double ang = Math.PI / 8;
 		double angDir = vecDir.getAngle();
 
-		if (angDir == ang) {
+		if (ang <= angDir && angDir <= 3 * ang) {
 			m_av.hautdroite();
-		} else if (angDir == 2 * ang) {
+		} else if (3 * ang <= angDir && angDir <= 5 * ang) {
 			m_av.haut();
-		} else if (angDir == 3 * ang) {
+		} else if (5 * ang <= angDir && angDir <= 7 * ang) {
 			m_av.hautgauche();
-		} else if (angDir == 5 * ang) {
+		} else if (9 * ang <= angDir && angDir <= 11 * ang) {
 			m_av.basgauche();
-		} else if (angDir == 6 * ang) {
+		} else if (11 * ang <= angDir && angDir <= 13 * ang) {
 			m_av.bas();
-		} else if (angDir == 7 * ang) {
+		} else if (13 * ang <= angDir && angDir <= 15 * ang) {
 			m_av.basdroite();
 		}
 
-		return b;
+		return dir.move(vecDir);
 	}
 
 }
