@@ -48,11 +48,11 @@ public abstract class Entity implements EntityInterface {
 		m_hitbox = new Hitbox(x, y, ep.getWidth(), ep.getHeight(), this);
 		m_automata = new RefAutomata(this);
 		m_blockInterdit = new LinkedList();
-		m_blockInterdit.insertAt(0, TileType.WALL);
 		m_tangible = true;
 		m_c = m_count;
 		m_count++;
-		m_blockInterdit.insertAt(0, TileType.VOID);
+		m_blockInterdit.insertAt(0, TileType.WALL);
+		m_blockInterdit.insertAt(1, TileType.VOID);
 	}
 
 	public static Entity createEntity (double x, double y, EntityProperties entityProperties) {

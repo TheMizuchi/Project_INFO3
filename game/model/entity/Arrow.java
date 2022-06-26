@@ -1,6 +1,7 @@
 package model.entity;
 
 import model.entity.behavior.ArrowBehavior;
+import model.map.TileType;
 import view.MyCanvas;
 import view.graphicEntity.ArrowView;
 
@@ -20,7 +21,7 @@ public class Arrow extends Mob {
 		m_ab = new ArrowBehavior(this, m_av);
 		m_eb = m_ab;
 		MyCanvas.getInstance().createEntityView(m_av);
-		m_blockInterdit.removeAt(0);
+		m_blockInterdit.remove(TileType.VOID);
 		m_tangible = false;
 		m_hurtbox.setTo(m_hitbox);
 	}

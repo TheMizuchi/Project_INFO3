@@ -67,6 +67,10 @@ public class HurtBox extends Hitbox {
 		while (it.hasNext()) {
 			TileType tile = (TileType) it.next();
 
+			if (tile.equals(TileType.VOID)) {
+				System.out.println("meow" + m_e.getClass());
+			}
+
 			if (isInsideType(new_p1, tile)) {
 				return false;
 			}
@@ -99,6 +103,10 @@ public class HurtBox extends Hitbox {
 		m_p2 = hit.m_p2;
 		m_p3 = hit.m_p3;
 		m_p4 = hit.m_p4;
+	}
+
+	public void setOwner (Entity e) {
+		m_e = e;
 	}
 
 }

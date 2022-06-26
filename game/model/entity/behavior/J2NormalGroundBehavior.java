@@ -30,7 +30,6 @@ public class J2NormalGroundBehavior extends PlayerNormalGroundBehavior {
 
 		double dist_x = Math.abs(this.e.m_hitbox.getP1().getX() - this.e.m_hitbox.getP3().getX()) / 2;
 		double dist_y = Math.abs(this.e.m_hitbox.getP1().getY() - this.e.m_hitbox.getP3().getY()) / 2;
-		double dist_diagonal = Math.sqrt(dist_x * dist_x + dist_y * dist_y);
 
 		if (Math.abs(vec.getX()) <= 1 && Math.abs(vec.getX()) >= a1) {
 			dx = dist_x + RANGE_ATTAQUE_PROF / 2;
@@ -79,6 +78,7 @@ public class J2NormalGroundBehavior extends PlayerNormalGroundBehavior {
 		a.setVector(vec);
 		a.m_hitbox = attaque;
 		a.setNbDamages(this.e.getNbDamages());
+		attaque.setOwner(a);
 
 		ev.attack();
 	}
