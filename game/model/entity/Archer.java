@@ -9,11 +9,11 @@ public class Archer extends Mob {
 
 	ArcherView m_av;
 	ArcherBehavior m_ab;
+	protected static double DETECTIONRANGE = 2;
 
 
 	public Archer (double x, double y) {
 		super(x, y, EntityProperties.ARCHER);
-		DETECTIONRANGE = 2;
 		m_av = new ArcherView(this);
 		m_ev = m_av;
 		m_ab = new ArcherBehavior(this, m_av);
