@@ -33,7 +33,7 @@ public class BloonBehavior extends MobBehavior {
 	@Override
 	public void pop () {
 		Random ran = new Random();
-		e.waitt(ran.nextLong() % 1000);
+		e.waitt(1000 + ran.nextLong() % 1000);
 	}
 
 }

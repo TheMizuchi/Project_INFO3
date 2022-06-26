@@ -472,8 +472,12 @@ public abstract class Entity implements EntityInterface {
 		new InvulnerableTimer(this);
 	}
 
+	protected void setActionCD () {
+		new ActionTimer(this);
+	}
 
-	protected class InvulnerableTimer implements TimerListener {
+
+	private class InvulnerableTimer implements TimerListener {
 
 		Entity m_e;
 		long m_last;
@@ -503,7 +507,7 @@ public abstract class Entity implements EntityInterface {
 
 	}
 
-	protected class ActionTimer implements TimerListener {
+	private class ActionTimer implements TimerListener {
 
 		Entity m_e;
 		long m_last;
